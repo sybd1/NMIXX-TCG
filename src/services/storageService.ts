@@ -13,6 +13,7 @@ export const DEFAULT_INITIAL_STATE: GameState = {
   openedPacksTotal: 0,
   soundMuted: false,
   isFirstVisit: true,
+  claimedSetRewards: [],
 };
 
 export class StorageService {

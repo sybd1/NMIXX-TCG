@@ -21,6 +21,7 @@ export const App: React.FC = () => {
     addPackResult,
     addMultiplePacksResult,
     claimMysteryBox,
+    claimSetReward,
     toggleSound,
     resetGame,
     dismissFirstVisit,
@@ -142,6 +143,8 @@ export const App: React.FC = () => {
         {currentTab === 'collection' && (
           <CollectionPage
             collection={state.collection}
+            claimedSetRewards={state.claimedSetRewards || []}
+            onClaimSetReward={claimSetReward}
           />
         )}
 

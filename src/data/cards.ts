@@ -15051,7 +15051,8 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       "packName": "4탄 ZERO FRONTIER",
       "setId": "set_ur_zero_frontier",
       "setTitle": "ZERO FRONTIER 세트 카드"
-    }
+    },
+    "rewardCoins": 50000000
   },
   {
     "setId": "set_ssr_nmixx",
@@ -15100,7 +15101,8 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       "packName": "2탄 정점결전",
       "setId": "set_ssr_nmixx",
       "setTitle": "NMIXX 세트 카드"
-    }
+    },
+    "rewardCoins": 5000000
   },
   {
     "setId": "set_sr_light",
@@ -15149,7 +15151,8 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       "packName": "1탄 계승되는 의지",
       "setId": "set_sr_light",
       "setTitle": "Light 세트 카드"
-    }
+    },
+    "rewardCoins": 500000
   },
   {
     "setId": "set_sr_blue_valentine",
@@ -15198,7 +15201,8 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       "packName": "3탄 Blue Valentine",
       "setId": "set_sr_blue_valentine",
       "setTitle": "Blue Valentine 세트 카드"
-    }
+    },
+    "rewardCoins": 500000
   },
   {
     "setId": "set_r_flower",
@@ -15247,7 +15251,8 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       "packName": "1탄 계승되는 의지",
       "setId": "set_r_flower",
       "setTitle": "Flower 세트 카드"
-    }
+    },
+    "rewardCoins": 100000
   },
   {
     "setId": "set_r_school",
@@ -15296,7 +15301,8 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       "packName": "2탄 정점결전",
       "setId": "set_r_school",
       "setTitle": "School 세트 카드"
-    }
+    },
+    "rewardCoins": 100000
   }
 ];
 

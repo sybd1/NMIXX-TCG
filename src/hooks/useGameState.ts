@@ -127,6 +127,19 @@ export function useGameState() {
     return 10000;
   }, []);
 
+  const claimSetReward = useCallback((setId: string, coinsAmount: number) => {
+    setState(prev => {
+      const alreadyClaimed = (prev.claimedSetRewards || []).includes(setId);
+      if (alreadyClaimed) return prev;
+      return {
+        ...prev,
+        coins: prev.coins + coinsAmount,
+        claimedSetRewards: [...(prev.claimedSetRewards || []), setId],
+      };
+    });
+    sound.playMythicReveal();
+  }, []);
+
   const resetGame = useCallback(() => {
     const freshState = StorageService.clearState();
     setState(freshState);
@@ -141,6 +154,7 @@ export function useGameState() {
     canClaimDailyBonus,
     claimDailyBonus,
     claimMysteryBox,
+    claimSetReward,
     toggleSound,
     resetGame,
     dismissFirstVisit,

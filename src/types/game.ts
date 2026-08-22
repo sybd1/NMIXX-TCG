@@ -36,4 +36,5 @@ export interface GameState {
   openedPacksTotal: number;
   soundMuted: boolean;
   isFirstVisit: boolean;
+  claimedSetRewards?: string[]; // 이미 머니 보상을 수령한 세트 ID 목록
 }

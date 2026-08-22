@@ -7,6 +7,8 @@ import { ArrowUpDown, Crown, Sparkles, CheckCircle2, Lock } from 'lucide-react';
 
 interface CollectionPageProps {
   collection: Record<string, number>;
+  claimedSetRewards?: string[];
+  onClaimSetReward?: (setId: string, coins: number) => void;
 }
 
 type TabType = 'ALL_CARDS' | 'CONCEPT_SETS';
@@ -44,6 +46,8 @@ const PACK_FILTERS = [
 
 export const CollectionPage: React.FC<CollectionPageProps> = ({
   collection,
+  claimedSetRewards = [],
+  onClaimSetReward,
 }) => {
   const [activeTab, setActiveTab] = useState<TabType>('ALL_CARDS');
   const [selectedPack, setSelectedPack] = useState<string>('ALL');
@@ -325,6 +329,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
               const isCompleted = ownedInSet === set.cardIds.length;
               const memberCards = set.cardIds.map(id => MASTER_CARDS.find(c => c.id === id)!);
               const r = set.rewardCard.rarity;
+              const isClaimed = claimedSetRewards.includes(set.setId);
 
               const badgeColors: Record<Rarity, string> = {
                 UR: 'from-red-950 via-rose-900 to-red-950 text-rose-100 border-red-400 ring-1 ring-red-400/50',
@@ -363,15 +368,34 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                       </h3>
                     </div>
 
-                    {isCompleted ? (
-                      <span className="flex items-center gap-2 text-xs sm:text-sm font-mono font-black text-black bg-gradient-to-r from-amber-400 to-yellow-300 px-4 py-1.5 rounded-full shadow-xl animate-pulse whitespace-nowrap self-start sm:self-auto">
-                        <CheckCircle2 size={16} /> SET COMPLETE!
-                      </span>
-                    ) : (
-                      <span className="flex items-center gap-1.5 text-xs sm:text-sm font-mono font-bold text-slate-300 bg-void-950 px-3.5 py-1.5 rounded-full border border-white/10 whitespace-nowrap self-start sm:self-auto">
-                        <Lock size={14} className="text-slate-400" /> 수집 현황: <strong className="text-pink-400">{ownedInSet}</strong> / {set.cardIds.length}
-                      </span>
-                    )}
+                    <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
+                      {isCompleted ? (
+                        isClaimed ? (
+                          <span className="flex items-center gap-1.5 text-xs sm:text-sm font-mono font-bold text-emerald-400 bg-emerald-950/80 px-4 py-1.5 rounded-full border border-emerald-500/40 whitespace-nowrap shadow-lg">
+                            <CheckCircle2 size={16} className="text-emerald-400" />
+                            <span>+{set.rewardCoins.toLocaleString()} COIN 수령 완료</span>
+                          </span>
+                        ) : (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (onClaimSetReward) {
+                                onClaimSetReward(set.setId, set.rewardCoins);
+                              }
+                            }}
+                            className="flex items-center gap-2 text-xs sm:text-sm font-mono font-black text-black bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 hover:from-yellow-300 hover:to-amber-300 px-5 py-2 rounded-full shadow-2xl shadow-amber-500/50 animate-bounce hover:scale-105 transition-all cursor-pointer border border-white"
+                          >
+                            <Sparkles size={16} className="text-black" />
+                            <span>🎁 +{set.rewardCoins.toLocaleString()} 머니 받기!</span>
+                          </button>
+                        )
+                      ) : (
+                        <span className="flex items-center gap-1.5 text-xs sm:text-sm font-mono font-bold text-slate-300 bg-void-950 px-3.5 py-1.5 rounded-full border border-white/10 whitespace-nowrap">
+                          <Lock size={14} className="text-slate-400" /> 수집 현황: <strong className="text-pink-400">{ownedInSet}</strong> / {set.cardIds.length}
+                          <span className="text-amber-300 ml-1 font-extrabold">(완성 시 +{set.rewardCoins.toLocaleString()} COIN)</span>
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   {/* 6 Members Grid (널찍하고 시원한 6열 그리드) */}
@@ -398,7 +422,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                     })}
                   </div>
 
-                  {/* Reward Banner (대형 보상 세트 카드 인스펙터 바) */}
+                  {/* Reward Banner (대형 보상 세트 카드 및 머니 보상 인스펙터 바) */}
                   <div
                     onClick={() => isCompleted && setSelectedCard(set.rewardCard)}
                     className={`p-4 sm:p-5 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all ${
@@ -419,9 +443,12 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                           <span className={`text-[10px] font-black font-mono px-2 py-0.5 rounded border bg-gradient-to-r ${badgeColors[r] || badgeColors.SSR}`}>
                             {r}
                           </span>
+                          <span className="text-xs font-mono font-black text-amber-300 bg-black/70 px-2 py-0.5 rounded-lg border border-amber-500/30">
+                            🪙 +{set.rewardCoins.toLocaleString()} COIN 지급
+                          </span>
                         </div>
                         <span className="text-xs font-mono text-slate-400">
-                          {isCompleted ? '👉 터치하여 전설의 풀아트 세트 카드를 감상하세요!' : '6명의 멤버 카드를 모두 수집하면 이 보상 세트 카드가 해금됩니다.'}
+                          {isCompleted ? '👉 터치하여 전설의 풀아트 세트 카드를 감상하세요!' : '6명의 멤버 카드를 모두 수집하면 게임 머니와 전설의 세트 카드가 해금됩니다.'}
                         </span>
                       </div>
                     </div>
