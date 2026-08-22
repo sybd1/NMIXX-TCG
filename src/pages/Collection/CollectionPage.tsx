@@ -176,7 +176,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
           }`}
         >
           <Crown size={15} />
-          6인 완전체 SSR 세트 (12종)
+          6인 완전체 세트 (6종)
           {completedSetsCount > 0 && (
             <span className="bg-black text-amber-300 px-1.5 py-0.2 rounded-full text-[10px] font-mono font-black">
               {completedSetsCount}
@@ -305,10 +305,10 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
               </div>
               <div>
                 <h2 className="text-lg font-serif font-black text-amber-200">
-                  NMIXX 6인 완전체 SSR 세트 컬렉션
+                  NMIXX 6인 완전체 세트 컬렉션 (6종)
                 </h2>
                 <p className="text-xs text-slate-300 font-sans">
-                  각 앨범 컨셉의 6명 멤버(릴리, 해원, 설윤, 배이, 지우, 규진) 카드를 모두 수집하면 전설의 <strong className="text-amber-400">SSR급 풀아트 세트 카드</strong>가 완성됩니다!
+                  각 앨범 컨셉의 6명 멤버(릴리, 해원, 설윤, 배이, 지우, 규진) 카드를 모두 수집하면 전설의 <strong className="text-amber-400">보상 세트 카드 (UR 1종 / SSR 1종 / SR 2종 / R 2종)</strong>가 완성됩니다!
                 </p>
               </div>
             </div>
@@ -322,6 +322,18 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
               const ownedInSet = set.cardIds.filter(id => (collection[id] || 0) > 0).length;
               const isCompleted = ownedInSet === set.cardIds.length;
               const memberCards = set.cardIds.map(id => MASTER_CARDS.find(c => c.id === id)!);
+              const r = set.rewardCard.rarity;
+
+              const badgeColors: Record<Rarity, string> = {
+                UR: 'from-red-950 via-rose-900 to-red-950 text-rose-100 border-red-400 ring-1 ring-red-400/50',
+                SSR: 'from-amber-950 via-yellow-900 to-amber-950 text-amber-200 border-amber-400',
+                SR: 'from-purple-950 via-indigo-900 to-purple-950 text-purple-200 border-purple-400',
+                R: 'from-sky-950 via-blue-900 to-sky-950 text-sky-200 border-sky-400',
+                C: 'from-slate-900 to-slate-950 text-slate-300 border-slate-600',
+                UC: 'from-emerald-950 to-teal-950 text-emerald-300 border-emerald-500',
+                LR: 'from-pink-950 to-rose-950 text-pink-200 border-pink-400',
+                MR: 'from-amber-500 to-cyan-400 text-black border-white',
+              };
 
               return (
                 <div
@@ -334,11 +346,14 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                 >
                   {/* Set Header */}
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="flex items-center gap-2">
+                      <span className={`text-[10.5px] font-mono font-black px-2 py-0.5 rounded border bg-gradient-to-r ${badgeColors[r] || badgeColors.SSR}`}>
+                        {r} SET
+                      </span>
                       <span className="text-[10px] font-mono font-black text-pink-300 bg-pink-950/80 px-2 py-0.5 rounded border border-pink-500/30">
                         {set.packCode}
                       </span>
-                      <h3 className="text-base font-serif font-black text-white mt-1">
+                      <h3 className="text-base font-serif font-black text-white ml-1">
                         {set.setTitle}
                       </h3>
                     </div>
@@ -377,7 +392,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                     })}
                   </div>
 
-                  {/* SSR Reward Banner */}
+                  {/* Reward Banner */}
                   <div
                     onClick={() => isCompleted && setSelectedCard(set.rewardCard)}
                     className={`p-3 rounded-2xl border flex items-center justify-between transition-all ${
@@ -387,18 +402,18 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
-                      <span className="text-lg">👑</span>
+                      <span className="text-lg">{r === 'UR' ? '💎' : (r === 'SSR' ? '👑' : '✨')}</span>
                       <div className="flex flex-col">
                         <span className="text-xs font-serif font-black text-amber-200">
                           {set.rewardCard.name}
                         </span>
                         <span className="text-[10px] font-mono text-slate-400">
-                          {isCompleted ? '터치하여 SSR 세트 카드 감상하기' : '6명 멤버 카드를 모두 모아 해금하세요'}
+                          {isCompleted ? '터치하여 보상 세트 카드 감상하기' : '6명 멤버 카드를 모두 모아 해금하세요'}
                         </span>
                       </div>
                     </div>
-                    <span className="text-[10px] font-black font-mono px-2 py-0.5 rounded border bg-gradient-to-r from-amber-950 via-yellow-900 to-amber-950 text-amber-200 border-amber-400">
-                      SSR
+                    <span className={`text-[10px] font-black font-mono px-2.5 py-0.5 rounded border bg-gradient-to-r ${badgeColors[r] || badgeColors.SSR}`}>
+                      {r}
                     </span>
                   </div>
                 </div>
