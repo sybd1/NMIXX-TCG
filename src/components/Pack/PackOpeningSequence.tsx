@@ -148,21 +148,28 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:32px_32px] opacity-15" />
       </div>
 
-      {/* 상단 고정 네비게이션: 메인 나가기 */}
-      <div className="sticky top-0 z-30 w-full max-w-6xl flex items-center justify-between pointer-events-auto bg-void-950/70 backdrop-blur-xl px-4 py-2.5 rounded-2xl border border-white/15 shadow-2xl shadow-purple-950/40 mb-4">
+      {/* 상단 고정 네비게이션: 메인 나가기 & 실시간 잔여 코인 표시 */}
+      <div className="sticky top-0 z-30 w-full max-w-6xl flex items-center justify-between pointer-events-auto bg-void-950/80 backdrop-blur-xl px-3 sm:px-4 py-2.5 rounded-2xl border border-white/15 shadow-2xl shadow-purple-950/40 mb-4 gap-2 flex-wrap sm:flex-nowrap">
         <button
           onClick={onFinish}
-          className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-void-900/90 hover:bg-void-800 text-slate-200 border border-white/20 text-xs font-mono font-bold transition-all shadow-md hover:scale-105"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-void-900/90 hover:bg-void-800 text-slate-200 border border-white/20 text-xs font-mono font-bold transition-all shadow-md hover:scale-105"
         >
-          <Home size={15} className="text-pink-400" />
-          <span>메인으로 나가기</span>
+          <Home size={14} className="text-pink-400" />
+          <span className="hidden xs:inline">메인으로</span>
         </button>
 
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-black/60 border border-pink-500/30 text-xs font-mono">
+        {/* 🪙 실시간 보유 게임 머니 (코인) HUD */}
+        <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-500/15 border border-amber-400/40 text-amber-300 font-mono text-xs sm:text-sm font-black shadow-inner shadow-amber-950/40">
+          <span className="text-amber-400 text-sm">🪙</span>
+          <span className="tracking-tight text-white">{coins.toLocaleString()}</span>
+          <span className="text-[10px] text-amber-300 font-extrabold">COIN</span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-black/60 border border-pink-500/30 text-xs font-mono">
             <span className="text-pink-400 font-black">[{pack.code}]</span>
-            <span className="text-slate-300 font-bold hidden sm:inline">{pack.name}</span>
-            <span className="text-amber-300 font-extrabold ml-1">({totalCount}장)</span>
+            <span className="text-slate-300 font-bold hidden md:inline truncate max-w-[120px]">{pack.name}</span>
+            <span className="text-amber-300 font-extrabold ml-0.5">({totalCount}장)</span>
           </div>
 
           <button
@@ -170,7 +177,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
             className="p-1.5 rounded-full bg-void-900/90 hover:bg-void-800 text-slate-300 hover:text-white border border-white/20 transition-colors"
             title="닫기"
           >
-            <X size={18} />
+            <X size={17} />
           </button>
         </div>
       </div>
