@@ -266,8 +266,8 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
 
             {/* 하단 미스터리 안내 */}
             <div className="relative z-20 w-full text-center bg-black/80 py-1 px-2 rounded-xl border border-rose-500/30">
-              <span className="text-[8px] font-mono text-slate-300 block truncate">
-                전체 카드 수집 시 해금
+              <span className="text-[7.5px] font-mono text-slate-300 block truncate">
+                이 카드를 제외한 모든 카드 수집 시 자동 획득
               </span>
             </div>
           </div>

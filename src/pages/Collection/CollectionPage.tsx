@@ -254,14 +254,14 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                     👑 XR TRANSCENDENT
                   </span>
                   <h2 className="font-serif font-black text-lg sm:text-xl text-transparent bg-clip-text bg-gradient-to-r from-rose-200 via-purple-100 to-amber-200">
-                    {isXrOwned ? xrCard.name : '[XR] 초월 카드 (박진영)'}
+                    {isXrOwned ? xrCard.name : '[XR] 초월 카드'}
                   </h2>
                 </div>
 
                 <p className="text-xs text-slate-300 font-sans leading-relaxed">
                   {isXrOwned
-                    ? '축하합니다! 740종의 모든 카드를 정복하여 유일무이한 궁극의 초월 카드 [XR 박진영]을 획득하셨습니다!'
-                    : '이 카드를 제외한 740종의 모든 카드를 수집하면 물음표가 해금 버튼으로 바뀌어 자동으로 획득할 수 있습니다.'}
+                    ? '축하합니다! 모든 카드를 정복하여 유일무이한 궁극의 [XR] 초월 카드를 획득하셨습니다!'
+                    : '이 카드를 제외한 모든 카드를 수집하면 자동으로 획득 할 수 있습니다.'}
                 </p>
 
                 {/* 진척도 바 */}

@@ -22430,7 +22430,7 @@ export const MASTER_CARDS: Card[] = [
     "rarity": "XR",
     "cost": 0,
     "power": 0,
-    "description": "880종의 모든 NMIXX 카드를 정복한 전설의 마스터에게만 허락되는 유일무이한 궁극의 초월 카드입니다.",
+    "description": "이 카드를 제외한 모든 카드를 수집하면 자동으로 획득할 수 있는 유일무이한 궁극의 초월 카드입니다.",
     "dustValue": 50000,
     "craftCost": null,
     "theme": "TRANSCENDENT",
