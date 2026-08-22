@@ -132,7 +132,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
               게임 데이터 완전 초기화 (RESET GAME)
             </span>
             <span className="text-xs text-slate-400 font-mono">
-              모든 컬렉션 및 히스토리를 초기화하고 초기 1억원 (100,000,000 COIN)으로 다시 시작합니다.
+              모든 컬렉션 및 진행 상황을 초기화하고 기본 5만원 (50,000 COIN)으로 다시 시작합니다.
             </span>
           </div>
 
