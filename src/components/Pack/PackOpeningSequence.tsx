@@ -259,12 +259,12 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
               </div>
 
               {/* 중앙 얼굴 노출 공간 확보 */}
-              <div className="flex-1 min-h-[140px]" />
+              <div className="flex-1 min-h-[160px]" />
 
-              {/* 하단 콤팩트 글래스모피즘 타이틀 밴드 (한 줄 완벽 렌더링) */}
-              <div className="relative z-10 flex flex-col items-center justify-center text-center bg-black/85 backdrop-blur-md py-2 px-2.5 rounded-2xl border border-white/20 shadow-2xl mb-1.5 w-full overflow-hidden">
-                <h3 className="font-serif text-[14.5px] sm:text-[16px] font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-200 to-amber-200 drop-shadow-md whitespace-nowrap truncate max-w-full">
-                  {pack.name}
+              {/* 하단 콤팩트 글래스모피즘 타이틀 밴드 (한 칸 밑으로 하단 배치 & 한 줄 완벽 렌더링) */}
+              <div className="relative z-10 flex flex-col items-center justify-center text-center bg-black/85 backdrop-blur-md py-1.5 px-2.5 rounded-2xl border border-white/20 shadow-2xl mb-1 w-full overflow-hidden">
+                <h3 className="font-serif text-[13.5px] sm:text-[15px] font-black tracking-normal text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-200 to-amber-200 drop-shadow-md whitespace-nowrap truncate max-w-full">
+                  {pack.name.replace(/^NMIXX\s*/i, 'NMIXX ')}
                 </h3>
                 <div className="flex items-center gap-1.5 mt-0.5 max-w-full truncate">
                   <span className="text-[8.5px] text-pink-300 font-mono font-bold tracking-wider uppercase bg-pink-950/80 px-1.5 py-0.5 rounded border border-pink-500/30 flex-shrink-0">
