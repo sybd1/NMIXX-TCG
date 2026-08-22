@@ -167,6 +167,7 @@ export const App: React.FC = () => {
           packCount={openingState.packCount}
           cost={openingState.cost}
           coins={state.coins}
+          pityCount={state.pityCount}
           onFinish={() => setOpeningState(null)}
           onOpenPackCount={(targetCount) => {
             const currentPack = openingState.pack;

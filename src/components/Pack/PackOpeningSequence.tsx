@@ -6,7 +6,7 @@ import { CardFlip } from '../Card/CardFlip';
 import { CardModal } from '../Card/CardModal';
 import { SecretRevealEffect } from '../RevealAnimation/SecretRevealEffect';
 import { sound } from '../../services/soundService';
-import { ArrowRight, Home, X, Zap, Sparkles } from 'lucide-react';
+import { Home, X, Zap, Sparkles } from 'lucide-react';
 import { BoosterPackConfig, BOOSTER_PACKS, RARITY_CONFIGS } from '../../config/gameConfig';
 
 interface PackOpeningSequenceProps {
@@ -15,6 +15,7 @@ interface PackOpeningSequenceProps {
   packCount?: number;
   cost?: number;
   coins?: number;
+  pityCount?: number;
   onFinish: () => void;
   onOpenAnother: () => void;
   onOpenPackCount?: (count: 1 | 5 | 10) => void;
@@ -27,6 +28,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
   packCount = Math.max(1, Math.round(cards.length / 5)),
   cost = 100,
   coins = 100_000_000,
+  pityCount = 0,
   onFinish,
   onOpenAnother,
   onOpenPackCount,
@@ -110,6 +112,41 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
       setStep('CARDS_DEALT');
     }, 1800);
   };
+
+  // 키보드 Spacebar / Enter 원터치 단축키 지원
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code === 'Space' || e.code === 'Enter') {
+        if (jackpotModalCard) {
+          e.preventDefault();
+          setJackpotModalCard(null);
+          return;
+        }
+        if (selectedDetailCard) {
+          e.preventDefault();
+          setSelectedDetailCard(null);
+          return;
+        }
+
+        if (step === 'PACK_ENTER') {
+          e.preventDefault();
+          handleStartOpening();
+        } else if (['CARDS_DEALT', 'REVEALING'].includes(step)) {
+          e.preventDefault();
+          handleRevealAll();
+        } else if (step === 'SUMMARY') {
+          e.preventDefault();
+          if (coins >= cost) {
+            if (onOpenPackCount) onOpenPackCount(packCount as (1 | 5 | 10));
+            else onOpenAnother();
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [step, jackpotModalCard, selectedDetailCard, coins, cost, packCount]);
 
   // 카드 클릭 핸들러 (미공개 시 뒤집기, 이미 뒤집힌 후 클릭 시 상세 모달 열람)
   const handleCardClick = (index: number) => {
@@ -204,8 +241,8 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:32px_32px] opacity-15" />
       </div>
 
-      {/* 상단 고정 네비게이션: 메인 나가기 & 실시간 잔여 코인 표시 */}
-      <div className="sticky top-0 z-30 w-full max-w-6xl flex items-center justify-between pointer-events-auto bg-void-950/80 backdrop-blur-xl px-3 sm:px-4 py-2.5 rounded-2xl border border-white/15 shadow-2xl shadow-purple-950/40 mb-4 gap-2 flex-wrap sm:flex-nowrap">
+      {/* 상단 고정 네비게이션: 메인 나가기 & 실시간 잔여 코인 & 실시간 천장 HUD */}
+      <div className="sticky top-0 z-30 w-full max-w-6xl flex items-center justify-between pointer-events-auto bg-void-950/85 backdrop-blur-xl px-3 sm:px-4 py-2.5 rounded-2xl border border-white/15 shadow-2xl shadow-purple-950/40 mb-4 gap-2 flex-wrap sm:flex-nowrap">
         <button
           onClick={onFinish}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-void-900/90 hover:bg-void-800 text-slate-200 border border-white/20 text-xs font-mono font-bold transition-all shadow-md hover:scale-105"
@@ -221,10 +258,27 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
           <span className="text-[10px] text-amber-300 font-extrabold">COIN</span>
         </div>
 
+        {/* 👑 실시간 천장(Pity) 시스템 HUD (오픈 중 실시간 모니터링) */}
+        <div className="flex items-center gap-2 px-3 py-1 rounded-xl bg-purple-950/70 border border-purple-500/40 text-xs font-mono shadow-inner">
+          <span className="text-yellow-300 text-sm animate-pulse">👑</span>
+          <div className="flex flex-col">
+            <div className="flex items-center justify-between gap-2 text-[10.5px] font-bold">
+              <span className="text-purple-300">SSR+ 천장</span>
+              <span className="text-amber-300 font-mono font-black">{pityCount}/100</span>
+            </div>
+            <div className="w-20 sm:w-28 h-1.5 bg-black/80 rounded-full overflow-hidden border border-purple-500/30 mt-0.5">
+              <div
+                className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400 transition-all duration-300"
+                style={{ width: `${Math.min(100, (pityCount / 100) * 100)}%` }}
+              />
+            </div>
+          </div>
+        </div>
+
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-black/60 border border-pink-500/30 text-xs font-mono">
             <span className="text-pink-400 font-black">[{pack.code}]</span>
-            <span className="text-slate-300 font-bold hidden md:inline truncate max-w-[120px]">{pack.name}</span>
+            <span className="text-slate-300 font-bold hidden md:inline truncate max-w-[110px]">{pack.name}</span>
             <span className="text-amber-300 font-extrabold ml-0.5">({totalCount}장)</span>
           </div>
 
@@ -367,7 +421,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
 
       {/* 3. 카드 딜링 및 공개 (STEP 6, 7, 8) */}
       {['CARDS_DEALT', 'REVEALING', 'SUMMARY'].includes(step) && (
-        <div className="relative z-10 w-full max-w-6xl flex flex-col items-center gap-5 my-auto">
+        <div className="relative z-10 w-full max-w-6xl flex flex-col items-center gap-5 my-auto pb-24">
           {/* 상단 힌트 & Rarity 요약 바 */}
           <div className="flex flex-col sm:flex-row items-center justify-between w-full max-w-5xl px-3 py-2 bg-void-950/60 backdrop-blur-md rounded-2xl border border-white/10 shadow-lg gap-3">
             <div className="text-sm font-mono text-slate-200 font-bold flex items-center gap-2">
@@ -382,18 +436,6 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                 </span>
               )}
             </div>
-
-            {/* 모두 공개 버튼 */}
-            {step !== 'SUMMARY' && (
-              <button
-                onClick={handleRevealAll}
-                className="px-5 py-2 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white text-xs font-bold font-mono transition-all shadow-lg shadow-pink-950/60 flex items-center gap-2 hover:scale-105"
-              >
-                <Zap size={14} className="text-yellow-300" />
-                <span>모두 공개 (Reveal All)</span>
-                <ArrowRight size={14} />
-              </button>
-            )}
 
             {/* SUMMARY 단계 8단계 Rarity 통계 배지 */}
             {step === 'SUMMARY' && (
@@ -538,69 +580,96 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
             )}
           </AnimatePresence>
 
-          {/* 4. 하단 액션 버튼 (카드가 모두 공개된 후에만 등장!) */}
-          {(step === 'SUMMARY' || flippedCount === totalCount) && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.4 }}
-              className="flex flex-col items-center gap-2.5 mt-1 w-full max-w-4xl px-2"
+      {/* 4. 마우스 이동 최소화 & 제자리 연속 클릭 스마트 퀵 컨트롤러 바 */}
+      <div className="fixed bottom-3 sm:bottom-5 inset-x-0 z-40 flex flex-col items-center justify-center pointer-events-none px-3">
+        {step === 'PACK_ENTER' && (
+          <motion.button
+            initial={{ opacity: 0, y: 15, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            onClick={handleStartOpening}
+            className="pointer-events-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-pink-600 via-purple-600 to-amber-500 hover:from-pink-500 hover:to-amber-400 text-white font-serif font-black text-sm sm:text-base tracking-wider shadow-2xl shadow-pink-950/90 flex items-center gap-2.5 hover:scale-105 transition-all cursor-pointer border-2 border-white ring-4 ring-pink-500/40"
+          >
+            <Sparkles size={18} className="text-yellow-300 animate-spin" />
+            <span>📦 카드팩 개봉하기 (Space / Touch)</span>
+          </motion.button>
+        )}
+
+        {['CARDS_DEALT', 'REVEALING'].includes(step) && flippedCount < totalCount && (
+          <motion.button
+            initial={{ opacity: 0, y: 15, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            onClick={handleRevealAll}
+            className="pointer-events-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white font-serif font-black text-sm sm:text-base tracking-wider shadow-2xl shadow-purple-950/90 flex items-center gap-2.5 hover:scale-105 transition-all cursor-pointer border-2 border-white ring-4 ring-amber-400/40"
+          >
+            <Zap size={18} className="text-yellow-300" />
+            <span>⚡ 카드 모두 공개하기 (Space / Click)</span>
+          </motion.button>
+        )}
+
+        {(step === 'SUMMARY' || (['CARDS_DEALT', 'REVEALING'].includes(step) && flippedCount === totalCount)) && (
+          <motion.div
+            initial={{ opacity: 0, y: 15, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            className="pointer-events-auto flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 bg-black/85 backdrop-blur-xl p-2.5 rounded-3xl border border-white/20 shadow-2xl"
+          >
+            {/* 현재 열었던 팩 바로 다시 열기 (메인 액션) */}
+            <button
+              disabled={coins < cost}
+              onClick={() => (onOpenPackCount ? onOpenPackCount(packCount as (1 | 5 | 10)) : onOpenAnother())}
+              className={`px-5 py-2.5 rounded-2xl font-serif font-black text-xs sm:text-sm flex items-center gap-1.5 transition-all ${
+                coins >= cost
+                  ? 'bg-gradient-to-r from-pink-600 via-purple-600 to-amber-500 hover:from-pink-500 hover:to-amber-400 text-white shadow-lg shadow-pink-950/60 hover:scale-105 cursor-pointer border border-white/40 ring-2 ring-pink-500/40'
+                  : 'bg-void-900 text-slate-600 border border-white/5 cursor-not-allowed'
+              }`}
             >
-              {/* 추가 개봉 버튼 그룹 (1팩 / 5팩 / 10팩) */}
-              <div className="flex flex-wrap items-center justify-center gap-2.5 w-full">
-                {/* 1팩 더 열기 */}
-                <button
-                  disabled={coins < 100}
-                  onClick={() => (onOpenPackCount ? onOpenPackCount(1) : onOpenAnother())}
-                  className={`px-4 py-2.5 rounded-2xl font-serif font-bold text-xs sm:text-sm flex items-center gap-1.5 transition-all ${
-                    coins >= 100
-                      ? 'bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white shadow-lg shadow-pink-950/60 hover:scale-105 cursor-pointer'
-                      : 'bg-void-900 text-slate-600 border border-white/5 cursor-not-allowed'
-                  }`}
-                >
-                  <Sparkles size={15} />
-                  <span>1팩 더 열기 (100 COIN)</span>
-                </button>
+              <Sparkles size={16} className="text-yellow-300" />
+              <span>🔁 {packCount}팩 다시 열기 ({cost} COIN / Space)</span>
+            </button>
 
-                {/* 5팩 더 열기 */}
-                <button
-                  disabled={coins < 480}
-                  onClick={() => (onOpenPackCount ? onOpenPackCount(5) : onOpenAnother())}
-                  className={`px-4 py-2.5 rounded-2xl font-serif font-bold text-xs sm:text-sm flex items-center gap-1.5 transition-all ${
-                    coins >= 480
-                      ? 'bg-void-800 hover:bg-void-700 text-purple-300 border border-purple-500/40 shadow-lg shadow-purple-950/40 hover:scale-105 cursor-pointer'
-                      : 'bg-void-900 text-slate-600 border border-white/5 cursor-not-allowed'
-                  }`}
-                >
-                  <Zap size={15} className="text-purple-400" />
-                  <span>5팩 더 열기 (480 COIN)</span>
-                </button>
+            {/* 1팩 더 열기 */}
+            {packCount !== 1 && (
+              <button
+                disabled={coins < 100}
+                onClick={() => (onOpenPackCount ? onOpenPackCount(1) : onOpenAnother())}
+                className="px-3.5 py-2 rounded-xl bg-void-800 hover:bg-void-700 text-slate-200 border border-white/15 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer"
+              >
+                1팩 (100)
+              </button>
+            )}
 
-                {/* 10팩 더 열기 */}
-                <button
-                  disabled={coins < 900}
-                  onClick={() => (onOpenPackCount ? onOpenPackCount(10) : onOpenAnother())}
-                  className={`px-4 py-2.5 rounded-2xl font-serif font-black text-xs sm:text-sm flex items-center gap-1.5 transition-all ${
-                    coins >= 900
-                      ? 'bg-gradient-to-r from-amber-600 via-rose-600 to-fuchsia-600 hover:from-amber-500 hover:to-fuchsia-500 text-yellow-100 shadow-lg shadow-rose-950/50 hover:scale-105 cursor-pointer'
-                      : 'bg-void-900 text-slate-600 border border-white/5 cursor-not-allowed'
-                  }`}
-                >
-                  <Sparkles size={15} className="text-yellow-300" />
-                  <span>10팩 더 열기 (900 COIN)</span>
-                </button>
+            {/* 5팩 더 열기 */}
+            {packCount !== 5 && (
+              <button
+                disabled={coins < 480}
+                onClick={() => (onOpenPackCount ? onOpenPackCount(5) : onOpenAnother())}
+                className="px-3.5 py-2 rounded-xl bg-void-800 hover:bg-void-700 text-purple-200 border border-purple-500/30 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer"
+              >
+                5팩 (480)
+              </button>
+            )}
 
-                {/* 메인 페이지로 돌아가는 버튼 */}
-                <button
-                  onClick={onFinish}
-                  className="px-5 py-2.5 rounded-2xl bg-void-900/90 hover:bg-void-800 text-slate-300 hover:text-white font-mono text-xs font-bold transition-all border border-white/20 flex items-center gap-2 shadow-md hover:scale-105 cursor-pointer"
-                >
-                  <Home size={15} className="text-pink-400" />
-                  <span>메인으로</span>
-                </button>
-              </div>
-            </motion.div>
-          )}
+            {/* 10팩 더 열기 */}
+            {packCount !== 10 && (
+              <button
+                disabled={coins < 900}
+                onClick={() => (onOpenPackCount ? onOpenPackCount(10) : onOpenAnother())}
+                className="px-3.5 py-2 rounded-xl bg-void-800 hover:bg-void-700 text-amber-200 border border-amber-500/30 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer"
+              >
+                10팩 (900)
+              </button>
+            )}
+
+            {/* 메인으로 */}
+            <button
+              onClick={onFinish}
+              className="px-4 py-2 rounded-xl bg-void-900 hover:bg-void-800 text-slate-300 hover:text-white text-xs font-mono font-bold transition-all border border-white/20 flex items-center gap-1.5 cursor-pointer hover:scale-105"
+            >
+              <Home size={14} className="text-pink-400" />
+              <span>메인</span>
+            </button>
+          </motion.div>
+        )}
+      </div>
         </div>
       )}
 
