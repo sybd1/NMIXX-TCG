@@ -38,8 +38,8 @@ const PACK_FILTERS = [
   { id: 'ALL', name: '전체 팩' },
   { id: 'op01', code: 'OP-01', name: '1탄 계승되는 의지' },
   { id: 'op02', code: 'OP-02', name: '2탄 정점결전' },
-  { id: 'op03', code: 'OP-03', name: '3탄 강대한 적' },
-  { id: 'op04', code: 'OP-04', name: '4탄 신시대의 주역' },
+  { id: 'op03', code: 'OP-03', name: '3탄 Blue Valentine' },
+  { id: 'op04', code: 'OP-04', name: '4탄 ZERO FRONTIER' },
 ];
 
 export const CollectionPage: React.FC<CollectionPageProps> = ({
