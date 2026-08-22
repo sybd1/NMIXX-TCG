@@ -63,9 +63,16 @@ export class RngService {
 
   /**
    * 해당 Rarity 풀에서 무작위 카드를 1장 선택하고 8단계 FinishType을 보장 부여합니다.
+   * packId가 지정된 경우 해당 부스터 팩의 150장 풀에서 우선 선택합니다.
    */
-  public static rollCard(rarity: Rarity): Card {
-    const pool = getCardsByRarity(rarity);
+  public static rollCard(rarity: Rarity, packId?: string): Card {
+    let pool = getCardsByRarity(rarity);
+    if (packId) {
+      const packPool = pool.filter(c => c.packId === packId);
+      if (packPool.length > 0) {
+        pool = packPool;
+      }
+    }
     const fallback = MASTER_CARDS[0];
     const baseCard = (!pool || pool.length === 0) ? fallback : pool[Math.floor(Math.random() * pool.length)];
 
@@ -77,10 +84,11 @@ export class RngService {
 
   /**
    * 1개 팩(5장)을 개봉합니다.
+   * - 선택된 부스터 팩(packId)의 150장 풀에서 우선 추첨
    * - 50팩 Pity 조건 반영 (SSR 이상 확정)
    * - 팩 내 가장 희귀한 카드가 5번째(마지막) 슬롯에 배치됩니다.
    */
-  public static generatePack(currentPity: number): {
+  public static generatePack(currentPity: number, packId?: string): {
     cards: Card[];
     highestRarity: Rarity;
     newPity: number;
@@ -94,7 +102,7 @@ export class RngService {
     // 4장의 일반 카드 롤
     for (let i = 0; i < 4; i++) {
       const rarity = this.rollRarity(false);
-      cards.push(this.rollCard(rarity));
+      cards.push(this.rollCard(rarity, packId));
     }
 
     // 5번째 카드 롤 (천장 시 최소 SSR 이상 보장)
@@ -102,7 +110,7 @@ export class RngService {
     if (isPityReady && RARITY_RANK[card5Rarity] >= RARITY_RANK.SSR) {
       pityTriggered = true;
     }
-    cards.push(this.rollCard(card5Rarity));
+    cards.push(this.rollCard(card5Rarity, packId));
 
     // 가장 높은 Rarity 카드가 5번째 슬롯에 오도록 정렬
     cards.sort((a, b) => RARITY_RANK[a.rarity] - RARITY_RANK[b.rarity]);

@@ -35,6 +35,10 @@ export interface Card {
   symbol: string;
   quote?: string;
   image?: string;
+  packCode?: string; // OP-01, OP-02, OP-03, OP-04
+  packId?: string; // op01, op02, op03, op04
+  setId?: string | null; // 동일 컨셉 6인 세트 ID (예: set_op01_dice)
+  setTitle?: string | null; // 세트 명칭 (예: [DICE] 6인 완전체 컬렉션)
 }
 
 export interface RevealedCard extends Card {
@@ -42,4 +46,16 @@ export interface RevealedCard extends Card {
   isNew: boolean;
   duplicateCount: number;
   isFlipped: boolean;
+}
+
+// 똑같은 컨셉의 카드가 6인 멤버별로 모였을 때 완성되는 SSR 세트 카드
+export interface ConceptSetCard {
+  setId: string;
+  setTitle: string;
+  era: string;
+  packCode: string;
+  packId: string;
+  cardIds: string[]; // 6명의 멤버 카드 ID 목록 (LILY, HAEWON, SULLYOON, BAE, JIWOO, KYUJIN)
+  members: NmixxMember[];
+  rewardCard: Card;
 }

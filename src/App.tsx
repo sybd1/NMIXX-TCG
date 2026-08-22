@@ -39,7 +39,7 @@ export const App: React.FC = () => {
     if (!spendCoins(GAME_CONFIG.PACK_COST_SINGLE)) return;
 
     sound.playClick();
-    const result = RngService.generatePack(state.pityCount);
+    const result = RngService.generatePack(state.pityCount, pack.id);
     const revealed = addPackResult(result.cards, result.newPity);
     setOpeningState({
       cards: revealed,
@@ -59,7 +59,7 @@ export const App: React.FC = () => {
     const packResults: { cards: Card[]; newPity: number }[] = [];
 
     for (let i = 0; i < 5; i++) {
-      const result = RngService.generatePack(currentPity);
+      const result = RngService.generatePack(currentPity, pack.id);
       currentPity = result.newPity;
       packResults.push(result);
     }
@@ -83,7 +83,7 @@ export const App: React.FC = () => {
     const packResults: { cards: Card[]; newPity: number }[] = [];
 
     for (let i = 0; i < 10; i++) {
-      const result = RngService.generatePack(currentPity);
+      const result = RngService.generatePack(currentPity, pack.id);
       currentPity = result.newPity;
       packResults.push(result);
     }
