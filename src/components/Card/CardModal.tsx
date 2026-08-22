@@ -83,7 +83,7 @@ export const CardModal: React.FC<CardModalProps> = ({
                     {card.rarity}
                   </span>
                   <span className="text-xs text-pink-300 font-mono font-bold bg-pink-950/60 px-2.5 py-0.5 rounded-lg border border-pink-500/30">
-                    {card.member === 'NMIXX' ? 'SPECIAL' : card.member}
+                    {card.member === 'NMIXX' ? '단체' : card.member}
                   </span>
                   {/* 8-Tier Finish 뱃지 */}
                   <span className="text-[10.5px] font-mono font-bold text-amber-300 bg-amber-950/70 border border-amber-500/40 px-2 py-0.5 rounded-lg flex items-center gap-1 shadow-sm">

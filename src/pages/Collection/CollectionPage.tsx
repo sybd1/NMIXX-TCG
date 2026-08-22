@@ -31,7 +31,7 @@ const MEMBERS: { id: string; name: string }[] = [
   { id: 'BAE', name: '배이' },
   { id: 'JIWOO', name: '지우' },
   { id: 'KYUJIN', name: '규진' },
-  { id: 'NMIXX', name: 'SPECIAL' },
+  { id: 'NMIXX', name: '단체' },
 ];
 
 const PACK_FILTERS = [
