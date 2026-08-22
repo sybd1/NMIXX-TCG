@@ -120,27 +120,20 @@ export const HomePage: React.FC<HomePageProps> = ({
         </p>
       </div>
 
-      {/* 3D Booster Pack Visual with Dynamic Cosmic Aura & Magic Ring */}
-      <div className="relative my-3 flex items-center justify-center">
+      {/* 3D Booster Pack Visual with Dynamic Cosmic Aura & Magic Ring (GPU 가속) */}
+      <div className="relative my-3 flex items-center justify-center transform-gpu">
         {/* 팩 뒷편 반응형 테마 글로우 오라 */}
-        <motion.div
+        <div
           key={`glow-${selectedPack.id}`}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 0.85, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className={`absolute w-80 h-96 rounded-full bg-gradient-to-r ${selectedPack.gradient} blur-3xl opacity-60 pointer-events-none -z-10`}
+          className={`absolute w-72 h-80 rounded-full bg-gradient-to-r ${selectedPack.gradient} blur-2xl opacity-60 pointer-events-none -z-10 transition-all duration-500`}
         />
 
         {/* 팩 뒷편 신비로운 회전 마법진 인장 링 */}
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-          className="absolute w-72 sm:w-80 h-72 sm:h-80 rounded-full border border-pink-400/20 border-dashed pointer-events-none -z-10 flex items-center justify-center"
-        >
-          <div className="w-56 h-56 rounded-full border border-purple-400/25 flex items-center justify-center">
-            <div className="w-40 h-40 rounded-full border border-amber-300/20" />
+        <div className="absolute w-64 sm:w-76 h-64 sm:h-76 rounded-full border border-pink-400/20 border-dashed pointer-events-none -z-10 flex items-center justify-center">
+          <div className="w-48 h-48 rounded-full border border-purple-400/25 flex items-center justify-center">
+            <div className="w-36 h-36 rounded-full border border-amber-300/20" />
           </div>
-        </motion.div>
+        </div>
 
         <AnimatePresence mode="wait">
           <motion.div

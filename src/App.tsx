@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { useGameState } from './hooks/useGameState';
 import { NavTab } from './types/game';
 import { Card, RevealedCard } from './types/card';
@@ -101,39 +100,14 @@ export const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-[#070210] text-slate-100 flex flex-col justify-between pb-16 md:pb-0 overflow-x-hidden">
-      {/* 🌌 NMIXX MIXXTOPIA 글로벌 앰비언트 우주 배경 */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      {/* 🌌 NMIXX MIXXTOPIA 글로벌 앰비언트 우주 배경 (모바일 초경량화 GPU 가속) */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 transform-gpu">
         <div className="absolute inset-0 bg-gradient-to-b from-[#0d041e] via-[#14082e] to-[#04010a]" />
 
-        {/* 몽환적인 3대 오로라 네뷸라 글로우 오라 */}
-        <motion.div
-          animate={{ scale: [1, 1.25, 1], opacity: [0.25, 0.45, 0.25], x: [-20, 20, -20] }}
-          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-24 left-1/5 w-[32rem] h-[32rem] rounded-full bg-gradient-to-br from-pink-600/30 via-purple-600/20 to-transparent blur-3xl"
-        />
-        <motion.div
-          animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2], y: [15, -25, 15] }}
-          transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/2 -right-20 w-[30rem] h-[30rem] rounded-full bg-gradient-to-bl from-cyan-500/25 via-indigo-600/20 to-transparent blur-3xl"
-        />
-        <motion.div
-          animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.35, 0.2] }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -bottom-16 left-1/3 w-[34rem] h-[34rem] rounded-full bg-gradient-to-t from-fuchsia-600/25 via-rose-600/15 to-transparent blur-3xl"
-        />
-
-        {/* 배경 은은한 회전 NMIXX 홀로그램 인장 */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-[0.035]">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 120, repeat: Infinity, ease: 'linear' }}
-            className="w-[800px] h-[800px] rounded-full border border-white flex items-center justify-center"
-          >
-            <div className="w-[550px] h-[550px] rounded-full border border-pink-400 flex items-center justify-center">
-              <div className="w-[350px] h-[350px] rounded-full border border-purple-400" />
-            </div>
-          </motion.div>
-        </div>
+        {/* 몽환적인 3대 오로라 네뷸라 글로우 오라 (블러 최적화로 모바일 발열/렉 방지) */}
+        <div className="absolute -top-20 left-1/4 w-72 sm:w-[30rem] h-72 sm:h-[30rem] rounded-full bg-pink-600/20 blur-2xl pointer-events-none" />
+        <div className="absolute top-1/3 -right-16 w-64 sm:w-[28rem] h-64 sm:h-[28rem] rounded-full bg-cyan-500/20 blur-2xl pointer-events-none" />
+        <div className="absolute -bottom-10 left-1/3 w-80 sm:w-[32rem] h-80 sm:h-[32rem] rounded-full bg-purple-600/20 blur-2xl pointer-events-none" />
 
         {/* 미세 별빛 입자 효과 */}
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:32px_32px] opacity-15" />

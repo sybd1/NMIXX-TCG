@@ -101,7 +101,8 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
             src={card.image}
             alt={card.name}
             loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover object-[center_18%] group-hover:scale-105 transition-transform duration-700 pointer-events-none"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover object-[center_18%] group-hover:scale-105 transition-transform duration-500 pointer-events-none"
           />
         ) : (
           <div className={`absolute inset-0 bg-gradient-to-b ${card.gradient}`} />

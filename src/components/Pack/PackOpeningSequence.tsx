@@ -134,40 +134,15 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-between bg-[#070210] overflow-y-auto py-5 px-3 select-none">
-      {/* 🌌 NMIXX MIXXTOPIA 앰비언트 우주 네뷸라 배경 효과 */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      {/* 🌌 NMIXX MIXXTOPIA 앰비언트 우주 네뷸라 배경 효과 (GPU 가속 최적화) */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 transform-gpu">
         {/* 심우주 그라데이션 베이스 */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0d041e] via-[#14082e] to-[#04010a]" />
 
-        {/* 몽환적인 오로라 네뷸라 글로우 오라 (핑크, 퍼플, 사이버 시안) */}
-        <motion.div
-          animate={{ scale: [1, 1.2, 1], opacity: [0.35, 0.55, 0.35], x: [-30, 30, -30] }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-32 left-1/4 w-96 h-96 rounded-full bg-gradient-to-br from-pink-600/40 via-purple-600/30 to-transparent blur-3xl"
-        />
-        <motion.div
-          animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.5, 0.3], y: [20, -30, 20] }}
-          transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/3 -right-24 w-[28rem] h-[28rem] rounded-full bg-gradient-to-bl from-cyan-500/30 via-indigo-600/30 to-transparent blur-3xl"
-        />
-        <motion.div
-          animate={{ scale: [1, 1.3, 1], opacity: [0.25, 0.45, 0.25] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -bottom-20 left-1/3 w-[32rem] h-[32rem] rounded-full bg-gradient-to-t from-fuchsia-600/30 via-rose-600/20 to-transparent blur-3xl"
-        />
-
-        {/* 배경 은은한 회전 NMIXX 엠블럼 워터마크 */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-5">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 90, repeat: Infinity, ease: 'linear' }}
-            className="w-[650px] h-[650px] rounded-full border border-white flex items-center justify-center"
-          >
-            <div className="w-[450px] h-[450px] rounded-full border border-pink-400/60 flex items-center justify-center">
-              <div className="w-[280px] h-[280px] rounded-full border border-purple-400/60" />
-            </div>
-          </motion.div>
-        </div>
+        {/* 몽환적인 오로라 네뷸라 글로우 오라 (모바일 GPU 최적화) */}
+        <div className="absolute -top-20 left-1/4 w-80 h-80 rounded-full bg-pink-600/25 blur-2xl pointer-events-none" />
+        <div className="absolute top-1/3 -right-16 w-72 h-72 rounded-full bg-cyan-500/20 blur-2xl pointer-events-none" />
+        <div className="absolute -bottom-10 left-1/3 w-80 h-80 rounded-full bg-purple-600/20 blur-2xl pointer-events-none" />
 
         {/* 미세 별빛 입자 효과 */}
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:32px_32px] opacity-15" />

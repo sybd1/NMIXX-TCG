@@ -3,15 +3,35 @@
 @tailwind utilities;
 
 @layer base {
-  body {
+  html, body {
     @apply bg-void-950 text-slate-100 antialiased selection:bg-purple-500 selection:text-white;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    overscroll-behavior-y: none;
   }
+}
+
+/* GPU 하드웨어 가속 및 렌더링 최적화 */
+.gpu-layer {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* 화면 밖 카드 가상 렌더링 최적화 (200장 컬렉션 렉 완전 제거) */
+.card-content-visibility {
+  content-visibility: auto;
+  contain-intrinsic-size: 160px 240px;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -20,34 +40,34 @@
 
 ::-webkit-scrollbar-thumb {
   background: #1f253f;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #2e375a;
 }
 
-/* 8단계 Rarity 전용 커스텀 글로우 및 시각 효과 */
+/* 8단계 Rarity 전용 커스텀 글로우 및 시각 효과 (모바일 GPU 부하 최적화) */
 .shadow-glow-uc {
-  box-shadow: 0 0 15px rgba(16, 185, 129, 0.4), inset 0 0 8px rgba(16, 185, 129, 0.2);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
 }
 .shadow-glow-r {
-  box-shadow: 0 0 18px rgba(14, 165, 233, 0.5), inset 0 0 10px rgba(14, 165, 233, 0.25);
+  box-shadow: 0 0 12px rgba(14, 165, 233, 0.45);
 }
 .shadow-glow-sr {
-  box-shadow: 0 0 22px rgba(168, 85, 247, 0.65), inset 0 0 12px rgba(168, 85, 247, 0.35);
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.55);
 }
 .shadow-glow-ssr {
-  box-shadow: 0 0 28px rgba(245, 158, 11, 0.75), inset 0 0 15px rgba(245, 158, 11, 0.45);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.65);
 }
 .shadow-glow-ur {
-  box-shadow: 0 0 32px rgba(239, 68, 68, 0.85), inset 0 0 18px rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 24px rgba(239, 68, 68, 0.75);
 }
 .shadow-glow-lr {
-  box-shadow: 0 0 38px rgba(236, 72, 153, 0.95), 0 0 15px rgba(251, 191, 36, 0.6), inset 0 0 20px rgba(236, 72, 153, 0.55);
+  box-shadow: 0 0 28px rgba(236, 72, 153, 0.85), 0 0 10px rgba(251, 191, 36, 0.5);
 }
 .shadow-glow-mr {
-  box-shadow: 0 0 50px rgba(250, 204, 21, 1), 0 0 30px rgba(236, 72, 153, 0.8), 0 0 20px rgba(56, 189, 248, 0.8), inset 0 0 25px rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 35px rgba(250, 204, 21, 0.9), 0 0 20px rgba(236, 72, 153, 0.7);
 }
 
 @keyframes pulse-fast {
