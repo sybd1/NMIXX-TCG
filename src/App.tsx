@@ -189,7 +189,17 @@ export const App: React.FC = () => {
           pack={openingState.pack}
           packCount={openingState.packCount}
           cost={openingState.cost}
+          coins={state.coins}
           onFinish={() => setOpeningState(null)}
+          onOpenPackCount={(targetCount) => {
+            const currentPack = openingState.pack;
+            setOpeningState(null);
+            setTimeout(() => {
+              if (targetCount === 1) handleOpenSinglePack(currentPack);
+              else if (targetCount === 5) handleOpenFivePacks(currentPack);
+              else if (targetCount === 10) handleOpenTenPacks(currentPack);
+            }, 100);
+          }}
           onOpenAnother={() => {
             const count = openingState.packCount;
             const currentPack = openingState.pack;
