@@ -1,0 +1,307 @@
+﻿import { Rarity } from '../types/card';
+
+export type AchievementCategory = 'PACKS' | 'PACK_SETS' | 'RARITY' | 'SPENDING';
+
+export interface Achievement {
+  id: string;
+  category: AchievementCategory;
+  title: string;
+  description: string;
+  icon: string;
+  targetValue: number;
+  rewardCoins: number;
+  type: 'PACK_COUNT' | 'PACK_SET' | 'RARITY_SET' | 'COIN_SPENT';
+  targetPackId?: string;
+  targetRarity?: Rarity;
+}
+
+export const ACHIEVEMENTS: Achievement[] = [
+  // ----------------------------------------------------
+  // 1. 카드팩 개봉 누적 업적 (7단계: 10개 ~ 1,000만개)
+  // ----------------------------------------------------
+  {
+    id: 'pack_open_10',
+    category: 'PACKS',
+    type: 'PACK_COUNT',
+    title: '첫 발걸음의 엔써',
+    description: '카드팩 10개 개봉하기',
+    icon: '📦',
+    targetValue: 10,
+    rewardCoins: 500,
+  },
+  {
+    id: 'pack_open_100',
+    category: 'PACKS',
+    type: 'PACK_COUNT',
+    title: '열정적인 콜렉터',
+    description: '카드팩 100개 개봉하기',
+    icon: '📦',
+    targetValue: 100,
+    rewardCoins: 3_000,
+  },
+  {
+    id: 'pack_open_1000',
+    category: 'PACKS',
+    type: 'PACK_COUNT',
+    title: '숙련된 팩 브레이커',
+    description: '카드팩 1,000개 개봉하기',
+    icon: '✨',
+    targetValue: 1_000,
+    rewardCoins: 25_000,
+  },
+  {
+    id: 'pack_open_10000',
+    category: 'PACKS',
+    type: 'PACK_COUNT',
+    title: '카드팩 마에스트로',
+    description: '카드팩 10,000개 개봉하기',
+    icon: '🔥',
+    targetValue: 10_000,
+    rewardCoins: 200_000,
+  },
+  {
+    id: 'pack_open_100000',
+    category: 'PACKS',
+    type: 'PACK_COUNT',
+    title: '믹스토피아의 대수집가',
+    description: '카드팩 100,000개 개봉하기',
+    icon: '💎',
+    targetValue: 100_000,
+    rewardCoins: 1_500_000,
+  },
+  {
+    id: 'pack_open_1000000',
+    category: 'PACKS',
+    type: 'PACK_COUNT',
+    title: '전설의 카드 마스터',
+    description: '카드팩 1,000,000개 개봉하기',
+    icon: '👑',
+    targetValue: 1_000_000,
+    rewardCoins: 15_000_000,
+  },
+  {
+    id: 'pack_open_10000000',
+    category: 'PACKS',
+    type: 'PACK_COUNT',
+    title: '신화의 개척자 (1,000만 팩)',
+    description: '카드팩 10,000,000개 개봉하기',
+    icon: '🌌',
+    targetValue: 10_000_000,
+    rewardCoins: 150_000_000,
+  },
+
+  // ----------------------------------------------------
+  // 2. 4대 부스터 팩 전종 수집 완주 업적
+  // ----------------------------------------------------
+  {
+    id: 'set_complete_op01',
+    category: 'PACK_SETS',
+    type: 'PACK_SET',
+    targetPackId: 'op01',
+    title: '계승되는 의지 마스터',
+    description: 'NMIXX 계승되는 의지 (OP-01) 카드 모두 수집',
+    icon: '🏴‍☠️',
+    targetValue: 150,
+    rewardCoins: 50_000,
+  },
+  {
+    id: 'set_complete_op02',
+    category: 'PACK_SETS',
+    type: 'PACK_SET',
+    targetPackId: 'op02',
+    title: '정점결전 제패자',
+    description: 'NMIXX 정점결전 (OP-02) 카드 모두 수집',
+    icon: '⚔️',
+    targetValue: 150,
+    rewardCoins: 50_000,
+  },
+  {
+    id: 'set_complete_op03',
+    category: 'PACK_SETS',
+    type: 'PACK_SET',
+    targetPackId: 'op03',
+    title: 'Blue Valentine의 멜로디',
+    description: 'NMIXX Blue Valentine (OP-03) 카드 모두 수집',
+    icon: '💙',
+    targetValue: 150,
+    rewardCoins: 50_000,
+  },
+  {
+    id: 'set_complete_op04',
+    category: 'PACK_SETS',
+    type: 'PACK_SET',
+    targetPackId: 'op04',
+    title: 'ZERO FRONTIER 신세계',
+    description: 'NMIXX ZERO FRONTIER (OP-04) 카드 모두 수집',
+    icon: '🚀',
+    targetValue: 150,
+    rewardCoins: 50_000,
+  },
+
+  // ----------------------------------------------------
+  // 3. 레어도(Rarity)별 카드 전종 수집 업적 (9종)
+  // ----------------------------------------------------
+  {
+    id: 'rarity_complete_c',
+    category: 'RARITY',
+    type: 'RARITY_SET',
+    targetRarity: 'C',
+    title: '커먼 (C) 아카이브 완성',
+    description: 'C (Common) 등급 카드 모두 수집',
+    icon: '⚪',
+    targetValue: 0,
+    rewardCoins: 5_000,
+  },
+  {
+    id: 'rarity_complete_uc',
+    category: 'RARITY',
+    type: 'RARITY_SET',
+    targetRarity: 'UC',
+    title: '언커먼 (UC) 아카이브 완성',
+    description: 'UC (Uncommon) 등급 카드 모두 수집',
+    icon: '🟢',
+    targetValue: 0,
+    rewardCoins: 10_000,
+  },
+  {
+    id: 'rarity_complete_r',
+    category: 'RARITY',
+    type: 'RARITY_SET',
+    targetRarity: 'R',
+    title: '레어 (R) 아카이브 완성',
+    description: 'R (Rare) 등급 카드 모두 수집',
+    icon: '🔵',
+    targetValue: 0,
+    rewardCoins: 20_000,
+  },
+  {
+    id: 'rarity_complete_sr',
+    category: 'RARITY',
+    type: 'RARITY_SET',
+    targetRarity: 'SR',
+    title: '슈퍼 레어 (SR) 아카이브 완성',
+    description: 'SR (Super Rare) 등급 카드 모두 수집',
+    icon: '🟣',
+    targetValue: 0,
+    rewardCoins: 50_000,
+  },
+  {
+    id: 'rarity_complete_ssr',
+    category: 'RARITY',
+    type: 'RARITY_SET',
+    targetRarity: 'SSR',
+    title: '스페셜 슈퍼 레어 (SSR) 정복',
+    description: 'SSR (Special Super Rare) 등급 카드 모두 수집',
+    icon: '🟡',
+    targetValue: 0,
+    rewardCoins: 100_000,
+  },
+  {
+    id: 'rarity_complete_ur',
+    category: 'RARITY',
+    type: 'RARITY_SET',
+    targetRarity: 'UR',
+    title: '울트라 레어 (UR) 정복',
+    description: 'UR (Ultra Rare) 등급 카드 모두 수집',
+    icon: '🔴',
+    targetValue: 0,
+    rewardCoins: 250_000,
+  },
+  {
+    id: 'rarity_complete_lr',
+    category: 'RARITY',
+    type: 'RARITY_SET',
+    targetRarity: 'LR',
+    title: '레전더리 레어 (LR) 정복',
+    description: 'LR (Legendary Rare) 등급 카드 모두 수집',
+    icon: '🌟',
+    targetValue: 0,
+    rewardCoins: 500_000,
+  },
+  {
+    id: 'rarity_complete_mr',
+    category: 'RARITY',
+    type: 'RARITY_SET',
+    targetRarity: 'MR',
+    title: '미식 레어 (MR) 신화 정복',
+    description: 'MR (Mythic Rare) 등급 카드 모두 수집',
+    icon: '💫',
+    targetValue: 0,
+    rewardCoins: 1_000_000,
+  },
+  {
+    id: 'rarity_complete_xr',
+    category: 'RARITY',
+    type: 'RARITY_SET',
+    targetRarity: 'XR',
+    title: '궁극의 초월자 (XR)',
+    description: 'XR (Transcendent) 초월 카드 획득',
+    icon: '👑',
+    targetValue: 1,
+    rewardCoins: 5_000_000,
+  },
+
+  // ----------------------------------------------------
+  // 4. 머니 누적 소비 업적 (1만 ~ 10억 골드 / 6단계)
+  // ----------------------------------------------------
+  {
+    id: 'spend_coins_10k',
+    category: 'SPENDING',
+    type: 'COIN_SPENT',
+    title: '알뜰한 쇼퍼',
+    description: '1만 (10,000) 골드 소비하기',
+    icon: '🪙',
+    targetValue: 10_000,
+    rewardCoins: 1_000,
+  },
+  {
+    id: 'spend_coins_100k',
+    category: 'SPENDING',
+    type: 'COIN_SPENT',
+    title: '통 큰 투자자',
+    description: '10만 (100,000) 골드 소비하기',
+    icon: '💰',
+    targetValue: 100_000,
+    rewardCoins: 8_000,
+  },
+  {
+    id: 'spend_coins_1m',
+    category: 'SPENDING',
+    type: 'COIN_SPENT',
+    title: '백만장자의 기운',
+    description: '100만 (1,000,000) 골드 소비하기',
+    icon: '💎',
+    targetValue: 1_000_000,
+    rewardCoins: 70_000,
+  },
+  {
+    id: 'spend_coins_10m',
+    category: 'SPENDING',
+    type: 'COIN_SPENT',
+    title: '엔써즈 V.I.P',
+    description: '1,000만 (10,000,000) 골드 소비하기',
+    icon: '🏆',
+    targetValue: 10_000_000,
+    rewardCoins: 600_000,
+  },
+  {
+    id: 'spend_coins_100m',
+    category: 'SPENDING',
+    type: 'COIN_SPENT',
+    title: '억만장자 클럽',
+    description: '1억 (100,000,000) 골드 소비하기',
+    icon: '👑',
+    targetValue: 100_000_000,
+    rewardCoins: 5_000_000,
+  },
+  {
+    id: 'spend_coins_1b',
+    category: 'SPENDING',
+    type: 'COIN_SPENT',
+    title: '믹스토피아 재벌 (10억 골드)',
+    description: '10억 (1,000,000,000) 골드 소비하기',
+    icon: '🪐',
+    targetValue: 1_000_000_000,
+    rewardCoins: 50_000_000,
+  },
+];

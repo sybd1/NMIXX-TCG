@@ -12,6 +12,7 @@ import { PackOpeningSequence } from './components/Pack/PackOpeningSequence';
 
 import { HomePage } from './pages/Home/HomePage';
 import { CollectionPage } from './pages/Collection/CollectionPage';
+import { AchievementsPage } from './pages/Achievements/AchievementsPage';
 import { SettingsPage } from './pages/Settings/SettingsPage';
 
 export const App: React.FC = () => {
@@ -22,6 +23,7 @@ export const App: React.FC = () => {
     addMultiplePacksResult,
     claimMysteryBox,
     claimSetReward,
+    claimAchievement,
     claimXrCard,
     toggleSound,
     resetGame,
@@ -155,6 +157,13 @@ export const App: React.FC = () => {
             claimedSetRewards={state.claimedSetRewards || []}
             onClaimSetReward={claimSetReward}
             onClaimXrCard={claimXrCard}
+          />
+        )}
+
+        {currentTab === 'achievements' && (
+          <AchievementsPage
+            state={state}
+            onClaimReward={claimAchievement}
           />
         )}
 

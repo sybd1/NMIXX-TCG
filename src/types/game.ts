@@ -1,6 +1,6 @@
 import { Card, Rarity } from './card';
 
-export type NavTab = 'home' | 'collection' | 'settings';
+export type NavTab = 'home' | 'collection' | 'achievements' | 'settings';
 
 export type PackOpeningState = 
   | 'IDLE' 
@@ -34,7 +34,9 @@ export interface GameState {
   lastDailyBonus: string | null; // YYYY-MM-DD
   packHistory: PackHistoryItem[];
   openedPacksTotal: number;
+  coinsSpentTotal?: number; // 누적 소비 골드/코인
   soundMuted: boolean;
   isFirstVisit: boolean;
   claimedSetRewards?: string[]; // 이미 머니 보상을 수령한 세트 ID 목록
+  claimedAchievements?: string[]; // 이미 보상을 수령한 업적 ID 목록
 }

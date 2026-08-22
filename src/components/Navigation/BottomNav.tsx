@@ -1,5 +1,5 @@
 import React from 'react';
-import { Package, Layers, Info } from 'lucide-react';
+import { Package, Layers, Trophy, Info } from 'lucide-react';
 import { NavTab } from '../../types/game';
 
 interface BottomNavProps {
@@ -11,6 +11,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, onSelectTab })
   const tabs = [
     { id: 'home', label: 'PACK', icon: Package },
     { id: 'collection', label: 'CARDS', icon: Layers },
+    { id: 'achievements', label: 'ACHIEVE', icon: Trophy },
     { id: 'settings', label: 'INFO', icon: Info },
   ];
 

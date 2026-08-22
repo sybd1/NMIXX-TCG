@@ -95,7 +95,11 @@ export function useGameState() {
 
   const spendCoins = useCallback((amount: number) => {
     if (state.coins < amount) return false;
-    setState(prev => ({ ...prev, coins: prev.coins - amount }));
+    setState(prev => ({
+      ...prev,
+      coins: prev.coins - amount,
+      coinsSpentTotal: (prev.coinsSpentTotal || 0) + amount,
+    }));
     return true;
   }, [state.coins]);
 
@@ -140,6 +144,19 @@ export function useGameState() {
     sound.playMythicReveal();
   }, []);
 
+  const claimAchievement = useCallback((achievementId: string, rewardCoins: number) => {
+    setState(prev => {
+      const alreadyClaimed = (prev.claimedAchievements || []).includes(achievementId);
+      if (alreadyClaimed) return prev;
+      return {
+        ...prev,
+        coins: prev.coins + rewardCoins,
+        claimedAchievements: [...(prev.claimedAchievements || []), achievementId],
+      };
+    });
+    sound.playLegendaryReveal();
+  }, []);
+
   const claimXrCard = useCallback((cardId: string) => {
     setState(prev => {
       const currentCount = prev.collection[cardId] || 0;
@@ -170,6 +187,7 @@ export function useGameState() {
     claimDailyBonus,
     claimMysteryBox,
     claimSetReward,
+    claimAchievement,
     claimXrCard,
     toggleSound,
     resetGame,
