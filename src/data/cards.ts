@@ -23,7 +23,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_r_flower",
-    "setTitle": "[Flower] NMIXX 세트 카드",
+    "setTitle": "Flower 세트 카드",
     "packName": "1탄 계승되는 의지"
   },
   {
@@ -48,7 +48,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_r_flower",
-    "setTitle": "[Flower] NMIXX 세트 카드",
+    "setTitle": "Flower 세트 카드",
     "packName": "1탄 계승되는 의지"
   },
   {
@@ -73,7 +73,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_r_flower",
-    "setTitle": "[Flower] NMIXX 세트 카드",
+    "setTitle": "Flower 세트 카드",
     "packName": "1탄 계승되는 의지"
   },
   {
@@ -98,7 +98,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_r_flower",
-    "setTitle": "[Flower] NMIXX 세트 카드",
+    "setTitle": "Flower 세트 카드",
     "packName": "1탄 계승되는 의지"
   },
   {
@@ -123,7 +123,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_r_flower",
-    "setTitle": "[Flower] NMIXX 세트 카드",
+    "setTitle": "Flower 세트 카드",
     "packName": "1탄 계승되는 의지"
   },
   {
@@ -148,7 +148,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_r_flower",
-    "setTitle": "[Flower] NMIXX 세트 카드",
+    "setTitle": "Flower 세트 카드",
     "packName": "1탄 계승되는 의지"
   },
   {
@@ -173,7 +173,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_sr_light",
-    "setTitle": "[Light] NMIXX 세트 카드",
+    "setTitle": "Light 세트 카드",
     "packName": "1탄 계승되는 의지"
   },
   {
@@ -198,7 +198,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_sr_light",
-    "setTitle": "[Light] NMIXX 세트 카드",
+    "setTitle": "Light 세트 카드",
     "packName": "1탄 계승되는 의지"
   },
   {
@@ -223,7 +223,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_sr_light",
-    "setTitle": "[Light] NMIXX 세트 카드",
+    "setTitle": "Light 세트 카드",
     "packName": "1탄 계승되는 의지"
   },
   {
@@ -248,7 +248,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_sr_light",
-    "setTitle": "[Light] NMIXX 세트 카드",
+    "setTitle": "Light 세트 카드",
     "packName": "1탄 계승되는 의지"
   },
   {
@@ -273,7 +273,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_sr_light",
-    "setTitle": "[Light] NMIXX 세트 카드",
+    "setTitle": "Light 세트 카드",
     "packName": "1탄 계승되는 의지"
   },
   {
@@ -298,7 +298,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_sr_light",
-    "setTitle": "[Light] NMIXX 세트 카드",
+    "setTitle": "Light 세트 카드",
     "packName": "1탄 계승되는 의지"
   },
   {
@@ -3773,7 +3773,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": "set_r_school",
-    "setTitle": "[School] NMIXX 세트 카드",
+    "setTitle": "School 세트 카드",
     "packName": "2탄 정점결전"
   },
   {
@@ -3798,7 +3798,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": "set_r_school",
-    "setTitle": "[School] NMIXX 세트 카드",
+    "setTitle": "School 세트 카드",
     "packName": "2탄 정점결전"
   },
   {
@@ -3823,7 +3823,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": "set_r_school",
-    "setTitle": "[School] NMIXX 세트 카드",
+    "setTitle": "School 세트 카드",
     "packName": "2탄 정점결전"
   },
   {
@@ -3848,7 +3848,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": "set_r_school",
-    "setTitle": "[School] NMIXX 세트 카드",
+    "setTitle": "School 세트 카드",
     "packName": "2탄 정점결전"
   },
   {
@@ -3873,7 +3873,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": "set_r_school",
-    "setTitle": "[School] NMIXX 세트 카드",
+    "setTitle": "School 세트 카드",
     "packName": "2탄 정점결전"
   },
   {
@@ -3898,7 +3898,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": "set_r_school",
-    "setTitle": "[School] NMIXX 세트 카드",
+    "setTitle": "School 세트 카드",
     "packName": "2탄 정점결전"
   },
   {
@@ -3923,7 +3923,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": "set_ssr_nmixx",
-    "setTitle": "[NMIXX] NMIXX 세트 카드",
+    "setTitle": "NMIXX 세트 카드",
     "packName": "2탄 정점결전"
   },
   {
@@ -3948,7 +3948,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": "set_ssr_nmixx",
-    "setTitle": "[NMIXX] NMIXX 세트 카드",
+    "setTitle": "NMIXX 세트 카드",
     "packName": "2탄 정점결전"
   },
   {
@@ -3973,7 +3973,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": "set_ssr_nmixx",
-    "setTitle": "[NMIXX] NMIXX 세트 카드",
+    "setTitle": "NMIXX 세트 카드",
     "packName": "2탄 정점결전"
   },
   {
@@ -3998,7 +3998,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": "set_ssr_nmixx",
-    "setTitle": "[NMIXX] NMIXX 세트 카드",
+    "setTitle": "NMIXX 세트 카드",
     "packName": "2탄 정점결전"
   },
   {
@@ -4023,7 +4023,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": "set_ssr_nmixx",
-    "setTitle": "[NMIXX] NMIXX 세트 카드",
+    "setTitle": "NMIXX 세트 카드",
     "packName": "2탄 정점결전"
   },
   {
@@ -4048,7 +4048,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": "set_ssr_nmixx",
-    "setTitle": "[NMIXX] NMIXX 세트 카드",
+    "setTitle": "NMIXX 세트 카드",
     "packName": "2탄 정점결전"
   },
   {
@@ -7523,7 +7523,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": "set_sr_blue_valentine",
-    "setTitle": "[Blue Valentine] NMIXX 세트 카드",
+    "setTitle": "Blue Valentine 세트 카드",
     "packName": "3탄 Blue Valentine"
   },
   {
@@ -7548,7 +7548,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": "set_sr_blue_valentine",
-    "setTitle": "[Blue Valentine] NMIXX 세트 카드",
+    "setTitle": "Blue Valentine 세트 카드",
     "packName": "3탄 Blue Valentine"
   },
   {
@@ -7573,7 +7573,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": "set_sr_blue_valentine",
-    "setTitle": "[Blue Valentine] NMIXX 세트 카드",
+    "setTitle": "Blue Valentine 세트 카드",
     "packName": "3탄 Blue Valentine"
   },
   {
@@ -7598,7 +7598,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": "set_sr_blue_valentine",
-    "setTitle": "[Blue Valentine] NMIXX 세트 카드",
+    "setTitle": "Blue Valentine 세트 카드",
     "packName": "3탄 Blue Valentine"
   },
   {
@@ -7623,7 +7623,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": "set_sr_blue_valentine",
-    "setTitle": "[Blue Valentine] NMIXX 세트 카드",
+    "setTitle": "Blue Valentine 세트 카드",
     "packName": "3탄 Blue Valentine"
   },
   {
@@ -7648,7 +7648,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": "set_sr_blue_valentine",
-    "setTitle": "[Blue Valentine] NMIXX 세트 카드",
+    "setTitle": "Blue Valentine 세트 카드",
     "packName": "3탄 Blue Valentine"
   },
   {
@@ -11273,7 +11273,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": "set_ur_zero_frontier",
-    "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드",
+    "setTitle": "ZERO FRONTIER 세트 카드",
     "packName": "4탄 ZERO FRONTIER"
   },
   {
@@ -11298,7 +11298,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": "set_ur_zero_frontier",
-    "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드",
+    "setTitle": "ZERO FRONTIER 세트 카드",
     "packName": "4탄 ZERO FRONTIER"
   },
   {
@@ -11323,7 +11323,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": "set_ur_zero_frontier",
-    "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드",
+    "setTitle": "ZERO FRONTIER 세트 카드",
     "packName": "4탄 ZERO FRONTIER"
   },
   {
@@ -11348,7 +11348,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": "set_ur_zero_frontier",
-    "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드",
+    "setTitle": "ZERO FRONTIER 세트 카드",
     "packName": "4탄 ZERO FRONTIER"
   },
   {
@@ -11373,7 +11373,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": "set_ur_zero_frontier",
-    "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드",
+    "setTitle": "ZERO FRONTIER 세트 카드",
     "packName": "4탄 ZERO FRONTIER"
   },
   {
@@ -11398,7 +11398,7 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": "set_ur_zero_frontier",
-    "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드",
+    "setTitle": "ZERO FRONTIER 세트 카드",
     "packName": "4탄 ZERO FRONTIER"
   },
   {
@@ -15006,7 +15006,7 @@ export const MASTER_CARDS: Card[] = [
 export const CONCEPT_SETS: ConceptSetCard[] = [
   {
     "setId": "set_r_flower",
-    "setTitle": "[Flower] NMIXX 세트 카드",
+    "setTitle": "Flower 세트 카드",
     "era": "Flower",
     "packCode": "OP-01",
     "packId": "op01",
@@ -15029,7 +15029,7 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
     ],
     "rewardCard": {
       "id": "reward_set_r_flower",
-      "name": "[R SET] [Flower] NMIXX 세트 카드",
+      "name": "[R SET] Flower 세트 카드",
       "member": "NMIXX",
       "category": "LEADER",
       "rarity": "R",
@@ -15050,12 +15050,12 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       "packId": "op01",
       "packName": "1탄 계승되는 의지",
       "setId": "set_r_flower",
-      "setTitle": "[Flower] NMIXX 세트 카드"
+      "setTitle": "Flower 세트 카드"
     }
   },
   {
     "setId": "set_sr_light",
-    "setTitle": "[Light] NMIXX 세트 카드",
+    "setTitle": "Light 세트 카드",
     "era": "Light",
     "packCode": "OP-01",
     "packId": "op01",
@@ -15078,7 +15078,7 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
     ],
     "rewardCard": {
       "id": "reward_set_sr_light",
-      "name": "[SR SET] [Light] NMIXX 세트 카드",
+      "name": "[SR SET] Light 세트 카드",
       "member": "NMIXX",
       "category": "LEADER",
       "rarity": "SR",
@@ -15099,12 +15099,12 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       "packId": "op01",
       "packName": "1탄 계승되는 의지",
       "setId": "set_sr_light",
-      "setTitle": "[Light] NMIXX 세트 카드"
+      "setTitle": "Light 세트 카드"
     }
   },
   {
     "setId": "set_r_school",
-    "setTitle": "[School] NMIXX 세트 카드",
+    "setTitle": "School 세트 카드",
     "era": "School",
     "packCode": "OP-02",
     "packId": "op02",
@@ -15127,7 +15127,7 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
     ],
     "rewardCard": {
       "id": "reward_set_r_school",
-      "name": "[R SET] [School] NMIXX 세트 카드",
+      "name": "[R SET] School 세트 카드",
       "member": "NMIXX",
       "category": "LEADER",
       "rarity": "R",
@@ -15148,12 +15148,12 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       "packId": "op02",
       "packName": "2탄 정점결전",
       "setId": "set_r_school",
-      "setTitle": "[School] NMIXX 세트 카드"
+      "setTitle": "School 세트 카드"
     }
   },
   {
     "setId": "set_ssr_nmixx",
-    "setTitle": "[NMIXX] NMIXX 세트 카드",
+    "setTitle": "NMIXX 세트 카드",
     "era": "Fe3O4",
     "packCode": "OP-02",
     "packId": "op02",
@@ -15176,7 +15176,7 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
     ],
     "rewardCard": {
       "id": "reward_set_ssr_nmixx",
-      "name": "[SSR SET] [NMIXX] NMIXX 세트 카드",
+      "name": "[SSR SET] NMIXX 세트 카드",
       "member": "NMIXX",
       "category": "LEADER",
       "rarity": "SSR",
@@ -15197,12 +15197,12 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       "packId": "op02",
       "packName": "2탄 정점결전",
       "setId": "set_ssr_nmixx",
-      "setTitle": "[NMIXX] NMIXX 세트 카드"
+      "setTitle": "NMIXX 세트 카드"
     }
   },
   {
     "setId": "set_sr_blue_valentine",
-    "setTitle": "[Blue Valentine] NMIXX 세트 카드",
+    "setTitle": "Blue Valentine 세트 카드",
     "era": "Blue Valentine",
     "packCode": "OP-03",
     "packId": "op03",
@@ -15225,7 +15225,7 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
     ],
     "rewardCard": {
       "id": "reward_set_sr_blue_valentine",
-      "name": "[SR SET] [Blue Valentine] NMIXX 세트 카드",
+      "name": "[SR SET] Blue Valentine 세트 카드",
       "member": "NMIXX",
       "category": "LEADER",
       "rarity": "SR",
@@ -15246,12 +15246,12 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       "packId": "op03",
       "packName": "3탄 Blue Valentine",
       "setId": "set_sr_blue_valentine",
-      "setTitle": "[Blue Valentine] NMIXX 세트 카드"
+      "setTitle": "Blue Valentine 세트 카드"
     }
   },
   {
     "setId": "set_ur_zero_frontier",
-    "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드",
+    "setTitle": "ZERO FRONTIER 세트 카드",
     "era": "ZERO FRONTIER",
     "packCode": "OP-04",
     "packId": "op04",
@@ -15274,7 +15274,7 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
     ],
     "rewardCard": {
       "id": "reward_set_ur_zero_frontier",
-      "name": "[UR SET] [ZERO FRONTIER] NMIXX 세트 카드",
+      "name": "[UR SET] ZERO FRONTIER 세트 카드",
       "member": "NMIXX",
       "category": "LEADER",
       "rarity": "UR",
@@ -15295,7 +15295,7 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       "packId": "op04",
       "packName": "4탄 ZERO FRONTIER",
       "setId": "set_ur_zero_frontier",
-      "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드"
+      "setTitle": "ZERO FRONTIER 세트 카드"
     }
   }
 ];
