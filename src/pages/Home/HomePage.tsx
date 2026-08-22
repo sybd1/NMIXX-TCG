@@ -209,8 +209,9 @@ export const HomePage: React.FC<HomePageProps> = ({
             style={{ width: `${pityProgress}%` }}
           />
         </div>
-        <div className="text-[10px] text-slate-400 font-mono mt-1.5 text-right">
-          50팩 도달 시 최소 1장 SSR 이상 확정 등장
+        <div className="text-[10.5px] text-slate-400 font-mono mt-2 flex justify-between items-center flex-wrap gap-1">
+          <span className="text-pink-300 font-bold">🛡️ 미보유(NEW) SSR+ 우선 지급 (중복 방지)</span>
+          <span className="text-amber-300 font-bold">50팩 도달 시 SSR 이상 100% 확정</span>
         </div>
       </div>
     </div>

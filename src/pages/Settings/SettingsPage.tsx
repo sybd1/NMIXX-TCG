@@ -88,11 +88,17 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
       </div>
 
       {/* Rarity & Drop Rate Table */}
-      <div className="bg-void-900/80 border border-void-800 p-6 rounded-3xl">
-        <h3 className="font-serif font-bold text-slate-200 text-sm mb-4 flex items-center gap-2">
-          <ShieldCheck size={16} className="text-emerald-400" />
-          공식 카드팩 레어도 및 봉입률
-        </h3>
+      <div className="bg-void-900/80 border border-void-800 p-6 rounded-3xl flex flex-col gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
+          <h3 className="font-serif font-bold text-slate-100 text-sm flex items-center gap-2">
+            <ShieldCheck size={16} className="text-emerald-400" />
+            공식 카드팩 레어도 및 봉입률
+          </h3>
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-purple-950/80 border border-purple-500/40 text-purple-200 text-xs font-mono">
+            <span className="text-yellow-300">👑</span>
+            <span className="font-bold">스마트 천장: 50팩 미등장 시 미보유(NEW) SSR+ 100% 확정 보장 (중복 방지)</span>
+          </div>
+        </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left font-mono text-xs border-collapse">

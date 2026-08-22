@@ -64,9 +64,15 @@ export class RngService {
 
   /**
    * 해당 Rarity 풀에서 무작위 카드를 1장 선택하고 8단계 FinishType을 보장 부여합니다.
-   * packId가 지정된 경우 해당 부스터 팩의 150장 풀에서 우선 선택합니다.
+   * - packId가 지정된 경우 해당 부스터 팩의 풀에서 우선 선택
+   * - forceUnowned(천장 중복 방지) 활성화 시: 유저가 미보유한 카드를 100% 우선 추첨!
    */
-  public static rollCard(rarity: Rarity, packId?: string): Card {
+  public static rollCard(
+    rarity: Rarity,
+    packId?: string,
+    userCollection?: Record<string, number>,
+    forceUnowned = false
+  ): Card {
     let pool = getCardsByRarity(rarity);
     if (packId) {
       const packPool = pool.filter(c => c.packId === packId);
@@ -74,6 +80,22 @@ export class RngService {
         pool = packPool;
       }
     }
+
+    // 🛡️ 천장 중복 방지 시스템 (Duplicate Protection)
+    if (forceUnowned && userCollection) {
+      const unownedInPool = pool.filter(c => (userCollection[c.id] || 0) === 0);
+      if (unownedInPool.length > 0) {
+        pool = unownedInPool; // 미보유 카드로만 추첨 풀 압축!
+      } else {
+        // 해당 등급의 팩 내 카드를 다 모았다면 전체 도감 내 해당 등급 미보유 카드 검색
+        const allRarityPool = getCardsByRarity(rarity);
+        const unownedGlobal = allRarityPool.filter(c => (userCollection[c.id] || 0) === 0);
+        if (unownedGlobal.length > 0) {
+          pool = unownedGlobal;
+        }
+      }
+    }
+
     const fallback = MASTER_CARDS[0];
     const baseCard = (!pool || pool.length === 0) ? fallback : pool[Math.floor(Math.random() * pool.length)];
 
@@ -85,11 +107,16 @@ export class RngService {
 
   /**
    * 1개 팩(5장)을 개봉합니다.
-   * - 선택된 부스터 팩(packId)의 150장 풀에서 우선 추첨
-   * - 50팩 Pity 조건 반영 (SSR 이상 확정)
+   * - 선택된 부스터 팩(packId)의 풀에서 우선 추첨
+   * - 50팩 Pity 조건 반영 (SSR 이상 100% 확정 보장)
+   * - 👑 천장 발동 시 미보유(NEW) SSR+ 카드 100% 우선 지급 (중복 방지 스마트 천장)
    * - 팩 내 가장 희귀한 카드가 5번째(마지막) 슬롯에 배치됩니다.
    */
-  public static generatePack(currentPity: number, packId?: string): {
+  public static generatePack(
+    currentPity: number,
+    packId?: string,
+    userCollection?: Record<string, number>
+  ): {
     cards: Card[];
     highestRarity: Rarity;
     newPity: number;
@@ -103,15 +130,15 @@ export class RngService {
     // 4장의 일반 카드 롤
     for (let i = 0; i < 4; i++) {
       const rarity = this.rollRarity(false);
-      cards.push(this.rollCard(rarity, packId));
+      cards.push(this.rollCard(rarity, packId, userCollection, false));
     }
 
-    // 5번째 카드 롤 (천장 시 최소 SSR 이상 보장)
+    // 5번째 카드 롤 (천장 시 최소 SSR 이상 보장 & 중복 방지 스마트 추첨)
     const card5Rarity = this.rollRarity(isPityReady);
     if (isPityReady && RARITY_RANK[card5Rarity] >= RARITY_RANK.SSR) {
       pityTriggered = true;
     }
-    cards.push(this.rollCard(card5Rarity, packId));
+    cards.push(this.rollCard(card5Rarity, packId, userCollection, pityTriggered));
 
     // 가장 높은 Rarity 카드가 5번째 슬롯에 오도록 정렬
     cards.sort((a, b) => RARITY_RANK[a.rarity] - RARITY_RANK[b.rarity]);

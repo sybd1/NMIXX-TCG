@@ -41,7 +41,7 @@ export const App: React.FC = () => {
     if (!spendCoins(GAME_CONFIG.PACK_COST_SINGLE)) return;
 
     sound.playClick();
-    const result = RngService.generatePack(state.pityCount, pack.id);
+    const result = RngService.generatePack(state.pityCount, pack.id, state.collection);
     const revealed = addPackResult(result.cards, result.newPity);
     setOpeningState({
       cards: revealed,
@@ -58,11 +58,15 @@ export const App: React.FC = () => {
     sound.playClick();
 
     let currentPity = state.pityCount;
+    const tempCollection = { ...state.collection };
     const packResults: { cards: Card[]; newPity: number }[] = [];
 
     for (let i = 0; i < 5; i++) {
-      const result = RngService.generatePack(currentPity, pack.id);
+      const result = RngService.generatePack(currentPity, pack.id, tempCollection);
       currentPity = result.newPity;
+      result.cards.forEach(c => {
+        tempCollection[c.id] = (tempCollection[c.id] || 0) + 1;
+      });
       packResults.push(result);
     }
 
@@ -82,11 +86,15 @@ export const App: React.FC = () => {
     sound.playClick();
 
     let currentPity = state.pityCount;
+    const tempCollection = { ...state.collection };
     const packResults: { cards: Card[]; newPity: number }[] = [];
 
     for (let i = 0; i < 10; i++) {
-      const result = RngService.generatePack(currentPity, pack.id);
+      const result = RngService.generatePack(currentPity, pack.id, tempCollection);
       currentPity = result.newPity;
+      result.cards.forEach(c => {
+        tempCollection[c.id] = (tempCollection[c.id] || 0) + 1;
+      });
       packResults.push(result);
     }
 

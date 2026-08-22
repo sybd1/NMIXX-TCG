@@ -287,7 +287,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                 SSR+ 확정 천장 시스템
               </span>
               <span className="text-[11px] font-mono text-purple-300 font-bold hidden sm:inline">
-                (50회 미등장 시 SSR 이상 100% 확정 보장)
+                (50회 미등장 시 미보유 SSR+ 100% 확정 보장 • 중복 방지)
               </span>
             </div>
           </div>
