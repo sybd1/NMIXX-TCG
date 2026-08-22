@@ -3,7 +3,7 @@ import { GameState } from '../../types/game';
 import { RARITY_CONFIGS, GAME_CONFIG, FINISH_CONFIGS } from '../../config/gameConfig';
 import { MASTER_CARDS } from '../../data/cards';
 import { Rarity } from '../../types/card';
-import { Settings, Volume2, VolumeX, RotateCcw, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { Info, Volume2, VolumeX, RotateCcw, ShieldCheck, AlertTriangle } from 'lucide-react';
 
 interface SettingsPageProps {
   state: GameState;
@@ -20,7 +20,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
 
   const totalCollectedCards = Object.values(state.collection).reduce((sum, c) => sum + c, 0);
   const uniqueCollectedCards = Object.keys(state.collection).filter(id => (state.collection[id] || 0) > 0).length;
-  const totalMasterCardsCount = MASTER_CARDS.length; // 전체 600종
+  const totalMasterCardsCount = MASTER_CARDS.length; // 전체 651종
   const completionPercentage = Math.round((uniqueCollectedCards / totalMasterCardsCount) * 100);
 
   return (
@@ -28,11 +28,11 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
       {/* Header */}
       <div className="bg-void-900/80 border border-void-800 p-6 rounded-3xl backdrop-blur-md">
         <h1 className="font-serif text-2xl md:text-3xl font-black text-slate-100 mb-1 flex items-center gap-2">
-          <Settings className="text-slate-400" />
-          SYSTEM SETTINGS
+          <Info className="text-pink-400" />
+          INFORMATION
         </h1>
         <p className="text-xs font-mono text-slate-400">
-          아카이브 프로토콜 설정 및 확률 테이블
+          NMIXX TCG 공식 시스템 안내, 도감 정보 및 확률 테이블
         </p>
       </div>
 
