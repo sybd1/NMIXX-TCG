@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Card, Rarity } from '../../types/card';
-import { MASTER_CARDS, CONCEPT_SETS } from '../../data/cards';
+import { MASTER_CARDS, LEGACY_CARDS, CONCEPT_SETS } from '../../data/cards';
 import { CardVisual } from '../../components/Card/CardVisual';
 import { CardModal } from '../../components/Card/CardModal';
-import { ArrowUpDown, Crown, Sparkles, CheckCircle2, Lock } from 'lucide-react';
+import { ArrowUpDown, Crown, Sparkles, CheckCircle2, Lock, Landmark } from 'lucide-react';
 
 interface CollectionPageProps {
   collection: Record<string, number>;
@@ -69,10 +69,15 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
   const isXrOwned = xrCard ? (collection[xrCard.id] || 0) > 0 : false;
   const availableMembers = MEMBERS.filter(m => m.id !== 'PARK' || isXrOwned);
 
-  // 수집 통계 계산
-  const ownedUniqueCount = Object.keys(collection).filter(id => collection[id] > 0).length;
+  // 기존 보유 유저의 Legacy 소장 카드 보존
+  const ownedLegacyCards = LEGACY_CARDS.filter(c => (collection[c.id] || 0) > 0);
+  const allViewableCards = [...MASTER_CARDS, ...ownedLegacyCards];
+
+  // 수집 통계 계산 (공식 651장 기준 정밀 계산)
+  const ownedOfficialCount = MASTER_CARDS.filter(c => (collection[c.id] || 0) > 0).length;
+  const ownedUniqueCount = ownedOfficialCount;
   const totalCardsCount = MASTER_CARDS.length;
-  const completionPercentage = Math.round((ownedUniqueCount / totalCardsCount) * 100);
+  const completionPercentage = Math.round((ownedOfficialCount / totalCardsCount) * 100);
 
   // 완성된 세트 수 계산
   const completedSetsCount = CONCEPT_SETS.filter(set =>
@@ -80,7 +85,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
   ).length;
 
   // 필터링 및 오름차순/내림차순 정렬 (다 모은 카드 & 모으지 못한 카드 확인)
-  const filteredCards = MASTER_CARDS.filter(card => {
+  const filteredCards = allViewableCards.filter(card => {
     const aCount = collection[card.id] || 0;
     const isOwned = aCount > 0;
 
@@ -166,9 +171,15 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                 <Crown size={13} /> {completedSetsCount} 세트 완성!
               </span>
             )}
+            {ownedLegacyCards.length > 0 && (
+              <span className="text-[11px] font-mono font-black text-purple-300 bg-purple-950/80 px-2.5 py-0.5 rounded-full border border-purple-500/40 shadow-sm flex items-center gap-1">
+                <Landmark size={12} /> Legacy 소장품 {ownedLegacyCards.length}종
+              </span>
+            )}
           </h1>
           <p className="text-xs font-mono text-slate-400">
-            총 {totalCardsCount}장의 NMIXX 공식 카드 중 {ownedUniqueCount}종 획득 완료
+            총 {totalCardsCount}장의 NMIXX 공식 카드 중 {ownedOfficialCount}종 획득 완료
+            {ownedLegacyCards.length > 0 && ` (+구버전 소장용 ${ownedLegacyCards.length}종 보관 중)`}
           </p>
         </div>
 
@@ -177,7 +188,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
           <div className="flex justify-between items-center text-xs font-mono">
             <span className="text-slate-400">COLLECTION PROGRESS</span>
             <span className="text-pink-300 font-bold">
-              {ownedUniqueCount} / {totalCardsCount} ({completionPercentage}%)
+              {ownedOfficialCount} / {totalCardsCount} ({completionPercentage}%)
             </span>
           </div>
           <div className="w-full h-2.5 bg-void-950 rounded-full overflow-hidden border border-white/5">

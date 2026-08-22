@@ -327,6 +327,11 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               </span>
 
               <div className="flex items-center gap-1">
+                {card.isLegacy && (
+                  <span className="text-[7.5px] font-mono font-black text-purple-200 bg-purple-950/90 px-1.5 py-0.5 rounded border border-purple-400/50 shadow-md">
+                    🏛️ Legacy
+                  </span>
+                )}
                 {card.isEmbossed3D && (
                   <span className="text-[7.5px] font-mono font-black text-amber-200 bg-amber-950/80 px-1.5 py-0.5 rounded border border-amber-400/50 shadow-md">
                     3D 엠보싱
