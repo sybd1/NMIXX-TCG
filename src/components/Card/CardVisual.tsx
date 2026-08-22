@@ -124,39 +124,16 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     lg: 'w-64 h-92 text-base',
   }[size];
 
-  // 미획득 카드 실루엣 모드
-  if (!isOwned) {
-    return (
-      <div
-        onClick={onClick}
-        className={`relative ${defaultSizeClass} ${className} rounded-2xl bg-void-900/95 border border-void-700/80 flex flex-col items-center justify-center p-4 transition-all duration-300 hover:border-void-500 select-none shadow-xl`}
-      >
-        <div className="absolute top-3 left-3 text-[10px] font-mono text-void-500 font-bold">
-          #{String(card.collectionNumber).padStart(3, '0')}
-        </div>
-        <div className="w-16 h-16 rounded-full bg-void-800 border border-void-700 flex items-center justify-center text-void-400 font-serif text-2xl font-bold mb-2 shadow-inner">
-          ?
-        </div>
-        <div className="text-void-500 font-mono text-xs tracking-widest uppercase font-bold text-center">
-          LOCKED
-        </div>
-        <div className="text-[10px] text-void-400 mt-1 font-mono">
-          {config.label.split(' ')[0]}
-        </div>
-      </div>
-    );
-  }
-
-  // 8단계 Rarity 테두리 및 글로우 스타일 가이드
+  // 8단계 Rarity 테두리 및 글로우 스타일 가이드 (미보유 시 어두운 슬레이트 테두리)
   const rarityBorders: Record<Card['rarity'], string> = {
-    C: 'border-slate-600 hover:border-slate-400 shadow-md',
-    UC: 'border-emerald-500/90 hover:border-emerald-300 shadow-glow-uc ring-1 ring-emerald-500/30',
-    R: 'border-sky-400 hover:border-sky-200 shadow-glow-r ring-1 ring-sky-400/50',
-    SR: 'border-purple-400 hover:border-purple-200 shadow-glow-sr ring-1 ring-purple-400/70',
-    SSR: 'border-amber-300 hover:border-yellow-100 shadow-glow-ssr ring-2 ring-amber-400/70',
-    UR: 'border-rose-500 hover:border-red-300 shadow-glow-ur ring-2 ring-rose-500/80 animate-pulse-subtle',
-    LR: 'border-pink-400 hover:border-rose-200 shadow-glow-lr ring-2 ring-pink-400/90 animate-pulse-fast',
-    MR: 'border-yellow-200 hover:border-white shadow-glow-mr ring-3 ring-amber-300 animate-pulse-fast',
+    C: isOwned ? 'border-slate-600 hover:border-slate-400 shadow-md' : 'border-slate-800/90',
+    UC: isOwned ? 'border-emerald-500/90 hover:border-emerald-300 shadow-glow-uc ring-1 ring-emerald-500/30' : 'border-emerald-950/80',
+    R: isOwned ? 'border-sky-400 hover:border-sky-200 shadow-glow-r ring-1 ring-sky-400/50' : 'border-sky-950/80',
+    SR: isOwned ? 'border-purple-400 hover:border-purple-200 shadow-glow-sr ring-1 ring-purple-400/70' : 'border-purple-950/80',
+    SSR: isOwned ? 'border-amber-300 hover:border-yellow-100 shadow-glow-ssr ring-2 ring-amber-400/70' : 'border-amber-950/80',
+    UR: isOwned ? 'border-rose-500 hover:border-red-300 shadow-glow-ur ring-2 ring-rose-500/80 animate-pulse-subtle' : 'border-rose-950/80',
+    LR: isOwned ? 'border-pink-400 hover:border-rose-200 shadow-glow-lr ring-2 ring-pink-400/90 animate-pulse-fast' : 'border-pink-950/80',
+    MR: isOwned ? 'border-yellow-200 hover:border-white shadow-glow-mr ring-3 ring-amber-300 animate-pulse-fast' : 'border-yellow-950/80',
   };
 
   const isHighRarity = ['SSR', 'UR', 'LR', 'MR'].includes(card.rarity);
@@ -165,27 +142,43 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     <div
       ref={cardRef}
       onClick={onClick}
-      onMouseMove={handleMouseMove}
-      onTouchMove={handleTouchMove}
+      onMouseMove={isOwned ? handleMouseMove : undefined}
+      onTouchMove={isOwned ? handleTouchMove : undefined}
       onMouseLeave={handlePointerLeave}
       onTouchEnd={handlePointerLeave}
       style={{
-        transform: `perspective(1000px) rotateX(${styleState.rotX}deg) rotateY(${styleState.rotY}deg) ${styleState.opacity > 0 ? 'translateY(-6px)' : ''}`,
+        transform: isOwned
+          ? `perspective(1000px) rotateX(${styleState.rotX}deg) rotateY(${styleState.rotY}deg) ${styleState.opacity > 0 ? 'translateY(-6px)' : ''}`
+          : undefined,
         transition: styleState.opacity > 0 ? 'transform 0.08s ease-out' : 'transform 0.4s ease-out',
-        willChange: 'transform',
+        willChange: isOwned ? 'transform' : undefined,
       } as React.CSSProperties}
-      className={`group relative ${defaultSizeClass} ${className} rounded-2xl p-[2px] cursor-pointer select-none [transform-style:preserve-3d]`}
+      className={`group relative ${defaultSizeClass} ${className} rounded-2xl p-[2px] cursor-pointer select-none [transform-style:preserve-3d] transition-all duration-300 ${
+        !isOwned ? 'opacity-40 hover:opacity-70 filter grayscale-[80%] brightness-[70%] contrast-[90%]' : 'hover:scale-[1.03]'
+      }`}
     >
-      {/* 1. 8-Tier Interactive Foil / Finish Shader Layer */}
-      <div
-        className={`absolute inset-0 rounded-2xl z-30 pointer-events-none transition-opacity duration-300 ${finishClass}`}
-        style={{
-          ['--pointer-x' as string]: `${styleState.px}%`,
-          ['--pointer-y' as string]: `${styleState.py}%`,
-          ['--pointer-from-center' as string]: styleState.pDist,
-          ['--card-opacity' as string]: styleState.opacity,
-        } as React.CSSProperties}
-      />
+      {/* 1. 8-Tier Interactive Foil / Finish Shader Layer (보유 시에만 작동) */}
+      {isOwned && (
+        <div
+          className={`absolute inset-0 rounded-2xl z-30 pointer-events-none transition-opacity duration-300 ${finishClass}`}
+          style={{
+            ['--pointer-x' as string]: `${styleState.px}%`,
+            ['--pointer-y' as string]: `${styleState.py}%`,
+            ['--pointer-from-center' as string]: styleState.pDist,
+            ['--card-opacity' as string]: styleState.opacity,
+          } as React.CSSProperties}
+        />
+      )}
+
+      {/* 미보유 상태일 때 세련된 LOCKED 잠금 뱃지 오버레이 */}
+      {!isOwned && (
+        <div className="absolute inset-0 z-30 rounded-2xl flex flex-col items-center justify-center pointer-events-none bg-black/40 backdrop-blur-[1px]">
+          <div className="bg-black/85 border border-white/20 text-slate-300 text-[10.5px] font-mono font-black px-2.5 py-1 rounded-full shadow-2xl flex items-center gap-1.5">
+            <span>🔒</span>
+            <span className="tracking-wider">LOCKED</span>
+          </div>
+        </div>
+      )}
 
       {/* 2. 메인 카드 바디 (포토카드 풀아트 프레임) */}
       <div
