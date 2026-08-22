@@ -241,11 +241,11 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:32px_32px] opacity-15" />
       </div>
 
-      {/* 상단 고정 네비게이션: 메인 나가기 & 실시간 잔여 코인 & 실시간 천장 HUD */}
-      <div className="sticky top-0 z-30 w-full max-w-6xl flex items-center justify-between pointer-events-auto bg-void-950/85 backdrop-blur-xl px-3 sm:px-4 py-2.5 rounded-2xl border border-white/15 shadow-2xl shadow-purple-950/40 mb-4 gap-2 flex-wrap sm:flex-nowrap">
+      {/* 상단 고정 네비게이션: 메인 나가기 & 실시간 잔여 코인 */}
+      <div className="sticky top-0 z-30 w-full max-w-6xl flex items-center justify-between pointer-events-auto bg-void-950/85 backdrop-blur-xl px-3 sm:px-4 py-2.5 rounded-2xl border border-white/15 shadow-2xl shadow-purple-950/40 mb-2 gap-2 flex-wrap sm:flex-nowrap">
         <button
           onClick={onFinish}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-void-900/90 hover:bg-void-800 text-slate-200 border border-white/20 text-xs font-mono font-bold transition-all shadow-md hover:scale-105"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-void-900/90 hover:bg-void-800 text-slate-200 border border-white/20 text-xs font-mono font-bold transition-all shadow-md hover:scale-105 cursor-pointer"
         >
           <Home size={14} className="text-pink-400" />
           <span className="hidden xs:inline">메인으로</span>
@@ -258,23 +258,6 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
           <span className="text-[10px] text-amber-300 font-extrabold">COIN</span>
         </div>
 
-        {/* 👑 실시간 천장(Pity) 시스템 HUD (오픈 중 실시간 모니터링) */}
-        <div className="flex items-center gap-2 px-3 py-1 rounded-xl bg-purple-950/70 border border-purple-500/40 text-xs font-mono shadow-inner">
-          <span className="text-yellow-300 text-sm animate-pulse">👑</span>
-          <div className="flex flex-col">
-            <div className="flex items-center justify-between gap-2 text-[10.5px] font-bold">
-              <span className="text-purple-300">SSR+ 천장</span>
-              <span className="text-amber-300 font-mono font-black">{pityCount}/100</span>
-            </div>
-            <div className="w-20 sm:w-28 h-1.5 bg-black/80 rounded-full overflow-hidden border border-purple-500/30 mt-0.5">
-              <div
-                className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400 transition-all duration-300"
-                style={{ width: `${Math.min(100, (pityCount / 100) * 100)}%` }}
-              />
-            </div>
-          </div>
-        </div>
-
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-black/60 border border-pink-500/30 text-xs font-mono">
             <span className="text-pink-400 font-black">[{pack.code}]</span>
@@ -284,11 +267,47 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
 
           <button
             onClick={onFinish}
-            className="p-1.5 rounded-full bg-void-900/90 hover:bg-void-800 text-slate-300 hover:text-white border border-white/20 transition-colors"
+            className="p-1.5 rounded-full bg-void-900/90 hover:bg-void-800 text-slate-300 hover:text-white border border-white/20 transition-colors cursor-pointer"
             title="닫기"
           >
             <X size={17} />
           </button>
+        </div>
+      </div>
+
+      {/* 👑 초대형 실시간 천장(Pity) 대시보드 HUD (50회 기준 & 압도적 가시성) */}
+      <div className="relative z-20 w-full max-w-4xl px-4 py-2.5 mb-3 bg-gradient-to-r from-purple-950/90 via-void-950 to-purple-950/90 backdrop-blur-xl rounded-2xl border-2 border-purple-500/50 shadow-[0_0_30px_rgba(168,85,247,0.35)] flex flex-col gap-1.5 pointer-events-auto">
+        <div className="flex items-center justify-between flex-wrap gap-2">
+          <div className="flex items-center gap-2.5">
+            <span className="flex items-center justify-center w-7 h-7 rounded-xl bg-gradient-to-br from-amber-400 to-yellow-600 text-black font-black text-sm shadow-lg shadow-amber-500/40 animate-bounce">
+              👑
+            </span>
+            <div className="flex items-baseline gap-2">
+              <span className="font-serif font-black text-sm sm:text-base text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-200 to-amber-300 drop-shadow">
+                SSR+ 확정 천장 시스템
+              </span>
+              <span className="text-[11px] font-mono text-purple-300 font-bold hidden sm:inline">
+                (50회 미등장 시 SSR 이상 100% 확정 보장)
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2.5">
+            <span className="text-xs sm:text-sm font-mono font-bold text-slate-300">
+              확정까지 <strong className="text-amber-300 font-black text-sm sm:text-base">{Math.max(0, 50 - pityCount)}</strong>회 남음
+            </span>
+            <span className="px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-400 via-rose-400 to-purple-500 text-black font-mono font-black text-xs sm:text-sm shadow-md border border-white/50">
+              {pityCount} / 50
+            </span>
+          </div>
+        </div>
+
+        {/* 대형 프로그레스 바 */}
+        <div className="w-full h-3.5 sm:h-4 bg-black/90 rounded-full overflow-hidden border border-purple-400/50 shadow-inner relative p-0.5">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-purple-600 via-pink-500 to-amber-400 shadow-[0_0_20px_rgba(236,72,153,0.9)] transition-all duration-500 relative"
+            style={{ width: `${Math.min(100, (pityCount / 50) * 100)}%` }}
+          />
         </div>
       </div>
 
