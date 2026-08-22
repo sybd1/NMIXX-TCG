@@ -12,7 +12,7 @@ interface CollectionPageProps {
 }
 
 type TabType = 'ALL_CARDS' | 'CONCEPT_SETS';
-type SortOption = 'OWNED_HIGH_RARITY' | 'RARITY_DESC' | 'OWNED_FIRST' | 'NUMBER' | 'POWER' | 'OWNED_COUNT';
+type SortOption = 'OWNED_HIGH_RARITY' | 'RARITY_DESC' | 'OWNED_FIRST' | 'NUMBER' | 'OWNED_COUNT';
 
 const RARITY_ORDER: Record<Rarity, number> = {
   MR: 8,
@@ -87,7 +87,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
         if (RARITY_ORDER[b.rarity] !== RARITY_ORDER[a.rarity]) {
           return RARITY_ORDER[b.rarity] - RARITY_ORDER[a.rarity];
         }
-        return b.power - a.power;
+        return a.collectionNumber - b.collectionNumber;
       }
       return a.collectionNumber - b.collectionNumber;
     }
@@ -113,10 +113,6 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
 
     if (sortBy === 'NUMBER') {
       return a.collectionNumber - b.collectionNumber;
-    }
-
-    if (sortBy === 'POWER') {
-      return b.power - a.power;
     }
 
     return 0;
@@ -271,7 +267,6 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                   <option value="OWNED_FIRST">보유한 카드 우선 (도감 번호순)</option>
                   <option value="OWNED_COUNT">보유 수량 많은순 (중복 카드순)</option>
                   <option value="NUMBER">도감 번호순 (#001 ~ #600)</option>
-                  <option value="POWER">공격력순 (POWER 높은순)</option>
                 </select>
               </div>
             </div>
@@ -453,12 +448,9 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3 self-end sm:self-auto font-mono text-xs">
-                      <span className="text-amber-400 font-black bg-black/60 px-3 py-1.5 rounded-xl border border-white/10 whitespace-nowrap">
-                        ⚡ POWER {set.rewardCard.power.toLocaleString()}
-                      </span>
-                      <span className="text-yellow-300 font-black bg-black/60 px-3 py-1.5 rounded-xl border border-white/10 whitespace-nowrap">
-                        💎 COST {set.rewardCard.cost}
+                    <div className="flex items-center gap-2 self-end sm:self-auto font-mono text-xs">
+                      <span className="text-amber-300 font-black bg-black/60 px-3 py-1.5 rounded-xl border border-amber-500/30 whitespace-nowrap">
+                        ✨ SPECIAL FULL-ART
                       </span>
                     </div>
                   </div>

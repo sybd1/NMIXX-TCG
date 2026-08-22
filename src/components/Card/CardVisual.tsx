@@ -200,17 +200,11 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
         {/* 상단 얇은 은은한 섀도우 그라데이션 */}
         <div className="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-black/70 via-black/30 to-transparent pointer-events-none z-10" />
 
-        {/* 상단 미니멀 HUD 헤더: 코스트 & 카드 번호 & 단체/멤버 뱃지 & Rarity */}
+        {/* 상단 미니멀 HUD 헤더: 카드 번호 & 단체/멤버 뱃지 & Rarity */}
         <div className="relative z-20 p-2 flex items-center justify-between pointer-events-none">
-          <div className="flex items-center gap-1">
-            {/* OPTCG 슬림 코스트 젬 */}
-            <div className="w-4.5 h-4.5 rounded-full bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-500 text-black font-black font-mono text-[9.5px] flex items-center justify-center shadow-md border border-white/80 flex-shrink-0">
-              {card.cost}
-            </div>
-            <span className="font-mono text-[8.5px] font-extrabold text-white/90 bg-black/50 backdrop-blur-sm px-1.5 py-0.5 rounded border border-white/10 shadow-sm">
-              #{String(card.collectionNumber).padStart(3, '0')}
-            </span>
-          </div>
+          <span className="font-mono text-[8.5px] font-extrabold text-white/90 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded-lg border border-white/15 shadow-sm">
+            NO. #{String(card.collectionNumber).padStart(3, '0')}
+          </span>
 
           <div className="flex items-center gap-1">
             {/* 멤버 한글 이름 / 단체 미니 태그 */}
@@ -226,21 +220,14 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
 
         {/* 하단 슬림 글래스모피즘 네임태그 (카드 풀 네임 표시) */}
         {showDetails && (
-          <div className="relative z-20 mt-auto pt-6 pb-2 px-2.5 bg-gradient-to-t from-black/95 via-black/60 to-transparent flex flex-col gap-0.5 pointer-events-none">
-            <div className="flex items-end justify-between gap-1">
-              <div className="flex flex-col truncate">
-                <span className="font-serif font-black text-white text-[11.5px] sm:text-[12.5px] tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] truncate">
-                  {card.name}
-                </span>
-                <span className="text-[7.5px] font-mono font-bold text-slate-300 uppercase tracking-tighter truncate drop-shadow">
-                  {isNmixxGroup ? card.era : `${memberInfo.nameKo} • ${card.era}`}
-                </span>
-              </div>
-
-              {/* ⚡ POWER 뱃지 (슬림 골드 캡슐) */}
-              <div className="text-[9px] font-mono font-black text-amber-300 bg-black/80 px-1.5 py-0.5 rounded border border-amber-400/50 shadow-sm flex-shrink-0">
-                ⚡{card.power.toLocaleString()}
-              </div>
+          <div className="relative z-20 mt-auto pt-6 pb-2.5 px-2.5 bg-gradient-to-t from-black/95 via-black/60 to-transparent flex flex-col gap-0.5 pointer-events-none">
+            <div className="flex flex-col truncate">
+              <span className="font-serif font-black text-white text-[12px] sm:text-[13px] tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] truncate">
+                {card.name}
+              </span>
+              <span className="text-[8px] font-mono font-bold text-slate-300 uppercase tracking-tight truncate drop-shadow">
+                {isNmixxGroup ? card.era : `${memberInfo.nameKo} • ${card.era}`}
+              </span>
             </div>
           </div>
         )}

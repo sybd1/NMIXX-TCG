@@ -103,19 +103,21 @@ export const CardModal: React.FC<CardModalProps> = ({
                   {card.name}
                 </h2>
 
-                {/* 스펙 그리드 (코스트, 파워, 에라, 출현 팩) */}
+                {/* 카드 정보 그리드 (NO, MEMBER, ERA) */}
                 <div className="grid grid-cols-3 gap-2 mb-3.5">
                   <div className="bg-void-950/80 p-2 rounded-xl border border-white/5 flex flex-col items-center">
-                    <span className="text-[9.5px] font-mono text-slate-400">COST</span>
-                    <span className="font-mono font-black text-sm text-yellow-300">💎 {card.cost}</span>
+                    <span className="text-[9.5px] font-mono text-slate-400">NO.</span>
+                    <span className="font-mono font-black text-sm text-amber-300">#{String(card.collectionNumber).padStart(3, '0')}</span>
                   </div>
                   <div className="bg-void-950/80 p-2 rounded-xl border border-white/5 flex flex-col items-center">
-                    <span className="text-[9.5px] font-mono text-slate-400">POWER</span>
-                    <span className="font-mono font-black text-sm text-amber-400">⚡ {card.power.toLocaleString()}</span>
+                    <span className="text-[9.5px] font-mono text-slate-400">MEMBER</span>
+                    <span className="font-mono font-black text-sm text-pink-300 truncate max-w-[80px]">
+                      {card.member === 'NMIXX' ? '단체' : card.member}
+                    </span>
                   </div>
                   <div className="bg-void-950/80 p-2 rounded-xl border border-white/5 flex flex-col items-center">
                     <span className="text-[9.5px] font-mono text-slate-400">ERA</span>
-                    <span className="font-mono font-bold text-xs text-purple-300 truncate max-w-[70px]">{card.era}</span>
+                    <span className="font-mono font-bold text-xs text-purple-300 truncate max-w-[80px]">{card.era}</span>
                   </div>
                 </div>
 
