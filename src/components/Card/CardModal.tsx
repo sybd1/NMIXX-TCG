@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '../../types/card';
 import { CardVisual } from './CardVisual';
 import { RARITY_CONFIGS, FINISH_CONFIGS, RARITY_TO_FINISH } from '../../config/gameConfig';
-import { X, Sparkles, Layers, Shield, Sparkle } from 'lucide-react';
+import { sound } from '../../services/soundService';
+import { X, Sparkles, Layers, Shield, Sparkle, Volume2 } from 'lucide-react';
 
 interface CardModalProps {
   card: Card | null;
@@ -18,12 +19,20 @@ export const CardModal: React.FC<CardModalProps> = ({
   isOpen,
   onClose,
 }) => {
+  const isHighTier = card ? ['SR', 'SSR', 'UR', 'LR', 'MR'].includes(card.rarity) : false;
+  const isOwned = count > 0;
+
+  useEffect(() => {
+    if (isOpen && card && isOwned && isHighTier) {
+      sound.playNmixxMelody(card.rarity);
+    }
+  }, [isOpen, card, isOwned, isHighTier]);
+
   if (!card) return null;
 
   const config = RARITY_CONFIGS[card.rarity];
   const activeFinish = card.finishType || RARITY_TO_FINISH[card.rarity] || 'MATTE';
   const finishConf = FINISH_CONFIGS[activeFinish];
-  const isOwned = count > 0;
 
   return (
     <AnimatePresence>
@@ -73,7 +82,7 @@ export const CardModal: React.FC<CardModalProps> = ({
             <div className="flex-1 flex flex-col justify-between self-stretch gap-4">
               <div>
                 {/* 상단 뱃지 라인 */}
-                <div className="flex items-center gap-2 mb-2.5 flex-wrap">
+                <div className="flex flex-wrap items-center gap-2 mb-2.5">
                   <span className="font-mono text-xs font-black text-amber-300 bg-black/60 px-2.5 py-1 rounded-lg border border-amber-500/30">
                     NO. #{String(card.collectionNumber).padStart(3, '0')}
                   </span>
@@ -90,6 +99,17 @@ export const CardModal: React.FC<CardModalProps> = ({
                     <Sparkle size={11} className="text-yellow-400" />
                     {finishConf?.nameKo || activeFinish}
                   </span>
+                  {/* 엔믹스 시그니처 멜로디 재생 버튼 */}
+                  {isHighTier && isOwned && (
+                    <button
+                      onClick={() => sound.playNmixxMelody(card.rarity)}
+                      className="text-[10.5px] font-mono font-black text-amber-300 bg-amber-950/90 hover:bg-amber-900 border border-amber-400/50 px-2.5 py-0.5 rounded-lg flex items-center gap-1 shadow-sm transition-all hover:scale-105 cursor-pointer"
+                      title="엔믹스 시그니처 멜로디 재생"
+                    >
+                      <Volume2 size={12} className="animate-pulse text-amber-400" />
+                      <span>🎵 멜로디</span>
+                    </button>
+                  )}
                   {/* 소속 부스터 팩 뱃지 */}
                   {card.packCode && (
                     <span className="text-[10.5px] font-mono font-black text-sky-200 bg-sky-950/80 border border-sky-400/40 px-2.5 py-0.5 rounded-lg flex items-center gap-1 shadow-sm">

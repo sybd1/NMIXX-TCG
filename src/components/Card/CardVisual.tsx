@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Card, FinishType } from '../../types/card';
 import { RARITY_CONFIGS, RARITY_TO_FINISH } from '../../config/gameConfig';
+import { sound } from '../../services/soundService';
 
 interface CardVisualProps {
   card: Card;
@@ -36,6 +37,16 @@ const FINISH_CLASS_MAP: Record<FinishType, string> = {
   COSMIC_GHOST: 'finish-cosmic-ghost',
 };
 
+// 고등급 카드 전용 금빛 라이브 파티클 생성 데이터
+const GOLD_PARTICLES = [
+  { left: '15%', size: 4, delay: '0s', duration: '3.2s' },
+  { left: '35%', size: 6, delay: '0.8s', duration: '4.0s' },
+  { left: '55%', size: 5, delay: '1.6s', duration: '3.5s' },
+  { left: '75%', size: 7, delay: '0.4s', duration: '4.5s' },
+  { left: '88%', size: 4, delay: '2.1s', duration: '3.8s' },
+  { left: '25%', size: 5, delay: '2.7s', duration: '4.2s' },
+];
+
 export const CardVisual: React.FC<CardVisualProps> = React.memo(({
   card,
   finishType,
@@ -47,15 +58,16 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
   onClick,
   showDetails = true,
 }) => {
+  const effectiveFinish = finishType || card.finishType || RARITY_TO_FINISH[card.rarity] || 'MATTE';
+  const finishClass = FINISH_CLASS_MAP[effectiveFinish] || 'finish-matte';
+  const config = RARITY_CONFIGS[card.rarity] || RARITY_CONFIGS.C;
+  const memberInfo = MEMBER_INFO[card.member] || MEMBER_INFO.NMIXX;
+
+  const isHighTier = ['SR', 'SSR', 'UR', 'LR', 'MR'].includes(card.rarity);
+
+  // 3D 틸트 물리 엔진 상태
   const cardRef = useRef<HTMLDivElement>(null);
-  const [styleState, setStyleState] = useState<{
-    rotX: number;
-    rotY: number;
-    px: number;
-    py: number;
-    pDist: number;
-    opacity: number;
-  }>({
+  const [styleState, setStyleState] = useState({
     rotX: 0,
     rotY: 0,
     px: 50,
@@ -64,26 +76,29 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     opacity: 0.6,
   });
 
-  const config = RARITY_CONFIGS[card.rarity];
-  const memberInfo = MEMBER_INFO[card.member] || MEMBER_INFO.NMIXX;
-  const activeFinish: FinishType = finishType || card.finishType || RARITY_TO_FINISH[card.rarity] || 'MATTE';
-  const finishClass = FINISH_CLASS_MAP[activeFinish];
+  const lastUpdateRef = useRef<number>(0);
 
-  // 3D 인터랙티브 셰이더 포인터/틸트 연산
   const handlePointerMove = useCallback((clientX: number, clientY: number) => {
+    const now = performance.now();
+    if (now - lastUpdateRef.current < 16) return; // 60fps 쓰로틀
+    lastUpdateRef.current = now;
+
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = clientX - rect.left;
     const y = clientY - rect.top;
 
-    const px = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    const py = Math.max(0, Math.min(100, (y / rect.height) * 100));
+    const w = rect.width;
+    const h = rect.height;
 
-    const normX = (x / rect.width) * 2 - 1; // -1 to +1
-    const normY = (y / rect.height) * 2 - 1; // -1 to +1
+    const normX = (x / w) * 2 - 1; // -1 to 1
+    const normY = (y / h) * 2 - 1; // -1 to 1
 
-    const rotX = -normY * 12; // 상하 최대 12도 틸트
-    const rotY = normX * 12;  // 좌우 최대 12도 틸트
+    const rotX = -normY * 18; // 최대 18도 회전
+    const rotY = normX * 18;
+
+    const px = Math.min(100, Math.max(0, (x / w) * 100));
+    const py = Math.min(100, Math.max(0, (y / h) * 100));
     const pDist = Math.sqrt(normX * normX + normY * normY);
 
     setStyleState({
@@ -91,7 +106,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
       rotY,
       px,
       py,
-      pDist: Math.min(1, pDist),
+      pDist,
       opacity: 0.95,
     });
   }, []);
@@ -117,6 +132,13 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     });
   };
 
+  const handleClick = () => {
+    if (isOwned && isHighTier) {
+      sound.playNmixxMelody(card.rarity);
+    }
+    if (onClick) onClick();
+  };
+
   // size prop에 따른 기본 치수
   const defaultSizeClass = className.includes('w-') ? '' : {
     sm: 'w-36 h-52 text-xs',
@@ -124,7 +146,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     lg: 'w-64 h-92 text-base',
   }[size];
 
-  // 8단계 Rarity 테두리 및 글로우 스타일 가이드 (미보유 시 어두운 슬레이트 테두리)
+  // 8단계 Rarity 테두리 및 글로우 스타일 가이드
   const rarityBorders: Record<Card['rarity'], string> = {
     C: isOwned ? 'border-slate-600/90 hover:border-slate-400 shadow-md' : 'border-slate-800/90',
     UC: isOwned ? 'border-emerald-400 hover:border-emerald-200 shadow-glow-uc ring-1 ring-emerald-400/40' : 'border-emerald-950/80',
@@ -141,14 +163,14 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
   return (
     <div
       ref={cardRef}
-      onClick={onClick}
+      onClick={handleClick}
       onMouseMove={isOwned ? handleMouseMove : undefined}
       onTouchMove={isOwned ? handleTouchMove : undefined}
       onMouseLeave={handlePointerLeave}
       onTouchEnd={handlePointerLeave}
       style={{
         transform: isOwned
-          ? `perspective(1000px) rotateX(${styleState.rotX}deg) rotateY(${styleState.rotY}deg) ${styleState.opacity > 0.8 ? 'translateY(-5px)' : ''}`
+          ? `perspective(1000px) rotateX(${styleState.rotX}deg) rotateY(${styleState.rotY}deg) ${styleState.opacity > 0.8 ? 'translateY(-6px)' : ''}`
           : undefined,
         transition: styleState.opacity > 0.8 ? 'transform 0.08s ease-out' : 'transform 0.35s ease-out',
         willChange: isOwned ? 'transform' : undefined,
@@ -157,7 +179,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
         !isOwned ? 'opacity-40 hover:opacity-75 filter grayscale-[80%] brightness-[70%] contrast-[90%]' : 'hover:scale-[1.03]'
       }`}
     >
-      {/* 1. 8-Tier Interactive Foil / Finish Shader Layer (상시 은은한 광택 + 호버 시 다이내믹 틸트) */}
+      {/* 1. 8-Tier Interactive Foil / Finish Shader Layer */}
       {isOwned && (
         <div
           className={`absolute inset-0 rounded-2xl z-30 pointer-events-none transition-opacity duration-300 ${finishClass}`}
@@ -170,6 +192,25 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
         />
       )}
 
+      {/* 2. SR, SSR, UR, LR, MR 고등급 전용 금빛 라이브 파티클 오버레이 */}
+      {isOwned && isHighTier && (
+        <div className="absolute inset-0 rounded-2xl z-25 pointer-events-none overflow-hidden">
+          {GOLD_PARTICLES.map((gp, i) => (
+            <div
+              key={i}
+              className="gold-particle"
+              style={{
+                left: gp.left,
+                width: `${gp.size}px`,
+                height: `${gp.size}px`,
+                animationDelay: gp.delay,
+                animationDuration: gp.duration,
+              }}
+            />
+          ))}
+        </div>
+      )}
+
       {/* 미보유 상태일 때 세련된 LOCKED 잠금 뱃지 오버레이 */}
       {!isOwned && (
         <div className="absolute inset-0 z-30 rounded-2xl flex flex-col items-center justify-center pointer-events-none bg-black/40 backdrop-blur-[1px]">
@@ -180,38 +221,56 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
         </div>
       )}
 
-      {/* 2. 메인 카드 바디 (포토카드 풀아트 프레임 - 사진 최대 노출 & 슬림 HUD) */}
+      {/* 3. 메인 카드 바디 (3단계 패럴랙스 입체 뎁스 구조) */}
       <div
-        className={`relative w-full h-full rounded-2xl border ${rarityBorders[card.rarity]} bg-black flex flex-col justify-between overflow-hidden z-10 shadow-2xl`}
+        className={`relative w-full h-full rounded-2xl border ${rarityBorders[card.rarity]} bg-black flex flex-col justify-between overflow-hidden z-10 shadow-2xl [transform-style:preserve-3d]`}
       >
-        {/* 실제 아이돌 고화질 사진 (중심부 시원하게 노출) */}
-        {card.image ? (
+        {/* Layer 1: 패럴랙스 배경 그라데이션 */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-b ${card.gradient} transition-transform duration-200 pointer-events-none`}
+          style={{
+            transform: isOwned && isHighTier
+              ? `translateZ(-15px) scale(1.05) translate(${styleState.rotY * -0.3}px, ${styleState.rotX * 0.3}px)`
+              : undefined,
+          }}
+        />
+
+        {/* Layer 2: 실제 아이돌 고화질 사진 (3D 캐릭터 뎁스) */}
+        {card.image && (
           <img
             src={card.image}
             alt={card.name}
             loading="lazy"
             decoding="async"
-            className="absolute inset-0 w-full h-full object-cover object-[center_18%] group-hover:scale-105 transition-transform duration-500 pointer-events-none"
+            className="absolute inset-0 w-full h-full object-cover object-[center_18%] group-hover:scale-105 transition-all duration-300 pointer-events-none"
+            style={{
+              transform: isOwned && isHighTier
+                ? `translateZ(10px) translate(${styleState.rotY * 0.4}px, ${styleState.rotX * -0.4}px)`
+                : undefined,
+            }}
           />
-        ) : (
-          <div className={`absolute inset-0 bg-gradient-to-b ${card.gradient}`} />
         )}
 
         {/* 상단 얇은 은은한 섀도우 그라데이션 */}
         <div className="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-black/70 via-black/30 to-transparent pointer-events-none z-10" />
 
-        {/* 상단 미니멀 HUD 헤더: 카드 번호 & 단체/멤버 뱃지 & Rarity */}
-        <div className="relative z-20 p-2 flex items-center justify-between pointer-events-none">
+        {/* Layer 3: 상단 미니멀 HUD 헤더 (3D 전면 포그라운드 뎁스) */}
+        <div
+          className="relative z-20 p-2 flex items-center justify-between pointer-events-none"
+          style={{
+            transform: isOwned && isHighTier
+              ? `translateZ(24px) translate(${styleState.rotY * 0.6}px, ${styleState.rotX * -0.6}px)`
+              : undefined,
+          }}
+        >
           <span className="font-mono text-[8.5px] font-extrabold text-white/90 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded-lg border border-white/15 shadow-sm">
             NO. #{String(card.collectionNumber).padStart(3, '0')}
           </span>
 
           <div className="flex items-center gap-1">
-            {/* 멤버 한글 이름 / 단체 미니 태그 */}
             <span className="text-[7.5px] font-mono font-black text-pink-200 bg-black/60 backdrop-blur-sm px-1.5 py-0.5 rounded border border-pink-500/30">
               {isNmixxGroup ? '단체' : memberInfo.nameKo}
             </span>
-            {/* 8단계 Rarity 미니 뱃지 */}
             <span className={`text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded border ${config.badgeBg} shadow-md backdrop-blur-sm`}>
               {card.rarity}
             </span>
@@ -220,7 +279,14 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
 
         {/* 하단 슬림 글래스모피즘 네임태그 (카드 풀 네임 표시) */}
         {showDetails && (
-          <div className="relative z-20 mt-auto pt-6 pb-2.5 px-2.5 bg-gradient-to-t from-black/95 via-black/60 to-transparent flex flex-col gap-0.5 pointer-events-none">
+          <div
+            className="relative z-20 mt-auto pt-6 pb-2.5 px-2.5 bg-gradient-to-t from-black/95 via-black/60 to-transparent flex flex-col gap-0.5 pointer-events-none"
+            style={{
+              transform: isOwned && isHighTier
+                ? `translateZ(20px) translate(${styleState.rotY * 0.5}px, ${styleState.rotX * -0.5}px)`
+                : undefined,
+            }}
+          >
             <div className="flex flex-col truncate">
               <span className="font-serif font-black text-white text-[12px] sm:text-[13px] tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] truncate">
                 {card.name}

@@ -198,24 +198,77 @@
   pointer-events: none;
 }
 
-/* 8. COSMIC_GHOST (MR - 0.05%): 코스믹 오로라 최상위 셰이더 (인터랙티브 펄/오로라) */
+/* 8. COSMIC_GHOST (MR - 0.02%): 코스믹 오로라 최상위 셰이더 (인터랙티브 펄/오로라) */
 .finish-cosmic-ghost {
   background: 
-    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 0.9) 0%, rgba(56, 189, 248, 0.5) 25%, transparent 60%),
+    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 0.95) 0%, rgba(56, 189, 248, 0.6) 25%, transparent 60%),
     conic-gradient(
       from calc(var(--pointer-from-center, 0) * 360deg) at var(--pointer-x, 50%) var(--pointer-y, 50%),
-      rgba(236, 72, 153, 0.55) 0deg,
-      rgba(168, 85, 247, 0.55) 72deg,
-      rgba(56, 189, 248, 0.6) 144deg,
-      rgba(250, 204, 21, 0.6) 216deg,
-      rgba(236, 72, 153, 0.55) 288deg,
-      rgba(168, 85, 247, 0.55) 360deg
+      rgba(236, 72, 153, 0.65) 0deg,
+      rgba(168, 85, 247, 0.65) 72deg,
+      rgba(56, 189, 248, 0.7) 144deg,
+      rgba(250, 204, 21, 0.7) 216deg,
+      rgba(236, 72, 153, 0.65) 288deg,
+      rgba(168, 85, 247, 0.65) 360deg
     );
   mix-blend-mode: color-dodge;
-  opacity: var(--card-opacity, 0.7);
-  filter: brightness(1.35) contrast(1.45) saturate(1.6);
+  opacity: var(--card-opacity, 0.75);
+  filter: brightness(1.4) contrast(1.5) saturate(1.7);
   transition: opacity 0.2s ease;
   pointer-events: none;
+}
+
+/* =========================================================================
+   3-TIER PARALLAX 3D DEPTH & LIVE GOLD PARTICLE OVERLAY SYSTEM
+   ========================================================================= */
+
+/* 1. 3단계 패럴랙스 입체 뎁스 */
+.parallax-container {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.parallax-layer-bg {
+  transform: translateZ(-20px) scale(1.06);
+  transition: transform 0.15s ease-out;
+}
+
+.parallax-layer-character {
+  transform: translateZ(10px);
+  transition: transform 0.15s ease-out;
+}
+
+.parallax-layer-holo {
+  transform: translateZ(28px) scale(1.02);
+  transition: transform 0.15s ease-out;
+  pointer-events: none;
+}
+
+/* 2. 금빛 라이브 파티클 오버레이 (Gold Live Particle Overlay) */
+@keyframes gold-sparkle-float {
+  0% {
+    transform: translateY(100%) scale(0.6) rotate(0deg);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-20%) scale(1.2) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+.gold-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, #fff 10%, #fef08a 40%, #eab308 80%, transparent 100%);
+  box-shadow: 0 0 8px #facc15, 0 0 14px #eab308;
+  animation: gold-sparkle-float infinite ease-in-out;
 }
 
 /* Reduced Motion Fallback */
@@ -231,5 +284,9 @@
     mix-blend-mode: screen !important;
     filter: none !important;
     transition: none !important;
+  }
+  .gold-particle {
+    animation: none !important;
+    opacity: 0.4 !important;
   }
 }

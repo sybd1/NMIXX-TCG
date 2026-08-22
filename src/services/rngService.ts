@@ -14,12 +14,12 @@ const RARITY_RANK: Record<Rarity, number> = {
 };
 
 // 정수 가중치 (총합 10,000 기준)
-// MR: 5 (0.05%), LR: 15 (0.15%), UR: 30 (0.30%), SSR: 50 (0.50%), SR: 400 (4.00%), R: 1500 (15.00%), UC: 3000 (30.00%), C: 5000 (50.00%)
-const WEIGHT_MR = 5;
-const WEIGHT_LR = 15;
-const WEIGHT_UR = 30;
-const WEIGHT_SSR = 50;
-const WEIGHT_SR = 400;
+// MR: 2 (0.02%), LR: 12 (0.12%), UR: 25 (0.25%), SSR: 45 (0.45%), SR: 250 (2.50%), R: 1500 (15.00%), UC: 3000 (30.00%), C: 5166 (51.66%)
+const WEIGHT_MR = 2;
+const WEIGHT_LR = 12;
+const WEIGHT_UR = 25;
+const WEIGHT_SSR = 45;
+const WEIGHT_SR = 250;
 const WEIGHT_R = 1500;
 const WEIGHT_UC = 3000;
 

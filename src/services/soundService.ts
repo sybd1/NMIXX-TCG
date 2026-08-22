@@ -2,6 +2,7 @@
  * Arcane / Void Synthesizer Sound Engine
  * Built with native Web Audio API - Zero external assets required
  */
+import { Rarity } from '../types/card';
 
 class SoundService {
   private ctx: AudioContext | null = null;
@@ -153,6 +154,48 @@ class SoundService {
     notes.forEach((f, i) => {
       this.playTone(f, 'triangle', 0.25, i * 0.08, 0.6);
     });
+  }
+
+  /**
+   * 🌟 SR, SSR, UR, LR, MR 스페셜 에디션 전용 엔믹스 은은한 시그니처 멜로디
+   * 맑고 신비로운 크리스탈 신스 오르골 아르페지오 사운드
+   */
+  public playNmixxMelody(rarity: Rarity) {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    // 엔믹스 멜로디 아르페지오 노트 주파수 (D Major / Pentatonic Synth)
+    // D4, F#4, A4, B4, D5, E5, F#5, A5
+    const nmixxScale = [293.66, 369.99, 440.00, 493.88, 587.33, 659.25, 739.99, 880.00];
+
+    if (rarity === 'MR') {
+      // 코스믹 7음 풀 아르페지오 멜로디 + 에코
+      [0, 2, 4, 6, 7, 5, 4, 7].forEach((idx, i) => {
+        this.playTone(nmixxScale[idx] * 1.5, 'sine', 0.6, i * 0.12, 0.45);
+        this.playTone(nmixxScale[idx] * 0.75, 'triangle', 0.8, i * 0.12 + 0.02, 0.35);
+      });
+    } else if (rarity === 'LR') {
+      // 레전드 골드 6음 멜로디
+      [0, 2, 3, 4, 6, 7].forEach((idx, i) => {
+        this.playTone(nmixxScale[idx] * 1.5, 'sine', 0.5, i * 0.11, 0.4);
+      });
+    } else if (rarity === 'UR') {
+      // 프리즘 글리터 5음 멜로디
+      [0, 2, 4, 5, 7].forEach((idx, i) => {
+        this.playTone(nmixxScale[idx] * 1.2, 'sine', 0.45, i * 0.1, 0.38);
+      });
+    } else if (rarity === 'SSR') {
+      // 크랙 4음 멜로디
+      [0, 2, 4, 6].forEach((idx, i) => {
+        this.playTone(nmixxScale[idx], 'sine', 0.4, i * 0.1, 0.35);
+      });
+    } else if (rarity === 'SR') {
+      // 레인보우 포일 3음 멜로디
+      [0, 2, 4].forEach((idx, i) => {
+        this.playTone(nmixxScale[idx], 'sine', 0.35, i * 0.1, 0.3);
+      });
+    }
   }
 }
 

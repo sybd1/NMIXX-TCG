@@ -47,8 +47,8 @@ export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
   C: {
     name: 'C',
     label: 'C Common (일반)',
-    probability: 0.5000, // 50.00%
-    weight: 5000,
+    probability: 0.5166, // 51.66%
+    weight: 5166,
     dustDismantle: 5,
     dustCraft: 50,
     colorHex: '#94a3b8',
@@ -83,8 +83,8 @@ export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
   SR: {
     name: 'SR',
     label: 'SR Super Rare (초희귀)',
-    probability: 0.0400, // 4.00%
-    weight: 400,
+    probability: 0.0250, // 2.50%
+    weight: 250,
     dustDismantle: 120,
     dustCraft: 1200,
     colorHex: '#a855f7',
@@ -95,8 +95,8 @@ export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
   SSR: {
     name: 'SSR',
     label: 'SSR Super Special Rare (특급 희귀)',
-    probability: 0.0050, // 0.50%
-    weight: 50,
+    probability: 0.0045, // 0.45%
+    weight: 45,
     dustDismantle: 500,
     dustCraft: 5000,
     colorHex: '#f59e0b',
@@ -107,8 +107,8 @@ export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
   UR: {
     name: 'UR',
     label: 'UR Ultra Rare (극희귀)',
-    probability: 0.0030, // 0.30%
-    weight: 30,
+    probability: 0.0025, // 0.25%
+    weight: 25,
     dustDismantle: 1500,
     dustCraft: 15000,
     colorHex: '#ef4444',
@@ -119,8 +119,8 @@ export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
   LR: {
     name: 'LR',
     label: 'LR Legend Rare (전설)',
-    probability: 0.0015, // 0.15%
-    weight: 15,
+    probability: 0.0012, // 0.12%
+    weight: 12,
     dustDismantle: 4000,
     dustCraft: 40000,
     colorHex: '#ec4899',
@@ -131,8 +131,8 @@ export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
   MR: {
     name: 'MR',
     label: 'MR Mythic Rare (신화)',
-    probability: 0.0005, // 0.05%
-    weight: 5,
+    probability: 0.0002, // 0.02%
+    weight: 2,
     dustDismantle: 10000,
     dustCraft: null,
     colorHex: '#38bdf8',
