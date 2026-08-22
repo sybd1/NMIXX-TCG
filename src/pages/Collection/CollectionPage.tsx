@@ -318,7 +318,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                 ) : (
                   <div className="px-4 py-2.5 rounded-2xl bg-black/60 text-slate-400 font-mono font-bold text-xs border border-white/10 flex items-center gap-2">
                     <Lock size={14} className="text-slate-500" />
-                    <span>740종 수집 시 해금</span>
+                    <span>모든 카드 수집 시 해금</span>
                   </div>
                 )}
               </div>
