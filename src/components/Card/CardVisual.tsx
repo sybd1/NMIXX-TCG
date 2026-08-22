@@ -332,11 +332,6 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                     🏛️ Legacy
                   </span>
                 )}
-                {card.isEmbossed3D && (
-                  <span className="text-[7.5px] font-mono font-black text-amber-200 bg-amber-950/80 px-1.5 py-0.5 rounded border border-amber-400/50 shadow-md">
-                    3D 엠보싱
-                  </span>
-                )}
                 <span className="text-[7.5px] font-mono font-black text-pink-200 bg-black/60 backdrop-blur-sm px-1.5 py-0.5 rounded border border-pink-500/30">
                   {isNmixxGroup ? '단체' : memberInfo.nameKo}
                 </span>
