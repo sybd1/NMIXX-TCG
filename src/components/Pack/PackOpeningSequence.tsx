@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { RevealedCard, Rarity } from '../../types/card';
 import { PackOpeningState } from '../../types/game';
 import { CardFlip } from '../Card/CardFlip';
+import { CardModal } from '../Card/CardModal';
 import { SecretRevealEffect } from '../RevealAnimation/SecretRevealEffect';
 import { sound } from '../../services/soundService';
 import { ArrowRight, Home, X, Zap, Sparkles } from 'lucide-react';
@@ -75,12 +76,14 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
   const [revealedCards, setRevealedCards] = useState<RevealedCard[]>(() => mergeDuplicateCards(cards));
   const [activeSpecialReveal, setActiveSpecialReveal] = useState<Rarity | null>(null);
   const [jackpotModalCard, setJackpotModalCard] = useState<RevealedCard | null>(null);
+  const [selectedDetailCard, setSelectedDetailCard] = useState<RevealedCard | null>(null);
 
   // 새로운 카드가 들어왔을 때 상태 초기화 및 중복 합산 정렬
   useEffect(() => {
     setRevealedCards(mergeDuplicateCards(cards));
     setStep('DIM_BG');
     setJackpotModalCard(null);
+    setSelectedDetailCard(null);
     const timer = setTimeout(() => setStep('PACK_ENTER'), 300);
     return () => clearTimeout(timer);
   }, [cards]);
@@ -108,11 +111,16 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
     }, 1800);
   };
 
-  // 개별 카드 뒤집기 핸들러 (SSR 이상 거대 확대 팝업 발동)
-  const handleFlipCard = (index: number) => {
-    if (revealedCards[index]?.isFlipped) return;
-
+  // 카드 클릭 핸들러 (미공개 시 뒤집기, 이미 뒤집힌 후 클릭 시 상세 모달 열람)
+  const handleCardClick = (index: number) => {
     const card = revealedCards[index];
+    if (!card) return;
+
+    if (card.isFlipped) {
+      // 이미 뒤집힌 상태에서 클릭 시 상세 정보 모달 열기!
+      setSelectedDetailCard(card);
+      return;
+    }
 
     // 9단계 Rarity별 사운드 & 특수 연출 재생
     if (card.rarity === 'MR') {
@@ -445,7 +453,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                     isNew={card.isNew}
                     duplicateCount={card.duplicateCount}
                     isPreRevealing={isFifthCard && !hasFlipped}
-                    onFlip={() => handleFlipCard(index)}
+                    onFlip={() => handleCardClick(index)}
                     size={totalCount > 10 ? 'sm' : 'md'}
                   />
                 </motion.div>
@@ -595,6 +603,14 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
           )}
         </div>
       )}
+
+      {/* 5. 카드 오픈 후 클릭 시 상세 모달 뷰어 (스펙 인스펙터, 풀아트 고화질 사진 확대, 멜로디 재생) */}
+      <CardModal
+        card={selectedDetailCard}
+        count={selectedDetailCard?.duplicateCount || 1}
+        isOpen={!!selectedDetailCard}
+        onClose={() => setSelectedDetailCard(null)}
+      />
     </div>
   );
 };
