@@ -15029,7 +15029,7 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
     ],
     "rewardCard": {
       "id": "reward_set_ur_zero_frontier",
-      "name": "[UR SET] ZERO FRONTIER 세트 카드",
+      "name": "ZERO FRONTIER 세트 카드",
       "member": "NMIXX",
       "category": "LEADER",
       "rarity": "UR",
@@ -15079,7 +15079,7 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
     ],
     "rewardCard": {
       "id": "reward_set_ssr_nmixx",
-      "name": "[SSR SET] NMIXX 세트 카드",
+      "name": "NMIXX 세트 카드",
       "member": "NMIXX",
       "category": "LEADER",
       "rarity": "SSR",
@@ -15129,7 +15129,7 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
     ],
     "rewardCard": {
       "id": "reward_set_sr_light",
-      "name": "[SR SET] Light 세트 카드",
+      "name": "Light 세트 카드",
       "member": "NMIXX",
       "category": "LEADER",
       "rarity": "SR",
@@ -15179,7 +15179,7 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
     ],
     "rewardCard": {
       "id": "reward_set_sr_blue_valentine",
-      "name": "[SR SET] Blue Valentine 세트 카드",
+      "name": "Blue Valentine 세트 카드",
       "member": "NMIXX",
       "category": "LEADER",
       "rarity": "SR",
@@ -15229,7 +15229,7 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
     ],
     "rewardCard": {
       "id": "reward_set_r_flower",
-      "name": "[R SET] Flower 세트 카드",
+      "name": "Flower 세트 카드",
       "member": "NMIXX",
       "category": "LEADER",
       "rarity": "R",
@@ -15279,7 +15279,7 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
     ],
     "rewardCard": {
       "id": "reward_set_r_school",
-      "name": "[R SET] School 세트 카드",
+      "name": "School 세트 카드",
       "member": "NMIXX",
       "category": "LEADER",
       "rarity": "R",
