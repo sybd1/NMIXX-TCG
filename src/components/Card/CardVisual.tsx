@@ -341,24 +341,22 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               </div>
             </div>
 
-            {/* 하단 슬림 글래스모피즘 네임태그 (+35px) */}
+            {/* 하단 슬림 글래스모피즘 네임태그 (가로 한 줄 보장 & 세로 꺾임 원천 차단) */}
             {showDetails && (
               <div
-                className="relative z-20 mt-auto pt-6 pb-2.5 px-2.5 bg-gradient-to-t from-black/95 via-black/60 to-transparent flex flex-col gap-0.5 pointer-events-none"
+                className="relative z-20 mt-auto pt-5 pb-2 px-2 sm:px-2.5 bg-gradient-to-t from-black/95 via-black/65 to-transparent flex flex-col pointer-events-none w-full overflow-hidden"
                 style={{
                   transform: isOwned && isHighTier
                     ? `translateZ(35px) translate(${styleState.rotY * 0.7}px, ${styleState.rotX * -0.7}px)`
                     : undefined,
                 }}
               >
-                <div className="flex flex-col truncate">
-                  <span className="font-serif font-black text-white text-[12px] sm:text-[13px] tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] truncate">
-                    {card.name}
-                  </span>
-                  <span className="text-[8px] font-mono font-bold text-slate-300 uppercase tracking-tight truncate drop-shadow">
-                    {isNmixxGroup ? card.era : `${memberInfo.nameKo} • ${card.era}`}
-                  </span>
-                </div>
+                <span className="font-serif font-black text-white text-[11px] sm:text-[12px] md:text-[13px] tracking-tight drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)] whitespace-nowrap overflow-hidden text-ellipsis block w-full leading-tight">
+                  {card.name}
+                </span>
+                <span className="text-[7.5px] sm:text-[8px] font-mono font-bold text-slate-300 uppercase whitespace-nowrap overflow-hidden text-ellipsis block w-full drop-shadow mt-0.5 leading-none">
+                  {isNmixxGroup ? card.era : `${memberInfo.nameKo} • ${card.era}`}
+                </span>
               </div>
             )}
 
