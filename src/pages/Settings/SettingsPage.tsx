@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GameState } from '../../types/game';
-import { RARITY_CONFIGS, GAME_CONFIG, FINISH_CONFIGS } from '../../config/gameConfig';
+import { RARITY_CONFIGS, FINISH_CONFIGS } from '../../config/gameConfig';
 import { MASTER_CARDS } from '../../data/cards';
 import { Rarity } from '../../types/card';
 import { Info, Volume2, VolumeX, RotateCcw, ShieldCheck, AlertTriangle } from 'lucide-react';
@@ -37,7 +37,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
       </div>
 
       {/* Stats Summary */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-void-900/90 border border-void-800 p-4 rounded-2xl flex flex-col gap-1">
           <span className="text-[10px] font-mono text-slate-500 uppercase">개봉한 팩</span>
           <span className="font-mono text-xl font-bold text-slate-100">
@@ -59,12 +59,6 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
           <span className="text-[10px] font-mono text-slate-500 uppercase">총 소지 카드 수</span>
           <span className="font-mono text-xl font-bold text-amber-300">
             {totalCollectedCards} 장
-          </span>
-        </div>
-        <div className="bg-void-900/90 border border-void-800 p-4 rounded-2xl flex flex-col gap-1">
-          <span className="text-[10px] font-mono text-slate-500 uppercase">Pity 게이지</span>
-          <span className="font-mono text-xl font-bold text-cyan-300">
-            {state.pityCount} / {GAME_CONFIG.PITY_THRESHOLD}
           </span>
         </div>
       </div>
