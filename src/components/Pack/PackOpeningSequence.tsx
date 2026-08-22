@@ -31,26 +31,54 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
   onOpenPackCount,
 }) => {
   const [step, setStep] = useState<PackOpeningState>('DIM_BG');
-  // NEW 카드를 맨 앞으로 모으고, 고등급 순으로 정렬
-  const sortCardsWithNewFirst = (rawCards: RevealedCard[]) => {
+  // 중복 카드를 x2, x3로 합치고, NEW 카드를 맨 앞으로 모아서 고등급 순으로 정렬
+  const mergeDuplicateCards = (rawCards: RevealedCard[]) => {
+    const cardMap = new Map<string, RevealedCard>();
+    const countsMap = new Map<string, number>();
+
+    rawCards.forEach(card => {
+      const currentCount = countsMap.get(card.id) || 0;
+      countsMap.set(card.id, currentCount + 1);
+
+      if (!cardMap.has(card.id)) {
+        cardMap.set(card.id, { ...card });
+      } else {
+        const existing = cardMap.get(card.id)!;
+        if (card.isNew) existing.isNew = true;
+      }
+    });
+
+    const mergedList: RevealedCard[] = [];
+    cardMap.forEach((card, id) => {
+      mergedList.push({
+        ...card,
+        duplicateCount: countsMap.get(id) || 1,
+      });
+    });
+
     const rank: Record<Rarity, number> = { C: 1, UC: 2, R: 3, SR: 4, SSR: 5, UR: 6, LR: 7, MR: 8, XR: 9 };
-    return [...rawCards].sort((a, b) => {
+
+    return mergedList.sort((a, b) => {
       // 1순위: 새로 획득한 카드 (NEW) 맨 앞으로 모음
       if (a.isNew !== b.isNew) {
         return a.isNew ? -1 : 1;
       }
       // 2순위: 높은 등급 우선
-      return rank[b.rarity] - rank[a.rarity];
+      if (rank[b.rarity] !== rank[a.rarity]) {
+        return rank[b.rarity] - rank[a.rarity];
+      }
+      // 3순위: 중복 획득 수량이 많은 순 (x5 > x3 > x2 ...)
+      return (b.duplicateCount || 1) - (a.duplicateCount || 1);
     });
   };
 
-  const [revealedCards, setRevealedCards] = useState<RevealedCard[]>(() => sortCardsWithNewFirst(cards));
+  const [revealedCards, setRevealedCards] = useState<RevealedCard[]>(() => mergeDuplicateCards(cards));
   const [activeSpecialReveal, setActiveSpecialReveal] = useState<Rarity | null>(null);
   const [jackpotModalCard, setJackpotModalCard] = useState<RevealedCard | null>(null);
 
-  // 새로운 카드가 들어왔을 때 상태 초기화 및 NEW 우선 정렬
+  // 새로운 카드가 들어왔을 때 상태 초기화 및 중복 합산 정렬
   useEffect(() => {
-    setRevealedCards(sortCardsWithNewFirst(cards));
+    setRevealedCards(mergeDuplicateCards(cards));
     setStep('DIM_BG');
     setJackpotModalCard(null);
     const timer = setTimeout(() => setStep('PACK_ENTER'), 300);
@@ -337,12 +365,12 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
             <div className="text-sm font-mono text-slate-200 font-bold flex items-center gap-2">
               {step === 'SUMMARY' ? (
                 <span className="text-amber-300 flex items-center gap-2 text-sm sm:text-base font-serif font-black">
-                  <Sparkles size={18} className="text-pink-400" /> NMIXX {packCount}팩 ({totalCount}장) 개봉 완료!
+                  <Sparkles size={18} className="text-pink-400" /> NMIXX {packCount}팩 ({cards.length}장 획득 • {revealedCards.length}종 정리) 개봉 완료!
                 </span>
               ) : (
                 <span className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-pink-500 animate-ping" />
-                  카드를 터치하여 공개하세요 ({flippedCount}/{totalCount})
+                  카드를 터치하여 공개하세요 ({flippedCount}/{totalCount}종)
                 </span>
               )}
             </div>
