@@ -341,21 +341,21 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               </div>
             </div>
 
-            {/* 하단 슬림 글래스모피즘 네임태그 (가로 한 줄 보장 & 세로 꺾임 원천 차단) */}
+            {/* 하단 미니멀 네임태그 (사진 가림 원천 방지 & 초슬림 콤팩트 렌더링) */}
             {showDetails && (
               <div
-                className="relative z-20 mt-auto pt-5 pb-2 px-2 sm:px-2.5 bg-gradient-to-t from-black/95 via-black/65 to-transparent flex flex-col pointer-events-none w-full overflow-hidden"
+                className="relative z-20 mt-auto pt-3 pb-1.5 px-2 bg-gradient-to-t from-black/80 via-black/25 to-transparent flex items-center justify-between pointer-events-none w-full overflow-hidden"
                 style={{
                   transform: isOwned && isHighTier
                     ? `translateZ(35px) translate(${styleState.rotY * 0.7}px, ${styleState.rotX * -0.7}px)`
                     : undefined,
                 }}
               >
-                <span className="font-serif font-black text-white text-[11px] sm:text-[12px] md:text-[13px] tracking-tight drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)] whitespace-nowrap overflow-hidden text-ellipsis block w-full leading-tight">
-                  {card.name}
+                <span className="font-serif font-black text-white text-[10.5px] sm:text-[11.5px] tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] whitespace-nowrap overflow-hidden text-ellipsis block truncate max-w-[70%] leading-none">
+                  {card.name.replace(/^\[[^\]]+\]\s*/, '') || card.name}
                 </span>
-                <span className="text-[7.5px] sm:text-[8px] font-mono font-bold text-slate-300 uppercase whitespace-nowrap overflow-hidden text-ellipsis block w-full drop-shadow mt-0.5 leading-none">
-                  {isNmixxGroup ? card.era : `${memberInfo.nameKo} • ${card.era}`}
+                <span className="text-[7px] sm:text-[7.5px] font-mono font-bold text-slate-300 uppercase whitespace-nowrap overflow-hidden text-ellipsis drop-shadow leading-none opacity-80 flex-shrink-0">
+                  {card.era}
                 </span>
               </div>
             )}
