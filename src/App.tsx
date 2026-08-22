@@ -20,8 +20,7 @@ export const App: React.FC = () => {
     spendCoins,
     addPackResult,
     addMultiplePacksResult,
-    canClaimDailyBonus,
-    claimDailyBonus,
+    claimMysteryBox,
     toggleSound,
     resetGame,
     dismissFirstVisit,
@@ -118,8 +117,7 @@ export const App: React.FC = () => {
         coins={state.coins}
         soundMuted={state.soundMuted}
         onToggleSound={toggleSound}
-        canClaimDaily={canClaimDailyBonus()}
-        onClaimDaily={claimDailyBonus}
+        onClaimMysteryBox={claimMysteryBox}
         currentTab={currentTab}
         onSelectTab={(tab) => {
           sound.playClick();

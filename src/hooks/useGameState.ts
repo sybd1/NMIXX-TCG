@@ -118,6 +118,15 @@ export function useGameState() {
     return true;
   }, [state.lastDailyBonus]);
 
+  const claimMysteryBox = useCallback(() => {
+    setState(prev => ({
+      ...prev,
+      coins: prev.coins + 10000,
+    }));
+    sound.playMythicReveal();
+    return 10000;
+  }, []);
+
   const resetGame = useCallback(() => {
     const freshState = StorageService.clearState();
     setState(freshState);
@@ -131,6 +140,7 @@ export function useGameState() {
     addMultiplePacksResult,
     canClaimDailyBonus,
     claimDailyBonus,
+    claimMysteryBox,
     toggleSound,
     resetGame,
     dismissFirstVisit,

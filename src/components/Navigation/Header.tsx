@@ -6,8 +6,9 @@ interface HeaderProps {
   coins: number;
   soundMuted: boolean;
   onToggleSound: () => void;
-  canClaimDaily: boolean;
-  onClaimDaily: () => void;
+  canClaimDaily?: boolean;
+  onClaimDaily?: () => void;
+  onClaimMysteryBox: () => void;
   currentTab: NavTab;
   onSelectTab: (tab: NavTab) => void;
 }
@@ -16,11 +17,17 @@ export const Header: React.FC<HeaderProps> = ({
   coins,
   soundMuted,
   onToggleSound,
-  canClaimDaily,
-  onClaimDaily,
+  onClaimMysteryBox,
   currentTab,
   onSelectTab,
 }) => {
+  const [showRewardToast, setShowRewardToast] = React.useState(false);
+
+  const handleMysteryClick = () => {
+    onClaimMysteryBox();
+    setShowRewardToast(true);
+    setTimeout(() => setShowRewardToast(false), 2000);
+  };
   return (
     <header className="sticky top-0 z-40 w-full h-16 bg-void-950/85 backdrop-blur-xl border-b border-void-800/80 px-4 md:px-8 flex items-center justify-between">
       {/* Brand */}
@@ -65,16 +72,22 @@ export const Header: React.FC<HeaderProps> = ({
       </nav>
 
       {/* Right Currencies & Actions */}
-      <div className="flex items-center gap-3">
-        {/* Daily Bonus Button */}
-        {canClaimDaily && (
-          <button
-            onClick={onClaimDaily}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-extrabold text-xs shadow-lg animate-bounce"
-          >
-            <Gift size={14} />
-            <span className="hidden sm:inline">+500</span> CLAIM
-          </button>
+      <div className="flex items-center gap-2.5 sm:gap-3 relative">
+        {/* 🎁 ??? 미스터리 박스 버튼 (클릭 시 게임머니 만원 +10,000 COIN 충전) */}
+        <button
+          onClick={handleMysteryClick}
+          className="relative flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-pink-600 via-purple-600 to-amber-400 hover:from-pink-500 hover:to-amber-300 text-white font-mono font-black text-xs shadow-lg shadow-pink-950/60 hover:scale-105 transition-all active:scale-95 cursor-pointer border border-white/20"
+          title="미스터리 박스를 열어 게임 머니 만원(+10,000 COIN)을 충전하세요!"
+        >
+          <Gift size={14} className="text-yellow-300 animate-bounce" />
+          <span className="tracking-widest font-black">???</span>
+        </button>
+
+        {/* 만원 충전 토스트 팝업 */}
+        {showRewardToast && (
+          <div className="absolute -bottom-8 left-0 transform -translate-x-4 bg-amber-500 text-black font-mono font-black text-[11px] px-2.5 py-0.5 rounded-full shadow-2xl animate-pulse z-50 border border-yellow-200 pointer-events-none whitespace-nowrap">
+            🎉 +10,000 COIN 충전 완료!
+          </div>
         )}
 
         {/* Coins */}
