@@ -369,10 +369,14 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               </div>
             )}
 
-            {/* NEW 획득 뱃지 */}
+            {/* NEW 획득 뱃지 (초강조 네온 & 3D 펄스 바운스) */}
             {isNew && (
-              <div className="absolute top-2 left-2 z-30 bg-gradient-to-r from-emerald-400 to-teal-300 text-black font-black text-[7.5px] px-1.5 py-0.2 rounded-full shadow-2xl animate-bounce">
-                NEW
+              <div
+                className="absolute top-2 left-2 z-40 bg-gradient-to-r from-emerald-400 via-teal-200 to-yellow-300 text-black font-black text-[9px] sm:text-[9.5px] px-2.5 py-0.5 rounded-full shadow-[0_0_20px_rgba(16,185,129,0.95)] ring-2 ring-white animate-bounce flex items-center gap-1 pointer-events-none"
+                style={{ transform: 'translateZ(45px)' }}
+              >
+                <span className="text-[10px]">✨</span>
+                <span className="tracking-wider">NEW</span>
               </div>
             )}
           </>

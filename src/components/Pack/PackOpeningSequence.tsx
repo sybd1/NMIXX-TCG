@@ -31,13 +31,28 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
   onOpenPackCount,
 }) => {
   const [step, setStep] = useState<PackOpeningState>('DIM_BG');
-  const [revealedCards, setRevealedCards] = useState<RevealedCard[]>(cards);
-  const [activeSpecialReveal, setActiveSpecialReveal] = useState<Rarity | null>(null);
+  // NEW 카드를 맨 앞으로 모으고, 고등급 순으로 정렬
+  const sortCardsWithNewFirst = (rawCards: RevealedCard[]) => {
+    const rank: Record<Rarity, number> = { C: 1, UC: 2, R: 3, SR: 4, SSR: 5, UR: 6, LR: 7, MR: 8, XR: 9 };
+    return [...rawCards].sort((a, b) => {
+      // 1순위: 새로 획득한 카드 (NEW) 맨 앞으로 모음
+      if (a.isNew !== b.isNew) {
+        return a.isNew ? -1 : 1;
+      }
+      // 2순위: 높은 등급 우선
+      return rank[b.rarity] - rank[a.rarity];
+    });
+  };
 
-  // 새로운 카드가 들어왔을 때 상태 초기화
+  const [revealedCards, setRevealedCards] = useState<RevealedCard[]>(() => sortCardsWithNewFirst(cards));
+  const [activeSpecialReveal, setActiveSpecialReveal] = useState<Rarity | null>(null);
+  const [jackpotModalCard, setJackpotModalCard] = useState<RevealedCard | null>(null);
+
+  // 새로운 카드가 들어왔을 때 상태 초기화 및 NEW 우선 정렬
   useEffect(() => {
-    setRevealedCards(cards);
+    setRevealedCards(sortCardsWithNewFirst(cards));
     setStep('DIM_BG');
+    setJackpotModalCard(null);
     const timer = setTimeout(() => setStep('PACK_ENTER'), 300);
     return () => clearTimeout(timer);
   }, [cards]);
@@ -65,25 +80,29 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
     }, 1800);
   };
 
-  // 개별 카드 뒤집기 핸들러 (최적화)
+  // 개별 카드 뒤집기 핸들러 (SSR 이상 거대 확대 팝업 발동)
   const handleFlipCard = (index: number) => {
     if (revealedCards[index]?.isFlipped) return;
 
     const card = revealedCards[index];
 
-    // 8단계 Rarity별 사운드 & 특수 연출 재생
+    // 9단계 Rarity별 사운드 & 특수 연출 재생
     if (card.rarity === 'MR') {
       sound.playSecretReveal();
       setActiveSpecialReveal('MR');
+      setJackpotModalCard(card);
     } else if (card.rarity === 'LR') {
       sound.playMythicReveal();
       setActiveSpecialReveal('LR');
+      setJackpotModalCard(card);
     } else if (card.rarity === 'UR') {
       sound.playLegendaryReveal();
       setActiveSpecialReveal('UR');
+      setJackpotModalCard(card);
     } else if (card.rarity === 'SSR') {
       sound.playLegendaryReveal();
       setActiveSpecialReveal('SSR');
+      setJackpotModalCard(card);
     } else if (card.rarity === 'SR') {
       sound.playEpicReveal();
     } else if (card.rarity === 'R') {
@@ -105,7 +124,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
     }
   };
 
-  // 모든 카드 한번에 뒤집기 (즉시 전체 공개 및 결과 버튼 활성화)
+  // 모든 카드 한번에 뒤집기 (즉시 전체 공개 및 최고 등급 팝업)
   const handleRevealAll = () => {
     const highestCard = [...revealedCards].sort((a, b) => {
       const rank: Record<Rarity, number> = { C: 1, UC: 2, R: 3, SR: 4, SSR: 5, UR: 6, LR: 7, MR: 8, XR: 9 };
@@ -113,8 +132,9 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
     })[0];
 
     sound.playEpicReveal();
-    if (['MR', 'LR', 'UR', 'SSR'].includes(highestCard?.rarity)) {
+    if (['MR', 'LR', 'UR', 'SSR', 'XR'].includes(highestCard?.rarity)) {
       setActiveSpecialReveal(highestCard.rarity);
+      setJackpotModalCard(highestCard);
     }
 
     // 모든 카드를 즉시 뒤집기
@@ -370,19 +390,27 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
             {revealedCards.map((card, index) => {
               const isFifthCard = (index + 1) % 5 === 0;
               const hasFlipped = card.isFlipped;
+              const isJackpotTier = ['SSR', 'UR', 'LR', 'MR', 'XR'].includes(card.rarity);
 
               return (
                 <motion.div
                   key={card.instanceId}
                   initial={{ y: 20, opacity: 0, scale: 0.95 }}
-                  animate={{ y: 0, opacity: 1, scale: 1 }}
+                  animate={{ y: 0, opacity: 1, scale: isJackpotTier && hasFlipped ? 1.06 : 1 }}
                   transition={{
                     delay: Math.min(0.15, index * 0.008),
                     duration: 0.25,
                     ease: 'easeOut',
                   }}
-                  className="flex justify-center transform-gpu"
+                  className={`flex justify-center transform-gpu relative ${
+                    isJackpotTier && hasFlipped ? 'z-20' : ''
+                  }`}
                 >
+                  {/* SSR 이상 잭팟 카드 테두리 황금 오라 후광 */}
+                  {isJackpotTier && hasFlipped && (
+                    <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-amber-400 via-pink-500 to-cyan-400 blur-md opacity-70 animate-pulse pointer-events-none" />
+                  )}
+
                   <CardFlip
                     card={card}
                     isFlipped={hasFlipped}
@@ -396,6 +424,83 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
               );
             })}
           </div>
+
+          {/* 🌟 SSR+ 초대형 시네마틱 잭팟 줌인 팝업 모달 (거대하게 확대하여 획득을 확실하게 인지) */}
+          <AnimatePresence>
+            {jackpotModalCard && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xl"
+                onClick={() => setJackpotModalCard(null)}
+              >
+                {/* 배경 폭죽 & 성운 */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(250,204,21,0.2)_0%,rgba(236,72,153,0.25)_40%,transparent_75%)] animate-pulse pointer-events-none" />
+
+                <motion.div
+                  initial={{ scale: 0.4, y: 50, rotateX: 20 }}
+                  animate={{ scale: 1, y: 0, rotateX: 0 }}
+                  exit={{ scale: 0.5, y: 40, opacity: 0 }}
+                  transition={{ type: 'spring', damping: 18, stiffness: 220 }}
+                  onClick={(e) => e.stopPropagation()}
+                  className="relative z-10 flex flex-col items-center gap-4 max-w-md w-full"
+                >
+                  {/* 상단 잭팟 축하 타이틀 */}
+                  <div className="text-center flex flex-col items-center gap-1">
+                    <motion.div
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 1.2, repeat: Infinity }}
+                      className="flex items-center gap-2 px-4 py-1 rounded-full bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 text-white font-black font-mono text-xs sm:text-sm shadow-2xl border border-white/50"
+                    >
+                      <Sparkles size={16} className="text-yellow-200 animate-spin" />
+                      <span>
+                        {jackpotModalCard.rarity === 'MR'
+                          ? '🌌 MYTHIC JACKPOT REVELATION!'
+                          : jackpotModalCard.rarity === 'LR'
+                          ? '👑 24K GOLD LEGENDARY REVEAL!'
+                          : jackpotModalCard.rarity === 'UR'
+                          ? '💎 ULTRA RARE PRISM DISCOVERY!'
+                          : jackpotModalCard.rarity === 'XR'
+                          ? '👑 TRANSCENDENT MASTER UNLOCK!'
+                          : '✨ SUPER SPECIAL RARE JACKPOT!'}
+                      </span>
+                    </motion.div>
+
+                    <h2 className="font-serif font-black text-xl sm:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-200 to-cyan-200 drop-shadow-[0_2px_12px_rgba(250,204,21,0.8)] mt-1">
+                      [{jackpotModalCard.rarity}] {jackpotModalCard.name}
+                    </h2>
+
+                    {jackpotModalCard.isNew && (
+                      <span className="text-xs font-black font-mono px-3 py-0.5 rounded-full bg-emerald-500 text-black shadow-lg animate-bounce mt-0.5">
+                        🎉 NEW DISCOVERY (신규 획득!)
+                      </span>
+                    )}
+                  </div>
+
+                  {/* 초대형 거대 3D 카드 렌더링 */}
+                  <div className="relative transform-gpu scale-105 sm:scale-115 my-2">
+                    <CardFlip
+                      card={jackpotModalCard}
+                      isFlipped={true}
+                      isNew={jackpotModalCard.isNew}
+                      duplicateCount={jackpotModalCard.duplicateCount}
+                      size="lg"
+                    />
+                  </div>
+
+                  {/* 하단 닫기 / 컬렉션 추가 버튼 */}
+                  <button
+                    onClick={() => setJackpotModalCard(null)}
+                    className="mt-2 px-8 py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-pink-500 to-purple-600 hover:from-amber-400 hover:to-purple-500 text-white font-serif font-black text-sm tracking-wider shadow-2xl shadow-pink-950/80 flex items-center gap-2 hover:scale-105 transition-all cursor-pointer border-2 border-white ring-4 ring-amber-400/50"
+                  >
+                    <Sparkles size={16} className="text-yellow-200" />
+                    <span>카드 획득 확인 (계속하기)</span>
+                  </button>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* 4. 하단 액션 버튼 (카드가 모두 공개된 후에만 등장!) */}
           {(step === 'SUMMARY' || flippedCount === totalCount) && (
