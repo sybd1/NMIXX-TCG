@@ -119,7 +119,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
   });
 
   return (
-    <div className="flex-1 max-w-7xl mx-auto w-full px-4 py-8 flex flex-col gap-6">
+    <div className="flex-1 max-w-[1440px] mx-auto w-full px-4 sm:px-6 md:px-8 py-8 flex flex-col gap-6">
       {/* Header & Stats */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-void-900/80 border border-void-800 p-6 rounded-3xl backdrop-blur-md">
         <div>
@@ -176,10 +176,10 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
           }`}
         >
           <Crown size={15} />
-          6인 완전체 세트 (6종)
+          NMIXX 세트 카드 (6종)
           {completedSetsCount > 0 && (
-            <span className="bg-black text-amber-300 px-1.5 py-0.2 rounded-full text-[10px] font-mono font-black">
-              {completedSetsCount}
+            <span className="bg-black text-amber-300 px-2 py-0.5 rounded-full text-[10px] font-mono font-black shadow-sm">
+              {completedSetsCount} / 6
             </span>
           )}
         </button>
@@ -295,30 +295,32 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
         </>
       )}
 
-      {/* Concept Sets View */}
+      {/* Concept Sets View (와이드 시원한 레이아웃 & 폰트 안 무너지게 최적화) */}
       {activeTab === 'CONCEPT_SETS' && (
-        <div className="flex flex-col gap-6">
-          <div className="bg-void-900/80 p-5 rounded-3xl border border-amber-500/30 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 text-black flex items-center justify-center font-black shadow-lg">
-                <Crown size={24} />
+        <div className="flex flex-col gap-8 w-full">
+          {/* Header Banner */}
+          <div className="bg-gradient-to-r from-void-900 via-void-950 to-void-900 p-6 sm:p-7 rounded-3xl border border-amber-500/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 shadow-2xl">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-300 text-black flex items-center justify-center font-black shadow-xl flex-shrink-0">
+                <Crown size={28} />
               </div>
-              <div>
-                <h2 className="text-lg font-serif font-black text-amber-200">
-                  NMIXX 6인 완전체 세트 컬렉션 (6종)
+              <div className="flex flex-col gap-1">
+                <h2 className="text-xl sm:text-2xl font-serif font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-300">
+                  NMIXX 세트 카드 컬렉션 (6종)
                 </h2>
-                <p className="text-xs text-slate-300 font-sans">
-                  각 앨범 컨셉의 6명 멤버(릴리, 해원, 설윤, 배이, 지우, 규진) 카드를 모두 수집하면 전설의 <strong className="text-amber-400">보상 세트 카드 (UR 1종 / SSR 1종 / SR 2종 / R 2종)</strong>가 완성됩니다!
+                <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+                  각 세트의 6명 멤버(릴리, 해원, 설윤, 배이, 지우, 규진) 카드를 모두 수집하면 전설의 <strong className="text-amber-300 font-bold">보상 세트 카드 (UR 1종 / SSR 1종 / SR 2종 / R 2종)</strong>가 완성됩니다!
                 </p>
               </div>
             </div>
-            <div className="text-right font-mono text-xs font-bold text-amber-300 whitespace-nowrap bg-black/60 px-4 py-2 rounded-2xl border border-amber-400/30">
-              세트 완성 현황: <span className="text-white text-base">{completedSetsCount}</span> / {CONCEPT_SETS.length}
+            <div className="text-left md:text-right font-mono text-xs font-bold text-amber-300 whitespace-nowrap bg-black/80 px-5 py-3 rounded-2xl border border-amber-400/40 flex-shrink-0 shadow-lg">
+              세트 완성 현황: <span className="text-white text-lg font-black">{completedSetsCount}</span> / {CONCEPT_SETS.length} COMPLETED
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {CONCEPT_SETS.map(set => {
+          {/* 6개 세트 와이드 리스트 */}
+          <div className="flex flex-col gap-8 w-full">
+            {CONCEPT_SETS.map((set, sIdx) => {
               const ownedInSet = set.cardIds.filter(id => (collection[id] || 0) > 0).length;
               const isCompleted = ownedInSet === set.cardIds.length;
               const memberCards = set.cardIds.map(id => MASTER_CARDS.find(c => c.id === id)!);
@@ -338,39 +340,42 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
               return (
                 <div
                   key={set.setId}
-                  className={`p-5 rounded-3xl border transition-all flex flex-col gap-4 ${
+                  className={`p-6 sm:p-8 rounded-3xl border transition-all flex flex-col gap-6 w-full ${
                     isCompleted
-                      ? 'bg-gradient-to-b from-amber-950/40 via-void-900/90 to-void-950 border-amber-400/60 shadow-xl shadow-amber-950/30 ring-1 ring-amber-400/40'
-                      : 'bg-void-900/60 border-void-800'
+                      ? 'bg-gradient-to-b from-amber-950/30 via-void-900/90 to-void-950 border-amber-400/60 shadow-2xl shadow-amber-950/40 ring-1 ring-amber-400/50'
+                      : 'bg-void-900/70 border-void-800'
                   }`}
                 >
-                  {/* Set Header */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className={`text-[10.5px] font-mono font-black px-2 py-0.5 rounded border bg-gradient-to-r ${badgeColors[r] || badgeColors.SSR}`}>
+                  {/* Set Header Bar (와이드 & 줄바꿈 방지) */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                    <div className="flex items-center gap-2.5 flex-wrap">
+                      <span className="text-slate-400 font-mono text-xs font-bold mr-1">
+                        #{sIdx + 1}
+                      </span>
+                      <span className={`text-[11px] font-mono font-black px-2.5 py-1 rounded-lg border bg-gradient-to-r ${badgeColors[r] || badgeColors.SSR} shadow-md`}>
                         {r} SET
                       </span>
-                      <span className="text-[10px] font-mono font-black text-pink-300 bg-pink-950/80 px-2 py-0.5 rounded border border-pink-500/30">
+                      <span className="text-[10.5px] font-mono font-black text-pink-300 bg-pink-950/80 px-2.5 py-1 rounded-lg border border-pink-500/30">
                         {set.packCode}
                       </span>
-                      <h3 className="text-base font-serif font-black text-white ml-1">
+                      <h3 className="text-lg sm:text-xl font-serif font-black text-white ml-1">
                         {set.setTitle}
                       </h3>
                     </div>
 
                     {isCompleted ? (
-                      <span className="flex items-center gap-1.5 text-xs font-mono font-black text-black bg-gradient-to-r from-amber-400 to-yellow-300 px-3 py-1 rounded-full shadow-lg animate-pulse">
-                        <CheckCircle2 size={14} /> COMPLETE
+                      <span className="flex items-center gap-2 text-xs sm:text-sm font-mono font-black text-black bg-gradient-to-r from-amber-400 to-yellow-300 px-4 py-1.5 rounded-full shadow-xl animate-pulse whitespace-nowrap self-start sm:self-auto">
+                        <CheckCircle2 size={16} /> SET COMPLETE!
                       </span>
                     ) : (
-                      <span className="flex items-center gap-1 text-xs font-mono font-bold text-slate-400 bg-void-950 px-2.5 py-1 rounded-full border border-white/5">
-                        <Lock size={12} /> {ownedInSet} / {set.cardIds.length}
+                      <span className="flex items-center gap-1.5 text-xs sm:text-sm font-mono font-bold text-slate-300 bg-void-950 px-3.5 py-1.5 rounded-full border border-white/10 whitespace-nowrap self-start sm:self-auto">
+                        <Lock size={14} className="text-slate-400" /> 수집 현황: <strong className="text-pink-400">{ownedInSet}</strong> / {set.cardIds.length}
                       </span>
                     )}
                   </div>
 
-                  {/* 6 Members Mini Grid */}
-                  <div className="grid grid-cols-6 gap-1.5 sm:gap-2">
+                  {/* 6 Members Grid (널찍하고 시원한 6열 그리드) */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4 justify-items-center">
                     {memberCards.map(c => {
                       const count = collection[c.id] || 0;
                       const isOwned = count > 0;
@@ -378,43 +383,57 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                         <div
                           key={c.id}
                           onClick={() => setSelectedCard(c)}
-                          className="cursor-pointer transform hover:scale-105 transition-transform"
+                          className="w-full flex justify-center cursor-pointer transform hover:scale-105 transition-transform"
                         >
                           <CardVisual
                             card={c}
                             isOwned={isOwned}
                             count={count}
                             size="sm"
-                            showDetails={false}
+                            className="w-full h-56 sm:h-64"
+                            showDetails={true}
                           />
                         </div>
                       );
                     })}
                   </div>
 
-                  {/* Reward Banner */}
+                  {/* Reward Banner (대형 보상 세트 카드 인스펙터 바) */}
                   <div
                     onClick={() => isCompleted && setSelectedCard(set.rewardCard)}
-                    className={`p-3 rounded-2xl border flex items-center justify-between transition-all ${
+                    className={`p-4 sm:p-5 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all ${
                       isCompleted
-                        ? 'bg-amber-500/20 border-amber-400/50 hover:bg-amber-500/30 cursor-pointer'
-                        : 'bg-void-950/60 border-white/5 opacity-60'
+                        ? 'bg-amber-500/20 border-amber-400/60 hover:bg-amber-500/30 cursor-pointer shadow-lg'
+                        : 'bg-void-950/60 border-white/5 opacity-65'
                     }`}
                   >
-                    <div className="flex items-center gap-2.5">
-                      <span className="text-lg">{r === 'UR' ? '💎' : (r === 'SSR' ? '👑' : '✨')}</span>
-                      <div className="flex flex-col">
-                        <span className="text-xs font-serif font-black text-amber-200">
-                          {set.rewardCard.name}
-                        </span>
-                        <span className="text-[10px] font-mono text-slate-400">
-                          {isCompleted ? '터치하여 보상 세트 카드 감상하기' : '6명 멤버 카드를 모두 모아 해금하세요'}
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-10 h-10 rounded-xl bg-black/60 border border-white/10 flex items-center justify-center text-xl flex-shrink-0">
+                        {r === 'UR' ? '💎' : (r === 'SSR' ? '👑' : '✨')}
+                      </div>
+                      <div className="flex flex-col gap-0.5">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm sm:text-base font-serif font-black text-amber-200">
+                            {set.rewardCard.name}
+                          </span>
+                          <span className={`text-[10px] font-black font-mono px-2 py-0.5 rounded border bg-gradient-to-r ${badgeColors[r] || badgeColors.SSR}`}>
+                            {r}
+                          </span>
+                        </div>
+                        <span className="text-xs font-mono text-slate-400">
+                          {isCompleted ? '👉 터치하여 전설의 풀아트 세트 카드를 감상하세요!' : '6명의 멤버 카드를 모두 수집하면 이 보상 세트 카드가 해금됩니다.'}
                         </span>
                       </div>
                     </div>
-                    <span className={`text-[10px] font-black font-mono px-2.5 py-0.5 rounded border bg-gradient-to-r ${badgeColors[r] || badgeColors.SSR}`}>
-                      {r}
-                    </span>
+
+                    <div className="flex items-center gap-3 self-end sm:self-auto font-mono text-xs">
+                      <span className="text-amber-400 font-black bg-black/60 px-3 py-1.5 rounded-xl border border-white/10 whitespace-nowrap">
+                        ⚡ POWER {set.rewardCard.power.toLocaleString()}
+                      </span>
+                      <span className="text-yellow-300 font-black bg-black/60 px-3 py-1.5 rounded-xl border border-white/10 whitespace-nowrap">
+                        💎 COST {set.rewardCard.cost}
+                      </span>
+                    </div>
                   </div>
                 </div>
               );
