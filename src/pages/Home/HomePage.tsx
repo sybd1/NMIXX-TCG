@@ -57,12 +57,6 @@ export const HomePage: React.FC<HomePageProps> = ({
             <span className="text-pink-400 font-bold">Some cards have a secret."</span>
           </p>
 
-          <div className="bg-void-900/80 border border-amber-500/40 px-6 py-3 rounded-2xl">
-            <span className="text-xs font-mono text-amber-300 font-bold">
-              💰 초기 지원금 1억원 (100,000,000 COIN) 지급 완료!
-            </span>
-          </div>
-
           <p className="text-xs font-mono text-slate-400 tracking-wider">
             릴리 • 해원 • 설윤 • 배이 • 지우 • 규진 — 6인의 올라운더를 수집하세요!
           </p>
