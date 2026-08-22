@@ -138,9 +138,28 @@ class SoundService {
     // 우주적 차원 균열 & 장엄한 충격파
     this.playTone(40, 'sawtooth', 1.5, 0, 1.0);
     this.playTone(55, 'triangle', 1.8, 0.1, 0.9);
-    const cosmicNotes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50];
-    cosmicNotes.forEach((f, i) => {
-      this.playTone(f, 'triangle', 0.8, 0.4 + i * 0.1, 0.9);
+    const chords = [261.63, 329.63, 392, 523.25, 659.25, 783.99, 1046.5];
+    chords.forEach((f, i) => {
+      this.playTone(f, 'sine', 0.8, 0.3 + i * 0.1, 0.9);
+    });
+  }
+
+  public playVictoryFanfare() {
+    // 🎺 웅장한 승리의 빵빠레 (XR 초월 카드 해금 팡파레)
+    this.playTone(65, 'sawtooth', 2.8, 0, 0.9); // 웅장한 베이스 충격파
+    const fanfare = [
+      { f: 523.25, t: 0, d: 0.22 },     // C5
+      { f: 523.25, t: 0.22, d: 0.22 },  // C5
+      { f: 523.25, t: 0.44, d: 0.22 },  // C5
+      { f: 659.25, t: 0.66, d: 0.55 },  // E5
+      { f: 587.33, t: 1.25, d: 0.22 },  // D5
+      { f: 659.25, t: 1.47, d: 0.25 },  // E5
+      { f: 783.99, t: 1.72, d: 1.2 },   // G5
+      { f: 1046.50, t: 1.85, d: 2.0 },  // C6 (대승리 피날레)
+    ];
+    fanfare.forEach(n => {
+      this.playTone(n.f, 'triangle', n.d, n.t, 0.85);
+      this.playTone(n.f * 0.5, 'sine', n.d, n.t, 0.6);
     });
   }
 

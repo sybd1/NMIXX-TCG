@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Card, Rarity } from '../../types/card';
 import { MASTER_CARDS, LEGACY_CARDS, CONCEPT_SETS } from '../../data/cards';
 import { CardVisual } from '../../components/Card/CardVisual';
 import { CardModal } from '../../components/Card/CardModal';
-import { ArrowUpDown, Crown, Sparkles, CheckCircle2, Lock, Landmark } from 'lucide-react';
+import { sound } from '../../services/soundService';
+import { ArrowUpDown, Crown, Sparkles, CheckCircle2, Lock, Landmark, PartyPopper } from 'lucide-react';
 
 interface CollectionPageProps {
   collection: Record<string, number>;
@@ -63,11 +65,32 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
   const [sortBy, setSortBy] = useState<SortOption>('OWNED_HIGH_RARITY');
   const [sortDirection, setSortDirection] = useState<SortDirection>('DESC');
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
+  const [showXrCelebrationModal, setShowXrCelebrationModal] = useState(false);
 
   // XR 카드 보유 여부 & 멤버 필터 탭 동적 계산 (획득 전까지 박진영 숨김)
   const xrCard = MASTER_CARDS.find(c => c.rarity === 'XR');
   const isXrOwned = xrCard ? (collection[xrCard.id] || 0) > 0 : false;
   const availableMembers = MEMBERS.filter(m => m.id !== 'PARK' || isXrOwned);
+
+  // 🎺 COLLECTION 페이지 진입 시: XR 초월 카드 해금 조건 달성 여부 자동 검사 및 빵빠레 습득 이벤트!
+  useEffect(() => {
+    const baseMasterCards = MASTER_CARDS.filter(c => c.rarity !== 'XR');
+    const targetXr = MASTER_CARDS.find(c => c.rarity === 'XR');
+    if (!targetXr) return;
+
+    const ownedBaseCount = baseMasterCards.filter(c => (collection[c.id] || 0) > 0).length;
+    const isAllBaseCollected = ownedBaseCount >= baseMasterCards.length;
+    const isAlreadyOwned = (collection[targetXr.id] || 0) > 0;
+
+    // 조건을 달성했고 아직 XR 카드를 습득하지 않은 경우: 빵빠레 울리며 자동 습득 이벤트 발생!
+    if (isAllBaseCollected && !isAlreadyOwned) {
+      sound.playVictoryFanfare();
+      setShowXrCelebrationModal(true);
+      if (onClaimXrCard) {
+        onClaimXrCard(targetXr.id);
+      }
+    }
+  }, [collection, onClaimXrCard]);
 
   // 기존 보유 유저의 Legacy 소장 카드 보존
   const ownedLegacyCards = LEGACY_CARDS.filter(c => (collection[c.id] || 0) > 0);
@@ -659,6 +682,80 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
           </div>
         </div>
       )}
+
+      {/* 🎺 [XR] 초월 카드 (박진영 카드) 빵빠레 자동 습득 축하 시네마틱 팝업 모달 */}
+      <AnimatePresence>
+        {showXrCelebrationModal && xrCard && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 select-none">
+            {/* 앰비언트 배경 블러 */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowXrCelebrationModal(false)}
+              className="absolute inset-0 bg-black/90 backdrop-blur-2xl"
+            />
+
+            {/* 🎊 화려한 팡파레 컨페티 폭죽 효과 */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
+              <div className="absolute top-10 left-1/4 w-96 h-96 rounded-full bg-rose-600/30 blur-3xl animate-pulse" />
+              <div className="absolute bottom-10 right-1/4 w-96 h-96 rounded-full bg-amber-400/25 blur-3xl animate-pulse" />
+            </div>
+
+            {/* 메인 축하 모달 박스 */}
+            <motion.div
+              initial={{ scale: 0.7, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.7, opacity: 0, y: 50 }}
+              transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+              className="relative z-20 w-full max-w-2xl bg-gradient-to-b from-[#1a052e] via-void-950 to-black border-2 border-rose-400/60 rounded-3xl p-6 sm:p-8 shadow-[0_0_60px_rgba(244,63,94,0.5)] flex flex-col items-center text-center gap-5"
+            >
+              {/* 상단 팡파레 축하 헤더 */}
+              <div className="flex flex-col items-center gap-2">
+                <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-rose-500 via-purple-500 to-amber-400 text-white font-mono font-black text-xs sm:text-sm shadow-xl animate-bounce">
+                  <PartyPopper size={16} />
+                  <span>🎺 축하합니다! 모든 카드 수집 달성!</span>
+                  <Crown size={16} />
+                </div>
+
+                <h2 className="font-serif font-black text-2xl sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-rose-200 via-amber-200 to-yellow-100 drop-shadow-md">
+                  [XR] 궁극의 초월 카드 획득!
+                </h2>
+
+                <p className="text-xs sm:text-sm text-slate-300 font-sans max-w-lg leading-relaxed">
+                  모든 카드를 정복한 마스터 엔써에게 바치는 궁극의 신의 카드!
+                  <br />
+                  <strong className="text-rose-300 font-bold">👑 초월 카드 (박진영)</strong>가 컬렉션에 자동으로 지급되었습니다!
+                </p>
+              </div>
+
+              {/* 초대형 거대 3D 박진영 초월 카드 비주얼 */}
+              <div className="relative transform hover:scale-105 transition-transform duration-300 my-1">
+                <CardVisual
+                  card={xrCard}
+                  finishType="TRANSCENDENT_COSMIC"
+                  isOwned={true}
+                  count={1}
+                  size="lg"
+                  className="w-64 sm:w-76 h-[370px] sm:h-[450px] shadow-[0_0_40px_rgba(244,63,94,0.6)]"
+                />
+              </div>
+
+              {/* 하단 확인 버튼 */}
+              <button
+                onClick={() => {
+                  sound.playClick();
+                  setShowXrCelebrationModal(false);
+                }}
+                className="w-full max-w-md py-3.5 px-8 rounded-2xl font-serif font-black text-sm sm:text-base bg-gradient-to-r from-rose-600 via-amber-500 to-purple-600 hover:from-rose-500 hover:to-purple-500 text-white shadow-2xl shadow-rose-950/80 flex items-center justify-center gap-2 hover:scale-105 transition-all cursor-pointer border-2 border-white ring-4 ring-rose-500/50"
+              >
+                <Sparkles size={18} className="text-yellow-200" />
+                <span>박진영 초월 카드 컬렉션에 보관하기</span>
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Card Detail Modal */}
       <CardModal
