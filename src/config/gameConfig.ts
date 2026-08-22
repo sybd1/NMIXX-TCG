@@ -14,7 +14,7 @@ export interface RarityConfig {
 export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
   C: {
     name: 'C',
-    label: 'Common (일반)',
+    label: 'C Common (일반)',
     probability: 0.5000, // 50.00%
     dustDismantle: 5,
     dustCraft: 50,
@@ -24,7 +24,7 @@ export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
   },
   UC: {
     name: 'UC',
-    label: 'Uncommon (고급)',
+    label: 'UC Uncommon (고급)',
     probability: 0.3000, // 30.00%
     dustDismantle: 15,
     dustCraft: 150,
@@ -34,7 +34,7 @@ export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
   },
   R: {
     name: 'R',
-    label: 'Rare (희귀)',
+    label: 'R Rare (희귀)',
     probability: 0.1500, // 15.00%
     dustDismantle: 40,
     dustCraft: 400,
@@ -44,7 +44,7 @@ export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
   },
   SR: {
     name: 'SR',
-    label: 'Super Rare (초희귀)',
+    label: 'SR Super Rare (초희귀)',
     probability: 0.0400, // 4.00%
     dustDismantle: 120,
     dustCraft: 1200,
@@ -54,7 +54,7 @@ export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
   },
   SSR: {
     name: 'SSR',
-    label: 'Super Special Rare (특급 희귀)',
+    label: 'SSR Super Special Rare (특급 희귀)',
     probability: 0.0050, // 0.50%
     dustDismantle: 500,
     dustCraft: 5000,
@@ -64,7 +64,7 @@ export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
   },
   UR: {
     name: 'UR',
-    label: 'Ultra Rare (극희귀)',
+    label: 'UR Ultra Rare (극희귀)',
     probability: 0.0030, // 0.30%
     dustDismantle: 1500,
     dustCraft: 15000,
@@ -74,7 +74,7 @@ export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
   },
   LR: {
     name: 'LR',
-    label: 'Legend Rare (전설)',
+    label: 'LR Legend Rare (전설)',
     probability: 0.0015, // 0.15%
     dustDismantle: 4000,
     dustCraft: 40000,
@@ -84,7 +84,7 @@ export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
   },
   MR: {
     name: 'MR',
-    label: 'Mythic Rare (신화)',
+    label: 'MR Mythic Rare (신화)',
     probability: 0.0005, // 0.05%
     dustDismantle: 10000,
     dustCraft: null, // 신화 카드는 제작 불가 (오직 극악의 가챠로만 획득)
@@ -109,7 +109,7 @@ export interface BoosterPackConfig {
   totalCards: number;
 }
 
-// 원피스 카드게임(OPTCG) 테마 4대 부스터 팩 시리즈
+// 원피스 카드게임(OPTCG) 테마 4대 부스터 팩 시리즈 (총 600종 카드)
 export const BOOSTER_PACKS: BoosterPackConfig[] = [
   {
     id: 'op01',
@@ -119,11 +119,11 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     description: 'NMIXX CHANGE UP! 엔써와 함께 새로운 항해의 닻을 올리는 1탄 부스터 팩.',
     slogan: '새로운 항해의 닻을 올려라!',
     image: '/pack_cover_1.jpg',
-    objectPosition: 'center 38%', // 사진을 아래로 내려서 얼굴이 폰트에 가리지 않게 완벽 조정
+    objectPosition: 'center 38%',
     gradient: 'from-pink-600 via-purple-600 to-amber-500',
     glowColor: 'rgba(236, 72, 153, 0.5)',
     themeColor: '#ec4899',
-    totalCards: 200,
+    totalCards: 600,
   },
   {
     id: 'op02',
@@ -137,7 +137,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     gradient: 'from-blue-600 via-indigo-700 to-cyan-400',
     glowColor: 'rgba(59, 130, 246, 0.5)',
     themeColor: '#3b82f6',
-    totalCards: 200,
+    totalCards: 600,
   },
   {
     id: 'op03',
@@ -151,7 +151,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     gradient: 'from-emerald-600 via-teal-700 to-amber-400',
     glowColor: 'rgba(16, 185, 129, 0.5)',
     themeColor: '#10b981',
-    totalCards: 200,
+    totalCards: 600,
   },
   {
     id: 'op04',
@@ -165,7 +165,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     gradient: 'from-fuchsia-600 via-purple-800 to-rose-400',
     glowColor: 'rgba(168, 85, 247, 0.5)',
     themeColor: '#a855f7',
-    totalCards: 200,
+    totalCards: 600,
   },
 ];
 

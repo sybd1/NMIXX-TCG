@@ -89,16 +89,16 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
       <div className="bg-void-900/80 border border-void-800 p-6 rounded-3xl">
         <h3 className="font-serif font-bold text-slate-200 text-sm mb-4 flex items-center gap-2">
           <ShieldCheck size={16} className="text-emerald-400" />
-          공식 카드팩 8단계 극악 확률 테이블 (NMIXX TCG)
+          공식 카드팩 레어도 및 봉입률
         </h3>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left font-mono text-xs border-collapse">
             <thead>
               <tr className="border-b border-void-800 text-slate-500 pb-2">
-                <th className="py-2">RARITY (등급)</th>
-                <th className="py-2">확률 (%)</th>
-                <th className="py-2">설명</th>
+                <th className="py-2.5">RARITY (레어도)</th>
+                <th className="py-2.5">봉입률 (%)</th>
+                <th className="py-2.5">등급 설명</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-void-800/60 text-slate-300">
@@ -107,13 +107,34 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
                 const pct = (conf.probability * 100).toFixed(2);
                 return (
                   <tr key={r} className="hover:bg-white/5 transition-colors">
-                    <td className="py-2.5 font-bold flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full shadow-sm" style={{ backgroundColor: conf.colorHex }} />
-                      <span style={{ color: conf.colorHex }}>{conf.label}</span>
+                    <td className="py-3 font-bold flex items-center gap-2.5">
+                      {/* 젤 앞의 멋있는 프리미엄 Rarity 엠블럼 뱃지 */}
+                      <span
+                        className={`inline-flex items-center justify-center min-w-[38px] px-2 py-0.5 rounded-md text-[10.5px] font-black tracking-wider border shadow-md ${conf.badgeBg}`}
+                      >
+                        {r}
+                      </span>
+                      <span className="text-slate-200 font-serif font-bold text-[12px]">
+                        {conf.label.replace(/^[A-Z]+\s+/, '')}
+                      </span>
                     </td>
-                    <td className="py-2.5 font-bold text-amber-300">{pct}%</td>
-                    <td className="py-2.5 text-slate-400 text-[11px]">
-                      {r === 'MR' ? '0.05% 신화 카드' : r === 'LR' ? '0.15% 전설 카드' : r === 'UR' ? '0.30% 극희귀 카드' : r === 'SSR' ? '0.50% 특급 희귀' : `${r} 등급`}
+                    <td className="py-3 font-black text-amber-300 text-[12.5px]">{pct}%</td>
+                    <td className="py-3 text-slate-400 text-[11px] font-sans">
+                      {r === 'MR'
+                        ? '0.05% 신화 카드 (홀로그램 극상 패러렐)'
+                        : r === 'LR'
+                        ? '0.15% 전설 카드 (레전드 레인보우)'
+                        : r === 'UR'
+                        ? '0.30% 울트라 레어 (크림슨 루비)'
+                        : r === 'SSR'
+                        ? '0.50% 특급 희귀 (골든 앰버)'
+                        : r === 'SR'
+                        ? '4.00% 초희귀 (로열 퍼플)'
+                        : r === 'R'
+                        ? '15.00% 희귀 (스카이 아쿠아)'
+                        : r === 'UC'
+                        ? '30.00% 고급 (에메랄드 그린)'
+                        : '50.00% 일반 (슬레이트 실버)'}
                     </td>
                   </tr>
                 );
