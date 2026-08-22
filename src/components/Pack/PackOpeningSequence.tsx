@@ -8,6 +8,7 @@ import { SecretRevealEffect } from '../RevealAnimation/SecretRevealEffect';
 import { sound } from '../../services/soundService';
 import { Home, X, Zap, Sparkles } from 'lucide-react';
 import { BoosterPackConfig, BOOSTER_PACKS, RARITY_CONFIGS } from '../../config/gameConfig';
+import { MASTER_CARDS } from '../../data/cards';
 
 interface PackOpeningSequenceProps {
   cards: RevealedCard[];
@@ -16,6 +17,7 @@ interface PackOpeningSequenceProps {
   cost?: number;
   coins?: number;
   pityCount?: number;
+  collection?: Record<string, number>;
   onFinish: () => void;
   onOpenAnother: () => void;
   onOpenPackCount?: (count: 1 | 5 | 10) => void;
@@ -29,6 +31,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
   cost = 100,
   coins = 100_000_000,
   pityCount = 0,
+  collection = {},
   onFinish,
   onOpenAnother,
   onOpenPackCount,
@@ -225,6 +228,13 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
     rarityStats[c.rarity] = (rarityStats[c.rarity] || 0) + 1;
   });
 
+  // 현재 개봉 중인 부스터 팩의 실시간 수집률
+  const currentPackId = pack?.id || 'op01';
+  const packMasterCards = MASTER_CARDS.filter(c => c.packId === currentPackId);
+  const packTotalCards = packMasterCards.length || 150;
+  const packOwnedCards = packMasterCards.filter(c => (collection[c.id] || 0) > 0).length;
+  const packProgressPct = Math.round((packOwnedCards / packTotalCards) * 1000) / 10;
+
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-between bg-[#070210] overflow-y-auto py-5 px-3 select-none">
       {/* 🌌 NMIXX MIXXTOPIA 앰비언트 우주 네뷸라 배경 효과 (GPU 가속 최적화) */}
@@ -242,7 +252,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
       </div>
 
       {/* 상단 고정 네비게이션: 메인 나가기 & 실시간 잔여 코인 */}
-      <div className="sticky top-0 z-30 w-full max-w-6xl flex items-center justify-between pointer-events-auto bg-void-950/85 backdrop-blur-xl px-3 sm:px-4 py-2.5 rounded-2xl border border-white/15 shadow-2xl shadow-purple-950/40 mb-2 gap-2 flex-wrap sm:flex-nowrap">
+      <div className="sticky top-0 z-30 w-full max-w-4xl flex items-center justify-between pointer-events-auto bg-void-950/85 backdrop-blur-xl px-3 sm:px-4 py-2 rounded-2xl border border-white/15 shadow-2xl shadow-purple-950/40 mb-2 gap-2 flex-wrap sm:flex-nowrap">
         <button
           onClick={onFinish}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-void-900/90 hover:bg-void-800 text-slate-200 border border-white/20 text-xs font-mono font-bold transition-all shadow-md hover:scale-105 cursor-pointer"
@@ -275,39 +285,65 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
         </div>
       </div>
 
-      {/* 👑 초대형 실시간 천장(Pity) 대시보드 HUD (50회 기준 & 압도적 가시성) */}
-      <div className="relative z-20 w-full max-w-4xl px-4 py-2.5 mb-3 bg-gradient-to-r from-purple-950/90 via-void-950 to-purple-950/90 backdrop-blur-xl rounded-2xl border-2 border-purple-500/50 shadow-[0_0_30px_rgba(168,85,247,0.35)] flex flex-col gap-1.5 pointer-events-auto">
-        <div className="flex items-center justify-between flex-wrap gap-2">
-          <div className="flex items-center gap-2.5">
-            <span className="flex items-center justify-center w-7 h-7 rounded-xl bg-gradient-to-br from-amber-400 to-yellow-600 text-black font-black text-sm shadow-lg shadow-amber-500/40 animate-bounce">
-              👑
-            </span>
-            <div className="flex items-baseline gap-2">
-              <span className="font-serif font-black text-sm sm:text-base text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-200 to-amber-300 drop-shadow">
-                SSR+ 확정 천장 시스템
+      {/* 👑 초대형 실시간 천장(Pity) & 팩별 실시간 수집률 대시보드 HUD */}
+      <div className="relative z-20 w-full max-w-4xl px-4 py-2.5 mb-2 bg-gradient-to-r from-purple-950/90 via-void-950 to-purple-950/90 backdrop-blur-xl rounded-2xl border-2 border-purple-500/50 shadow-[0_0_30px_rgba(168,85,247,0.35)] flex flex-col gap-2 pointer-events-auto">
+        {/* 1. 천장 게이지 */}
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <div className="flex items-center gap-2">
+              <span className="flex items-center justify-center w-5 h-5 rounded-md bg-gradient-to-br from-amber-400 to-yellow-600 text-black font-black text-[11px] shadow-md shadow-amber-500/40">
+                👑
               </span>
-              <span className="text-[11px] font-mono text-purple-300 font-bold hidden sm:inline">
-                (50회 미등장 시 미보유 SSR+ 100% 확정 보장 • 중복 방지)
+              <div className="flex items-baseline gap-1.5">
+                <span className="font-serif font-black text-xs sm:text-sm text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-200 to-amber-300 drop-shadow">
+                  SSR+ 확정 천장
+                </span>
+                <span className="text-[10px] font-mono text-purple-300 font-bold hidden sm:inline">
+                  (50회 시 미보유 SSR+ 100% 확정)
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 text-xs font-mono">
+              <span className="text-[11px] text-slate-300 font-bold">
+                확정까지 <strong className="text-amber-300 font-black">{Math.max(0, 50 - pityCount)}</strong>회 남음
+              </span>
+              <span className="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-400 via-rose-400 to-purple-500 text-black font-mono font-black text-xs shadow-md border border-white/50">
+                {pityCount} / 50
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5">
-            <span className="text-xs sm:text-sm font-mono font-bold text-slate-300">
-              확정까지 <strong className="text-amber-300 font-black text-sm sm:text-base">{Math.max(0, 50 - pityCount)}</strong>회 남음
-            </span>
-            <span className="px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-400 via-rose-400 to-purple-500 text-black font-mono font-black text-xs sm:text-sm shadow-md border border-white/50">
-              {pityCount} / 50
-            </span>
+          <div className="w-full h-2.5 bg-black/90 rounded-full overflow-hidden border border-purple-400/50 shadow-inner relative p-0.5">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-purple-600 via-pink-500 to-amber-400 shadow-[0_0_15px_rgba(236,72,153,0.9)] transition-all duration-500 relative"
+              style={{ width: `${Math.min(100, (pityCount / 50) * 100)}%` }}
+            />
           </div>
         </div>
 
-        {/* 대형 프로그레스 바 */}
-        <div className="w-full h-3.5 sm:h-4 bg-black/90 rounded-full overflow-hidden border border-purple-400/50 shadow-inner relative p-0.5">
-          <div
-            className="h-full rounded-full bg-gradient-to-r from-purple-600 via-pink-500 to-amber-400 shadow-[0_0_20px_rgba(236,72,153,0.9)] transition-all duration-500 relative"
-            style={{ width: `${Math.min(100, (pityCount / 50) * 100)}%` }}
-          />
+        {/* 2. 📦 현재 개봉 중인 팩 전용 실시간 수집률 Bar */}
+        <div className="flex flex-col gap-1 pt-1.5 border-t border-purple-500/20">
+          <div className="flex items-center justify-between text-xs font-mono">
+            <span className="text-slate-200 font-bold flex items-center gap-1.5">
+              <span>📦</span>
+              <span>[{pack.code}] {pack.name} 팩 수집률</span>
+            </span>
+            <div className="flex items-center gap-1">
+              <span className="text-pink-300 font-black">{packOwnedCards}</span>
+              <span className="text-slate-500">/</span>
+              <span className="text-slate-300 font-bold">{packTotalCards}장</span>
+              <span className="ml-1 text-amber-300 bg-amber-950/90 px-2 py-0.2 rounded-md border border-amber-500/40 text-[10.5px] font-black">
+                {packProgressPct}%
+              </span>
+            </div>
+          </div>
+          <div className="w-full h-2 bg-black/90 rounded-full overflow-hidden border border-white/10 relative p-0.5">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-sky-400 via-pink-500 to-amber-400 transition-all duration-500"
+              style={{ width: `${packProgressPct}%` }}
+            />
+          </div>
         </div>
       </div>
 

@@ -144,6 +144,7 @@ export const App: React.FC = () => {
             coins={state.coins}
             pityCount={state.pityCount}
             isFirstVisit={state.isFirstVisit}
+            collection={state.collection}
             onOpenSingle={handleOpenSinglePack}
             onOpenFive={handleOpenFivePacks}
             onOpenTen={handleOpenTenPacks}
@@ -185,6 +186,7 @@ export const App: React.FC = () => {
           cost={openingState.cost}
           coins={state.coins}
           pityCount={state.pityCount}
+          collection={state.collection}
           onFinish={() => setOpeningState(null)}
           onOpenPackCount={(targetCount) => {
             const currentPack = openingState.pack;

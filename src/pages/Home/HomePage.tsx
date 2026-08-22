@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Pack3D } from '../../components/Pack/Pack3D';
 import { GAME_CONFIG, BOOSTER_PACKS, BoosterPackConfig } from '../../config/gameConfig';
-import { Sparkles, ShieldAlert, Zap, Layers } from 'lucide-react';
+import { MASTER_CARDS } from '../../data/cards';
+import { Sparkles, ShieldAlert, Zap, Layers, Trophy } from 'lucide-react';
 
 interface HomePageProps {
   coins: number;
   pityCount: number;
   isFirstVisit: boolean;
+  collection?: Record<string, number>;
   onOpenSingle: (pack: BoosterPackConfig) => void;
   onOpenFive: (pack: BoosterPackConfig) => void;
   onOpenTen: (pack: BoosterPackConfig) => void;
@@ -18,12 +20,24 @@ export const HomePage: React.FC<HomePageProps> = ({
   coins,
   pityCount,
   isFirstVisit,
+  collection = {},
   onOpenSingle,
   onOpenFive,
   onOpenTen,
   onDismissFirstVisit,
 }) => {
   const [selectedPack, setSelectedPack] = useState<BoosterPackConfig>(BOOSTER_PACKS[0]);
+
+  // 팩별 수집 현황 계산 함수
+  const getPackCollectionStats = (packId: string) => {
+    const packCards = MASTER_CARDS.filter(c => c.packId === packId);
+    const total = packCards.length || 150;
+    const owned = packCards.filter(c => (collection[c.id] || 0) > 0).length;
+    const percentage = Math.round((owned / total) * 1000) / 10;
+    return { owned, total, percentage };
+  };
+
+  const currentStats = getPackCollectionStats(selectedPack.id);
 
   // 팩 구매 가능 여부 계산
   const canAffordSingle = coins >= GAME_CONFIG.PACK_COST_SINGLE;
@@ -79,34 +93,72 @@ export const HomePage: React.FC<HomePageProps> = ({
   return (
     <div className="flex-1 flex flex-col items-center justify-center px-4 py-6 max-w-4xl mx-auto w-full">
       {/* Booster Pack Series Selector (OP-01 ~ OP-04) */}
-      <div className="w-full max-w-2xl flex flex-wrap items-center justify-center gap-2 mb-4 bg-void-900/90 border border-void-800 p-2 rounded-2xl backdrop-blur-md shadow-lg">
+      <div className="w-full max-w-2xl flex flex-wrap items-center justify-center gap-2 mb-3 bg-void-900/90 border border-void-800 p-2 rounded-2xl backdrop-blur-md shadow-lg">
         {BOOSTER_PACKS.map(pack => {
           const isSelected = selectedPack.id === pack.id;
+          const stats = getPackCollectionStats(pack.id);
+
           return (
             <button
               key={pack.id}
               onClick={() => setSelectedPack(pack)}
-              className={`flex-1 min-w-[120px] py-2 px-3 rounded-xl font-mono text-xs font-bold transition-all flex flex-col items-center gap-0.5 ${
+              className={`flex-1 min-w-[130px] py-2 px-3 rounded-xl font-mono text-xs font-bold transition-all flex flex-col items-center gap-0.5 ${
                 isSelected
                   ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md border border-pink-400/50 scale-[1.03]'
                   : 'bg-void-950/70 text-slate-400 hover:text-slate-200 border border-white/5 hover:border-white/15'
               }`}
             >
-              <span className="text-[10px] text-pink-300 font-extrabold tracking-wider">
-                {pack.code}
-              </span>
+              <div className="flex items-center justify-between w-full">
+                <span className="text-[10px] text-pink-300 font-extrabold tracking-wider">
+                  {pack.code}
+                </span>
+                <span className={`text-[9.5px] font-mono font-black px-1.5 py-0.2 rounded ${
+                  isSelected ? 'bg-black/50 text-amber-300' : 'bg-void-900 text-slate-400'
+                }`}>
+                  {stats.percentage}%
+                </span>
+              </div>
               <span className="font-serif text-[11px] sm:text-xs whitespace-nowrap truncate max-w-full font-bold">
                 {pack.name}
+              </span>
+              <span className="text-[9px] font-mono text-slate-300/80">
+                ({stats.owned}/{stats.total}장)
               </span>
             </button>
           );
         })}
       </div>
 
+      {/* 🌟 현재 선택된 부스터 팩 전용 실시간 수집률 HUD 대시보드 */}
+      <div className="w-full max-w-xl bg-void-950/85 border border-pink-500/30 px-4 py-2.5 rounded-2xl mb-2 flex flex-col gap-1.5 shadow-lg">
+        <div className="flex items-center justify-between text-xs font-mono">
+          <div className="flex items-center gap-1.5 font-bold text-slate-200">
+            <Trophy size={13} className="text-amber-400" />
+            <span>[{selectedPack.code}] {selectedPack.name} 수집률</span>
+          </div>
+          <div className="flex items-center gap-1 font-black">
+            <span className="text-pink-300">{currentStats.owned}</span>
+            <span className="text-slate-500">/</span>
+            <span className="text-slate-300">{currentStats.total}장</span>
+            <span className="ml-1 text-amber-300 bg-amber-950/80 px-2 py-0.5 rounded-lg border border-amber-500/40 text-[11px]">
+              {currentStats.percentage}%
+            </span>
+          </div>
+        </div>
+
+        {/* 팩 전용 수집 진척도 게이지 바 */}
+        <div className="w-full h-2 bg-black rounded-full overflow-hidden border border-white/10 relative">
+          <div
+            className="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-amber-400 transition-all duration-500"
+            style={{ width: `${currentStats.percentage}%` }}
+          />
+        </div>
+      </div>
+
       {/* Selected Pack Subtitle & Slogan */}
-      <div className="text-center mb-2">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-void-900 border border-pink-500/30 text-pink-300 font-mono text-[10.5px] font-extrabold mb-1">
-          <Layers size={12} />
+      <div className="text-center mb-1">
+        <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-void-900 border border-pink-500/30 text-pink-300 font-mono text-[10px] font-extrabold mb-0.5">
+          <Layers size={11} />
           <span>{selectedPack.subtitle}</span>
         </div>
         <p className="text-xs font-serif italic text-slate-300">
