@@ -218,36 +218,36 @@
   pointer-events: none;
 }
 
-/* 9. TRANSCENDENT_COSMIC (XR - 초월): 유일무이한 궁극의 초월 이펙트 */
+/* 9. TRANSCENDENT_COSMIC (XR - 초월): 얼굴이 선명하게 보이도록 화이트아웃을 제거한 고급스러운 프리미엄 오로라 셰이더 */
 .finish-transcendent-cosmic {
   background: 
-    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 1) 0%, rgba(244, 63, 94, 0.7) 25%, rgba(168, 85, 247, 0.6) 50%, transparent 70%),
+    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 0.35) 0%, rgba(244, 63, 94, 0.2) 25%, rgba(168, 85, 247, 0.18) 50%, transparent 70%),
     conic-gradient(
       from calc(var(--pointer-from-center, 0) * 360deg) at var(--pointer-x, 50%) var(--pointer-y, 50%),
-      rgba(225, 29, 72, 0.8) 0deg,
-      rgba(234, 179, 8, 0.85) 60deg,
-      rgba(168, 85, 247, 0.8) 120deg,
-      rgba(56, 189, 248, 0.8) 180deg,
-      rgba(225, 29, 72, 0.8) 240deg,
-      rgba(234, 179, 8, 0.85) 300deg,
-      rgba(225, 29, 72, 0.8) 360deg
+      rgba(225, 29, 72, 0.25) 0deg,
+      rgba(234, 179, 8, 0.28) 60deg,
+      rgba(168, 85, 247, 0.25) 120deg,
+      rgba(56, 189, 248, 0.25) 180deg,
+      rgba(225, 29, 72, 0.25) 240deg,
+      rgba(234, 179, 8, 0.28) 300deg,
+      rgba(225, 29, 72, 0.25) 360deg
     ),
     repeating-linear-gradient(
       calc(45deg + var(--pointer-from-center, 0) * 90deg),
-      rgba(255, 255, 255, 0.2) 0px,
-      rgba(255, 255, 255, 0.2) 3px,
-      transparent 3px,
-      transparent 8px
+      rgba(255, 255, 255, 0.08) 0px,
+      rgba(255, 255, 255, 0.08) 2px,
+      transparent 2px,
+      transparent 6px
     );
-  mix-blend-mode: color-dodge;
-  opacity: var(--card-opacity, 0.85);
-  filter: brightness(1.5) contrast(1.6) saturate(1.9);
-  transition: opacity 0.15s ease;
+  mix-blend-mode: screen;
+  opacity: var(--card-opacity, 0.4);
+  filter: brightness(1.04) contrast(1.08) saturate(1.2);
+  transition: opacity 0.2s ease;
   pointer-events: none;
 }
 
 .shadow-glow-xr {
-  box-shadow: 0 0 45px rgba(225, 29, 72, 0.95), 0 0 25px rgba(234, 179, 8, 0.8), inset 0 0 20px rgba(244, 63, 94, 0.5);
+  box-shadow: 0 0 25px rgba(225, 29, 72, 0.6), 0 0 12px rgba(234, 179, 8, 0.45), inset 0 0 10px rgba(244, 63, 94, 0.25);
 }
 
 /* =========================================================================
