@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GameState } from '../../types/game';
 import { RARITY_CONFIGS, GAME_CONFIG, FINISH_CONFIGS } from '../../config/gameConfig';
+import { MASTER_CARDS } from '../../data/cards';
 import { Rarity } from '../../types/card';
 import { Settings, Volume2, VolumeX, RotateCcw, ShieldCheck, AlertTriangle } from 'lucide-react';
 
@@ -18,7 +19,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
   const [showConfirmReset, setShowConfirmReset] = useState(false);
 
   const totalCollectedCards = Object.values(state.collection).reduce((sum, c) => sum + c, 0);
-  const uniqueCollectedCards = Object.keys(state.collection).length;
+  const uniqueCollectedCards = Object.keys(state.collection).filter(id => (state.collection[id] || 0) > 0).length;
+  const totalMasterCardsCount = MASTER_CARDS.length; // 전체 600종
+  const completionPercentage = Math.round((uniqueCollectedCards / totalMasterCardsCount) * 100);
 
   return (
     <div className="flex-1 max-w-4xl mx-auto w-full px-4 py-8 flex flex-col gap-6">
@@ -43,9 +46,14 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
         </div>
         <div className="bg-void-900/90 border border-void-800 p-4 rounded-2xl flex flex-col gap-1">
           <span className="text-[10px] font-mono text-slate-500 uppercase">수집한 고유 카드</span>
-          <span className="font-mono text-xl font-bold text-purple-300">
-            {uniqueCollectedCards} / 60
-          </span>
+          <div className="flex items-baseline gap-1.5">
+            <span className="font-mono text-xl font-bold text-purple-300">
+              {uniqueCollectedCards} / {totalMasterCardsCount}
+            </span>
+            <span className="text-[10px] font-mono text-pink-400 font-extrabold">
+              ({completionPercentage}%)
+            </span>
+          </div>
         </div>
         <div className="bg-void-900/90 border border-void-800 p-4 rounded-2xl flex flex-col gap-1">
           <span className="text-[10px] font-mono text-slate-500 uppercase">총 소지 카드 수</span>
