@@ -171,7 +171,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     gradient: 'from-pink-600 via-purple-600 to-amber-500',
     glowColor: 'rgba(236, 72, 153, 0.5)',
     themeColor: '#ec4899',
-    totalCards: 600,
+    totalCards: 740,
   },
   {
     id: 'op02',
@@ -185,7 +185,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     gradient: 'from-blue-600 via-indigo-700 to-cyan-400',
     glowColor: 'rgba(59, 130, 246, 0.5)',
     themeColor: '#3b82f6',
-    totalCards: 600,
+    totalCards: 740,
   },
   {
     id: 'op03',
@@ -199,7 +199,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     gradient: 'from-blue-600 via-indigo-800 to-cyan-400',
     glowColor: 'rgba(59, 130, 246, 0.6)',
     themeColor: '#3b82f6',
-    totalCards: 600,
+    totalCards: 740,
   },
   {
     id: 'op04',
@@ -213,7 +213,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     gradient: 'from-fuchsia-600 via-purple-800 to-rose-400',
     glowColor: 'rgba(168, 85, 247, 0.6)',
     themeColor: '#a855f7',
-    totalCards: 600,
+    totalCards: 740,
   },
 ];
 

@@ -40,6 +40,7 @@ export interface Card {
   packName?: string; // 1탄 계승되는 의지, 2탄 정점결전 등
   setId?: string | null; // 동일 컨셉 6인 세트 ID (예: set_op01_dice)
   setTitle?: string | null; // 세트 명칭 (예: [DICE] 6인 완전체 컬렉션)
+  isSpecialEdition?: boolean; // 고등급 스페셜 후가공 에디션 여부
 }
 
 export interface RevealedCard extends Card {

@@ -191,7 +191,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
           }`}
         >
           <Sparkles size={15} />
-          전체 카드 도감 (600종)
+          전체 카드 도감 ({totalCardsCount}종)
         </button>
 
         <button
@@ -333,7 +333,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                     <option value="OWNED_HIGH_RARITY">👑 보유 카드 중 높은 등급순</option>
                     <option value="OWNED_FIRST">📦 모은 카드 우선</option>
                     <option value="UNOWNED_FIRST">🔒 아직 못 모은 카드 우선</option>
-                    <option value="NUMBER">🔢 도감 번호순 (#001 ~ #600)</option>
+                    <option value="NUMBER">🔢 도감 번호순 (#001 ~ #{totalCardsCount})</option>
                     <option value="RARITY">💎 등급/희귀도순 (MR ↔ C)</option>
                     <option value="OWNED_COUNT">🃏 보유 수량순 (중복 카드순)</option>
                   </select>
