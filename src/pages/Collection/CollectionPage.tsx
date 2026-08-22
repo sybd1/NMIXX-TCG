@@ -66,6 +66,13 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
   const [sortDirection, setSortDirection] = useState<SortDirection>('DESC');
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
   const [showXrCelebrationModal, setShowXrCelebrationModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const ITEMS_PER_PAGE = 24; // 1페이지당 24장으로 렌더링 최적화
+
+  // 필터나 정렬 기준이 변경되면 1페이지로 자동 리셋
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedPack, selectedMember, selectedRarity, ownershipFilter, sortBy, sortDirection]);
 
   // XR 카드 보유 여부 & 멤버 필터 탭 동적 계산 (획득 전까지 박진영 숨김)
   const xrCard = MASTER_CARDS.find(c => c.rarity === 'XR');
@@ -493,25 +500,136 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
             </div>
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 justify-items-center">
-            {filteredCards.map(card => {
-              const count = collection[card.id] || 0;
-              const isOwned = count > 0;
+          {/* 페이지네이션 슬라이싱 & 고속 렌더링 & 스마트 페이지 네비게이터 */}
+          {(() => {
+            const totalFilteredCount = filteredCards.length;
+            const totalPages = Math.max(1, Math.ceil(totalFilteredCount / ITEMS_PER_PAGE));
+            const validPage = Math.min(Math.max(1, currentPage), totalPages);
+            const startIndex = (validPage - 1) * ITEMS_PER_PAGE;
+            const paginatedCards = filteredCards.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-              return (
-                <div key={card.id} className="card-content-visibility w-full flex justify-center">
-                  <CardVisual
-                    card={card}
-                    isOwned={isOwned}
-                    count={count}
-                    size="sm"
-                    onClick={() => setSelectedCard(card)}
-                  />
+            // 스마트 페이지 번호 생성 로직 (1, 2, 3, 4, 5... 이전/다음)
+            const getPageNumbers = () => {
+              const pages: (number | string)[] = [];
+              if (totalPages <= 7) {
+                for (let i = 1; i <= totalPages; i++) pages.push(i);
+              } else {
+                pages.push(1);
+                if (validPage > 3) pages.push('...');
+                
+                const start = Math.max(2, validPage - 1);
+                const end = Math.min(totalPages - 1, validPage + 1);
+                for (let i = start; i <= end; i++) pages.push(i);
+                
+                if (validPage < totalPages - 2) pages.push('...');
+                pages.push(totalPages);
+              }
+              return pages;
+            };
+
+            const handlePageChange = (page: number) => {
+              if (page < 1 || page > totalPages) return;
+              setCurrentPage(page);
+              sound.playClick();
+              // 부드럽게 상단으로 스크롤 이동
+              window.scrollTo({ top: 380, behavior: 'smooth' });
+            };
+
+            return (
+              <>
+                {/* 상단 미니 페이지 현황 안내 */}
+                <div className="flex items-center justify-between text-xs font-mono text-slate-400 px-2">
+                  <span>
+                    총 <strong className="text-pink-300 font-bold">{totalFilteredCount}</strong>장 중{' '}
+                    <strong className="text-amber-300">{totalFilteredCount > 0 ? startIndex + 1 : 0}</strong> -{' '}
+                    <strong className="text-amber-300">{Math.min(startIndex + ITEMS_PER_PAGE, totalFilteredCount)}</strong>번째 카드 (초고속 24장 뷰)
+                  </span>
+                  <span>
+                    페이지 <strong className="text-white font-bold">{validPage}</strong> / {totalPages}
+                  </span>
                 </div>
-              );
-            })}
-          </div>
+
+                {/* Cards Grid (1페이지당 24장만 렌더링하여 초고속 반응속도 유지) */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 justify-items-center">
+                  {paginatedCards.map(card => {
+                    const count = collection[card.id] || 0;
+                    const isOwned = count > 0;
+
+                    return (
+                      <div key={card.id} className="card-content-visibility w-full flex justify-center">
+                        <CardVisual
+                          card={card}
+                          isOwned={isOwned}
+                          count={count}
+                          size="sm"
+                          onClick={() => setSelectedCard(card)}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* 하단 스마트 페이지네이션 컨트롤러 바 */}
+                {totalPages > 1 && (
+                  <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mt-6 py-4 px-3 bg-void-950/80 backdrop-blur-md rounded-2xl border border-white/10 shadow-lg">
+                    {/* 이전 페이지 버튼 */}
+                    <button
+                      disabled={validPage === 1}
+                      onClick={() => handlePageChange(validPage - 1)}
+                      className={`px-3 sm:px-4 py-2 rounded-xl font-mono text-xs font-bold transition-all flex items-center gap-1 ${
+                        validPage === 1
+                          ? 'text-slate-600 bg-void-900 border border-white/5 cursor-not-allowed'
+                          : 'text-slate-200 bg-void-900 hover:bg-void-800 hover:text-white border border-white/15 cursor-pointer hover:scale-105'
+                      }`}
+                    >
+                      ◀ 이전
+                    </button>
+
+                    {/* 페이지 번호 버튼들 (1, 2, 3, 4 ...) */}
+                    {getPageNumbers().map((p, idx) => {
+                      if (p === '...') {
+                        return (
+                          <span key={`dots-${idx}`} className="px-2 text-slate-500 font-mono text-xs select-none">
+                            •••
+                          </span>
+                        );
+                      }
+
+                      const pageNum = p as number;
+                      const isCurrent = pageNum === validPage;
+
+                      return (
+                        <button
+                          key={`page-${pageNum}`}
+                          onClick={() => handlePageChange(pageNum)}
+                          className={`w-8 sm:w-9 h-8 sm:h-9 rounded-xl font-mono text-xs font-black transition-all flex items-center justify-center cursor-pointer ${
+                            isCurrent
+                              ? 'bg-gradient-to-r from-pink-600 via-purple-600 to-amber-500 text-white shadow-lg shadow-pink-950/60 border border-white/40 scale-105'
+                              : 'text-slate-300 bg-void-900 hover:bg-void-800 hover:text-white border border-white/10 hover:scale-105'
+                          }`}
+                        >
+                          {pageNum}
+                        </button>
+                      );
+                    })}
+
+                    {/* 다음 페이지 버튼 */}
+                    <button
+                      disabled={validPage === totalPages}
+                      onClick={() => handlePageChange(validPage + 1)}
+                      className={`px-3 sm:px-4 py-2 rounded-xl font-mono text-xs font-bold transition-all flex items-center gap-1 ${
+                        validPage === totalPages
+                          ? 'text-slate-600 bg-void-900 border border-white/5 cursor-not-allowed'
+                          : 'text-slate-200 bg-void-900 hover:bg-void-800 hover:text-white border border-white/15 cursor-pointer hover:scale-105'
+                      }`}
+                    >
+                      다음 ▶
+                    </button>
+                  </div>
+                )}
+              </>
+            );
+          })()}
         </>
       )}
 
