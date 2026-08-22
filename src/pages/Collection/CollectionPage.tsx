@@ -64,6 +64,11 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
   const [sortDirection, setSortDirection] = useState<SortDirection>('DESC');
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
 
+  // XR 카드 보유 여부 & 멤버 필터 탭 동적 계산 (획득 전까지 박진영 숨김)
+  const xrCard = MASTER_CARDS.find(c => c.rarity === 'XR');
+  const isXrOwned = xrCard ? (collection[xrCard.id] || 0) > 0 : false;
+  const availableMembers = MEMBERS.filter(m => m.id !== 'PARK' || isXrOwned);
+
   // 수집 통계 계산
   const ownedUniqueCount = Object.keys(collection).filter(id => collection[id] > 0).length;
   const totalCardsCount = MASTER_CARDS.length;
@@ -373,20 +378,24 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
               ))}
             </div>
 
-            {/* 3. Member Filters */}
+            {/* 3. Member Filters (XR 획득 전까지 박진영 숨김) */}
             <div className="flex flex-wrap items-center gap-1.5 border-b border-void-800/80 pb-3">
               <span className="text-[11px] font-mono text-slate-400 font-bold mr-1">MEMBER:</span>
-              {MEMBERS.map(m => (
+              {availableMembers.map(m => (
                 <button
                   key={m.id}
                   onClick={() => setSelectedMember(m.id)}
                   className={`px-3 py-1 rounded-xl text-xs font-bold transition-all ${
                     selectedMember === m.id
-                      ? 'bg-purple-600/30 text-purple-200 border border-purple-500/40 shadow-sm'
-                      : 'text-slate-400 hover:text-white bg-void-900 border border-transparent'
+                      ? (m.id === 'PARK'
+                          ? 'bg-gradient-to-r from-rose-600 to-amber-500 text-white border border-white shadow-lg shadow-rose-950/60 font-black'
+                          : 'bg-purple-600/30 text-purple-200 border border-purple-500/40 shadow-sm')
+                      : (m.id === 'PARK'
+                          ? 'bg-gradient-to-r from-rose-950/60 to-purple-950/60 text-rose-200 border border-rose-500/40 hover:text-white'
+                          : 'text-slate-400 hover:text-white bg-void-900 border border-transparent')
                   }`}
                 >
-                  {m.name}
+                  {m.id === 'PARK' ? '👑 박진영' : m.name}
                 </button>
               ))}
             </div>
