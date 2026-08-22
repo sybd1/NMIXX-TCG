@@ -213,9 +213,9 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
           </div>
 
           <div className="flex items-center gap-1">
-            {/* 단체 / NMIXX 미니 태그 */}
+            {/* 멤버 한글 이름 / 단체 미니 태그 */}
             <span className="text-[7.5px] font-mono font-black text-pink-200 bg-black/60 backdrop-blur-sm px-1.5 py-0.5 rounded border border-pink-500/30">
-              {isNmixxGroup ? '단체' : 'NMIXX'}
+              {isNmixxGroup ? '단체' : memberInfo.nameKo}
             </span>
             {/* 8단계 Rarity 미니 뱃지 */}
             <span className={`text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded border ${config.badgeBg} shadow-md backdrop-blur-sm`}>
@@ -224,16 +224,16 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
           </div>
         </div>
 
-        {/* 하단 슬림 글래스모피즘 네임태그 (사진을 가리지 않는 미니멀 오버레이) */}
+        {/* 하단 슬림 글래스모피즘 네임태그 (카드 풀 네임 표시) */}
         {showDetails && (
           <div className="relative z-20 mt-auto pt-6 pb-2 px-2.5 bg-gradient-to-t from-black/95 via-black/60 to-transparent flex flex-col gap-0.5 pointer-events-none">
             <div className="flex items-end justify-between gap-1">
               <div className="flex flex-col truncate">
-                <span className="font-serif font-black text-white text-[12px] sm:text-[13px] tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] truncate">
-                  {isNmixxGroup ? 'NMIXX 단체' : memberInfo.nameKo}
+                <span className="font-serif font-black text-white text-[11.5px] sm:text-[12.5px] tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] truncate">
+                  {card.name}
                 </span>
                 <span className="text-[7.5px] font-mono font-bold text-slate-300 uppercase tracking-tighter truncate drop-shadow">
-                  {isNmixxGroup ? card.era : `${memberInfo.position} • ${card.era}`}
+                  {isNmixxGroup ? card.era : `${memberInfo.nameKo} • ${card.era}`}
                 </span>
               </div>
 
