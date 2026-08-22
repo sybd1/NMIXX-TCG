@@ -18640,6 +18640,32 @@ export const MASTER_CARDS: Card[] = [
     "setTitle": null,
     "finishType": "RAINBOW_FOIL",
     "isSpecialEdition": true
+  },
+  {
+    "id": "card_xr_transcendent_park_741",
+    "collectionNumber": 741,
+    "name": "[XR] Transcendent - 박진영",
+    "member": "PARK",
+    "category": "CHARACTER",
+    "rarity": "XR",
+    "cost": 0,
+    "power": 0,
+    "description": "740종의 모든 NMIXX 카드를 정복한 전설의 마스터에게만 허락되는 유일무이한 궁극의 초월 카드입니다.",
+    "dustValue": 50000,
+    "craftCost": null,
+    "theme": "TRANSCENDENT",
+    "era": "JYP NATION",
+    "gradient": "from-rose-600 via-purple-700 to-amber-500",
+    "symbol": "👑",
+    "quote": "가장 완벽한 올라운더, NMIXX의 시작과 끝.",
+    "image": "/XR-park.jpg",
+    "packCode": "XR-SPECIAL",
+    "packId": "xr_special",
+    "packName": "초월 컬렉션 특전",
+    "setId": null,
+    "setTitle": null,
+    "finishType": "TRANSCENDENT_COSMIC",
+    "isSpecialEdition": true
   }
 ];
 

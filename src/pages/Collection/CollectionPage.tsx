@@ -9,6 +9,7 @@ interface CollectionPageProps {
   collection: Record<string, number>;
   claimedSetRewards?: string[];
   onClaimSetReward?: (setId: string, coins: number) => void;
+  onClaimXrCard?: (cardId: string) => void;
 }
 
 type TabType = 'ALL_CARDS' | 'CONCEPT_SETS';
@@ -17,6 +18,7 @@ type SortDirection = 'ASC' | 'DESC';
 type OwnershipFilter = 'ALL' | 'OWNED_ONLY' | 'UNOWNED_ONLY';
 
 const RARITY_ORDER: Record<Rarity, number> = {
+  XR: 9,
   MR: 8,
   LR: 7,
   UR: 6,
@@ -36,6 +38,7 @@ const MEMBERS: { id: string; name: string }[] = [
   { id: 'JIWOO', name: '지우' },
   { id: 'KYUJIN', name: '규진' },
   { id: 'NMIXX', name: '단체' },
+  { id: 'PARK', name: '박진영' },
 ];
 
 const PACK_FILTERS = [
@@ -50,6 +53,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
   collection,
   claimedSetRewards = [],
   onClaimSetReward,
+  onClaimXrCard,
 }) => {
   const [activeTab, setActiveTab] = useState<TabType>('ALL_CARDS');
   const [selectedPack, setSelectedPack] = useState<string>('ALL');
@@ -212,6 +216,101 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
         </button>
       </div>
 
+      {/* 👑 [XR] TRANSCENDENT 궁극의 초월 카드 해금 배너 */}
+      {(() => {
+        const baseMasterCards = MASTER_CARDS.filter(c => c.rarity !== 'XR');
+        const xrCard = MASTER_CARDS.find(c => c.rarity === 'XR');
+        if (!xrCard) return null;
+
+        const ownedBaseCount = baseMasterCards.filter(c => (collection[c.id] || 0) > 0).length;
+        const isAllBaseCollected = ownedBaseCount >= baseMasterCards.length;
+        const isXrOwned = (collection[xrCard.id] || 0) > 0;
+
+        return (
+          <div className="relative overflow-hidden bg-gradient-to-r from-rose-950/80 via-purple-950/80 to-void-950 border border-rose-500/40 rounded-3xl p-5 sm:p-6 shadow-2xl backdrop-blur-md">
+            <div className="absolute -right-10 -bottom-10 w-64 h-64 rounded-full bg-rose-600/20 blur-3xl pointer-events-none" />
+            <div className="absolute -left-10 -top-10 w-64 h-64 rounded-full bg-amber-500/15 blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-5">
+              {/* 좌측: XR 카드 미니 비주얼 */}
+              <div
+                onClick={() => isXrOwned && setSelectedCard(xrCard)}
+                className={`flex-shrink-0 cursor-pointer ${isXrOwned ? 'hover:scale-105 transition-transform' : ''}`}
+              >
+                <CardVisual
+                  card={xrCard}
+                  isOwned={isXrOwned}
+                  count={isXrOwned ? collection[xrCard.id] || 1 : 0}
+                  size="sm"
+                  className="w-32 h-44 sm:w-36 sm:h-52 shadow-2xl"
+                  showDetails={false}
+                />
+              </div>
+
+              {/* 중앙: 설명 & 프로그레스 */}
+              <div className="flex-1 flex flex-col gap-2 text-center md:text-left">
+                <div className="flex items-center justify-center md:justify-start gap-2 flex-wrap">
+                  <span className="text-xs font-black tracking-widest bg-gradient-to-r from-rose-500 via-purple-500 to-amber-400 text-white px-2.5 py-0.5 rounded-full border border-white/40 shadow-lg animate-pulse">
+                    👑 XR TRANSCENDENT
+                  </span>
+                  <h2 className="font-serif font-black text-lg sm:text-xl text-transparent bg-clip-text bg-gradient-to-r from-rose-200 via-purple-100 to-amber-200">
+                    {isXrOwned ? xrCard.name : '[XR] 초월 카드 (박진영)'}
+                  </h2>
+                </div>
+
+                <p className="text-xs text-slate-300 font-sans leading-relaxed">
+                  {isXrOwned
+                    ? '축하합니다! 740종의 모든 카드를 정복하여 유일무이한 궁극의 초월 카드 [XR 박진영]을 획득하셨습니다!'
+                    : '이 카드를 제외한 740종의 모든 카드를 수집하면 물음표가 해금 버튼으로 바뀌어 자동으로 획득할 수 있습니다.'}
+                </p>
+
+                {/* 진척도 바 */}
+                <div className="flex flex-col gap-1 mt-1 max-w-md mx-auto md:mx-0">
+                  <div className="flex justify-between text-[11px] font-mono">
+                    <span className="text-rose-300 font-bold">초월 카드 해금 조건</span>
+                    <span className="text-amber-300 font-black">
+                      {ownedBaseCount} / {baseMasterCards.length} ({Math.round((ownedBaseCount / baseMasterCards.length) * 100)}%)
+                    </span>
+                  </div>
+                  <div className="w-full h-2.5 bg-black/80 rounded-full overflow-hidden border border-rose-500/30">
+                    <div
+                      className="h-full bg-gradient-to-r from-rose-500 via-purple-500 to-amber-400 transition-all duration-500"
+                      style={{ width: `${Math.min(100, (ownedBaseCount / baseMasterCards.length) * 100)}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* 우측: 액션 버튼 */}
+              <div className="flex-shrink-0 flex flex-col items-center gap-2">
+                {isXrOwned ? (
+                  <button
+                    onClick={() => setSelectedCard(xrCard)}
+                    className="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-mono font-black text-xs shadow-lg shadow-emerald-950/60 flex items-center gap-2 hover:scale-105 transition-all cursor-pointer border border-emerald-400/40"
+                  >
+                    <CheckCircle2 size={16} />
+                    <span>초월 카드 획득 완료!</span>
+                  </button>
+                ) : isAllBaseCollected ? (
+                  <button
+                    onClick={() => onClaimXrCard && onClaimXrCard(xrCard.id)}
+                    className="px-6 py-3 rounded-2xl bg-gradient-to-r from-rose-600 via-amber-500 to-purple-600 hover:from-rose-500 hover:to-purple-500 text-white font-mono font-black text-sm shadow-2xl shadow-rose-950/80 animate-bounce flex items-center gap-2 hover:scale-110 transition-all cursor-pointer border-2 border-white ring-4 ring-rose-500/60"
+                  >
+                    <Crown size={18} />
+                    <span>👑 XR 초월 카드 해금하기!</span>
+                  </button>
+                ) : (
+                  <div className="px-4 py-2.5 rounded-2xl bg-black/60 text-slate-400 font-mono font-bold text-xs border border-white/10 flex items-center gap-2">
+                    <Lock size={14} className="text-slate-500" />
+                    <span>740종 수집 시 해금</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
       {activeTab === 'ALL_CARDS' && (
         <>
           {/* Filter & Sort Bar */}
@@ -306,7 +405,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                 >
                   ALL
                 </button>
-                {(['C', 'UC', 'R', 'SR', 'SSR', 'UR', 'LR', 'MR'] as Rarity[]).map(r => (
+                {(['C', 'UC', 'R', 'SR', 'SSR', 'UR', 'LR', 'MR', 'XR'] as Rarity[]).map(r => (
                   <button
                     key={r}
                     onClick={() => setSelectedRarity(r)}
@@ -414,6 +513,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                 UC: 'from-emerald-950 to-teal-950 text-emerald-300 border-emerald-500',
                 LR: 'from-pink-950 to-rose-950 text-pink-200 border-pink-400',
                 MR: 'from-amber-500 to-cyan-400 text-black border-white',
+                XR: 'from-rose-600 via-purple-600 to-amber-400 text-white border-white',
               };
 
               return (

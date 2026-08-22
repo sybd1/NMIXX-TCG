@@ -108,7 +108,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
   // 모든 카드 한번에 뒤집기 (즉시 전체 공개 및 결과 버튼 활성화)
   const handleRevealAll = () => {
     const highestCard = [...revealedCards].sort((a, b) => {
-      const rank: Record<Rarity, number> = { C: 1, UC: 2, R: 3, SR: 4, SSR: 5, UR: 6, LR: 7, MR: 8 };
+      const rank: Record<Rarity, number> = { C: 1, UC: 2, R: 3, SR: 4, SSR: 5, UR: 6, LR: 7, MR: 8, XR: 9 };
       return rank[b.rarity] - rank[a.rarity];
     })[0];
 

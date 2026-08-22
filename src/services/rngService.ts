@@ -11,6 +11,7 @@ const RARITY_RANK: Record<Rarity, number> = {
   UR: 6,
   LR: 7,
   MR: 8,
+  XR: 9,
 };
 
 // 정수 가중치 (총합 10,000 기준)

@@ -1,18 +1,19 @@
-// 8단계 희귀도 (Rarity) 정의: C, UC, R, SR, SSR, UR, LR, MR
-export type Rarity = 'C' | 'UC' | 'R' | 'SR' | 'SSR' | 'UR' | 'LR' | 'MR';
+// 9단계 희귀도 (Rarity) 정의: C, UC, R, SR, SSR, UR, LR, MR, XR (초월)
+export type Rarity = 'C' | 'UC' | 'R' | 'SR' | 'SSR' | 'UR' | 'LR' | 'MR' | 'XR';
 
-// 8단계 카드 반짝임/가공 (Foil & Finish System)
+// 9단계 카드 반짝임/가공 (Foil & Finish System)
 export type FinishType =
-  | 'MATTE'            // C (50.00%) - 무광 / 노멀
-  | 'GLOSSY'           // UC (30.00%) - 유광 표면 반사
-  | 'SILVER_STAMPING'  // R (15.00%) - 은박 스탬핑 메탈릭 라인
-  | 'RAINBOW_FOIL'     // SR (4.00%) - 레인보우 홀로그래픽 포일
-  | 'SHATTERED_GLASS'  // SSR (0.50%) - 크랙 / 파편 굴절 이펙트
-  | 'PRISM_GLITTER'    // UR (0.30%) - 프리즘 글리터 별빛 굴절
-  | 'TEXTURE_GOLD'     // LR (0.15%) - 금박 엠보싱 양각 텍스처
-  | 'COSMIC_GHOST';    // MR (0.05%) - 코스믹 오로라 최상위 셰이더
+  | 'MATTE'                // C (51.66%) - 무광 / 노멀
+  | 'GLOSSY'               // UC (30.00%) - 유광 표면 반사
+  | 'SILVER_STAMPING'      // R (15.00%) - 은박 스탬핑 메탈릭 라인
+  | 'RAINBOW_FOIL'         // SR (2.50%) - 레인보우 홀로그래픽 포일
+  | 'SHATTERED_GLASS'      // SSR (0.45%) - 크랙 / 파편 굴절 이펙트
+  | 'PRISM_GLITTER'        // UR (0.25%) - 프리즘 글리터 별빛 굴절
+  | 'TEXTURE_GOLD'         // LR (0.12%) - 금박 엠보싱 양각 텍스처
+  | 'COSMIC_GHOST'         // MR (0.02%) - 코스믹 오로라 최상위 셰이더
+  | 'TRANSCENDENT_COSMIC'; // XR (초월) - 올 컬렉션 마스터 전용 초월 셰이더
 
-export type NmixxMember = 'LILY' | 'HAEWON' | 'SULLYOON' | 'BAE' | 'JIWOO' | 'KYUJIN' | 'NMIXX';
+export type NmixxMember = 'LILY' | 'HAEWON' | 'SULLYOON' | 'BAE' | 'JIWOO' | 'KYUJIN' | 'NMIXX' | 'PARK';
 
 export type CardCategory = 'LEADER' | 'CHARACTER' | 'STAGE' | 'EVENT';
 

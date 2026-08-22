@@ -140,6 +140,21 @@ export function useGameState() {
     sound.playMythicReveal();
   }, []);
 
+  const claimXrCard = useCallback((cardId: string) => {
+    setState(prev => {
+      const currentCount = prev.collection[cardId] || 0;
+      if (currentCount > 0) return prev;
+      return {
+        ...prev,
+        collection: {
+          ...prev.collection,
+          [cardId]: 1,
+        },
+      };
+    });
+    sound.playSecretReveal();
+  }, []);
+
   const resetGame = useCallback(() => {
     const freshState = StorageService.clearState();
     setState(freshState);
@@ -155,6 +170,7 @@ export function useGameState() {
     claimDailyBonus,
     claimMysteryBox,
     claimSetReward,
+    claimXrCard,
     toggleSound,
     resetGame,
     dismissFirstVisit,

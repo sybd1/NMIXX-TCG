@@ -22,6 +22,7 @@ export const App: React.FC = () => {
     addMultiplePacksResult,
     claimMysteryBox,
     claimSetReward,
+    claimXrCard,
     toggleSound,
     resetGame,
     dismissFirstVisit,
@@ -145,6 +146,7 @@ export const App: React.FC = () => {
             collection={state.collection}
             claimedSetRewards={state.claimedSetRewards || []}
             onClaimSetReward={claimSetReward}
+            onClaimXrCard={claimXrCard}
           />
         )}
 

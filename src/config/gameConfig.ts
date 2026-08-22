@@ -30,6 +30,7 @@ export const FINISH_CONFIGS: Record<FinishType, FinishConfig> = {
   PRISM_GLITTER: { type: 'PRISM_GLITTER', nameKo: '프리즘 글리터', matchedTier: 'UR', visualSpec: '다이아몬드/별빛 파티클 굴절', weight: 30 },
   TEXTURE_GOLD: { type: 'TEXTURE_GOLD', nameKo: '금박 엠보싱', matchedTier: 'LR', visualSpec: '양각 입체감 + 골드 텍스처 포일', weight: 15 },
   COSMIC_GHOST: { type: 'COSMIC_GHOST', nameKo: '코스믹 오로라', matchedTier: 'MR', visualSpec: '인터랙티브 펄/오로라 색상 변환 최상위 연출', weight: 5 },
+  TRANSCENDENT_COSMIC: { type: 'TRANSCENDENT_COSMIC', nameKo: '초월 코스믹 / 신의 가공', matchedTier: 'XR', visualSpec: '전종 수집자에게만 주어지는 유일무이한 궁극의 초월 이펙트', weight: 0 },
 };
 
 export const RARITY_TO_FINISH: Record<Rarity, FinishType> = {
@@ -41,6 +42,7 @@ export const RARITY_TO_FINISH: Record<Rarity, FinishType> = {
   UR: 'PRISM_GLITTER',
   LR: 'TEXTURE_GOLD',
   MR: 'COSMIC_GHOST',
+  XR: 'TRANSCENDENT_COSMIC',
 };
 
 export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
@@ -139,6 +141,18 @@ export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
     glowColor: 'rgba(250, 204, 21, 1)',
     badgeBg: 'bg-gradient-to-r from-amber-500 via-pink-500 to-cyan-400 text-black border-white font-black shadow-2xl ring-2 ring-amber-300 animate-pulse',
     finishType: 'COSMIC_GHOST',
+  },
+  XR: {
+    name: 'XR',
+    label: 'XR Transcendent Rare (초월)',
+    probability: 0.0000, // 0.00% (가챠 획득 불가, 올 컬렉션 달성 특전 전용)
+    weight: 0,
+    dustDismantle: 50000,
+    dustCraft: null,
+    colorHex: '#e11d48',
+    glowColor: 'rgba(225, 29, 72, 1)',
+    badgeBg: 'bg-gradient-to-r from-rose-600 via-purple-600 to-amber-400 text-white border-white font-black shadow-2xl ring-2 ring-rose-400 animate-pulse',
+    finishType: 'TRANSCENDENT_COSMIC',
   }
 };
 
