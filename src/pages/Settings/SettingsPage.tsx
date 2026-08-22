@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GameState } from '../../types/game';
-import { RARITY_CONFIGS, GAME_CONFIG } from '../../config/gameConfig';
+import { RARITY_CONFIGS, GAME_CONFIG, FINISH_CONFIGS } from '../../config/gameConfig';
 import { Rarity } from '../../types/card';
 import { Settings, Volume2, VolumeX, RotateCcw, ShieldCheck, AlertTriangle } from 'lucide-react';
 
@@ -97,13 +97,15 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
             <thead>
               <tr className="border-b border-void-800 text-slate-500 pb-2">
                 <th className="py-2.5">RARITY (레어도)</th>
+                <th className="py-2.5">가공 (FOIL & FINISH)</th>
                 <th className="py-2.5">봉입률 (%)</th>
-                <th className="py-2.5">등급 설명</th>
+                <th className="py-2.5">시각 셰이더 스펙</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-void-800/60 text-slate-300">
               {(['C', 'UC', 'R', 'SR', 'SSR', 'UR', 'LR', 'MR'] as Rarity[]).map(r => {
                 const conf = RARITY_CONFIGS[r];
+                const finishConf = FINISH_CONFIGS[conf.finishType];
                 const pct = (conf.probability * 100).toFixed(2);
                 return (
                   <tr key={r} className="hover:bg-white/5 transition-colors">
@@ -118,23 +120,12 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
                         {conf.label.replace(/^[A-Z]+\s+/, '')}
                       </span>
                     </td>
+                    <td className="py-3 font-mono font-bold text-pink-300 text-[11.5px]">
+                      {finishConf?.nameKo || conf.finishType}
+                    </td>
                     <td className="py-3 font-black text-amber-300 text-[12.5px]">{pct}%</td>
                     <td className="py-3 text-slate-400 text-[11px] font-sans">
-                      {r === 'MR'
-                        ? '0.05% 신화 카드 (홀로그램 극상 패러렐)'
-                        : r === 'LR'
-                        ? '0.15% 전설 카드 (레전드 레인보우)'
-                        : r === 'UR'
-                        ? '0.30% 울트라 레어 (크림슨 루비)'
-                        : r === 'SSR'
-                        ? '0.50% 특급 희귀 (골든 앰버)'
-                        : r === 'SR'
-                        ? '4.00% 초희귀 (로열 퍼플)'
-                        : r === 'R'
-                        ? '15.00% 희귀 (스카이 아쿠아)'
-                        : r === 'UC'
-                        ? '30.00% 고급 (에메랄드 그린)'
-                        : '50.00% 일반 (슬레이트 실버)'}
+                      {finishConf?.visualSpec || '표준 카드 가공'}
                     </td>
                   </tr>
                 );

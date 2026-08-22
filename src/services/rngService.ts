@@ -1,6 +1,6 @@
 import { Card, Rarity } from '../types/card';
 import { MASTER_CARDS, getCardsByRarity } from '../data/cards';
-import { GAME_CONFIG, RARITY_CONFIGS } from '../config/gameConfig';
+import { GAME_CONFIG, RARITY_TO_FINISH } from '../config/gameConfig';
 
 const RARITY_RANK: Record<Rarity, number> = {
   C: 1,
@@ -13,60 +13,66 @@ const RARITY_RANK: Record<Rarity, number> = {
   MR: 8,
 };
 
+// 정수 가중치 (총합 10,000 기준)
+// MR: 5 (0.05%), LR: 15 (0.15%), UR: 30 (0.30%), SSR: 50 (0.50%), SR: 400 (4.00%), R: 1500 (15.00%), UC: 3000 (30.00%), C: 5000 (50.00%)
+const WEIGHT_MR = 5;
+const WEIGHT_LR = 15;
+const WEIGHT_UR = 30;
+const WEIGHT_SSR = 50;
+const WEIGHT_SR = 400;
+const WEIGHT_R = 1500;
+const WEIGHT_UC = 3000;
+
 export class RngService {
   /**
-   * 8단계 극악 확률에 따라 카드 Rarity를 추첨합니다.
-   * 1. C: 50.00%
-   * 2. UC: 30.00%
-   * 3. R: 15.00%
-   * 4. SR: 4.00%
-   * 5. SSR: 0.50%
-   * 6. UR: 0.30%
-   * 7. LR: 0.15%
-   * 8. MR: 0.05%
+   * 8단계 극악 확률에 따라 정수 가중치(10,000 기준)를 사용하여 Rarity를 추첨합니다.
+   * 부동 소수점 오차 방지를 위해 [0, 9999] 범위의 정수 난수를 활용합니다.
    * @param forceSsrPlus Pity 시스템에 의해 최소 SSR 이상 보장 여부
    */
   public static rollRarity(forceSsrPlus = false): Rarity {
     if (forceSsrPlus) {
-      // Pity 발동 시: SSR(70%), UR(20%), LR(8%), MR(2%) 보장
-      const pRand = Math.random();
-      if (pRand < 0.02) return 'MR';
-      if (pRand < 0.10) return 'LR';
-      if (pRand < 0.30) return 'UR';
-      return 'SSR';
+      // Pity 발동 시: SSR(70%), UR(20%), LR(8%), MR(2%) 보장 (정수 가중치 1000 기준)
+      const pRand = Math.floor(Math.random() * 1000);
+      if (pRand < 20) return 'MR';    // 2.0%
+      if (pRand < 100) return 'LR';   // 8.0%
+      if (pRand < 300) return 'UR';   // 20.0%
+      return 'SSR';                   // 70.0%
     }
 
-    const rand = Math.random();
+    // 0 ~ 9999 사이의 정수 난수 생성
+    const rand = Math.floor(Math.random() * 10000);
 
-    // 누적 확률 검사 (극악 확률 순서: MR -> LR -> UR -> SSR -> SR -> R -> UC -> C)
-    const mrChance = RARITY_CONFIGS.MR.probability;                           // 0.0005 (0.05%)
-    const lrChance = mrChance + RARITY_CONFIGS.LR.probability;               // 0.0020 (0.20%)
-    const urChance = lrChance + RARITY_CONFIGS.UR.probability;               // 0.0050 (0.50%)
-    const ssrChance = urChance + RARITY_CONFIGS.SSR.probability;             // 0.0100 (1.00%)
-    const srChance = ssrChance + RARITY_CONFIGS.SR.probability;              // 0.0500 (5.00%)
-    const rChance = srChance + RARITY_CONFIGS.R.probability;                 // 0.2000 (20.00%)
-    const ucChance = rChance + RARITY_CONFIGS.UC.probability;                // 0.5000 (50.00%)
+    // 누적 정수 가중치 계산
+    const thresMR = WEIGHT_MR;                                         // 5 (0.05%)
+    const thresLR = thresMR + WEIGHT_LR;                               // 20 (0.20%)
+    const thresUR = thresLR + WEIGHT_UR;                               // 50 (0.50%)
+    const thresSSR = thresUR + WEIGHT_SSR;                             // 100 (1.00%)
+    const thresSR = thresSSR + WEIGHT_SR;                              // 500 (5.00%)
+    const thresR = thresSR + WEIGHT_R;                                 // 2000 (20.00%)
+    const thresUC = thresR + WEIGHT_UC;                                // 5000 (50.00%)
 
-    if (rand < mrChance) return 'MR';
-    if (rand < lrChance) return 'LR';
-    if (rand < urChance) return 'UR';
-    if (rand < ssrChance) return 'SSR';
-    if (rand < srChance) return 'SR';
-    if (rand < rChance) return 'R';
-    if (rand < ucChance) return 'UC';
+    if (rand < thresMR) return 'MR';
+    if (rand < thresLR) return 'LR';
+    if (rand < thresUR) return 'UR';
+    if (rand < thresSSR) return 'SSR';
+    if (rand < thresSR) return 'SR';
+    if (rand < thresR) return 'R';
+    if (rand < thresUC) return 'UC';
     return 'C';
   }
 
   /**
-   * 해당 Rarity 풀에서 무작위 카드를 1장 선택합니다.
+   * 해당 Rarity 풀에서 무작위 카드를 1장 선택하고 8단계 FinishType을 보장 부여합니다.
    */
   public static rollCard(rarity: Rarity): Card {
     const pool = getCardsByRarity(rarity);
-    if (!pool || pool.length === 0) {
-      return MASTER_CARDS[0];
-    }
-    const idx = Math.floor(Math.random() * pool.length);
-    return pool[idx];
+    const fallback = MASTER_CARDS[0];
+    const baseCard = (!pool || pool.length === 0) ? fallback : pool[Math.floor(Math.random() * pool.length)];
+
+    return {
+      ...baseCard,
+      finishType: RARITY_TO_FINISH[rarity] || 'MATTE',
+    };
   }
 
   /**

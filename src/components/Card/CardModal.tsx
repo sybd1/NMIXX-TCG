@@ -2,8 +2,8 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '../../types/card';
 import { CardVisual } from './CardVisual';
-import { RARITY_CONFIGS } from '../../config/gameConfig';
-import { X, Sparkles, Layers, Shield } from 'lucide-react';
+import { RARITY_CONFIGS, FINISH_CONFIGS, RARITY_TO_FINISH } from '../../config/gameConfig';
+import { X, Sparkles, Layers, Shield, Sparkle } from 'lucide-react';
 
 interface CardModalProps {
   card: Card | null;
@@ -21,6 +21,8 @@ export const CardModal: React.FC<CardModalProps> = ({
   if (!card) return null;
 
   const config = RARITY_CONFIGS[card.rarity];
+  const activeFinish = card.finishType || RARITY_TO_FINISH[card.rarity] || 'MATTE';
+  const finishConf = FINISH_CONFIGS[activeFinish];
   const isOwned = count > 0;
 
   return (
@@ -58,6 +60,7 @@ export const CardModal: React.FC<CardModalProps> = ({
               <div className="transform hover:scale-105 transition-transform duration-300">
                 <CardVisual
                   card={card}
+                  finishType={activeFinish}
                   isOwned={isOwned}
                   count={count}
                   size="md"
@@ -81,6 +84,11 @@ export const CardModal: React.FC<CardModalProps> = ({
                   </span>
                   <span className="text-xs text-pink-300 font-mono font-bold bg-pink-950/60 px-2.5 py-0.5 rounded-lg border border-pink-500/30">
                     {card.member === 'NMIXX' ? 'SPECIAL' : card.member}
+                  </span>
+                  {/* 8-Tier Finish 뱃지 */}
+                  <span className="text-[10.5px] font-mono font-bold text-amber-300 bg-amber-950/70 border border-amber-500/40 px-2 py-0.5 rounded-lg flex items-center gap-1 shadow-sm">
+                    <Sparkle size={11} className="text-yellow-400" />
+                    {finishConf?.nameKo || activeFinish}
                   </span>
                 </div>
 

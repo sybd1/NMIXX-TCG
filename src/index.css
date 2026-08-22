@@ -78,3 +78,158 @@
 .animate-pulse-fast {
   animation: pulse-fast 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+
+/* =========================================================================
+   8-TIER INTERACTIVE FOIL & FINISH SHADER SYSTEM
+   ========================================================================= */
+
+/* 1. MATTE (C - 50.00%): 무광 / 노멀 */
+.finish-matte {
+  background: transparent;
+  pointer-events: none;
+}
+
+/* 2. GLOSSY (UC - 30.00%): 유광 표면 반사광 */
+.finish-glossy {
+  background: linear-gradient(
+    calc(115deg + var(--pointer-from-center, 0) * 30deg),
+    transparent 20%,
+    rgba(255, 255, 255, 0.25) var(--pointer-x, 50%),
+    rgba(255, 255, 255, 0.45) calc(var(--pointer-x, 50%) + 5%),
+    transparent calc(var(--pointer-x, 50%) + 20%)
+  );
+  mix-blend-mode: overlay;
+  opacity: var(--card-opacity, 0);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* 3. SILVER_STAMPING (R - 15.00%): 은박 스탬핑 메탈릭 라인 */
+.finish-silver-stamping {
+  background: linear-gradient(
+    calc(135deg + var(--pointer-from-center, 0) * 45deg),
+    transparent 15%,
+    rgba(192, 192, 192, 0.4) var(--pointer-x, 50%),
+    rgba(255, 255, 255, 0.8) calc(var(--pointer-x, 50%) + 8%),
+    rgba(148, 163, 184, 0.5) calc(var(--pointer-x, 50%) + 16%),
+    transparent calc(var(--pointer-x, 50%) + 30%)
+  );
+  mix-blend-mode: color-dodge;
+  opacity: var(--card-opacity, 0);
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+/* 4. RAINBOW_FOIL (SR - 4.00%): 레인보우 홀로그래픽 포일 */
+.finish-rainbow-foil {
+  background: repeating-linear-gradient(
+    calc(120deg + var(--pointer-from-center, 0) * 50deg),
+    rgba(255, 0, 0, 0.4) 0%,
+    rgba(255, 154, 0, 0.4) 8%,
+    rgba(208, 222, 33, 0.4) 16%,
+    rgba(79, 220, 74, 0.4) 24%,
+    rgba(63, 218, 216, 0.4) 32%,
+    rgba(47, 201, 226, 0.4) 40%,
+    rgba(28, 127, 238, 0.4) 48%,
+    rgba(95, 21, 242, 0.4) 56%,
+    rgba(186, 12, 248, 0.4) 64%,
+    rgba(251, 7, 217, 0.4) 72%,
+    rgba(255, 0, 0, 0.4) 80%
+  );
+  background-size: 200% 200%;
+  background-position: var(--pointer-x, 50%) var(--pointer-y, 50%);
+  mix-blend-mode: color-dodge;
+  opacity: var(--card-opacity, 0);
+  filter: brightness(1.15) contrast(1.2);
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+/* 5. SHATTERED_GLASS (SSR - 0.50%): 크랙 / 유리 파편 굴절 이펙트 */
+.finish-shattered-glass {
+  background: 
+    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 0.7) 0%, transparent 45%),
+    repeating-conic-gradient(
+      from calc(var(--pointer-from-center, 0) * 180deg) at var(--pointer-x, 50%) var(--pointer-y, 50%),
+      rgba(255, 182, 193, 0.4) 0deg,
+      rgba(173, 216, 230, 0.4) 30deg,
+      rgba(255, 255, 224, 0.5) 60deg,
+      rgba(221, 160, 221, 0.4) 90deg,
+      rgba(255, 182, 193, 0.4) 120deg
+    );
+  mix-blend-mode: color-dodge;
+  opacity: var(--card-opacity, 0);
+  filter: contrast(1.3) saturate(1.4);
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+/* 6. PRISM_GLITTER (UR - 0.30%): 프리즘 글리터 별빛 굴절 */
+.finish-prism-glitter {
+  background: 
+    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 0.9) 0%, transparent 40%),
+    radial-gradient(circle at calc(100% - var(--pointer-x, 50%)) calc(100% - var(--pointer-y, 50%)), rgba(244, 114, 182, 0.5) 0%, transparent 50%),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 0px, rgba(255, 255, 255, 0.15) 2px, transparent 2px, transparent 6px),
+    repeating-linear-gradient(-45deg, rgba(238, 242, 255, 0.15) 0px, rgba(238, 242, 255, 0.15) 2px, transparent 2px, transparent 6px);
+  mix-blend-mode: color-dodge;
+  opacity: var(--card-opacity, 0);
+  filter: brightness(1.25) contrast(1.35);
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+/* 7. TEXTURE_GOLD (LR - 0.15%): 금박 엠보싱 양각 텍스처 포일 */
+.finish-texture-gold {
+  background: 
+    linear-gradient(
+      calc(135deg + var(--pointer-from-center, 0) * 60deg),
+      rgba(180, 83, 9, 0.5) 0%,
+      rgba(245, 158, 11, 0.8) var(--pointer-x, 40%),
+      rgba(254, 240, 138, 0.95) calc(var(--pointer-x, 40%) + 10%),
+      rgba(217, 119, 6, 0.8) calc(var(--pointer-x, 40%) + 20%),
+      rgba(146, 64, 14, 0.5) 100%
+    ),
+    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 0.6) 0%, transparent 50%);
+  mix-blend-mode: color-dodge;
+  opacity: var(--card-opacity, 0);
+  box-shadow: inset 0 0 15px rgba(251, 191, 36, 0.6);
+  filter: brightness(1.1) contrast(1.3);
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+/* 8. COSMIC_GHOST (MR - 0.05%): 코스믹 오로라 최상위 셰이더 (인터랙티브 펄/오로라) */
+.finish-cosmic-ghost {
+  background: 
+    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 0.95) 0%, rgba(56, 189, 248, 0.6) 25%, transparent 60%),
+    conic-gradient(
+      from calc(var(--pointer-from-center, 0) * 360deg) at var(--pointer-x, 50%) var(--pointer-y, 50%),
+      rgba(236, 72, 153, 0.6) 0deg,
+      rgba(168, 85, 247, 0.6) 72deg,
+      rgba(56, 189, 248, 0.7) 144deg,
+      rgba(250, 204, 21, 0.7) 216deg,
+      rgba(236, 72, 153, 0.6) 288deg,
+      rgba(168, 85, 247, 0.6) 360deg
+    );
+  mix-blend-mode: color-dodge;
+  opacity: var(--card-opacity, 0);
+  filter: brightness(1.35) contrast(1.45) saturate(1.6);
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+/* Reduced Motion Fallback */
+@media (prefers-reduced-motion: reduce) {
+  .finish-glossy,
+  .finish-silver-stamping,
+  .finish-rainbow-foil,
+  .finish-shattered-glass,
+  .finish-prism-glitter,
+  .finish-texture-gold,
+  .finish-cosmic-ghost {
+    opacity: 0.35 !important;
+    mix-blend-mode: screen !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}

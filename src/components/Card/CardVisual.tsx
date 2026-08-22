@@ -1,9 +1,10 @@
-import React from 'react';
-import { Card, NmixxMember } from '../../types/card';
-import { RARITY_CONFIGS } from '../../config/gameConfig';
+import React, { useState, useRef, useCallback } from 'react';
+import { Card, NmixxMember, FinishType } from '../../types/card';
+import { RARITY_CONFIGS, RARITY_TO_FINISH } from '../../config/gameConfig';
 
 interface CardVisualProps {
   card: Card;
+  finishType?: FinishType;
   isOwned?: boolean;
   count?: number;
   isNew?: boolean;
@@ -24,8 +25,20 @@ const MEMBER_INFO: Record<NmixxMember, { nameKo: string; position: string; color
   NMIXX: { nameKo: 'SPECIAL', position: 'ALL-ROUNDER', color: '#ec4899', bgBadge: 'bg-fuchsia-500/30 text-fuchsia-200 border-fuchsia-400' },
 };
 
+const FINISH_CLASS_MAP: Record<FinishType, string> = {
+  MATTE: 'finish-matte',
+  GLOSSY: 'finish-glossy',
+  SILVER_STAMPING: 'finish-silver-stamping',
+  RAINBOW_FOIL: 'finish-rainbow-foil',
+  SHATTERED_GLASS: 'finish-shattered-glass',
+  PRISM_GLITTER: 'finish-prism-glitter',
+  TEXTURE_GOLD: 'finish-texture-gold',
+  COSMIC_GHOST: 'finish-cosmic-ghost',
+};
+
 export const CardVisual: React.FC<CardVisualProps> = React.memo(({
   card,
+  finishType,
   isOwned = true,
   count = 1,
   isNew = false,
@@ -34,8 +47,75 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
   onClick,
   showDetails = true,
 }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [styleState, setStyleState] = useState<{
+    rotX: number;
+    rotY: number;
+    px: number;
+    py: number;
+    pDist: number;
+    opacity: number;
+  }>({
+    rotX: 0,
+    rotY: 0,
+    px: 50,
+    py: 50,
+    pDist: 0,
+    opacity: 0,
+  });
+
   const config = RARITY_CONFIGS[card.rarity];
   const memberInfo = MEMBER_INFO[card.member] || MEMBER_INFO.NMIXX;
+  const activeFinish: FinishType = finishType || card.finishType || RARITY_TO_FINISH[card.rarity] || 'MATTE';
+  const finishClass = FINISH_CLASS_MAP[activeFinish];
+
+  // 3D 인터랙티브 셰이더 포인터/틸트 연산
+  const handlePointerMove = useCallback((clientX: number, clientY: number) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+
+    const px = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    const py = Math.max(0, Math.min(100, (y / rect.height) * 100));
+
+    const normX = (x / rect.width) * 2 - 1; // -1 to +1
+    const normY = (y / rect.height) * 2 - 1; // -1 to +1
+
+    const rotX = -normY * 12; // 상하 최대 12도 틸트
+    const rotY = normX * 12;  // 좌우 최대 12도 틸트
+    const pDist = Math.sqrt(normX * normX + normY * normY);
+
+    setStyleState({
+      rotX,
+      rotY,
+      px,
+      py,
+      pDist: Math.min(1, pDist),
+      opacity: 0.95,
+    });
+  }, []);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    handlePointerMove(e.clientX, e.clientY);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length > 0) {
+      handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  };
+
+  const handlePointerLeave = () => {
+    setStyleState({
+      rotX: 0,
+      rotY: 0,
+      px: 50,
+      py: 50,
+      pDist: 0,
+      opacity: 0,
+    });
+  };
 
   // size prop에 따른 기본 치수
   const defaultSizeClass = className.includes('w-') ? '' : {
@@ -83,19 +163,35 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
 
   return (
     <div
+      ref={cardRef}
       onClick={onClick}
-      className={`group relative ${defaultSizeClass} ${className} rounded-2xl p-[2px] cursor-pointer transition-all duration-300 transform hover:-translate-y-2 hover:scale-[1.03] select-none`}
+      onMouseMove={handleMouseMove}
+      onTouchMove={handleTouchMove}
+      onMouseLeave={handlePointerLeave}
+      onTouchEnd={handlePointerLeave}
+      style={{
+        transform: `perspective(1000px) rotateX(${styleState.rotX}deg) rotateY(${styleState.rotY}deg) ${styleState.opacity > 0 ? 'translateY(-6px)' : ''}`,
+        transition: styleState.opacity > 0 ? 'transform 0.08s ease-out' : 'transform 0.4s ease-out',
+        willChange: 'transform',
+      } as React.CSSProperties}
+      className={`group relative ${defaultSizeClass} ${className} rounded-2xl p-[2px] cursor-pointer select-none [transform-style:preserve-3d]`}
     >
-      {/* 1. 홀로그램 / 무지개 반사광 오버레이 (R 이상) */}
-      {card.rarity !== 'C' && card.rarity !== 'UC' && (
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-30" />
-      )}
+      {/* 1. 8-Tier Interactive Foil / Finish Shader Layer */}
+      <div
+        className={`absolute inset-0 rounded-2xl z-30 pointer-events-none transition-opacity duration-300 ${finishClass}`}
+        style={{
+          ['--pointer-x' as string]: `${styleState.px}%`,
+          ['--pointer-y' as string]: `${styleState.py}%`,
+          ['--pointer-from-center' as string]: styleState.pDist,
+          ['--card-opacity' as string]: styleState.opacity,
+        } as React.CSSProperties}
+      />
 
       {/* 2. 메인 카드 바디 (포토카드 풀아트 프레임) */}
       <div
         className={`relative w-full h-full rounded-2xl border-2 ${rarityBorders[card.rarity]} bg-black flex flex-col justify-between overflow-hidden z-10 shadow-2xl`}
       >
-        {/* 실제 아이돌 고화질 사진 (얼굴 상단 중심 포커스 object-[center_18%]) */}
+        {/* 실제 아이돌 고화질 사진 */}
         {card.image ? (
           <img
             src={card.image}
@@ -108,7 +204,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
           <div className={`absolute inset-0 bg-gradient-to-b ${card.gradient}`} />
         )}
 
-        {/* 상단/하단 은은한 섀도우 그라데이션 (얼굴 가림 최소화) */}
+        {/* 상단/하단 은은한 섀도우 그라데이션 */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/85 pointer-events-none z-10" />
 
         {/* 상단 헤더: 코스트, 카드 번호, NMIXX 뱃지, Rarity 뱃지 */}

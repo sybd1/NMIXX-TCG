@@ -1,96 +1,144 @@
-import { Rarity } from '../types/card';
+import { Rarity, FinishType } from '../types/card';
 
 export interface RarityConfig {
   name: Rarity;
   label: string;
   probability: number;
+  weight: number; // 정수 가중치 (총합 10,000)
   dustDismantle: number;
   dustCraft: number | null;
   colorHex: string;
   glowColor: string;
   badgeBg: string;
+  finishType: FinishType;
 }
+
+export interface FinishConfig {
+  type: FinishType;
+  nameKo: string;
+  matchedTier: Rarity;
+  visualSpec: string;
+  weight: number;
+}
+
+export const FINISH_CONFIGS: Record<FinishType, FinishConfig> = {
+  MATTE: { type: 'MATTE', nameKo: '무광 / 노멀', matchedTier: 'C', visualSpec: '반사 없음, 기본 텍스처', weight: 5000 },
+  GLOSSY: { type: 'GLOSSY', nameKo: '유광', matchedTier: 'UC', visualSpec: '은은한 표면 하이라이트 반사', weight: 3000 },
+  SILVER_STAMPING: { type: 'SILVER_STAMPING', nameKo: '은박 스탬핑', matchedTier: 'R', visualSpec: '테두리/텍스트 메탈릭 라인 반사', weight: 1500 },
+  RAINBOW_FOIL: { type: 'RAINBOW_FOIL', nameKo: '레인보우 포일', matchedTier: 'SR', visualSpec: '선형 그라데이션 무지개빛 스펙트럼', weight: 400 },
+  SHATTERED_GLASS: { type: 'SHATTERED_GLASS', nameKo: '크랙 / 파편', matchedTier: 'SSR', visualSpec: '유리 파편 패턴 굴절 이펙트', weight: 50 },
+  PRISM_GLITTER: { type: 'PRISM_GLITTER', nameKo: '프리즘 글리터', matchedTier: 'UR', visualSpec: '다이아몬드/별빛 파티클 굴절', weight: 30 },
+  TEXTURE_GOLD: { type: 'TEXTURE_GOLD', nameKo: '금박 엠보싱', matchedTier: 'LR', visualSpec: '양각 입체감 + 골드 텍스처 포일', weight: 15 },
+  COSMIC_GHOST: { type: 'COSMIC_GHOST', nameKo: '코스믹 오로라', matchedTier: 'MR', visualSpec: '인터랙티브 펄/오로라 색상 변환 최상위 연출', weight: 5 },
+};
+
+export const RARITY_TO_FINISH: Record<Rarity, FinishType> = {
+  C: 'MATTE',
+  UC: 'GLOSSY',
+  R: 'SILVER_STAMPING',
+  SR: 'RAINBOW_FOIL',
+  SSR: 'SHATTERED_GLASS',
+  UR: 'PRISM_GLITTER',
+  LR: 'TEXTURE_GOLD',
+  MR: 'COSMIC_GHOST',
+};
 
 export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
   C: {
     name: 'C',
     label: 'C Common (일반)',
     probability: 0.5000, // 50.00%
+    weight: 5000,
     dustDismantle: 5,
     dustCraft: 50,
-    colorHex: '#94a3b8', // 슬레이트 실버
+    colorHex: '#94a3b8',
     glowColor: 'rgba(148, 163, 184, 0.25)',
-    badgeBg: 'bg-slate-800 text-slate-300 border-slate-600'
+    badgeBg: 'bg-slate-800 text-slate-300 border-slate-600',
+    finishType: 'MATTE',
   },
   UC: {
     name: 'UC',
     label: 'UC Uncommon (고급)',
     probability: 0.3000, // 30.00%
+    weight: 3000,
     dustDismantle: 15,
     dustCraft: 150,
-    colorHex: '#10b981', // 에메랄드 그린
+    colorHex: '#10b981',
     glowColor: 'rgba(16, 185, 129, 0.5)',
-    badgeBg: 'bg-emerald-950 text-emerald-300 border-emerald-500'
+    badgeBg: 'bg-emerald-950 text-emerald-300 border-emerald-500',
+    finishType: 'GLOSSY',
   },
   R: {
     name: 'R',
     label: 'R Rare (희귀)',
     probability: 0.1500, // 15.00%
+    weight: 1500,
     dustDismantle: 40,
     dustCraft: 400,
-    colorHex: '#0ea5e9', // 스카이 아쿠아
+    colorHex: '#0ea5e9',
     glowColor: 'rgba(14, 165, 233, 0.65)',
-    badgeBg: 'bg-sky-950 text-sky-300 border-sky-400 font-bold'
+    badgeBg: 'bg-sky-950 text-sky-300 border-sky-400 font-bold',
+    finishType: 'SILVER_STAMPING',
   },
   SR: {
     name: 'SR',
     label: 'SR Super Rare (초희귀)',
     probability: 0.0400, // 4.00%
+    weight: 400,
     dustDismantle: 120,
     dustCraft: 1200,
-    colorHex: '#a855f7', // 로열 퍼플
+    colorHex: '#a855f7',
     glowColor: 'rgba(168, 85, 247, 0.8)',
-    badgeBg: 'bg-purple-950 text-purple-200 border-purple-400 font-extrabold shadow-sm'
+    badgeBg: 'bg-purple-950 text-purple-200 border-purple-400 font-extrabold shadow-sm',
+    finishType: 'RAINBOW_FOIL',
   },
   SSR: {
     name: 'SSR',
     label: 'SSR Super Special Rare (특급 희귀)',
     probability: 0.0050, // 0.50%
+    weight: 50,
     dustDismantle: 500,
     dustCraft: 5000,
-    colorHex: '#f59e0b', // 골든 앰버
+    colorHex: '#f59e0b',
     glowColor: 'rgba(245, 158, 11, 0.9)',
-    badgeBg: 'bg-gradient-to-r from-amber-950 via-yellow-900 to-amber-950 text-amber-200 border-amber-400 font-black shadow-md'
+    badgeBg: 'bg-gradient-to-r from-amber-950 via-yellow-900 to-amber-950 text-amber-200 border-amber-400 font-black shadow-md',
+    finishType: 'SHATTERED_GLASS',
   },
   UR: {
     name: 'UR',
     label: 'UR Ultra Rare (극희귀)',
     probability: 0.0030, // 0.30%
+    weight: 30,
     dustDismantle: 1500,
     dustCraft: 15000,
-    colorHex: '#ef4444', // 크림슨 루비
+    colorHex: '#ef4444',
     glowColor: 'rgba(239, 68, 68, 0.95)',
-    badgeBg: 'bg-gradient-to-r from-red-950 via-rose-900 to-red-950 text-rose-100 border-red-400 font-black shadow-lg ring-1 ring-red-400/50'
+    badgeBg: 'bg-gradient-to-r from-red-950 via-rose-900 to-red-950 text-rose-100 border-red-400 font-black shadow-lg ring-1 ring-red-400/50',
+    finishType: 'PRISM_GLITTER',
   },
   LR: {
     name: 'LR',
     label: 'LR Legend Rare (전설)',
     probability: 0.0015, // 0.15%
+    weight: 15,
     dustDismantle: 4000,
     dustCraft: 40000,
-    colorHex: '#ec4899', // 네온 마젠타 프리즘
+    colorHex: '#ec4899',
     glowColor: 'rgba(236, 72, 153, 1)',
-    badgeBg: 'bg-gradient-to-r from-fuchsia-900 via-pink-700 to-rose-900 text-yellow-100 border-pink-300 font-black shadow-xl ring-2 ring-pink-400/70 animate-pulse'
+    badgeBg: 'bg-gradient-to-r from-fuchsia-900 via-pink-700 to-rose-900 text-yellow-100 border-pink-300 font-black shadow-xl ring-2 ring-pink-400/70 animate-pulse',
+    finishType: 'TEXTURE_GOLD',
   },
   MR: {
     name: 'MR',
     label: 'MR Mythic Rare (신화)',
     probability: 0.0005, // 0.05%
+    weight: 5,
     dustDismantle: 10000,
-    dustCraft: null, // 신화 카드는 제작 불가 (오직 극악의 가챠로만 획득)
-    colorHex: '#38bdf8', // 코스믹 보이드 레인보우
+    dustCraft: null,
+    colorHex: '#38bdf8',
     glowColor: 'rgba(250, 204, 21, 1)',
-    badgeBg: 'bg-gradient-to-r from-amber-500 via-pink-500 to-cyan-400 text-black border-white font-black shadow-2xl ring-2 ring-amber-300 animate-pulse'
+    badgeBg: 'bg-gradient-to-r from-amber-500 via-pink-500 to-cyan-400 text-black border-white font-black shadow-2xl ring-2 ring-amber-300 animate-pulse',
+    finishType: 'COSMIC_GHOST',
   }
 };
 
