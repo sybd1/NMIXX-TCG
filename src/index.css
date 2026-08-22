@@ -251,28 +251,113 @@
 }
 
 /* =========================================================================
-   3-TIER PARALLAX 3D DEPTH & LIVE GOLD PARTICLE OVERLAY SYSTEM
+   3D EMBOSSED BEVEL BORDER & 4-TIER ULTRA DEEP PARALLAX SYSTEM
    ========================================================================= */
 
-/* 1. 3단계 패럴랙스 입체 뎁스 */
+/* 1. 3D 입체 양각 다면체 테두리 베벨 효과 */
+.card-embossed-3d {
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.45),
+    inset 0 2px 5px rgba(255, 255, 255, 0.8),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.9),
+    0 12px 30px rgba(0, 0, 0, 0.8),
+    0 0 25px var(--glow-color, rgba(245, 158, 11, 0.6));
+}
+
+.embossed-relief-border {
+  position: relative;
+}
+
+.embossed-relief-border::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 1.15rem;
+  padding: 3px;
+  background: linear-gradient(
+    calc(135deg + var(--pointer-from-center, 0) * 180deg),
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(251, 191, 36, 0.8) 25%,
+    rgba(236, 72, 153, 0.8) 50%,
+    rgba(56, 189, 248, 0.8) 75%,
+    rgba(255, 255, 255, 0.9) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 35;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+}
+
+/* 등급별 3D 양각 테두리 특화 */
+.embossed-mr {
+  --glow-color: rgba(56, 189, 248, 0.95);
+  border: 2.5px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 0 35px rgba(56, 189, 248, 0.8),
+    0 0 20px rgba(236, 72, 153, 0.8),
+    inset 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+.embossed-lr {
+  --glow-color: rgba(250, 204, 21, 0.95);
+  border: 2.5px solid rgba(253, 224, 71, 0.95);
+  box-shadow: 
+    0 0 35px rgba(234, 179, 8, 0.9),
+    0 0 20px rgba(245, 158, 11, 0.8),
+    inset 0 0 15px rgba(254, 240, 138, 0.6);
+}
+
+.embossed-ur {
+  --glow-color: rgba(244, 63, 94, 0.95);
+  border: 2.5px solid rgba(251, 113, 133, 0.95);
+  box-shadow: 
+    0 0 30px rgba(244, 63, 94, 0.85),
+    0 0 15px rgba(239, 68, 68, 0.7),
+    inset 0 0 12px rgba(254, 205, 211, 0.5);
+}
+
+.embossed-ssr {
+  --glow-color: rgba(245, 158, 11, 0.9);
+  border: 2.5px solid rgba(252, 211, 77, 0.9);
+  box-shadow: 
+    0 0 25px rgba(245, 158, 11, 0.8),
+    inset 0 0 10px rgba(253, 230, 138, 0.5);
+}
+
+.embossed-sr {
+  --glow-color: rgba(168, 85, 247, 0.85);
+  border: 2px solid rgba(192, 132, 252, 0.85);
+  box-shadow: 
+    0 0 20px rgba(168, 85, 247, 0.75),
+    inset 0 0 8px rgba(233, 213, 255, 0.4);
+}
+
+/* 2. 4단계 초강력 패럴랙스 입체 뎁스 */
 .parallax-container {
   transform-style: preserve-3d;
   perspective: 1000px;
 }
 
-.parallax-layer-bg {
-  transform: translateZ(-20px) scale(1.06);
-  transition: transform 0.15s ease-out;
+.parallax-layer-deep-bg {
+  transform: translateZ(-30px) scale(1.12);
+  transition: transform 0.12s ease-out;
 }
 
-.parallax-layer-character {
-  transform: translateZ(10px);
-  transition: transform 0.15s ease-out;
+.parallax-layer-character-pop {
+  transform: translateZ(18px) scale(1.03);
+  transition: transform 0.12s ease-out;
 }
 
-.parallax-layer-holo {
-  transform: translateZ(28px) scale(1.02);
-  transition: transform 0.15s ease-out;
+.parallax-layer-frame-relief {
+  transform: translateZ(32px);
+  transition: transform 0.12s ease-out;
+}
+
+.parallax-layer-holo-front {
+  transform: translateZ(42px);
+  transition: transform 0.12s ease-out;
   pointer-events: none;
 }
 

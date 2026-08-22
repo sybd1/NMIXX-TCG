@@ -227,7 +227,13 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
 
       {/* 4. 메인 카드 바디 */}
       <div
-        className={`relative w-full h-full rounded-2xl border ${rarityBorders[card.rarity]} bg-black flex flex-col justify-between overflow-hidden z-10 shadow-2xl [transform-style:preserve-3d]`}
+        className={`relative w-full h-full rounded-2xl border ${
+          isOwned && isHighTier
+            ? (card.rarity === 'MR' ? 'embossed-mr' : card.rarity === 'LR' ? 'embossed-lr' : card.rarity === 'UR' ? 'embossed-ur' : card.rarity === 'SSR' ? 'embossed-ssr' : 'embossed-sr')
+            : rarityBorders[card.rarity]
+        } bg-black flex flex-col justify-between overflow-hidden z-10 shadow-2xl [transform-style:preserve-3d] ${
+          isOwned && card.isEmbossed3D ? 'card-embossed-3d' : ''
+        }`}
       >
         {/* XR 미획득 상태: 신비로운 물음표 미스터리 카드 렌더링 */}
         {isXrMystery ? (
@@ -239,7 +245,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
             {/* 상단 미스터리 HUD */}
             <div className="relative z-20 w-full flex items-center justify-between pointer-events-none">
               <span className="font-mono text-[8.5px] font-black text-rose-300 bg-black/80 px-2 py-0.5 rounded-lg border border-rose-500/30">
-                NO. #741
+                NO. #{String(card.collectionNumber).padStart(3, '0')}
               </span>
               <span className="text-[8.5px] font-black tracking-widest bg-gradient-to-r from-rose-600 to-amber-500 text-white px-2 py-0.5 rounded border border-white/30 shadow-lg animate-pulse">
                 XR 초월
@@ -261,34 +267,45 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
             {/* 하단 미스터리 안내 */}
             <div className="relative z-20 w-full text-center bg-black/80 py-1 px-2 rounded-xl border border-rose-500/30">
               <span className="text-[8px] font-mono text-slate-300 block truncate">
-                전체 740종 수집 시 해금
+                전체 카드 수집 시 해금
               </span>
             </div>
           </div>
         ) : (
           <>
-            {/* Layer 1: 패럴랙스 배경 그라데이션 */}
+            {/* Layer 1: 깊이감 있는 패럴랙스 배경 그라데이션 (-28px) */}
             <div
-              className={`absolute inset-0 bg-gradient-to-b ${card.gradient} transition-transform duration-200 pointer-events-none`}
+              className={`absolute inset-0 bg-gradient-to-b ${card.gradient} transition-transform duration-150 pointer-events-none`}
               style={{
                 transform: isOwned && isHighTier
-                  ? `translateZ(-15px) scale(1.05) translate(${styleState.rotY * -0.3}px, ${styleState.rotX * 0.3}px)`
+                  ? `translateZ(-28px) scale(1.10) translate(${styleState.rotY * -0.45}px, ${styleState.rotX * 0.45}px)`
                   : undefined,
               }}
             />
 
-            {/* Layer 2: 실제 아이돌/프로듀서 고화질 사진 (3D 캐릭터 뎁스) */}
+            {/* Layer 2: 실제 아이돌/프로듀서 고화질 사진 (3D 캐릭터 팝업 뎁스 +16px) */}
             {card.image && (
               <img
                 src={card.image}
                 alt={card.name}
                 loading="lazy"
                 decoding="async"
-                className="absolute inset-0 w-full h-full object-cover object-[center_18%] group-hover:scale-105 transition-all duration-300 pointer-events-none"
+                className="absolute inset-0 w-full h-full object-cover object-[center_18%] group-hover:scale-105 transition-all duration-200 pointer-events-none"
                 style={{
                   transform: isOwned && isHighTier
-                    ? `translateZ(10px) translate(${styleState.rotY * 0.4}px, ${styleState.rotX * -0.4}px)`
+                    ? `translateZ(16px) scale(1.03) translate(${styleState.rotY * 0.55}px, ${styleState.rotX * -0.55}px)`
                     : undefined,
+                }}
+              />
+            )}
+
+            {/* Layer 3: 3D 양각 테두리 이너 베벨 광택 림 (+30px) */}
+            {isOwned && isHighTier && (
+              <div
+                className="absolute inset-0 rounded-2xl border-2 border-white/25 pointer-events-none transition-transform duration-150"
+                style={{
+                  transform: `translateZ(30px) translate(${styleState.rotY * 0.65}px, ${styleState.rotX * -0.65}px)`,
+                  boxShadow: 'inset 0 0 12px rgba(255,255,255,0.3)',
                 }}
               />
             )}
@@ -296,12 +313,12 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
             {/* 상단 얇은 은은한 섀도우 그라데이션 */}
             <div className="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-black/70 via-black/30 to-transparent pointer-events-none z-10" />
 
-            {/* Layer 3: 상단 미니멀 HUD 헤더 (3D 전면 포그라운드 뎁스) */}
+            {/* Layer 4: 상단 미니멀 HUD 헤더 (3D 전면 포그라운드 뎁스 +40px) */}
             <div
               className="relative z-20 p-2 flex items-center justify-between pointer-events-none"
               style={{
                 transform: isOwned && isHighTier
-                  ? `translateZ(24px) translate(${styleState.rotY * 0.6}px, ${styleState.rotX * -0.6}px)`
+                  ? `translateZ(40px) translate(${styleState.rotY * 0.8}px, ${styleState.rotX * -0.8}px)`
                   : undefined,
               }}
             >
@@ -310,6 +327,11 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               </span>
 
               <div className="flex items-center gap-1">
+                {card.isEmbossed3D && (
+                  <span className="text-[7.5px] font-mono font-black text-amber-200 bg-amber-950/80 px-1.5 py-0.5 rounded border border-amber-400/50 shadow-md">
+                    3D 엠보싱
+                  </span>
+                )}
                 <span className="text-[7.5px] font-mono font-black text-pink-200 bg-black/60 backdrop-blur-sm px-1.5 py-0.5 rounded border border-pink-500/30">
                   {isNmixxGroup ? '단체' : memberInfo.nameKo}
                 </span>
@@ -319,13 +341,13 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               </div>
             </div>
 
-            {/* 하단 슬림 글래스모피즘 네임태그 (카드 풀 네임 표시) */}
+            {/* 하단 슬림 글래스모피즘 네임태그 (+35px) */}
             {showDetails && (
               <div
                 className="relative z-20 mt-auto pt-6 pb-2.5 px-2.5 bg-gradient-to-t from-black/95 via-black/60 to-transparent flex flex-col gap-0.5 pointer-events-none"
                 style={{
                   transform: isOwned && isHighTier
-                    ? `translateZ(20px) translate(${styleState.rotY * 0.5}px, ${styleState.rotX * -0.5}px)`
+                    ? `translateZ(35px) translate(${styleState.rotY * 0.7}px, ${styleState.rotX * -0.7}px)`
                     : undefined,
                 }}
               >
