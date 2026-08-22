@@ -58,17 +58,17 @@ export const Pack3D: React.FC<Pack3DProps> = ({
         {/* 중앙은 멤버들 얼굴통통한 비주얼이 시원하게 보이도록 넉넉한 공간 유지 */}
         <div className="flex-1 min-h-[140px]" />
 
-        {/* 하단 콤팩트 글래스모피즘 타이틀 밴드 (얼굴 가림 방지) */}
-        <div className="relative z-10 flex flex-col items-center justify-center text-center bg-black/85 backdrop-blur-md py-2 px-3 rounded-2xl border border-white/20 shadow-2xl mb-1.5">
-          <h3 className="font-serif text-lg sm:text-xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-200 to-amber-200 drop-shadow-md">
+        {/* 하단 콤팩트 글래스모피즘 타이틀 밴드 (한 줄 완벽 렌더링) */}
+        <div className="relative z-10 flex flex-col items-center justify-center text-center bg-black/85 backdrop-blur-md py-2 px-2.5 rounded-2xl border border-white/20 shadow-2xl mb-1.5 w-full overflow-hidden">
+          <h3 className="font-serif text-[14.5px] sm:text-[15.5px] font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-200 to-amber-200 drop-shadow-md whitespace-nowrap truncate max-w-full">
             {pack.name}
           </h3>
 
-          <div className="flex items-center gap-1.5 mt-0.5">
-            <span className="text-[8.5px] text-pink-300 font-mono font-bold tracking-wider uppercase bg-pink-950/80 px-1.5 py-0.5 rounded border border-pink-500/30">
+          <div className="flex items-center gap-1.5 mt-0.5 max-w-full truncate">
+            <span className="text-[8.5px] text-pink-300 font-mono font-bold tracking-wider uppercase bg-pink-950/80 px-1.5 py-0.5 rounded border border-pink-500/30 flex-shrink-0">
               {pack.subtitle.split(' • ')[0]}
             </span>
-            <span className="text-[8.5px] text-slate-300 font-serif italic truncate max-w-[130px]">
+            <span className="text-[8.5px] text-slate-300 font-serif italic truncate">
               {pack.slogan}
             </span>
           </div>

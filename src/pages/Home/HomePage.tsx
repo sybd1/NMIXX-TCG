@@ -95,8 +95,8 @@ export const HomePage: React.FC<HomePageProps> = ({
               <span className="text-[10px] text-pink-300 font-extrabold tracking-wider">
                 {pack.code}
               </span>
-              <span className="font-serif truncate max-w-[130px]">
-                {pack.name.replace('NMIXX ', '')}
+              <span className="font-serif text-[11px] sm:text-xs whitespace-nowrap truncate max-w-full font-bold">
+                {pack.name}
               </span>
             </button>
           );
