@@ -37,6 +37,7 @@ export interface Card {
   image?: string;
   packCode?: string; // OP-01, OP-02, OP-03, OP-04
   packId?: string; // op01, op02, op03, op04
+  packName?: string; // 1탄 계승되는 의지, 2탄 정점결전 등
   setId?: string | null; // 동일 컨셉 6인 세트 ID (예: set_op01_dice)
   setTitle?: string | null; // 세트 명칭 (예: [DICE] 6인 완전체 컬렉션)
 }
@@ -55,6 +56,7 @@ export interface ConceptSetCard {
   era: string;
   packCode: string;
   packId: string;
+  packName?: string;
   cardIds: string[]; // 6명의 멤버 카드 ID 목록 (LILY, HAEWON, SULLYOON, BAE, JIWOO, KYUJIN)
   members: NmixxMember[];
   rewardCard: Card;

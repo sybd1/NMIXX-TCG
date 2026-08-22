@@ -355,8 +355,8 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                       <span className={`text-[11px] font-mono font-black px-2.5 py-1 rounded-lg border bg-gradient-to-r ${badgeColors[r] || badgeColors.SSR} shadow-md`}>
                         {r} SET
                       </span>
-                      <span className="text-[10.5px] font-mono font-black text-pink-300 bg-pink-950/80 px-2.5 py-1 rounded-lg border border-pink-500/30">
-                        {set.packCode}
+                      <span className="text-[10.5px] font-mono font-black text-sky-300 bg-sky-950/80 px-2.5 py-1 rounded-lg border border-sky-500/30">
+                        📦 {set.packCode} {set.packName ? `• ${set.packName}` : ''}
                       </span>
                       <h3 className="text-lg sm:text-xl font-serif font-black text-white ml-1">
                         {set.setTitle}

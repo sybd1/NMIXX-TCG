@@ -90,6 +90,12 @@ export const CardModal: React.FC<CardModalProps> = ({
                     <Sparkle size={11} className="text-yellow-400" />
                     {finishConf?.nameKo || activeFinish}
                   </span>
+                  {/* 소속 부스터 팩 뱃지 */}
+                  {card.packCode && (
+                    <span className="text-[10.5px] font-mono font-black text-sky-200 bg-sky-950/80 border border-sky-400/40 px-2.5 py-0.5 rounded-lg flex items-center gap-1 shadow-sm">
+                      📦 {card.packCode} {card.packName ? `(${card.packName})` : ''}
+                    </span>
+                  )}
                 </div>
 
                 {/* 카드 타이틀 */}
@@ -97,7 +103,7 @@ export const CardModal: React.FC<CardModalProps> = ({
                   {card.name}
                 </h2>
 
-                {/* 스펙 그리드 (코스트, 파워, 에라) */}
+                {/* 스펙 그리드 (코스트, 파워, 에라, 출현 팩) */}
                 <div className="grid grid-cols-3 gap-2 mb-3.5">
                   <div className="bg-void-950/80 p-2 rounded-xl border border-white/5 flex flex-col items-center">
                     <span className="text-[9.5px] font-mono text-slate-400">COST</span>
@@ -111,6 +117,16 @@ export const CardModal: React.FC<CardModalProps> = ({
                     <span className="text-[9.5px] font-mono text-slate-400">ERA</span>
                     <span className="font-mono font-bold text-xs text-purple-300 truncate max-w-[70px]">{card.era}</span>
                   </div>
+                </div>
+
+                {/* 출현 팩 안내 배너 */}
+                <div className="bg-void-950/90 px-3 py-2 rounded-xl border border-sky-500/20 mb-3 flex items-center justify-between text-xs font-mono">
+                  <span className="text-slate-400 flex items-center gap-1.5 font-bold">
+                    📦 출현 카드팩
+                  </span>
+                  <span className="text-sky-300 font-bold">
+                    {card.packCode || 'OP-01'} {card.packName || '1탄 계승되는 의지'}
+                  </span>
                 </div>
 
                 {/* 설명 & 명대사 */}

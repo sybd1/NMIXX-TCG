@@ -23,7 +23,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_r_flower",
-    "setTitle": "[Flower] 6인 완전체 컬렉션"
+    "setTitle": "[Flower] NMIXX 세트 카드",
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_002",
@@ -47,7 +48,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_r_flower",
-    "setTitle": "[Flower] 6인 완전체 컬렉션"
+    "setTitle": "[Flower] NMIXX 세트 카드",
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_003",
@@ -71,7 +73,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_r_flower",
-    "setTitle": "[Flower] 6인 완전체 컬렉션"
+    "setTitle": "[Flower] NMIXX 세트 카드",
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_004",
@@ -95,7 +98,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_r_flower",
-    "setTitle": "[Flower] 6인 완전체 컬렉션"
+    "setTitle": "[Flower] NMIXX 세트 카드",
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_005",
@@ -119,7 +123,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_r_flower",
-    "setTitle": "[Flower] 6인 완전체 컬렉션"
+    "setTitle": "[Flower] NMIXX 세트 카드",
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_006",
@@ -143,15 +148,16 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": "set_r_flower",
-    "setTitle": "[Flower] 6인 완전체 컬렉션"
+    "setTitle": "[Flower] NMIXX 세트 카드",
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_007",
-    "name": "릴리 - School",
+    "name": "릴리 - Light",
     "member": "LILY",
     "category": "CHARACTER",
-    "rarity": "UC",
-    "finishType": "GLOSSY",
+    "rarity": "R",
+    "finishType": "SILVER_STAMPING",
     "collectionNumber": 7,
     "cost": 2,
     "power": 3609,
@@ -159,23 +165,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "릴리",
-    "era": "School",
+    "era": "Light",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "릴리의 시그니처 멜로디",
     "image": "/cards/card_007.jpg",
     "packCode": "OP-01",
     "packId": "op01",
-    "setId": "set_r_school",
-    "setTitle": "[School] 6인 완전체 컬렉션"
+    "setId": "set_sr_light",
+    "setTitle": "[Light] NMIXX 세트 카드",
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_008",
-    "name": "해원 - School",
+    "name": "해원 - Light",
     "member": "HAEWON",
     "category": "CHARACTER",
-    "rarity": "UC",
-    "finishType": "GLOSSY",
+    "rarity": "R",
+    "finishType": "SILVER_STAMPING",
     "collectionNumber": 8,
     "cost": 2,
     "power": 3825,
@@ -183,23 +190,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "해원",
-    "era": "School",
+    "era": "Light",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "해원의 시그니처 멜로디",
     "image": "/cards/card_008.jpg",
     "packCode": "OP-01",
     "packId": "op01",
-    "setId": "set_r_school",
-    "setTitle": "[School] 6인 완전체 컬렉션"
+    "setId": "set_sr_light",
+    "setTitle": "[Light] NMIXX 세트 카드",
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_009",
-    "name": "설윤 - School",
+    "name": "설윤 - Light",
     "member": "SULLYOON",
     "category": "CHARACTER",
-    "rarity": "UC",
-    "finishType": "GLOSSY",
+    "rarity": "R",
+    "finishType": "SILVER_STAMPING",
     "collectionNumber": 9,
     "cost": 2,
     "power": 3479,
@@ -207,23 +215,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "설윤",
-    "era": "School",
+    "era": "Light",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "설윤의 시그니처 멜로디",
     "image": "/cards/card_009.jpg",
     "packCode": "OP-01",
     "packId": "op01",
-    "setId": "set_r_school",
-    "setTitle": "[School] 6인 완전체 컬렉션"
+    "setId": "set_sr_light",
+    "setTitle": "[Light] NMIXX 세트 카드",
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_010",
-    "name": "배이 - School",
+    "name": "배이 - Light",
     "member": "BAE",
     "category": "CHARACTER",
-    "rarity": "UC",
-    "finishType": "GLOSSY",
+    "rarity": "R",
+    "finishType": "SILVER_STAMPING",
     "collectionNumber": 10,
     "cost": 3,
     "power": 3145,
@@ -231,23 +240,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "배이",
-    "era": "School",
+    "era": "Light",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "배이의 시그니처 멜로디",
     "image": "/cards/card_010.jpg",
     "packCode": "OP-01",
     "packId": "op01",
-    "setId": "set_r_school",
-    "setTitle": "[School] 6인 완전체 컬렉션"
+    "setId": "set_sr_light",
+    "setTitle": "[Light] NMIXX 세트 카드",
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_011",
-    "name": "지우 - School",
+    "name": "지우 - Light",
     "member": "JIWOO",
     "category": "CHARACTER",
-    "rarity": "UC",
-    "finishType": "GLOSSY",
+    "rarity": "R",
+    "finishType": "SILVER_STAMPING",
     "collectionNumber": 11,
     "cost": 3,
     "power": 3582,
@@ -255,23 +265,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "지우",
-    "era": "School",
+    "era": "Light",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "지우의 시그니처 멜로디",
     "image": "/cards/card_011.jpg",
     "packCode": "OP-01",
     "packId": "op01",
-    "setId": "set_r_school",
-    "setTitle": "[School] 6인 완전체 컬렉션"
+    "setId": "set_sr_light",
+    "setTitle": "[Light] NMIXX 세트 카드",
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_012",
-    "name": "규진 - School",
+    "name": "규진 - Light",
     "member": "KYUJIN",
     "category": "CHARACTER",
-    "rarity": "UC",
-    "finishType": "GLOSSY",
+    "rarity": "R",
+    "finishType": "SILVER_STAMPING",
     "collectionNumber": 12,
     "cost": 2,
     "power": 3007,
@@ -279,15 +290,16 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "규진",
-    "era": "School",
+    "era": "Light",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "규진의 시그니처 멜로디",
     "image": "/cards/card_012.jpg",
     "packCode": "OP-01",
     "packId": "op01",
-    "setId": "set_r_school",
-    "setTitle": "[School] 6인 완전체 컬렉션"
+    "setId": "set_sr_light",
+    "setTitle": "[Light] NMIXX 세트 카드",
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_013",
@@ -311,7 +323,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_014",
@@ -335,7 +348,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_015",
@@ -359,7 +373,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_016",
@@ -383,7 +398,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_017",
@@ -407,7 +423,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_018",
@@ -431,7 +448,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_019",
@@ -455,7 +473,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_020",
@@ -479,7 +498,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_021",
@@ -503,7 +523,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_022",
@@ -527,7 +548,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_023",
@@ -551,7 +573,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_024",
@@ -575,7 +598,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_025",
@@ -599,7 +623,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_026",
@@ -623,7 +648,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_027",
@@ -647,7 +673,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_028",
@@ -671,7 +698,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_029",
@@ -695,7 +723,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_030",
@@ -719,7 +748,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_031",
@@ -743,7 +773,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_032",
@@ -767,7 +798,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_033",
@@ -791,7 +823,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_034",
@@ -815,7 +848,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_035",
@@ -839,7 +873,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_036",
@@ -863,7 +898,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_037",
@@ -887,7 +923,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_038",
@@ -911,7 +948,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_039",
@@ -935,7 +973,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_040",
@@ -959,7 +998,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_041",
@@ -983,7 +1023,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_042",
@@ -1007,7 +1048,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_043",
@@ -1031,7 +1073,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_044",
@@ -1055,7 +1098,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_045",
@@ -1079,7 +1123,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_046",
@@ -1103,7 +1148,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_047",
@@ -1127,7 +1173,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_048",
@@ -1151,7 +1198,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_049",
@@ -1175,7 +1223,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_050",
@@ -1199,7 +1248,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_051",
@@ -1223,7 +1273,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_052",
@@ -1247,7 +1298,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_053",
@@ -1271,7 +1323,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_054",
@@ -1295,7 +1348,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_055",
@@ -1319,7 +1373,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_056",
@@ -1343,7 +1398,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_057",
@@ -1367,7 +1423,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_058",
@@ -1391,7 +1448,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_059",
@@ -1415,7 +1473,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_060",
@@ -1439,7 +1498,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_061",
@@ -1463,7 +1523,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_062",
@@ -1487,7 +1548,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_063",
@@ -1511,7 +1573,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_064",
@@ -1535,7 +1598,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_065",
@@ -1559,7 +1623,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_066",
@@ -1583,7 +1648,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_067",
@@ -1607,7 +1673,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_068",
@@ -1631,7 +1698,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_069",
@@ -1655,7 +1723,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_070",
@@ -1679,7 +1748,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_071",
@@ -1703,7 +1773,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_072",
@@ -1727,7 +1798,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_073",
@@ -1751,7 +1823,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_074",
@@ -1775,7 +1848,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_075",
@@ -1799,7 +1873,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_076",
@@ -1823,7 +1898,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_077",
@@ -1847,7 +1923,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_078",
@@ -1871,7 +1948,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_079",
@@ -1895,7 +1973,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_080",
@@ -1919,7 +1998,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_081",
@@ -1943,7 +2023,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_082",
@@ -1967,7 +2048,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_083",
@@ -1991,7 +2073,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_084",
@@ -2015,7 +2098,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_085",
@@ -2039,7 +2123,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_086",
@@ -2063,7 +2148,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_087",
@@ -2087,7 +2173,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_088",
@@ -2111,7 +2198,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_089",
@@ -2135,7 +2223,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_090",
@@ -2159,7 +2248,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_091",
@@ -2183,7 +2273,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_092",
@@ -2207,7 +2298,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_093",
@@ -2231,7 +2323,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_094",
@@ -2255,7 +2348,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_095",
@@ -2279,7 +2373,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_096",
@@ -2303,7 +2398,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_097",
@@ -2327,7 +2423,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_098",
@@ -2351,7 +2448,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_099",
@@ -2375,7 +2473,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_100",
@@ -2399,7 +2498,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_101",
@@ -2423,7 +2523,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_102",
@@ -2447,7 +2548,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_103",
@@ -2471,7 +2573,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_104",
@@ -2495,7 +2598,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_105",
@@ -2519,7 +2623,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_106",
@@ -2543,7 +2648,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_107",
@@ -2567,7 +2673,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_108",
@@ -2591,7 +2698,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_109",
@@ -2615,7 +2723,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_110",
@@ -2639,7 +2748,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_111",
@@ -2663,7 +2773,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_112",
@@ -2687,7 +2798,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_113",
@@ -2711,7 +2823,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_114",
@@ -2735,7 +2848,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_115",
@@ -2759,7 +2873,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_116",
@@ -2783,7 +2898,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_117",
@@ -2807,7 +2923,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_118",
@@ -2831,7 +2948,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_119",
@@ -2855,7 +2973,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_120",
@@ -2879,7 +2998,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_121",
@@ -2903,7 +3023,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_122",
@@ -2927,7 +3048,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_123",
@@ -2951,7 +3073,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_124",
@@ -2975,7 +3098,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_125",
@@ -2999,7 +3123,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_126",
@@ -3023,7 +3148,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_127",
@@ -3047,7 +3173,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_128",
@@ -3071,7 +3198,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_129",
@@ -3095,7 +3223,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_130",
@@ -3119,7 +3248,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_131",
@@ -3143,7 +3273,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_132",
@@ -3167,7 +3298,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_133",
@@ -3191,7 +3323,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_134",
@@ -3215,7 +3348,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_135",
@@ -3239,7 +3373,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_136",
@@ -3263,7 +3398,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_137",
@@ -3287,7 +3423,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_138",
@@ -3311,7 +3448,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_139",
@@ -3335,7 +3473,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_140",
@@ -3359,7 +3498,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_141",
@@ -3383,7 +3523,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_142",
@@ -3407,7 +3548,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_143",
@@ -3431,7 +3573,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_144",
@@ -3455,7 +3598,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_145",
@@ -3479,7 +3623,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_146",
@@ -3503,7 +3648,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_147",
@@ -3527,7 +3673,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_148",
@@ -3551,7 +3698,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_149",
@@ -3575,7 +3723,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_150",
@@ -3599,15 +3748,16 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-01",
     "packId": "op01",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "1탄 계승되는 의지"
   },
   {
     "id": "nmixx_151",
-    "name": "릴리 - Light",
+    "name": "릴리 - School",
     "member": "LILY",
     "category": "CHARACTER",
-    "rarity": "R",
-    "finishType": "SILVER_STAMPING",
+    "rarity": "UC",
+    "finishType": "GLOSSY",
     "collectionNumber": 151,
     "cost": 3,
     "power": 4853,
@@ -3615,23 +3765,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "릴리",
-    "era": "Light",
+    "era": "School",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "릴리의 시그니처 멜로디",
     "image": "/cards/card_151.jpg",
     "packCode": "OP-02",
     "packId": "op02",
-    "setId": "set_sr_light",
-    "setTitle": "[Light] 6인 완전체 컬렉션"
+    "setId": "set_r_school",
+    "setTitle": "[School] NMIXX 세트 카드",
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_152",
-    "name": "해원 - Light",
+    "name": "해원 - School",
     "member": "HAEWON",
     "category": "CHARACTER",
-    "rarity": "R",
-    "finishType": "SILVER_STAMPING",
+    "rarity": "UC",
+    "finishType": "GLOSSY",
     "collectionNumber": 152,
     "cost": 5,
     "power": 5146,
@@ -3639,23 +3790,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "해원",
-    "era": "Light",
+    "era": "School",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "해원의 시그니처 멜로디",
     "image": "/cards/card_152.jpg",
     "packCode": "OP-02",
     "packId": "op02",
-    "setId": "set_sr_light",
-    "setTitle": "[Light] 6인 완전체 컬렉션"
+    "setId": "set_r_school",
+    "setTitle": "[School] NMIXX 세트 카드",
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_153",
-    "name": "설윤 - Light",
+    "name": "설윤 - School",
     "member": "SULLYOON",
     "category": "CHARACTER",
-    "rarity": "R",
-    "finishType": "SILVER_STAMPING",
+    "rarity": "UC",
+    "finishType": "GLOSSY",
     "collectionNumber": 153,
     "cost": 3,
     "power": 5400,
@@ -3663,23 +3815,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "설윤",
-    "era": "Light",
+    "era": "School",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "설윤의 시그니처 멜로디",
     "image": "/cards/card_153.jpg",
     "packCode": "OP-02",
     "packId": "op02",
-    "setId": "set_sr_light",
-    "setTitle": "[Light] 6인 완전체 컬렉션"
+    "setId": "set_r_school",
+    "setTitle": "[School] NMIXX 세트 카드",
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_154",
-    "name": "배이 - Light",
+    "name": "배이 - School",
     "member": "BAE",
     "category": "CHARACTER",
-    "rarity": "R",
-    "finishType": "SILVER_STAMPING",
+    "rarity": "UC",
+    "finishType": "GLOSSY",
     "collectionNumber": 154,
     "cost": 3,
     "power": 5567,
@@ -3687,23 +3840,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "배이",
-    "era": "Light",
+    "era": "School",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "배이의 시그니처 멜로디",
     "image": "/cards/card_154.jpg",
     "packCode": "OP-02",
     "packId": "op02",
-    "setId": "set_sr_light",
-    "setTitle": "[Light] 6인 완전체 컬렉션"
+    "setId": "set_r_school",
+    "setTitle": "[School] NMIXX 세트 카드",
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_155",
-    "name": "지우 - Light",
+    "name": "지우 - School",
     "member": "JIWOO",
     "category": "CHARACTER",
-    "rarity": "R",
-    "finishType": "SILVER_STAMPING",
+    "rarity": "UC",
+    "finishType": "GLOSSY",
     "collectionNumber": 155,
     "cost": 3,
     "power": 4642,
@@ -3711,23 +3865,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "지우",
-    "era": "Light",
+    "era": "School",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "지우의 시그니처 멜로디",
     "image": "/cards/card_155.jpg",
     "packCode": "OP-02",
     "packId": "op02",
-    "setId": "set_sr_light",
-    "setTitle": "[Light] 6인 완전체 컬렉션"
+    "setId": "set_r_school",
+    "setTitle": "[School] NMIXX 세트 카드",
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_156",
-    "name": "규진 - Light",
+    "name": "규진 - School",
     "member": "KYUJIN",
     "category": "CHARACTER",
-    "rarity": "R",
-    "finishType": "SILVER_STAMPING",
+    "rarity": "UC",
+    "finishType": "GLOSSY",
     "collectionNumber": 156,
     "cost": 4,
     "power": 5896,
@@ -3735,23 +3890,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "규진",
-    "era": "Light",
+    "era": "School",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "규진의 시그니처 멜로디",
     "image": "/cards/card_156.jpg",
     "packCode": "OP-02",
     "packId": "op02",
-    "setId": "set_sr_light",
-    "setTitle": "[Light] 6인 완전체 컬렉션"
+    "setId": "set_r_school",
+    "setTitle": "[School] NMIXX 세트 카드",
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_157",
-    "name": "릴리 - Blue Valentine",
+    "name": "릴리 - NMIXX",
     "member": "LILY",
     "category": "CHARACTER",
-    "rarity": "R",
-    "finishType": "SILVER_STAMPING",
+    "rarity": "SR",
+    "finishType": "RAINBOW_FOIL",
     "collectionNumber": 157,
     "cost": 3,
     "power": 5024,
@@ -3759,23 +3915,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "릴리",
-    "era": "Blue Valentine",
+    "era": "Fe3O4",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "릴리의 시그니처 멜로디",
     "image": "/cards/card_157.jpg",
     "packCode": "OP-02",
     "packId": "op02",
-    "setId": "set_sr_blue_valentine",
-    "setTitle": "[Blue Valentine] 6인 완전체 컬렉션"
+    "setId": "set_ssr_nmixx",
+    "setTitle": "[NMIXX] NMIXX 세트 카드",
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_158",
-    "name": "해원 - Blue Valentine",
+    "name": "해원 - NMIXX",
     "member": "HAEWON",
     "category": "CHARACTER",
-    "rarity": "R",
-    "finishType": "SILVER_STAMPING",
+    "rarity": "SR",
+    "finishType": "RAINBOW_FOIL",
     "collectionNumber": 158,
     "cost": 5,
     "power": 5767,
@@ -3783,23 +3940,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "해원",
-    "era": "Blue Valentine",
+    "era": "Fe3O4",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "해원의 시그니처 멜로디",
     "image": "/cards/card_158.jpg",
     "packCode": "OP-02",
     "packId": "op02",
-    "setId": "set_sr_blue_valentine",
-    "setTitle": "[Blue Valentine] 6인 완전체 컬렉션"
+    "setId": "set_ssr_nmixx",
+    "setTitle": "[NMIXX] NMIXX 세트 카드",
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_159",
-    "name": "설윤 - Blue Valentine",
+    "name": "설윤 - NMIXX",
     "member": "SULLYOON",
     "category": "CHARACTER",
-    "rarity": "R",
-    "finishType": "SILVER_STAMPING",
+    "rarity": "SR",
+    "finishType": "RAINBOW_FOIL",
     "collectionNumber": 159,
     "cost": 4,
     "power": 5647,
@@ -3807,23 +3965,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "설윤",
-    "era": "Blue Valentine",
+    "era": "Fe3O4",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "설윤의 시그니처 멜로디",
     "image": "/cards/card_159.jpg",
     "packCode": "OP-02",
     "packId": "op02",
-    "setId": "set_sr_blue_valentine",
-    "setTitle": "[Blue Valentine] 6인 완전체 컬렉션"
+    "setId": "set_ssr_nmixx",
+    "setTitle": "[NMIXX] NMIXX 세트 카드",
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_160",
-    "name": "배이 - Blue Valentine",
+    "name": "배이 - NMIXX",
     "member": "BAE",
     "category": "CHARACTER",
-    "rarity": "R",
-    "finishType": "SILVER_STAMPING",
+    "rarity": "SR",
+    "finishType": "RAINBOW_FOIL",
     "collectionNumber": 160,
     "cost": 3,
     "power": 5150,
@@ -3831,23 +3990,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "배이",
-    "era": "Blue Valentine",
+    "era": "Fe3O4",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "배이의 시그니처 멜로디",
     "image": "/cards/card_160.jpg",
     "packCode": "OP-02",
     "packId": "op02",
-    "setId": "set_sr_blue_valentine",
-    "setTitle": "[Blue Valentine] 6인 완전체 컬렉션"
+    "setId": "set_ssr_nmixx",
+    "setTitle": "[NMIXX] NMIXX 세트 카드",
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_161",
-    "name": "지우 - Blue Valentine",
+    "name": "지우 - NMIXX",
     "member": "JIWOO",
     "category": "CHARACTER",
-    "rarity": "R",
-    "finishType": "SILVER_STAMPING",
+    "rarity": "SR",
+    "finishType": "RAINBOW_FOIL",
     "collectionNumber": 161,
     "cost": 5,
     "power": 5925,
@@ -3855,23 +4015,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "지우",
-    "era": "Blue Valentine",
+    "era": "Fe3O4",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "지우의 시그니처 멜로디",
     "image": "/cards/card_161.jpg",
     "packCode": "OP-02",
     "packId": "op02",
-    "setId": "set_sr_blue_valentine",
-    "setTitle": "[Blue Valentine] 6인 완전체 컬렉션"
+    "setId": "set_ssr_nmixx",
+    "setTitle": "[NMIXX] NMIXX 세트 카드",
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_162",
-    "name": "규진 - Blue Valentine",
+    "name": "규진 - NMIXX",
     "member": "KYUJIN",
     "category": "CHARACTER",
-    "rarity": "R",
-    "finishType": "SILVER_STAMPING",
+    "rarity": "SR",
+    "finishType": "RAINBOW_FOIL",
     "collectionNumber": 162,
     "cost": 4,
     "power": 5756,
@@ -3879,15 +4040,16 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "규진",
-    "era": "Blue Valentine",
+    "era": "Fe3O4",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "규진의 시그니처 멜로디",
     "image": "/cards/card_162.jpg",
     "packCode": "OP-02",
     "packId": "op02",
-    "setId": "set_sr_blue_valentine",
-    "setTitle": "[Blue Valentine] 6인 완전체 컬렉션"
+    "setId": "set_ssr_nmixx",
+    "setTitle": "[NMIXX] NMIXX 세트 카드",
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_163",
@@ -3911,7 +4073,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_164",
@@ -3935,7 +4098,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_165",
@@ -3959,7 +4123,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_166",
@@ -3983,7 +4148,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_167",
@@ -4007,7 +4173,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_168",
@@ -4031,7 +4198,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_169",
@@ -4055,7 +4223,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_170",
@@ -4079,7 +4248,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_171",
@@ -4103,7 +4273,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_172",
@@ -4127,7 +4298,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_173",
@@ -4151,7 +4323,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_174",
@@ -4175,7 +4348,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_175",
@@ -4199,7 +4373,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_176",
@@ -4223,7 +4398,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_177",
@@ -4247,7 +4423,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_178",
@@ -4271,7 +4448,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_179",
@@ -4295,7 +4473,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_180",
@@ -4319,7 +4498,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_181",
@@ -4343,7 +4523,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_182",
@@ -4367,7 +4548,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_183",
@@ -4391,7 +4573,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_184",
@@ -4415,7 +4598,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_185",
@@ -4439,7 +4623,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_186",
@@ -4463,7 +4648,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_187",
@@ -4487,7 +4673,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_188",
@@ -4511,7 +4698,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_189",
@@ -4535,7 +4723,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_190",
@@ -4559,7 +4748,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_191",
@@ -4583,7 +4773,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_192",
@@ -4607,7 +4798,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_193",
@@ -4631,7 +4823,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_194",
@@ -4655,7 +4848,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_195",
@@ -4679,7 +4873,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_196",
@@ -4703,7 +4898,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_197",
@@ -4727,7 +4923,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_198",
@@ -4751,7 +4948,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_199",
@@ -4775,7 +4973,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_200",
@@ -4799,7 +4998,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_201",
@@ -4823,7 +5023,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_202",
@@ -4847,7 +5048,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_203",
@@ -4871,7 +5073,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_204",
@@ -4895,7 +5098,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_205",
@@ -4919,7 +5123,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_206",
@@ -4943,7 +5148,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_207",
@@ -4967,7 +5173,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_208",
@@ -4991,7 +5198,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_209",
@@ -5015,7 +5223,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_210",
@@ -5039,7 +5248,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_211",
@@ -5063,7 +5273,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_212",
@@ -5087,7 +5298,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_213",
@@ -5111,7 +5323,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_214",
@@ -5135,7 +5348,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_215",
@@ -5159,7 +5373,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_216",
@@ -5183,7 +5398,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_217",
@@ -5207,7 +5423,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_218",
@@ -5231,7 +5448,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_219",
@@ -5255,7 +5473,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_220",
@@ -5279,7 +5498,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_221",
@@ -5303,7 +5523,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_222",
@@ -5327,7 +5548,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_223",
@@ -5351,7 +5573,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_224",
@@ -5375,7 +5598,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_225",
@@ -5399,7 +5623,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_226",
@@ -5423,7 +5648,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_227",
@@ -5447,7 +5673,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_228",
@@ -5471,7 +5698,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_229",
@@ -5495,7 +5723,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_230",
@@ -5519,7 +5748,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_231",
@@ -5543,7 +5773,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_232",
@@ -5567,7 +5798,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_233",
@@ -5591,7 +5823,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_234",
@@ -5615,7 +5848,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_235",
@@ -5639,7 +5873,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_236",
@@ -5663,7 +5898,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_237",
@@ -5687,7 +5923,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_238",
@@ -5711,7 +5948,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_239",
@@ -5735,7 +5973,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_240",
@@ -5759,7 +5998,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_241",
@@ -5783,7 +6023,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_242",
@@ -5807,7 +6048,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_243",
@@ -5831,7 +6073,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_244",
@@ -5855,7 +6098,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_245",
@@ -5879,7 +6123,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_246",
@@ -5903,7 +6148,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_247",
@@ -5927,7 +6173,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_248",
@@ -5951,7 +6198,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_249",
@@ -5975,7 +6223,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_250",
@@ -5999,7 +6248,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_251",
@@ -6023,7 +6273,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_252",
@@ -6047,7 +6298,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_253",
@@ -6071,7 +6323,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_254",
@@ -6095,7 +6348,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_255",
@@ -6119,7 +6373,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_256",
@@ -6143,7 +6398,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_257",
@@ -6167,7 +6423,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_258",
@@ -6191,7 +6448,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_259",
@@ -6215,7 +6473,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_260",
@@ -6239,7 +6498,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_261",
@@ -6263,7 +6523,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_262",
@@ -6287,7 +6548,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_263",
@@ -6311,7 +6573,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_264",
@@ -6335,7 +6598,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_265",
@@ -6359,7 +6623,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_266",
@@ -6383,7 +6648,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_267",
@@ -6407,7 +6673,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_268",
@@ -6431,7 +6698,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_269",
@@ -6455,7 +6723,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_270",
@@ -6479,7 +6748,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_271",
@@ -6503,7 +6773,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_272",
@@ -6527,7 +6798,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_273",
@@ -6551,7 +6823,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_274",
@@ -6575,7 +6848,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_275",
@@ -6599,7 +6873,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_276",
@@ -6623,7 +6898,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_277",
@@ -6647,7 +6923,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_278",
@@ -6671,7 +6948,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_279",
@@ -6695,7 +6973,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_280",
@@ -6719,7 +6998,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_281",
@@ -6743,7 +7023,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_282",
@@ -6767,7 +7048,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_283",
@@ -6791,7 +7073,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_284",
@@ -6815,7 +7098,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_285",
@@ -6839,7 +7123,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_286",
@@ -6863,7 +7148,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_287",
@@ -6887,7 +7173,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_288",
@@ -6911,7 +7198,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_289",
@@ -6935,7 +7223,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_290",
@@ -6959,7 +7248,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_291",
@@ -6983,7 +7273,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_292",
@@ -7007,7 +7298,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_293",
@@ -7031,7 +7323,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_294",
@@ -7055,7 +7348,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_295",
@@ -7079,7 +7373,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_296",
@@ -7103,7 +7398,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_297",
@@ -7127,7 +7423,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_298",
@@ -7151,7 +7448,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_299",
@@ -7175,7 +7473,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_300",
@@ -7199,15 +7498,16 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-02",
     "packId": "op02",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "2탄 정점결전"
   },
   {
     "id": "nmixx_301",
-    "name": "릴리 - NMIXX",
+    "name": "릴리 - Blue Valentine",
     "member": "LILY",
     "category": "CHARACTER",
-    "rarity": "SR",
-    "finishType": "RAINBOW_FOIL",
+    "rarity": "R",
+    "finishType": "SILVER_STAMPING",
     "collectionNumber": 301,
     "cost": 4,
     "power": 7163,
@@ -7215,23 +7515,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "릴리",
-    "era": "Fe3O4",
+    "era": "Blue Valentine",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "릴리의 시그니처 멜로디",
     "image": "/cards/card_301.jpg",
     "packCode": "OP-03",
     "packId": "op03",
-    "setId": "set_ssr_nmixx",
-    "setTitle": "[NMIXX] 6인 완전체 컬렉션"
+    "setId": "set_sr_blue_valentine",
+    "setTitle": "[Blue Valentine] NMIXX 세트 카드",
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_302",
-    "name": "해원 - NMIXX",
+    "name": "해원 - Blue Valentine",
     "member": "HAEWON",
     "category": "CHARACTER",
-    "rarity": "SR",
-    "finishType": "RAINBOW_FOIL",
+    "rarity": "R",
+    "finishType": "SILVER_STAMPING",
     "collectionNumber": 302,
     "cost": 6,
     "power": 6902,
@@ -7239,23 +7540,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "해원",
-    "era": "Fe3O4",
+    "era": "Blue Valentine",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "해원의 시그니처 멜로디",
     "image": "/cards/card_302.jpg",
     "packCode": "OP-03",
     "packId": "op03",
-    "setId": "set_ssr_nmixx",
-    "setTitle": "[NMIXX] 6인 완전체 컬렉션"
+    "setId": "set_sr_blue_valentine",
+    "setTitle": "[Blue Valentine] NMIXX 세트 카드",
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_303",
-    "name": "설윤 - NMIXX",
+    "name": "설윤 - Blue Valentine",
     "member": "SULLYOON",
     "category": "CHARACTER",
-    "rarity": "SR",
-    "finishType": "RAINBOW_FOIL",
+    "rarity": "R",
+    "finishType": "SILVER_STAMPING",
     "collectionNumber": 303,
     "cost": 6,
     "power": 7574,
@@ -7263,23 +7565,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "설윤",
-    "era": "Fe3O4",
+    "era": "Blue Valentine",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "설윤의 시그니처 멜로디",
     "image": "/cards/card_303.jpg",
     "packCode": "OP-03",
     "packId": "op03",
-    "setId": "set_ssr_nmixx",
-    "setTitle": "[NMIXX] 6인 완전체 컬렉션"
+    "setId": "set_sr_blue_valentine",
+    "setTitle": "[Blue Valentine] NMIXX 세트 카드",
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_304",
-    "name": "배이 - NMIXX",
+    "name": "배이 - Blue Valentine",
     "member": "BAE",
     "category": "CHARACTER",
-    "rarity": "SR",
-    "finishType": "RAINBOW_FOIL",
+    "rarity": "R",
+    "finishType": "SILVER_STAMPING",
     "collectionNumber": 304,
     "cost": 4,
     "power": 7067,
@@ -7287,23 +7590,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "배이",
-    "era": "Fe3O4",
+    "era": "Blue Valentine",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "배이의 시그니처 멜로디",
     "image": "/cards/card_304.jpg",
     "packCode": "OP-03",
     "packId": "op03",
-    "setId": "set_ssr_nmixx",
-    "setTitle": "[NMIXX] 6인 완전체 컬렉션"
+    "setId": "set_sr_blue_valentine",
+    "setTitle": "[Blue Valentine] NMIXX 세트 카드",
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_305",
-    "name": "지우 - NMIXX",
+    "name": "지우 - Blue Valentine",
     "member": "JIWOO",
     "category": "CHARACTER",
-    "rarity": "SR",
-    "finishType": "RAINBOW_FOIL",
+    "rarity": "R",
+    "finishType": "SILVER_STAMPING",
     "collectionNumber": 305,
     "cost": 6,
     "power": 6702,
@@ -7311,23 +7615,24 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "지우",
-    "era": "Fe3O4",
+    "era": "Blue Valentine",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "지우의 시그니처 멜로디",
     "image": "/cards/card_305.jpg",
     "packCode": "OP-03",
     "packId": "op03",
-    "setId": "set_ssr_nmixx",
-    "setTitle": "[NMIXX] 6인 완전체 컬렉션"
+    "setId": "set_sr_blue_valentine",
+    "setTitle": "[Blue Valentine] NMIXX 세트 카드",
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_306",
-    "name": "규진 - NMIXX",
+    "name": "규진 - Blue Valentine",
     "member": "KYUJIN",
     "category": "CHARACTER",
-    "rarity": "SR",
-    "finishType": "RAINBOW_FOIL",
+    "rarity": "R",
+    "finishType": "SILVER_STAMPING",
     "collectionNumber": 306,
     "cost": 6,
     "power": 7014,
@@ -7335,15 +7640,16 @@ export const MASTER_CARDS: Card[] = [
     "dustValue": 0,
     "craftCost": null,
     "theme": "규진",
-    "era": "Fe3O4",
+    "era": "Blue Valentine",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
     "quote": "규진의 시그니처 멜로디",
     "image": "/cards/card_306.jpg",
     "packCode": "OP-03",
     "packId": "op03",
-    "setId": "set_ssr_nmixx",
-    "setTitle": "[NMIXX] 6인 완전체 컬렉션"
+    "setId": "set_sr_blue_valentine",
+    "setTitle": "[Blue Valentine] NMIXX 세트 카드",
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_307",
@@ -7367,7 +7673,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_308",
@@ -7391,7 +7698,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_309",
@@ -7415,7 +7723,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_310",
@@ -7439,7 +7748,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_311",
@@ -7463,7 +7773,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_312",
@@ -7487,7 +7798,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_313",
@@ -7511,7 +7823,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_314",
@@ -7535,7 +7848,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_315",
@@ -7559,7 +7873,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_316",
@@ -7583,7 +7898,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_317",
@@ -7607,7 +7923,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_318",
@@ -7631,7 +7948,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_319",
@@ -7655,7 +7973,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_320",
@@ -7679,7 +7998,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_321",
@@ -7703,7 +8023,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_322",
@@ -7727,7 +8048,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_323",
@@ -7751,7 +8073,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_324",
@@ -7775,7 +8098,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_325",
@@ -7799,7 +8123,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_326",
@@ -7823,7 +8148,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_327",
@@ -7847,7 +8173,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_328",
@@ -7871,7 +8198,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_329",
@@ -7895,7 +8223,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_330",
@@ -7919,7 +8248,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_331",
@@ -7943,7 +8273,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_332",
@@ -7967,7 +8298,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_333",
@@ -7991,7 +8323,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_334",
@@ -8015,7 +8348,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_335",
@@ -8039,7 +8373,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_336",
@@ -8063,7 +8398,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_337",
@@ -8087,7 +8423,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_338",
@@ -8111,7 +8448,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_339",
@@ -8135,7 +8473,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_340",
@@ -8159,7 +8498,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_341",
@@ -8183,7 +8523,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_342",
@@ -8207,7 +8548,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_343",
@@ -8231,7 +8573,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_344",
@@ -8255,7 +8598,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_345",
@@ -8279,7 +8623,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_346",
@@ -8303,7 +8648,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_347",
@@ -8327,7 +8673,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_348",
@@ -8351,7 +8698,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_349",
@@ -8375,7 +8723,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_350",
@@ -8399,7 +8748,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_351",
@@ -8423,7 +8773,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_352",
@@ -8447,7 +8798,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_353",
@@ -8471,7 +8823,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_354",
@@ -8495,7 +8848,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_355",
@@ -8519,7 +8873,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_356",
@@ -8543,7 +8898,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_357",
@@ -8567,7 +8923,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_358",
@@ -8591,7 +8948,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_359",
@@ -8615,7 +8973,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_360",
@@ -8639,7 +8998,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_361",
@@ -8663,7 +9023,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_362",
@@ -8687,7 +9048,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_363",
@@ -8711,7 +9073,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_364",
@@ -8735,7 +9098,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_365",
@@ -8759,7 +9123,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_366",
@@ -8783,7 +9148,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_367",
@@ -8807,7 +9173,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_368",
@@ -8831,7 +9198,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_369",
@@ -8855,7 +9223,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_370",
@@ -8879,7 +9248,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_371",
@@ -8903,7 +9273,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_372",
@@ -8927,7 +9298,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_373",
@@ -8951,7 +9323,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_374",
@@ -8975,7 +9348,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_375",
@@ -8999,7 +9373,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_376",
@@ -9023,7 +9398,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_377",
@@ -9047,7 +9423,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_378",
@@ -9071,7 +9448,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_379",
@@ -9095,7 +9473,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_380",
@@ -9119,7 +9498,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_381",
@@ -9143,7 +9523,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_382",
@@ -9167,7 +9548,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_383",
@@ -9191,7 +9573,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_384",
@@ -9215,7 +9598,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_385",
@@ -9239,7 +9623,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_386",
@@ -9263,7 +9648,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_387",
@@ -9287,7 +9673,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_388",
@@ -9311,7 +9698,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_389",
@@ -9335,7 +9723,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_390",
@@ -9359,7 +9748,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_391",
@@ -9383,7 +9773,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_392",
@@ -9407,7 +9798,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_393",
@@ -9431,7 +9823,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_394",
@@ -9455,7 +9848,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_395",
@@ -9479,7 +9873,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_396",
@@ -9503,7 +9898,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_397",
@@ -9527,7 +9923,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_398",
@@ -9551,7 +9948,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_399",
@@ -9575,7 +9973,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_400",
@@ -9599,7 +9998,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_401",
@@ -9623,7 +10023,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_402",
@@ -9647,7 +10048,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_403",
@@ -9671,7 +10073,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_404",
@@ -9695,7 +10098,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_405",
@@ -9719,7 +10123,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_406",
@@ -9743,7 +10148,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_407",
@@ -9767,7 +10173,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_408",
@@ -9791,7 +10198,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_409",
@@ -9815,7 +10223,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_410",
@@ -9839,7 +10248,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_411",
@@ -9863,7 +10273,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_412",
@@ -9887,7 +10298,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_413",
@@ -9911,7 +10323,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_414",
@@ -9935,7 +10348,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_415",
@@ -9959,7 +10373,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_416",
@@ -9983,7 +10398,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_417",
@@ -10007,7 +10423,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_418",
@@ -10031,7 +10448,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_419",
@@ -10055,7 +10473,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_420",
@@ -10079,7 +10498,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_421",
@@ -10103,7 +10523,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_422",
@@ -10127,7 +10548,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_423",
@@ -10151,7 +10573,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_424",
@@ -10175,7 +10598,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_425",
@@ -10199,7 +10623,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_426",
@@ -10223,7 +10648,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_427",
@@ -10247,7 +10673,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_428",
@@ -10271,7 +10698,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_429",
@@ -10295,7 +10723,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_430",
@@ -10319,7 +10748,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_431",
@@ -10343,7 +10773,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_432",
@@ -10367,7 +10798,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_433",
@@ -10391,7 +10823,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_434",
@@ -10415,7 +10848,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_435",
@@ -10439,7 +10873,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_436",
@@ -10463,7 +10898,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_437",
@@ -10487,7 +10923,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_438",
@@ -10511,7 +10948,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_439",
@@ -10535,7 +10973,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_440",
@@ -10559,7 +10998,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_441",
@@ -10583,7 +11023,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_442",
@@ -10607,7 +11048,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_443",
@@ -10631,7 +11073,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_444",
@@ -10655,7 +11098,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_445",
@@ -10679,7 +11123,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_446",
@@ -10703,7 +11148,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_447",
@@ -10727,7 +11173,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_448",
@@ -10751,7 +11198,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_449",
@@ -10775,7 +11223,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_450",
@@ -10799,11 +11248,12 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-03",
     "packId": "op03",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "3탄 Blue Valentine"
   },
   {
     "id": "nmixx_451",
-    "name": "릴리 - EPISODE 1 ZERO FRONTIER",
+    "name": "릴리 - ZERO FRONTIER",
     "member": "LILY",
     "category": "CHARACTER",
     "rarity": "SR",
@@ -10823,11 +11273,12 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": "set_ur_zero_frontier",
-    "setTitle": "[EPISODE 1 ZERO FRONTIER] 6인 완전체 컬렉션"
+    "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드",
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_452",
-    "name": "해원 - EPISODE 1 ZERO FRONTIER",
+    "name": "해원 - ZERO FRONTIER",
     "member": "HAEWON",
     "category": "CHARACTER",
     "rarity": "SR",
@@ -10847,11 +11298,12 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": "set_ur_zero_frontier",
-    "setTitle": "[EPISODE 1 ZERO FRONTIER] 6인 완전체 컬렉션"
+    "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드",
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_453",
-    "name": "설윤 - EPISODE 1 ZERO FRONTIER",
+    "name": "설윤 - ZERO FRONTIER",
     "member": "SULLYOON",
     "category": "CHARACTER",
     "rarity": "SR",
@@ -10871,11 +11323,12 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": "set_ur_zero_frontier",
-    "setTitle": "[EPISODE 1 ZERO FRONTIER] 6인 완전체 컬렉션"
+    "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드",
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_454",
-    "name": "배이 - EPISODE 1 ZERO FRONTIER",
+    "name": "배이 - ZERO FRONTIER",
     "member": "BAE",
     "category": "CHARACTER",
     "rarity": "SR",
@@ -10895,11 +11348,12 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": "set_ur_zero_frontier",
-    "setTitle": "[EPISODE 1 ZERO FRONTIER] 6인 완전체 컬렉션"
+    "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드",
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_455",
-    "name": "지우 - EPISODE 1 ZERO FRONTIER",
+    "name": "지우 - ZERO FRONTIER",
     "member": "JIWOO",
     "category": "CHARACTER",
     "rarity": "SR",
@@ -10919,11 +11373,12 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": "set_ur_zero_frontier",
-    "setTitle": "[EPISODE 1 ZERO FRONTIER] 6인 완전체 컬렉션"
+    "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드",
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_456",
-    "name": "규진 - EPISODE 1 ZERO FRONTIER",
+    "name": "규진 - ZERO FRONTIER",
     "member": "KYUJIN",
     "category": "CHARACTER",
     "rarity": "SR",
@@ -10943,7 +11398,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": "set_ur_zero_frontier",
-    "setTitle": "[EPISODE 1 ZERO FRONTIER] 6인 완전체 컬렉션"
+    "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드",
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_457",
@@ -10967,7 +11423,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_458",
@@ -10991,7 +11448,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_459",
@@ -11015,7 +11473,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_460",
@@ -11039,7 +11498,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_461",
@@ -11063,7 +11523,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_462",
@@ -11087,7 +11548,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_463",
@@ -11111,7 +11573,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_464",
@@ -11135,7 +11598,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_465",
@@ -11159,7 +11623,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_466",
@@ -11183,7 +11648,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_467",
@@ -11207,7 +11673,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_468",
@@ -11231,7 +11698,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_469",
@@ -11255,7 +11723,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_470",
@@ -11279,7 +11748,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_471",
@@ -11303,7 +11773,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_472",
@@ -11327,7 +11798,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_473",
@@ -11351,7 +11823,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_474",
@@ -11375,7 +11848,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_475",
@@ -11399,7 +11873,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_476",
@@ -11423,7 +11898,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_477",
@@ -11447,7 +11923,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_478",
@@ -11471,7 +11948,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_479",
@@ -11495,7 +11973,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_480",
@@ -11519,7 +11998,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_481",
@@ -11543,7 +12023,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_482",
@@ -11567,7 +12048,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_483",
@@ -11591,7 +12073,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_484",
@@ -11615,7 +12098,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_485",
@@ -11639,7 +12123,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_486",
@@ -11663,7 +12148,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_487",
@@ -11687,7 +12173,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_488",
@@ -11711,7 +12198,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_489",
@@ -11735,7 +12223,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_490",
@@ -11759,7 +12248,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_491",
@@ -11783,7 +12273,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_492",
@@ -11807,7 +12298,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_493",
@@ -11831,7 +12323,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_494",
@@ -11855,7 +12348,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_495",
@@ -11879,7 +12373,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_496",
@@ -11903,7 +12398,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_497",
@@ -11927,7 +12423,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_498",
@@ -11951,7 +12448,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_499",
@@ -11975,7 +12473,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_500",
@@ -11999,7 +12498,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_501",
@@ -12023,7 +12523,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_502",
@@ -12047,7 +12548,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_503",
@@ -12071,7 +12573,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_504",
@@ -12095,7 +12598,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_505",
@@ -12119,7 +12623,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_506",
@@ -12143,7 +12648,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_507",
@@ -12167,7 +12673,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_508",
@@ -12191,7 +12698,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_509",
@@ -12215,7 +12723,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_510",
@@ -12239,7 +12748,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_511",
@@ -12263,7 +12773,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_512",
@@ -12287,7 +12798,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_513",
@@ -12311,7 +12823,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_514",
@@ -12335,7 +12848,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_515",
@@ -12359,7 +12873,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_516",
@@ -12383,7 +12898,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_517",
@@ -12407,7 +12923,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_518",
@@ -12431,7 +12948,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_519",
@@ -12455,7 +12973,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_520",
@@ -12479,7 +12998,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_521",
@@ -12503,7 +13023,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_522",
@@ -12527,7 +13048,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_523",
@@ -12551,7 +13073,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_524",
@@ -12575,7 +13098,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_525",
@@ -12599,7 +13123,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_526",
@@ -12623,7 +13148,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_527",
@@ -12647,7 +13173,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_528",
@@ -12671,7 +13198,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_529",
@@ -12695,7 +13223,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_530",
@@ -12719,7 +13248,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_531",
@@ -12743,7 +13273,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_532",
@@ -12767,7 +13298,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_533",
@@ -12791,7 +13323,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_534",
@@ -12815,7 +13348,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_535",
@@ -12839,7 +13373,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_536",
@@ -12863,7 +13398,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_537",
@@ -12887,7 +13423,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_538",
@@ -12911,7 +13448,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_539",
@@ -12935,7 +13473,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_540",
@@ -12959,7 +13498,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_541",
@@ -12983,7 +13523,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_542",
@@ -13007,7 +13548,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_543",
@@ -13031,7 +13573,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_544",
@@ -13055,7 +13598,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_545",
@@ -13079,7 +13623,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_546",
@@ -13103,7 +13648,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_547",
@@ -13127,7 +13673,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_548",
@@ -13151,7 +13698,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_549",
@@ -13175,7 +13723,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_550",
@@ -13199,7 +13748,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_551",
@@ -13223,7 +13773,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_552",
@@ -13247,7 +13798,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_553",
@@ -13271,7 +13823,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_554",
@@ -13295,7 +13848,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_555",
@@ -13319,7 +13873,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_556",
@@ -13343,7 +13898,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_557",
@@ -13367,7 +13923,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_558",
@@ -13391,7 +13948,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_559",
@@ -13415,7 +13973,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_560",
@@ -13439,7 +13998,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_561",
@@ -13463,7 +14023,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_562",
@@ -13487,7 +14048,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_563",
@@ -13511,7 +14073,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_564",
@@ -13535,7 +14098,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_565",
@@ -13559,7 +14123,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_566",
@@ -13583,7 +14148,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_567",
@@ -13607,7 +14173,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_568",
@@ -13631,7 +14198,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_569",
@@ -13655,7 +14223,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_570",
@@ -13679,7 +14248,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_571",
@@ -13703,7 +14273,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_572",
@@ -13727,7 +14298,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_573",
@@ -13751,7 +14323,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_574",
@@ -13775,7 +14348,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_575",
@@ -13799,7 +14373,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_576",
@@ -13823,7 +14398,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_577",
@@ -13847,7 +14423,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_578",
@@ -13871,7 +14448,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_579",
@@ -13895,7 +14473,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_580",
@@ -13919,7 +14498,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_581",
@@ -13943,7 +14523,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_582",
@@ -13967,7 +14548,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_583",
@@ -13991,7 +14573,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_584",
@@ -14015,7 +14598,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_585",
@@ -14039,7 +14623,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_586",
@@ -14063,7 +14648,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_587",
@@ -14087,7 +14673,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_588",
@@ -14111,7 +14698,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_589",
@@ -14135,7 +14723,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_590",
@@ -14159,7 +14748,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_591",
@@ -14183,7 +14773,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_592",
@@ -14207,7 +14798,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_593",
@@ -14231,7 +14823,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_594",
@@ -14255,7 +14848,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_595",
@@ -14279,7 +14873,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_596",
@@ -14303,7 +14898,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_597",
@@ -14327,7 +14923,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_598",
@@ -14351,7 +14948,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_599",
@@ -14375,7 +14973,8 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   },
   {
     "id": "nmixx_600",
@@ -14399,205 +14998,19 @@ export const MASTER_CARDS: Card[] = [
     "packCode": "OP-04",
     "packId": "op04",
     "setId": null,
-    "setTitle": null
+    "setTitle": null,
+    "packName": "4탄 ZERO FRONTIER"
   }
 ];
 
 export const CONCEPT_SETS: ConceptSetCard[] = [
   {
-    "setId": "set_ur_zero_frontier",
-    "setTitle": "[EPISODE 1 ZERO FRONTIER] 6인 완전체 컬렉션",
-    "era": "ZERO FRONTIER",
-    "packCode": "OP-04",
-    "packId": "op04",
-    "cardIds": [
-      "nmixx_451",
-      "nmixx_452",
-      "nmixx_453",
-      "nmixx_454",
-      "nmixx_455",
-      "nmixx_456"
-    ],
-    "members": [
-      "LILY",
-      "HAEWON",
-      "SULLYOON",
-      "BAE",
-      "JIWOO",
-      "KYUJIN"
-    ],
-    "rewardCard": {
-      "id": "reward_set_ur_zero_frontier",
-      "name": "[UR SET] [EPISODE 1 ZERO FRONTIER] 6인 완전체 컬렉션",
-      "member": "NMIXX",
-      "category": "LEADER",
-      "rarity": "UR",
-      "finishType": "PRISM_GLITTER",
-      "collectionNumber": 901,
-      "cost": 8,
-      "power": 13000,
-      "description": "EPISODE 1 ZERO FRONTIER의 6명 멤버를 모두 수집하여 해금된 최상위 UR 풀아트 세트 카드입니다.",
-      "dustValue": 3000,
-      "craftCost": null,
-      "theme": "엔믹스 6인 완전체",
-      "era": "ZERO FRONTIER",
-      "gradient": "from-pink-600 via-purple-600 to-amber-500",
-      "symbol": "💎",
-      "quote": "신시대를 여는 믹스팝의 개척자, ZERO FRONTIER!",
-      "image": "/cards/card_451.jpg",
-      "packCode": "OP-04",
-      "packId": "op04",
-      "setId": "set_ur_zero_frontier",
-      "setTitle": "[EPISODE 1 ZERO FRONTIER] 6인 완전체 컬렉션"
-    }
-  },
-  {
-    "setId": "set_ssr_nmixx",
-    "setTitle": "[NMIXX] 6인 완전체 컬렉션",
-    "era": "Fe3O4",
-    "packCode": "OP-03",
-    "packId": "op03",
-    "cardIds": [
-      "nmixx_301",
-      "nmixx_302",
-      "nmixx_303",
-      "nmixx_304",
-      "nmixx_305",
-      "nmixx_306"
-    ],
-    "members": [
-      "LILY",
-      "HAEWON",
-      "SULLYOON",
-      "BAE",
-      "JIWOO",
-      "KYUJIN"
-    ],
-    "rewardCard": {
-      "id": "reward_set_ssr_nmixx",
-      "name": "[SSR SET] [NMIXX] 6인 완전체 컬렉션",
-      "member": "NMIXX",
-      "category": "LEADER",
-      "rarity": "SSR",
-      "finishType": "SHATTERED_GLASS",
-      "collectionNumber": 902,
-      "cost": 7,
-      "power": 9500,
-      "description": "NMIXX 공식 6인 완전체 멤버를 모두 수집하여 완성된 특급 희귀 SSR 풀아트 세트 카드입니다.",
-      "dustValue": 1000,
-      "craftCost": null,
-      "theme": "엔믹스 6인 완전체",
-      "era": "Fe3O4",
-      "gradient": "from-pink-600 via-purple-600 to-amber-500",
-      "symbol": "👑",
-      "quote": "전원 올라운더 6인의 정점의 무대, NMIXX CHANGE UP!",
-      "image": "/cards/card_301.jpg",
-      "packCode": "OP-03",
-      "packId": "op03",
-      "setId": "set_ssr_nmixx",
-      "setTitle": "[NMIXX] 6인 완전체 컬렉션"
-    }
-  },
-  {
-    "setId": "set_sr_light",
-    "setTitle": "[Light] 6인 완전체 컬렉션",
-    "era": "Light",
-    "packCode": "OP-02",
-    "packId": "op02",
-    "cardIds": [
-      "nmixx_151",
-      "nmixx_152",
-      "nmixx_153",
-      "nmixx_154",
-      "nmixx_155",
-      "nmixx_156"
-    ],
-    "members": [
-      "LILY",
-      "HAEWON",
-      "SULLYOON",
-      "BAE",
-      "JIWOO",
-      "KYUJIN"
-    ],
-    "rewardCard": {
-      "id": "reward_set_sr_light",
-      "name": "[SR SET] [Light] 6인 완전체 컬렉션",
-      "member": "NMIXX",
-      "category": "LEADER",
-      "rarity": "SR",
-      "finishType": "RAINBOW_FOIL",
-      "collectionNumber": 903,
-      "cost": 5,
-      "power": 7000,
-      "description": "Light 테마의 찬란한 빛을 담은 6명 멤버를 모두 수집하여 완성된 레인보우 포일 SR 세트 카드입니다.",
-      "dustValue": 300,
-      "craftCost": null,
-      "theme": "엔믹스 6인 완전체",
-      "era": "Light",
-      "gradient": "from-pink-600 via-purple-600 to-amber-500",
-      "symbol": "✨",
-      "quote": "어둠 속을 밝히는 우리들의 눈부신 빛!",
-      "image": "/cards/card_151.jpg",
-      "packCode": "OP-02",
-      "packId": "op02",
-      "setId": "set_sr_light",
-      "setTitle": "[Light] 6인 완전체 컬렉션"
-    }
-  },
-  {
-    "setId": "set_sr_blue_valentine",
-    "setTitle": "[Blue Valentine] 6인 완전체 컬렉션",
-    "era": "Blue Valentine",
-    "packCode": "OP-02",
-    "packId": "op02",
-    "cardIds": [
-      "nmixx_157",
-      "nmixx_158",
-      "nmixx_159",
-      "nmixx_160",
-      "nmixx_161",
-      "nmixx_162"
-    ],
-    "members": [
-      "LILY",
-      "HAEWON",
-      "SULLYOON",
-      "BAE",
-      "JIWOO",
-      "KYUJIN"
-    ],
-    "rewardCard": {
-      "id": "reward_set_sr_blue_valentine",
-      "name": "[SR SET] [Blue Valentine] 6인 완전체 컬렉션",
-      "member": "NMIXX",
-      "category": "LEADER",
-      "rarity": "SR",
-      "finishType": "RAINBOW_FOIL",
-      "collectionNumber": 904,
-      "cost": 5,
-      "power": 6800,
-      "description": "Blue Valentine의 몽환적이고 매혹적인 6명 멤버를 모두 모아 완성된 SR 세트 카드입니다.",
-      "dustValue": 300,
-      "craftCost": null,
-      "theme": "엔믹스 6인 완전체",
-      "era": "Blue Valentine",
-      "gradient": "from-pink-600 via-purple-600 to-amber-500",
-      "symbol": "✨",
-      "quote": "파란빛 감성의 로맨틱 발렌타인 멜로디.",
-      "image": "/cards/card_157.jpg",
-      "packCode": "OP-02",
-      "packId": "op02",
-      "setId": "set_sr_blue_valentine",
-      "setTitle": "[Blue Valentine] 6인 완전체 컬렉션"
-    }
-  },
-  {
     "setId": "set_r_flower",
-    "setTitle": "[Flower] 6인 완전체 컬렉션",
+    "setTitle": "[Flower] NMIXX 세트 카드",
     "era": "Flower",
     "packCode": "OP-01",
     "packId": "op01",
+    "packName": "1탄 계승되는 의지",
     "cardIds": [
       "nmixx_001",
       "nmixx_002",
@@ -14616,18 +15029,18 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
     ],
     "rewardCard": {
       "id": "reward_set_r_flower",
-      "name": "[R SET] [Flower] 6인 완전체 컬렉션",
+      "name": "[R SET] [Flower] NMIXX 세트 카드",
       "member": "NMIXX",
       "category": "LEADER",
       "rarity": "R",
       "finishType": "SILVER_STAMPING",
-      "collectionNumber": 905,
+      "collectionNumber": 901,
       "cost": 4,
       "power": 5200,
       "description": "Flower 테마의 꽃처럼 피어난 6명 멤버를 모두 모아 완성된 은박 스탬핑 R 세트 카드입니다.",
       "dustValue": 100,
       "craftCost": null,
-      "theme": "엔믹스 6인 완전체",
+      "theme": "엔믹스 단체",
       "era": "Flower",
       "gradient": "from-pink-600 via-purple-600 to-amber-500",
       "symbol": "✨",
@@ -14635,16 +15048,18 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       "image": "/cards/card_001.jpg",
       "packCode": "OP-01",
       "packId": "op01",
+      "packName": "1탄 계승되는 의지",
       "setId": "set_r_flower",
-      "setTitle": "[Flower] 6인 완전체 컬렉션"
+      "setTitle": "[Flower] NMIXX 세트 카드"
     }
   },
   {
-    "setId": "set_r_school",
-    "setTitle": "[School] 6인 완전체 컬렉션",
-    "era": "School",
+    "setId": "set_sr_light",
+    "setTitle": "[Light] NMIXX 세트 카드",
+    "era": "Light",
     "packCode": "OP-01",
     "packId": "op01",
+    "packName": "1탄 계승되는 의지",
     "cardIds": [
       "nmixx_007",
       "nmixx_008",
@@ -14662,28 +15077,225 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       "KYUJIN"
     ],
     "rewardCard": {
+      "id": "reward_set_sr_light",
+      "name": "[SR SET] [Light] NMIXX 세트 카드",
+      "member": "NMIXX",
+      "category": "LEADER",
+      "rarity": "SR",
+      "finishType": "RAINBOW_FOIL",
+      "collectionNumber": 902,
+      "cost": 5,
+      "power": 7000,
+      "description": "Light 테마의 찬란한 빛을 담은 6명 멤버를 모두 수집하여 완성된 레인보우 포일 SR 세트 카드입니다.",
+      "dustValue": 300,
+      "craftCost": null,
+      "theme": "엔믹스 단체",
+      "era": "Light",
+      "gradient": "from-pink-600 via-purple-600 to-amber-500",
+      "symbol": "✨",
+      "quote": "어둠 속을 밝히는 우리들의 눈부신 빛!",
+      "image": "/cards/card_007.jpg",
+      "packCode": "OP-01",
+      "packId": "op01",
+      "packName": "1탄 계승되는 의지",
+      "setId": "set_sr_light",
+      "setTitle": "[Light] NMIXX 세트 카드"
+    }
+  },
+  {
+    "setId": "set_r_school",
+    "setTitle": "[School] NMIXX 세트 카드",
+    "era": "School",
+    "packCode": "OP-02",
+    "packId": "op02",
+    "packName": "2탄 정점결전",
+    "cardIds": [
+      "nmixx_151",
+      "nmixx_152",
+      "nmixx_153",
+      "nmixx_154",
+      "nmixx_155",
+      "nmixx_156"
+    ],
+    "members": [
+      "LILY",
+      "HAEWON",
+      "SULLYOON",
+      "BAE",
+      "JIWOO",
+      "KYUJIN"
+    ],
+    "rewardCard": {
       "id": "reward_set_r_school",
-      "name": "[R SET] [School] 6인 완전체 컬렉션",
+      "name": "[R SET] [School] NMIXX 세트 카드",
       "member": "NMIXX",
       "category": "LEADER",
       "rarity": "R",
       "finishType": "SILVER_STAMPING",
-      "collectionNumber": 906,
+      "collectionNumber": 903,
       "cost": 4,
       "power": 5000,
       "description": "School 스쿨룩 테마의 활기찬 6명 멤버를 모두 모아 완성된 기념비적인 R 세트 카드입니다.",
       "dustValue": 100,
       "craftCost": null,
-      "theme": "엔믹스 6인 완전체",
+      "theme": "엔믹스 단체",
       "era": "School",
       "gradient": "from-pink-600 via-purple-600 to-amber-500",
       "symbol": "✨",
       "quote": "풋풋하고 당찬 우리들의 청춘 스토리!",
-      "image": "/cards/card_007.jpg",
-      "packCode": "OP-01",
-      "packId": "op01",
+      "image": "/cards/card_151.jpg",
+      "packCode": "OP-02",
+      "packId": "op02",
+      "packName": "2탄 정점결전",
       "setId": "set_r_school",
-      "setTitle": "[School] 6인 완전체 컬렉션"
+      "setTitle": "[School] NMIXX 세트 카드"
+    }
+  },
+  {
+    "setId": "set_ssr_nmixx",
+    "setTitle": "[NMIXX] NMIXX 세트 카드",
+    "era": "Fe3O4",
+    "packCode": "OP-02",
+    "packId": "op02",
+    "packName": "2탄 정점결전",
+    "cardIds": [
+      "nmixx_157",
+      "nmixx_158",
+      "nmixx_159",
+      "nmixx_160",
+      "nmixx_161",
+      "nmixx_162"
+    ],
+    "members": [
+      "LILY",
+      "HAEWON",
+      "SULLYOON",
+      "BAE",
+      "JIWOO",
+      "KYUJIN"
+    ],
+    "rewardCard": {
+      "id": "reward_set_ssr_nmixx",
+      "name": "[SSR SET] [NMIXX] NMIXX 세트 카드",
+      "member": "NMIXX",
+      "category": "LEADER",
+      "rarity": "SSR",
+      "finishType": "SHATTERED_GLASS",
+      "collectionNumber": 904,
+      "cost": 7,
+      "power": 9500,
+      "description": "NMIXX 공식 6인 멤버를 모두 수집하여 완성된 특급 희귀 SSR 풀아트 세트 카드입니다.",
+      "dustValue": 1000,
+      "craftCost": null,
+      "theme": "엔믹스 단체",
+      "era": "Fe3O4",
+      "gradient": "from-pink-600 via-purple-600 to-amber-500",
+      "symbol": "👑",
+      "quote": "전원 올라운더 6인의 정점의 무대, NMIXX CHANGE UP!",
+      "image": "/cards/card_157.jpg",
+      "packCode": "OP-02",
+      "packId": "op02",
+      "packName": "2탄 정점결전",
+      "setId": "set_ssr_nmixx",
+      "setTitle": "[NMIXX] NMIXX 세트 카드"
+    }
+  },
+  {
+    "setId": "set_sr_blue_valentine",
+    "setTitle": "[Blue Valentine] NMIXX 세트 카드",
+    "era": "Blue Valentine",
+    "packCode": "OP-03",
+    "packId": "op03",
+    "packName": "3탄 Blue Valentine",
+    "cardIds": [
+      "nmixx_301",
+      "nmixx_302",
+      "nmixx_303",
+      "nmixx_304",
+      "nmixx_305",
+      "nmixx_306"
+    ],
+    "members": [
+      "LILY",
+      "HAEWON",
+      "SULLYOON",
+      "BAE",
+      "JIWOO",
+      "KYUJIN"
+    ],
+    "rewardCard": {
+      "id": "reward_set_sr_blue_valentine",
+      "name": "[SR SET] [Blue Valentine] NMIXX 세트 카드",
+      "member": "NMIXX",
+      "category": "LEADER",
+      "rarity": "SR",
+      "finishType": "RAINBOW_FOIL",
+      "collectionNumber": 905,
+      "cost": 5,
+      "power": 6800,
+      "description": "Blue Valentine의 몽환적이고 매혹적인 6명 멤버를 모두 모아 완성된 SR 세트 카드입니다.",
+      "dustValue": 300,
+      "craftCost": null,
+      "theme": "엔믹스 단체",
+      "era": "Blue Valentine",
+      "gradient": "from-pink-600 via-purple-600 to-amber-500",
+      "symbol": "✨",
+      "quote": "파란빛 감성의 로맨틱 발렌타인 멜로디.",
+      "image": "/cards/card_301.jpg",
+      "packCode": "OP-03",
+      "packId": "op03",
+      "packName": "3탄 Blue Valentine",
+      "setId": "set_sr_blue_valentine",
+      "setTitle": "[Blue Valentine] NMIXX 세트 카드"
+    }
+  },
+  {
+    "setId": "set_ur_zero_frontier",
+    "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드",
+    "era": "ZERO FRONTIER",
+    "packCode": "OP-04",
+    "packId": "op04",
+    "packName": "4탄 ZERO FRONTIER",
+    "cardIds": [
+      "nmixx_451",
+      "nmixx_452",
+      "nmixx_453",
+      "nmixx_454",
+      "nmixx_455",
+      "nmixx_456"
+    ],
+    "members": [
+      "LILY",
+      "HAEWON",
+      "SULLYOON",
+      "BAE",
+      "JIWOO",
+      "KYUJIN"
+    ],
+    "rewardCard": {
+      "id": "reward_set_ur_zero_frontier",
+      "name": "[UR SET] [ZERO FRONTIER] NMIXX 세트 카드",
+      "member": "NMIXX",
+      "category": "LEADER",
+      "rarity": "UR",
+      "finishType": "PRISM_GLITTER",
+      "collectionNumber": 906,
+      "cost": 8,
+      "power": 13000,
+      "description": "EPISODE 1 ZERO FRONTIER의 6명 멤버를 모두 수집하여 해금된 최상위 UR 풀아트 세트 카드입니다.",
+      "dustValue": 3000,
+      "craftCost": null,
+      "theme": "엔믹스 단체",
+      "era": "ZERO FRONTIER",
+      "gradient": "from-pink-600 via-purple-600 to-amber-500",
+      "symbol": "💎",
+      "quote": "신시대를 여는 믹스팝의 개척자, ZERO FRONTIER!",
+      "image": "/cards/card_451.jpg",
+      "packCode": "OP-04",
+      "packId": "op04",
+      "packName": "4탄 ZERO FRONTIER",
+      "setId": "set_ur_zero_frontier",
+      "setTitle": "[ZERO FRONTIER] NMIXX 세트 카드"
     }
   }
 ];
