@@ -12,7 +12,9 @@ interface CollectionPageProps {
 }
 
 type TabType = 'ALL_CARDS' | 'CONCEPT_SETS';
-type SortOption = 'OWNED_HIGH_RARITY' | 'RARITY_DESC' | 'OWNED_FIRST' | 'NUMBER' | 'OWNED_COUNT';
+type SortOption = 'OWNED_HIGH_RARITY' | 'OWNED_FIRST' | 'UNOWNED_FIRST' | 'NUMBER' | 'RARITY' | 'OWNED_COUNT';
+type SortDirection = 'ASC' | 'DESC';
+type OwnershipFilter = 'ALL' | 'OWNED_ONLY' | 'UNOWNED_ONLY';
 
 const RARITY_ORDER: Record<Rarity, number> = {
   MR: 8,
@@ -53,7 +55,9 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
   const [selectedPack, setSelectedPack] = useState<string>('ALL');
   const [selectedMember, setSelectedMember] = useState<string>('ALL');
   const [selectedRarity, setSelectedRarity] = useState<string>('ALL');
+  const [ownershipFilter, setOwnershipFilter] = useState<OwnershipFilter>('ALL');
   const [sortBy, setSortBy] = useState<SortOption>('OWNED_HIGH_RARITY');
+  const [sortDirection, setSortDirection] = useState<SortDirection>('DESC');
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
 
   // 수집 통계 계산
@@ -66,8 +70,16 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
     set.cardIds.every(id => (collection[id] || 0) > 0)
   ).length;
 
-  // 필터링 및 정렬 (보유 카드 중 높은 등급 순 정렬 지원)
+  // 필터링 및 오름차순/내림차순 정렬 (다 모은 카드 & 모으지 못한 카드 확인)
   const filteredCards = MASTER_CARDS.filter(card => {
+    const aCount = collection[card.id] || 0;
+    const isOwned = aCount > 0;
+
+    // 1. 보유 상태 필터 (전체 / 모은 카드만 / 못 모은 카드만)
+    if (ownershipFilter === 'OWNED_ONLY' && !isOwned) return false;
+    if (ownershipFilter === 'UNOWNED_ONLY' && isOwned) return false;
+
+    // 2. 팩 / 멤버 / 레어도 필터
     const matchPack = selectedPack === 'ALL' || card.packId === selectedPack;
     const matchMember = selectedMember === 'ALL' || card.member === selectedMember;
     const matchRarity = selectedRarity === 'ALL' || card.rarity === selectedRarity;
@@ -78,40 +90,55 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
     const aOwned = aCount > 0;
     const bOwned = bCount > 0;
 
+    const dirMultiplier = sortDirection === 'ASC' ? -1 : 1;
+
+    // 1. 보유 카드 중 높은 등급순 (또는 낮은 등급순)
     if (sortBy === 'OWNED_HIGH_RARITY') {
-      // 1. 보유한 카드가 우선
       if (aOwned && !bOwned) return -1;
       if (!aOwned && bOwned) return 1;
-      // 2. 보유한 카드 내에서 높은 희귀도순 (MR -> LR -> UR -> SSR -> SR...)
       if (aOwned && bOwned) {
         if (RARITY_ORDER[b.rarity] !== RARITY_ORDER[a.rarity]) {
-          return RARITY_ORDER[b.rarity] - RARITY_ORDER[a.rarity];
+          return (RARITY_ORDER[b.rarity] - RARITY_ORDER[a.rarity]) * dirMultiplier;
         }
-        return a.collectionNumber - b.collectionNumber;
+        return (a.collectionNumber - b.collectionNumber) * (sortDirection === 'ASC' ? -1 : 1);
       }
-      return a.collectionNumber - b.collectionNumber;
+      return (a.collectionNumber - b.collectionNumber) * (sortDirection === 'ASC' ? -1 : 1);
     }
 
-    if (sortBy === 'RARITY_DESC') {
-      // 전체 높은 희귀도순
-      if (RARITY_ORDER[b.rarity] !== RARITY_ORDER[a.rarity]) {
-        return RARITY_ORDER[b.rarity] - RARITY_ORDER[a.rarity];
-      }
-      return a.collectionNumber - b.collectionNumber;
-    }
-
+    // 2. 모은 카드 우선 (보유순)
     if (sortBy === 'OWNED_FIRST') {
       if (aOwned && !bOwned) return -1;
       if (!aOwned && bOwned) return 1;
-      return a.collectionNumber - b.collectionNumber;
+      return (a.collectionNumber - b.collectionNumber) * (sortDirection === 'ASC' ? -1 : 1);
     }
 
-    if (sortBy === 'OWNED_COUNT') {
-      if (bCount !== aCount) return bCount - aCount;
-      return a.collectionNumber - b.collectionNumber;
+    // 3. 아직 못 모은 카드 우선 (미보유순)
+    if (sortBy === 'UNOWNED_FIRST') {
+      if (!aOwned && bOwned) return -1;
+      if (aOwned && !bOwned) return 1;
+      return (a.collectionNumber - b.collectionNumber) * (sortDirection === 'ASC' ? -1 : 1);
     }
 
+    // 4. 도감 번호순 (오름차순 #001~ / 내림차순 #600~)
     if (sortBy === 'NUMBER') {
+      return sortDirection === 'ASC'
+        ? a.collectionNumber - b.collectionNumber
+        : b.collectionNumber - a.collectionNumber;
+    }
+
+    // 5. 등급/희귀도순 (MR~C / C~MR)
+    if (sortBy === 'RARITY') {
+      if (RARITY_ORDER[b.rarity] !== RARITY_ORDER[a.rarity]) {
+        return (RARITY_ORDER[b.rarity] - RARITY_ORDER[a.rarity]) * dirMultiplier;
+      }
+      return a.collectionNumber - b.collectionNumber;
+    }
+
+    // 6. 보유 수량순 (많은순 / 적은순)
+    if (sortBy === 'OWNED_COUNT') {
+      if (bCount !== aCount) {
+        return (bCount - aCount) * dirMultiplier;
+      }
       return a.collectionNumber - b.collectionNumber;
     }
 
@@ -188,8 +215,48 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
       {activeTab === 'ALL_CARDS' && (
         <>
           {/* Filter & Sort Bar */}
-          <div className="flex flex-col gap-3 bg-void-950/60 p-4 rounded-2xl border border-void-800/80">
-            {/* Booster Pack Filters */}
+          <div className="flex flex-col gap-3.5 bg-void-950/70 p-4 sm:p-5 rounded-2xl border border-void-800/80 shadow-xl">
+            {/* 1. 수집 상태 필터 (전체 / 모은 카드 / 아직 못 모은 카드) */}
+            <div className="flex flex-wrap items-center gap-2 border-b border-void-800/80 pb-3">
+              <span className="text-[11px] font-mono text-slate-400 font-bold mr-1">COLLECTION:</span>
+              <button
+                onClick={() => setOwnershipFilter('ALL')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
+                  ownershipFilter === 'ALL'
+                    ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md border border-pink-400/40'
+                    : 'text-slate-400 hover:text-white bg-void-900 border border-white/5'
+                }`}
+              >
+                <span>전체 보기</span>
+                <span className="text-[10px] font-black opacity-80 font-mono">({totalCardsCount})</span>
+              </button>
+
+              <button
+                onClick={() => setOwnershipFilter('OWNED_ONLY')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
+                  ownershipFilter === 'OWNED_ONLY'
+                    ? 'bg-emerald-600/30 text-emerald-300 border border-emerald-500/50 shadow-md ring-1 ring-emerald-500/40'
+                    : 'text-slate-400 hover:text-emerald-300 bg-void-900 border border-white/5'
+                }`}
+              >
+                <span>🎉 모은 카드만</span>
+                <span className="text-[10px] font-black text-emerald-400 font-mono">({ownedUniqueCount})</span>
+              </button>
+
+              <button
+                onClick={() => setOwnershipFilter('UNOWNED_ONLY')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
+                  ownershipFilter === 'UNOWNED_ONLY'
+                    ? 'bg-slate-700/50 text-slate-200 border border-slate-500/50 shadow-md ring-1 ring-slate-400/40'
+                    : 'text-slate-400 hover:text-slate-200 bg-void-900 border border-white/5'
+                }`}
+              >
+                <span>🔒 못 모은 카드만</span>
+                <span className="text-[10px] font-black text-slate-400 font-mono">({totalCardsCount - ownedUniqueCount})</span>
+              </button>
+            </div>
+
+            {/* 2. Booster Pack Filters */}
             <div className="flex flex-wrap items-center gap-1.5 border-b border-void-800/80 pb-3">
               <span className="text-[11px] font-mono text-slate-400 font-bold mr-1">BOOSTER:</span>
               {PACK_FILTERS.map(p => (
@@ -207,7 +274,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
               ))}
             </div>
 
-            {/* Member Filters */}
+            {/* 3. Member Filters */}
             <div className="flex flex-wrap items-center gap-1.5 border-b border-void-800/80 pb-3">
               <span className="text-[11px] font-mono text-slate-400 font-bold mr-1">MEMBER:</span>
               {MEMBERS.map(m => (
@@ -225,7 +292,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
               ))}
             </div>
 
-            {/* Rarity Filters & Sort */}
+            {/* 4. Rarity Filters & Sort Controls */}
             <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
               <div className="flex flex-wrap items-center gap-1.5">
                 <span className="text-[11px] font-mono text-slate-400 font-bold mr-1">RARITY:</span>
@@ -254,20 +321,32 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                 ))}
               </div>
 
-              {/* Sort Dropdown */}
-              <div className="flex items-center gap-2">
-                <ArrowUpDown size={14} className="text-slate-400" />
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as SortOption)}
-                  className="bg-void-900 border border-void-800 text-amber-300 text-xs font-mono rounded-xl px-3 py-1.5 focus:outline-none focus:border-pink-500 font-black cursor-pointer shadow-sm"
+              {/* Sort Dropdown & Direction Toggle */}
+              <div className="flex items-center gap-2 flex-wrap">
+                <div className="flex items-center gap-1.5 bg-void-900 border border-void-800 rounded-xl px-2.5 py-1 shadow-sm">
+                  <ArrowUpDown size={13} className="text-slate-400" />
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value as SortOption)}
+                    className="bg-transparent text-amber-300 text-xs font-mono focus:outline-none font-bold cursor-pointer"
+                  >
+                    <option value="OWNED_HIGH_RARITY">👑 보유 카드 중 높은 등급순</option>
+                    <option value="OWNED_FIRST">📦 모은 카드 우선</option>
+                    <option value="UNOWNED_FIRST">🔒 아직 못 모은 카드 우선</option>
+                    <option value="NUMBER">🔢 도감 번호순 (#001 ~ #600)</option>
+                    <option value="RARITY">💎 등급/희귀도순 (MR ↔ C)</option>
+                    <option value="OWNED_COUNT">🃏 보유 수량순 (중복 카드순)</option>
+                  </select>
+                </div>
+
+                {/* 오름차순 / 내림차순 토글 버튼 */}
+                <button
+                  onClick={() => setSortDirection(prev => prev === 'ASC' ? 'DESC' : 'ASC')}
+                  className="flex items-center gap-1 px-3 py-1 rounded-xl bg-void-900 hover:bg-void-800 border border-amber-400/40 text-amber-300 text-xs font-mono font-black transition-all hover:scale-105 shadow-sm"
+                  title="정렬 방향 전환"
                 >
-                  <option value="OWNED_HIGH_RARITY">👑 보유 카드 중 높은 등급순 (MR → LR → UR...)</option>
-                  <option value="RARITY_DESC">💎 전체 희귀도 높은순 (MR → LR → UR...)</option>
-                  <option value="OWNED_FIRST">보유한 카드 우선 (도감 번호순)</option>
-                  <option value="OWNED_COUNT">보유 수량 많은순 (중복 카드순)</option>
-                  <option value="NUMBER">도감 번호순 (#001 ~ #600)</option>
-                </select>
+                  <span>{sortDirection === 'ASC' ? '▲ 오름차순' : '▼ 내림차순'}</span>
+                </button>
               </div>
             </div>
           </div>
