@@ -5,16 +5,15 @@ import { NavTab } from '../../types/game';
 interface BottomNavProps {
   currentTab: NavTab;
   onSelectTab: (tab: NavTab) => void;
-  onOpenLeaderboard?: () => void;
 }
 
-export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, onSelectTab, onOpenLeaderboard }) => {
+export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, onSelectTab }) => {
   // 🌟 카테고리 순서: 팩오픈 -> 컬렉션 -> 업적 -> 랭킹 -> 인포메이션 -> 패치노트
   const tabs = [
     { id: 'home', label: 'PACK', icon: Package },
     { id: 'collection', label: 'CARDS', icon: Layers },
     { id: 'achievements', label: 'ACHIEVE', icon: Award },
-    { id: 'ranking', label: 'RANK', icon: Trophy, isAction: true },
+    { id: 'ranking', label: 'RANK', icon: Trophy },
     { id: 'settings', label: 'INFO', icon: Info },
     { id: 'patch-notes', label: 'PATCH', icon: FileText },
   ];
@@ -27,20 +26,14 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, onSelectTab, o
         return (
           <button
             key={tab.id}
-            onClick={() => {
-              if (tab.isAction && onOpenLeaderboard) {
-                onOpenLeaderboard();
-              } else {
-                onSelectTab(tab.id as NavTab);
-              }
-            }}
+            onClick={() => onSelectTab(tab.id as NavTab)}
             className={`flex flex-col items-center justify-center w-12 h-12 rounded-xl transition-all cursor-pointer ${
               isActive
                 ? 'text-pink-400 bg-pink-500/15 font-bold scale-105'
                 : 'text-slate-500 hover:text-slate-300'
             }`}
           >
-            <Icon size={17} className={tab.id === 'ranking' ? 'text-amber-400' : ''} />
+            <Icon size={17} className={tab.id === 'ranking' && isActive ? 'text-amber-400' : ''} />
             <span className="text-[9.5px] font-mono tracking-tighter mt-0.5">
               {tab.label}
             </span>

@@ -1,6 +1,6 @@
 import { Card, Rarity } from './card';
 
-export type NavTab = 'home' | 'collection' | 'achievements' | 'patch-notes' | 'settings';
+export type NavTab = 'home' | 'collection' | 'achievements' | 'ranking' | 'settings' | 'patch-notes';
 
 export type PackOpeningState = 
   | 'IDLE' 

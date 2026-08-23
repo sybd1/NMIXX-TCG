@@ -24,7 +24,7 @@ interface HeaderProps {
   user?: UserAccount | null;
   onOpenAuth?: () => void;
   onOpenProfile?: () => void;
-  onOpenLeaderboard: () => void;
+  onOpenLeaderboard?: () => void;
   onOpenMarket?: () => void;
   onOpenMailbox: () => void;
   unreadMailCount?: number;
@@ -40,7 +40,6 @@ export const Header: React.FC<HeaderProps> = ({
   user,
   onOpenAuth,
   onOpenProfile,
-  onOpenLeaderboard,
   onOpenMailbox,
   unreadMailCount = 0,
 }) => {
@@ -55,11 +54,11 @@ export const Header: React.FC<HeaderProps> = ({
   const userFav = user ? (MEMBER_BADGES[user.avatarMemberId || 'SULLYOON'] || MEMBER_BADGES.SULLYOON) : null;
 
   // 🌟 상단 카테고리: 팩오픈 -> 컬렉션 -> 업적 -> 랭킹 -> 인포메이션 -> 패치노트
-  const navTabs: { id: NavTab | 'ranking'; label: string; action?: () => void }[] = [
+  const navTabs: { id: NavTab; label: string }[] = [
     { id: 'home', label: 'PACK OPEN' },
     { id: 'collection', label: 'COLLECTION' },
     { id: 'achievements', label: 'ACHIEVEMENTS' },
-    { id: 'ranking', label: 'RANKING', action: onOpenLeaderboard },
+    { id: 'ranking', label: 'RANKING' },
     { id: 'settings', label: 'INFORMATION' },
     { id: 'patch-notes', label: 'PATCH NOTES' },
   ];
@@ -95,13 +94,7 @@ export const Header: React.FC<HeaderProps> = ({
             return (
               <button
                 key={tab.id}
-                onClick={() => {
-                  if (tab.action) {
-                    tab.action();
-                  } else {
-                    onSelectTab(tab.id as NavTab);
-                  }
-                }}
+                onClick={() => onSelectTab(tab.id)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold tracking-wider transition-all cursor-pointer ${
                   isSelected
                     ? 'bg-gradient-to-r from-pink-600/40 via-purple-600/40 to-amber-500/30 text-white border border-pink-400/50 shadow-md shadow-pink-950/50 scale-[1.02]'

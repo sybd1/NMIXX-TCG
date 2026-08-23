@@ -22,6 +22,7 @@ import { MarketModal } from './components/Multiplayer/MarketModal';
 import { HomePage } from './pages/Home/HomePage';
 import { CollectionPage } from './pages/Collection/CollectionPage';
 import { AchievementsPage } from './pages/Achievements/AchievementsPage';
+import { RankingPage } from './pages/Ranking/RankingPage';
 import { PatchNotesPage } from './pages/PatchNotes/PatchNotesPage';
 import { SettingsPage } from './pages/Settings/SettingsPage';
 
@@ -208,7 +209,9 @@ export const App: React.FC = () => {
           <AchievementsPage state={state} onClaimReward={claimAchievement} />
         )}
 
-        {currentTab === 'patch-notes' && <PatchNotesPage />}
+        {currentTab === 'ranking' && (
+          <RankingPage currentUserId={user?.id} />
+        )}
 
         {currentTab === 'settings' && (
           <SettingsPage
@@ -217,6 +220,8 @@ export const App: React.FC = () => {
             onResetGame={resetGame}
           />
         )}
+
+        {currentTab === 'patch-notes' && <PatchNotesPage />}
       </main>
 
       {/* 4. Cinematic Pack Opening Sequence Modal */}
@@ -259,7 +264,6 @@ export const App: React.FC = () => {
           sound.playClick();
           setCurrentTab(tab);
         }}
-        onOpenLeaderboard={() => setIsLeaderboardOpen(true)}
       />
 
       {/* 6. Google & Kakao 소셜 로그인 모달 */}
