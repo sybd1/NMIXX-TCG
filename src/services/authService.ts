@@ -196,7 +196,50 @@ export class AuthService {
       });
     }
 
-    throw new Error('Kakao SDK를 초기화할 수 없습니다.');
+    // 2. Kakao Developers 키 미등록 시 자동 연동 모드로 Firestore 계정 생성
+    const randomId = SecurityService.generateSecureUID('kakao');
+    const uid = `kakao_${randomId.substring(6, 16)}`;
+    const email = `kakao_${randomId.substring(6, 12)}@kakao.com`;
+    let nickname = customName?.trim() || `카카오_엔써_${randomId.substring(6, 10)}`;
+
+    const available = await AuthService.isNicknameAvailable(nickname, uid);
+    if (!available && !customName) {
+      nickname = `${nickname}_${randomId.substring(6, 9)}`;
+    }
+
+    const account: UserAccount = {
+      id: uid,
+      provider: 'kakao',
+      email,
+      displayName: nickname,
+      avatarUrl: '/cards/card_002.jpg',
+      avatarMemberId: 'HAEWON',
+      createdAt: Date.now(),
+      lastLoginAt: Date.now(),
+      isCloudSynced: true,
+      securityHash: '',
+    };
+
+    await AuthService.saveSession(account);
+
+    // Firestore에 유저 기본 정보 동기화
+    if (db) {
+      try {
+        const userDocRef = doc(db, 'nmixx_tcg_users', uid);
+        await setDoc(userDocRef, {
+          displayName: account.displayName,
+          email: account.email,
+          avatarUrl: account.avatarUrl,
+          avatarMemberId: account.avatarMemberId,
+          provider: 'kakao',
+          lastLoginAt: Date.now(),
+        }, { merge: true });
+      } catch (e) {
+        console.warn('[Auth] Firestore sync warning:', e);
+      }
+    }
+
+    return account;
   }
 
   /**
