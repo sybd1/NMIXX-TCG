@@ -73,9 +73,9 @@ export class AuthService {
         let displayName = customName?.trim() || fbUser.displayName || `엔써_${fbUser.uid.substring(0, 5)}`;
         const avatarUrl = fbUser.photoURL || '/cards/card_003.jpg';
         
-        // 👑 chip sofa 운영자 계정 공식 닉네임 자동 세팅
-        if (displayName.toLowerCase().includes('chip sofa') || email.toLowerCase().includes('chip') || customName?.includes('chip')) {
-          displayName = '운영자 chip sofa';
+        // 👑 공식 운영자 계정 닉네임: '운영자' 단독 세팅
+        if (displayName.toLowerCase().includes('chip sofa') || email.toLowerCase().includes('chip') || customName?.includes('chip') || displayName.includes('운영자')) {
+          displayName = '운영자';
         } else {
           // 닉네임 중복 시 고유 해시 부착
           const available = await this.isNicknameAvailable(displayName, uid);
@@ -294,8 +294,8 @@ export class AuthService {
       const data = localStorage.getItem(AUTH_STORAGE_KEY);
       if (!data) return null;
       const parsed: UserAccount = JSON.parse(data);
-      if (parsed.displayName?.toLowerCase().includes('chip sofa') || parsed.email?.toLowerCase().includes('chip')) {
-        parsed.displayName = '운영자 chip sofa';
+      if (parsed.displayName?.toLowerCase().includes('chip sofa') || parsed.email?.toLowerCase().includes('chip') || parsed.displayName?.includes('운영자')) {
+        parsed.displayName = '운영자';
       }
       this.currentUser = parsed;
       return parsed;
