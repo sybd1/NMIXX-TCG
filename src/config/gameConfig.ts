@@ -208,7 +208,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     subtitle: 'BLUE VALENTINE • VOL.03',
     description: '푸른빛 낭만과 몽환적인 멜로디의 하모니! 6인 스페셜 MR 세트와 다채로운 화보를 담은 3탄 정규 부스터 팩.',
     slogan: '파란빛 감성의 몽환적인 발렌타인 멜로디!',
-    image: '/card-pack-image/nx3-blueV/logo.jpg',
+    image: '/card-pack-image/nx3-blueV/poster.jpg',
     objectPosition: 'center center',
     gradient: 'from-blue-600 via-indigo-800 to-cyan-400',
     glowColor: 'rgba(59, 130, 246, 0.6)',
