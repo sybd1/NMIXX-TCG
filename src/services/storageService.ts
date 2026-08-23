@@ -1,36 +1,87 @@
 import { GameState } from '../types/game';
-import { GAME_CONFIG } from '../config/gameConfig';
+import { MASTER_CARDS, LEGACY_CARDS, CONCEPT_SETS } from '../data/cards';
+import { ACHIEVEMENTS } from '../data/achievements';
 
 const STORAGE_KEY = 'void_archive_gamestate_v1';
 
-export const DEFAULT_INITIAL_STATE: GameState = {
-  coins: GAME_CONFIG.INITIAL_COINS, // 기본 5만원
-  dust: 0,
-  collection: {},
-  pityCount: 0,
-  lastDailyBonus: null,
-  packHistory: [],
-  openedPacksTotal: 0,
-  soundMuted: false,
-  isFirstVisit: true,
-  claimedSetRewards: [],
+// 🌟 모든 카드(615장 마스터 + 280장 레거시 + 세트 보상 카드), 모든 업적, 모든 세트 100% 완전 해금 상태 생성기
+export const createFullUnlockedState = (): GameState => {
+  const collection: Record<string, number> = {};
+
+  // 1. 모든 마스터 카드 3장씩 보유
+  MASTER_CARDS.forEach(card => {
+    collection[card.id] = 3;
+  });
+
+  // 2. 모든 레거시 카드 3장씩 보유
+  LEGACY_CARDS.forEach(card => {
+    collection[card.id] = 3;
+  });
+
+  // 3. 모든 세트 보상 카드도 3장씩 보유
+  CONCEPT_SETS.forEach(set => {
+    if (set.rewardCard) {
+      collection[set.rewardCard.id] = 3;
+    }
+  });
+
+  return {
+    coins: 99_999_999, // 9999만 골드
+    dust: 999_999, // 99만 더스트
+    collection,
+    pityCount: 0,
+    lastDailyBonus: new Date().toISOString().split('T')[0],
+    packHistory: [],
+    openedPacksTotal: 999,
+    coinsSpentTotal: 99_999_990,
+    soundMuted: false,
+    isFirstVisit: false,
+    claimedSetRewards: CONCEPT_SETS.map(s => s.setId),
+    claimedAchievements: ACHIEVEMENTS.map(a => a.id),
+  };
 };
+
+export const DEFAULT_INITIAL_STATE: GameState = createFullUnlockedState();
 
 export class StorageService {
   public static loadState(): GameState {
     try {
+      const fullState = createFullUnlockedState();
       const data = localStorage.getItem(STORAGE_KEY);
-      if (!data) return DEFAULT_INITIAL_STATE;
+      if (!data) {
+        this.saveState(fullState);
+        return fullState;
+      }
+
       const parsed = JSON.parse(data);
 
-      return {
-        ...DEFAULT_INITIAL_STATE,
+      // 기존 스토리지와 병합하되, 모든 카드와 세트/업적이 100% 해금되도록 보장
+      const mergedCollection = { ...fullState.collection, ...(parsed.collection || {}) };
+      // 누락된 카드가 없도록 전수 보충
+      Object.keys(fullState.collection).forEach(cardId => {
+        if (!mergedCollection[cardId] || mergedCollection[cardId] < 1) {
+          mergedCollection[cardId] = 3;
+        }
+      });
+
+      const mergedState: GameState = {
+        ...fullState,
         ...parsed,
-        coins: typeof parsed.coins === 'number' ? parsed.coins : GAME_CONFIG.INITIAL_COINS,
+        collection: mergedCollection,
+        coins: Math.max(parsed.coins || 0, 99_999_999),
+        dust: Math.max(parsed.dust || 0, 999_999),
+        openedPacksTotal: Math.max(parsed.openedPacksTotal || 0, 999),
+        coinsSpentTotal: Math.max(parsed.coinsSpentTotal || 0, 99_999_990),
+        claimedSetRewards: Array.from(new Set([...(parsed.claimedSetRewards || []), ...fullState.claimedSetRewards!])),
+        claimedAchievements: Array.from(new Set([...(parsed.claimedAchievements || []), ...fullState.claimedAchievements!])),
+        isFirstVisit: false,
       };
+
+      this.saveState(mergedState);
+      return mergedState;
     } catch (e) {
-      console.warn('Failed to load game state from localStorage, using default:', e);
-      return DEFAULT_INITIAL_STATE;
+      console.warn('Failed to load game state from localStorage, using full unlocked state:', e);
+      return createFullUnlockedState();
     }
   }
 
@@ -44,10 +95,13 @@ export class StorageService {
 
   public static clearState(): GameState {
     try {
-      localStorage.removeItem(STORAGE_KEY);
+      const fullState = createFullUnlockedState();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(fullState));
+      return fullState;
     } catch (e) {
       console.warn('Failed to clear localStorage:', e);
+      return createFullUnlockedState();
     }
-    return DEFAULT_INITIAL_STATE;
   }
 }
+
