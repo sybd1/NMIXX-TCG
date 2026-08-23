@@ -139,19 +139,20 @@ export function generateFoilNormalMap(packCode = 'NX-01'): THREE.CanvasTexture {
         // Crisp vertical mechanical crimp lines
         height += Math.sin(nx * Math.PI * crimpFreq) * 0.28;
       } else {
-        // Natural foil packaging tension creases
-        const c1 = Math.sin((nx * w1 + ny * w2) * Math.PI) * 0.045;
-        const c2 = Math.cos((nx * w2 - ny * w1) * Math.PI) * 0.035;
+        // Natural foil packaging tension creases (criss-cross fine folds)
+        const c1 = Math.sin((nx * w1 + ny * w2) * Math.PI) * 0.048;
+        const c2 = Math.cos((nx * w2 - ny * w1) * Math.PI) * 0.038;
+        const c3 = Math.sin((nx * 14.0 + ny * 11.0) * Math.PI) * 0.018;
         
         // Edge pull wrinkles
         const edgeDist = Math.min(nx, 1 - nx);
-        const edgeCrease = Math.sin(ny * 22.0 * Math.PI) * Math.exp(-edgeDist * 6.0) * 0.04;
+        const edgeCrease = Math.sin(ny * 24.0 * Math.PI) * Math.exp(-edgeDist * 6.5) * 0.045;
 
-        height += c1 + c2 + edgeCrease;
+        height += c1 + c2 + c3 + edgeCrease;
       }
 
-      const nxVal = Math.floor(128 + (height - 0.5) * 75);
-      const nyVal = Math.floor(128 + (height - 0.5) * 75);
+      const nxVal = Math.floor(128 + (height - 0.5) * 80);
+      const nyVal = Math.floor(128 + (height - 0.5) * 80);
 
       data[idx] = Math.max(0, Math.min(255, nxVal));
       data[idx + 1] = Math.max(0, Math.min(255, nyVal));
@@ -172,9 +173,9 @@ export function generateFoilNormalMap(packCode = 'NX-01'): THREE.CanvasTexture {
 
 /**
  * Creates high-resolution, crystal-clear 100% authentic booster pack texture:
- * - Smart aspect ratio handling (square / landscape artworks are 100% uncropped!)
- * - Beautiful seamless ambient bled background
- * - Minimal, ultra-clean official package design
+ * - Smart aspect ratio handling with seamless gradient fade blending
+ * - Border boxes completely removed; typography is clean and harmoniously proportioned
+ * - Diagonal metallic sheen and vinyl foil texture overlay
  */
 export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.CanvasTexture> {
   return new Promise((resolve) => {
@@ -186,7 +187,7 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
     const ctx = canvas.getContext('2d')!;
 
     // 1. Solid Clean Studio Foil Base
-    ctx.fillStyle = '#0b0c10';
+    ctx.fillStyle = '#0a0d18';
     ctx.fillRect(0, 0, width, height);
 
     // 2. Load original image and render with ZERO cropping & aspect preservation
@@ -202,13 +203,12 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
 
       // Draw background ambient color bleed from image
       ctx.save();
-      // Draw background gradient matching pack theme
       if (pack.code === 'NX-01') {
         const bgGrad = ctx.createLinearGradient(0, 0, 0, height);
         bgGrad.addColorStop(0, '#0a0d18');
         bgGrad.addColorStop(0.3, '#10172e');
-        bgGrad.addColorStop(0.7, '#1e1b4b');
-        bgGrad.addColorStop(1, '#090a12');
+        bgGrad.addColorStop(0.7, '#151c38');
+        bgGrad.addColorStop(1, '#090b14');
         ctx.fillStyle = bgGrad;
         ctx.fillRect(0, 0, width, height);
       } else if (pack.code === 'NX-03') {
@@ -239,76 +239,94 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
         // Draw main artwork with 100% clarity & NO cropping
         ctx.drawImage(img, 0, drawY, drawWidth, drawHeight);
 
-        // 2. Rich Bottom Package Area (Y: 1720 ~ 2132, 412px height)
-        const bottomAreaY = drawY + drawHeight; // ~1720px
+        // 🌟 2. Seamless Gradient Fade Mask at Bottom Edge of Artwork
+        // Blends image smoothly into deep background without a harsh cut line
+        const fadeHeight = 180;
+        const fadeStartY = drawY + drawHeight - fadeHeight;
+        const fadeGrad = ctx.createLinearGradient(0, fadeStartY, 0, drawY + drawHeight + 10);
+        if (pack.code === 'NX-01') {
+          fadeGrad.addColorStop(0, 'rgba(16, 23, 46, 0)');
+          fadeGrad.addColorStop(0.4, 'rgba(16, 23, 46, 0.45)');
+          fadeGrad.addColorStop(0.75, 'rgba(16, 23, 46, 0.85)');
+          fadeGrad.addColorStop(1, 'rgba(16, 23, 46, 1.0)');
+        } else {
+          fadeGrad.addColorStop(0, 'rgba(12, 35, 64, 0)');
+          fadeGrad.addColorStop(0.4, 'rgba(12, 35, 64, 0.45)');
+          fadeGrad.addColorStop(0.75, 'rgba(12, 35, 64, 0.85)');
+          fadeGrad.addColorStop(1, 'rgba(12, 35, 64, 1.0)');
+        }
+        ctx.fillStyle = fadeGrad;
+        ctx.fillRect(0, fadeStartY, width, fadeHeight + 20);
+
+        // 🌟 3. Clean, Harmonious Bottom Typography (NO BOXES!)
+        const bottomAreaY = drawY + drawHeight - 40; // ~1680px
 
         // Metallic Divider Accent Line
-        const lineGrad = ctx.createLinearGradient(width * 0.08, 0, width * 0.92, 0);
+        const lineGrad = ctx.createLinearGradient(width * 0.12, 0, width * 0.88, 0);
         lineGrad.addColorStop(0, 'transparent');
         lineGrad.addColorStop(0.3, pack.code === 'NX-01' ? '#fde047' : '#38bdf8');
         lineGrad.addColorStop(0.7, pack.code === 'NX-01' ? '#38bdf8' : '#e0e7ff');
         lineGrad.addColorStop(1, 'transparent');
         ctx.strokeStyle = lineGrad;
-        ctx.lineWidth = 3.5;
+        ctx.lineWidth = 3;
         ctx.beginPath();
-        ctx.moveTo(width * 0.08, bottomAreaY + 12);
-        ctx.lineTo(width * 0.92, bottomAreaY + 12);
+        ctx.moveTo(width * 0.12, bottomAreaY + 10);
+        ctx.lineTo(width * 0.88, bottomAreaY + 10);
         ctx.stroke();
 
         // High-end Large Metallic Album Title
         const albumTitle = pack.name.includes(' - ') ? pack.name.split(' - ')[1] : pack.name;
-        ctx.font = '900 84px "Cinzel", "Times New Roman", serif';
+        ctx.font = '900 78px "Cinzel", "Times New Roman", serif';
         
         // Metallic Gradient for Text
-        const titleGrad = ctx.createLinearGradient(0, bottomAreaY + 40, 0, bottomAreaY + 120);
+        const titleGrad = ctx.createLinearGradient(0, bottomAreaY + 35, 0, bottomAreaY + 115);
         if (pack.code === 'NX-01') {
           titleGrad.addColorStop(0, '#ffffff');
-          titleGrad.addColorStop(0.5, '#fef08a');
+          titleGrad.addColorStop(0.45, '#fef08a');
           titleGrad.addColorStop(1, '#f59e0b');
         } else {
           titleGrad.addColorStop(0, '#ffffff');
-          titleGrad.addColorStop(0.5, '#bae6fd');
+          titleGrad.addColorStop(0.45, '#bae6fd');
           titleGrad.addColorStop(1, '#38bdf8');
         }
         ctx.fillStyle = titleGrad;
         ctx.textAlign = 'center';
         ctx.shadowColor = 'rgba(0, 0, 0, 0.98)';
-        ctx.shadowBlur = 24;
-        ctx.fillText(albumTitle, width / 2, bottomAreaY + 95);
+        ctx.shadowBlur = 20;
+        ctx.fillText(albumTitle, width / 2, bottomAreaY + 88);
 
-        // Subtitle Slogan
-        ctx.font = 'bold 32px sans-serif';
-        ctx.fillStyle = pack.code === 'NX-01' ? '#38bdf8' : '#e0e7ff';
-        ctx.shadowBlur = 14;
+        // Subtitle Slogan (Refined Tracking & Proportion)
+        ctx.font = 'bold 30px sans-serif';
+        ctx.fillStyle = pack.code === 'NX-01' ? '#38bdf8' : '#93c5fd';
+        ctx.shadowBlur = 12;
         const subText = pack.code === 'NX-01'
-          ? 'NMIXX 2ND EP • BREAK THE BOUNDARIES'
-          : 'NMIXX SPECIAL COLLECTION • SWEET MELODY';
-        ctx.fillText(subText, width / 2, bottomAreaY + 155);
+          ? 'NMIXX 2ND EP  •  BREAK THE BOUNDARIES'
+          : 'NMIXX SPECIAL COLLECTION  •  SWEET MELODY';
+        ctx.fillText(subText, width / 2, bottomAreaY + 140);
 
-        // TCG Official Spec Pill Box
-        const specBoxW = width * 0.88;
-        const specBoxH = 76;
-        const specBoxX = (width - specBoxW) / 2;
-        const specBoxY = bottomAreaY + 195;
-
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.82)';
-        ctx.strokeStyle = pack.code === 'NX-01' ? 'rgba(253, 224, 71, 0.5)' : 'rgba(56, 189, 248, 0.5)';
-        ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        ctx.roundRect(specBoxX, specBoxY, specBoxW, specBoxH, 16);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.font = 'bold 28px monospace';
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowBlur = 0;
-        ctx.fillText(`전 ${pack.totalCards}종 + 특수 레어  |  1팩 5장입  |  BOOSTER PACK`, width / 2, specBoxY + 48);
+        // 🌟 TCG Official Spec Text (Cleanly exposed with NO border box)
+        ctx.font = 'bold 26px monospace';
+        ctx.fillStyle = '#cbd5e1';
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+        ctx.shadowBlur = 8;
+        ctx.fillText(`전 ${pack.totalCards}종 + 특수 레어  •  1팩 5장입  •  BOOSTER PACK`, width / 2, bottomAreaY + 195);
       } else {
         // Portrait artwork (e.g. NX-02 or NX-04)
         ctx.drawImage(img, 0, usableY, width, usableHeight);
       }
 
-      // 3. Realistic Aluminum Foil Crimp Seals on Top & Bottom
+      // 4. Subtle Metallic Sheen & Foil Wrinkle Overlay across the whole pack
+      const foilSheen = ctx.createLinearGradient(0, 0, width, height);
+      foilSheen.addColorStop(0, 'rgba(255, 255, 255, 0.08)');
+      foilSheen.addColorStop(0.25, 'rgba(255, 255, 255, 0.14)');
+      foilSheen.addColorStop(0.45, 'rgba(0, 0, 0, 0.06)');
+      foilSheen.addColorStop(0.65, 'rgba(255, 255, 255, 0.12)');
+      foilSheen.addColorStop(0.85, 'rgba(255, 255, 255, 0.06)');
+      foilSheen.addColorStop(1, 'rgba(0, 0, 0, 0.18)');
+      ctx.fillStyle = foilSheen;
+      ctx.fillRect(0, 0, width, height);
+
+      // 5. Realistic Aluminum Foil Crimp Seals on Top & Bottom
       // Top Silver Foil Crimp Bar
       const topGrad = ctx.createLinearGradient(0, 0, 0, topCrimpHeight);
       topGrad.addColorStop(0, '#64748b');
@@ -327,14 +345,14 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
       ctx.fillStyle = bottomGrad;
       ctx.fillRect(0, height - bottomCrimpHeight, width, bottomCrimpHeight);
 
-      // 4. Subtle Metallic Rim Lighting along borders
+      // Subtle Metallic Rim Lighting along borders
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
       ctx.lineWidth = 4;
       ctx.strokeRect(4, topCrimpHeight, width - 8, height - topCrimpHeight - bottomCrimpHeight);
 
-      // 5. Minimal, Ultra-Clean Branding with High-Contrast Glassmorphic Capsules
-      const badgeY = topCrimpHeight + 18;
-      const textY = badgeY + 46;
+      // 6. Minimal, Ultra-Clean Top Branding with High-Contrast Glassmorphic Capsules
+      const badgeY = topCrimpHeight + 16;
+      const textY = badgeY + 44;
 
       const packThemeMap: Record<string, { codeColor: string; brandColor: string }> = {
         'NX-01': {
@@ -357,15 +375,15 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
 
       const theme = packThemeMap[pack.code] || packThemeMap['NX-01'];
 
-      // Left: Pack Code Badge [NX 01]
+      // Left: Pack Code Badge [NX-01]
       const leftBadgeText = `[${pack.code}]`;
-      ctx.font = '900 48px monospace';
+      ctx.font = '900 46px monospace';
       const leftW = ctx.measureText(leftBadgeText).width + 36;
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.76)';
+      ctx.fillStyle = 'rgba(10, 13, 24, 0.85)';
       ctx.strokeStyle = theme.codeColor;
       ctx.lineWidth = 2.5;
       ctx.beginPath();
-      ctx.roundRect(42, badgeY, leftW, 64, 14);
+      ctx.roundRect(40, badgeY, leftW, 60, 12);
       ctx.fill();
       ctx.stroke();
 
@@ -373,17 +391,17 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
       ctx.textAlign = 'left';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
       ctx.shadowBlur = 12;
-      ctx.fillText(leftBadgeText, 60, textY);
+      ctx.fillText(leftBadgeText, 58, textY);
 
       // Right: Brand Badge NMIXX TCG
       const rightBadgeText = 'NMIXX TCG';
-      ctx.font = '900 40px sans-serif';
+      ctx.font = '900 38px sans-serif';
       const rightW = ctx.measureText(rightBadgeText).width + 36;
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.76)';
+      ctx.fillStyle = 'rgba(10, 13, 24, 0.85)';
       ctx.strokeStyle = theme.brandColor;
       ctx.lineWidth = 2.5;
       ctx.beginPath();
-      ctx.roundRect(width - 42 - rightW, badgeY, rightW, 64, 14);
+      ctx.roundRect(width - 40 - rightW, badgeY, rightW, 60, 12);
       ctx.fill();
       ctx.stroke();
 
@@ -391,9 +409,9 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
       ctx.textAlign = 'right';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
       ctx.shadowBlur = 12;
-      ctx.fillText(rightBadgeText, width - 60, textY);
+      ctx.fillText(rightBadgeText, width - 58, textY);
 
-      // 6. Minimal Copyright on bottom crimp
+      // 7. Minimal Copyright on bottom crimp
       ctx.font = 'bold 22px monospace';
       ctx.fillStyle = '#e2e8f0';
       ctx.textAlign = 'center';

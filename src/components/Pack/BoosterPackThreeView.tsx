@@ -35,7 +35,7 @@ export const BoosterPackThreeView: React.FC<BoosterPackThreeViewProps> = ({
     const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
     camera.position.z = 7.2;
 
-    // 2. High-Performance WebGL Renderer
+    // 2. High-Performance WebGL Renderer with Balanced Exposure
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true,
@@ -44,25 +44,25 @@ export const BoosterPackThreeView: React.FC<BoosterPackThreeViewProps> = ({
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
+    renderer.toneMappingExposure = 1.02; // Reduced exposure to prevent center washout
     container.appendChild(renderer.domElement);
 
-    // 3. Balanced Studio Lighting (Clean, Crisp, Maximum Visibility)
-    // Bright natural ambient light ensuring 100% clarity before hover
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
+    // 3. Balanced Studio Lighting (Natural, Non-Overexposed Setup)
+    // Soft natural ambient light ensuring 100% graphic clarity
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.15);
     scene.add(ambientLight);
 
-    // Subtle Key Light for realistic metallic specular glint
-    const keyPointLight = new THREE.PointLight(0xffffff, 12, 16);
-    keyPointLight.position.set(0, 1.5, 4.0);
+    // Gentle Tracking Key Light (Provides subtle specular reflection without lens flare washout)
+    const keyPointLight = new THREE.PointLight(0xffffff, 4.5, 20);
+    keyPointLight.position.set(0, 2.0, 4.5);
     scene.add(keyPointLight);
 
-    // Soft Fill Lights for 3D depth
-    const fillLightLeft = new THREE.DirectionalLight(0xffffff, 0.6);
+    // Subtle Fill Lights for rich 3D foil depth
+    const fillLightLeft = new THREE.DirectionalLight(0xffffff, 0.32);
     fillLightLeft.position.set(-4, 3, 2);
     scene.add(fillLightLeft);
 
-    const fillLightRight = new THREE.DirectionalLight(0xffffff, 0.4);
+    const fillLightRight = new THREE.DirectionalLight(0xffffff, 0.22);
     fillLightRight.position.set(4, -2, 2);
     scene.add(fillLightRight);
 
@@ -74,14 +74,14 @@ export const BoosterPackThreeView: React.FC<BoosterPackThreeViewProps> = ({
     const backGeometry = createBoosterPackGeometry(3.2, 4.8, 38, true);
     const normalTexture = generateFoilNormalMap(pack.code);
 
-    // Ultra-Realistic Aluminum Foil Packaging Material
+    // Ultra-Realistic Aluminum Foil Packaging Material with Controlled Specular Highlights
     const frontMaterial = new THREE.MeshPhysicalMaterial({
       color: 0xffffff,
-      metalness: 0.50,
-      roughness: 0.22,
-      clearcoat: 0.25,
-      clearcoatRoughness: 0.20,
-      reflectivity: 0.80,
+      metalness: 0.38,
+      roughness: 0.30,
+      clearcoat: 0.18,
+      clearcoatRoughness: 0.25,
+      reflectivity: 0.55,
       normalMap: normalTexture,
       normalScale: new THREE.Vector2(0.40, 0.40),
       side: THREE.FrontSide,
@@ -92,9 +92,9 @@ export const BoosterPackThreeView: React.FC<BoosterPackThreeViewProps> = ({
 
     // Rear Pouch Backing (Authentic dark metallic silver foil back)
     const backMaterial = new THREE.MeshStandardMaterial({
-      color: 0x1e222d,
-      metalness: 0.70,
-      roughness: 0.35,
+      color: 0x1a1e28,
+      metalness: 0.65,
+      roughness: 0.38,
       normalMap: normalTexture,
       normalScale: new THREE.Vector2(0.35, 0.35),
       side: THREE.BackSide,
@@ -150,9 +150,9 @@ export const BoosterPackThreeView: React.FC<BoosterPackThreeViewProps> = ({
       // Very subtle organic floating
       packGroup.position.y = Math.sin(elapsedTime * 1.8) * 0.04;
 
-      // Dynamic light tracking
-      keyPointLight.position.x = mouseRef.current.x * 3.5;
-      keyPointLight.position.y = mouseRef.current.y * 3.5 + 1.5;
+      // Subtle key light tracking without overexposing center
+      keyPointLight.position.x = mouseRef.current.x * 3.0;
+      keyPointLight.position.y = mouseRef.current.y * 3.0 + 2.0;
 
       renderer.render(scene, camera);
     };
