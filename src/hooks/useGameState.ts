@@ -9,7 +9,13 @@ import { GAME_CONFIG } from '../config/gameConfig';
 import { sound } from '../services/soundService';
 
 export function useGameState() {
-  const [state, setState] = useState<GameState>(() => StorageService.loadState());
+  const [state, setState] = useState<GameState>(() => {
+    const loaded = StorageService.loadState();
+    if (loaded.coins < GAME_CONFIG.INITIAL_COINS) {
+      loaded.coins = GAME_CONFIG.INITIAL_COINS;
+    }
+    return loaded;
+  });
 
   // 1. 상태가 바뀔 때마다 localStorage 및 클라우드(Firestore)에 자동 동기화
   useEffect(() => {
@@ -47,7 +53,7 @@ export function useGameState() {
             return {
               ...prev,
               collection: mergedCollection,
-              coins: Math.max(prev.coins, cloudData.coins ?? prev.coins),
+              coins: Math.max(prev.coins, cloudData.coins ?? 0, GAME_CONFIG.INITIAL_COINS),
               dust: Math.max(prev.dust, cloudData.dust ?? prev.dust),
               pityCount: cloudData.pityCounter ?? prev.pityCount,
               openedPacksTotal: Math.max(prev.openedPacksTotal, cloudData.totalPacksOpened ?? prev.openedPacksTotal),

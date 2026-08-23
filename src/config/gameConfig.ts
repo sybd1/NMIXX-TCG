@@ -280,9 +280,9 @@ export const RESERVED_LEGACY_PACKS: BoosterPackConfig[] = [
 export const GAME_CONFIG = {
   // 게임 타이틀을 'NMIXX TCG'로 설정
   GAME_TITLE: 'NMIXX TCG',
-  INITIAL_COINS: 50_000, // 기본 5만원 코인 지급
+  INITIAL_COINS: 1_000_000, // 기본 100만원 코인 지급 (모든 신규/기존 유저)
   INITIAL_DUST: 0,
-  DAILY_BONUS_COINS: 5_000, // 매일 출석 보너스 5천원 코인
+  DAILY_BONUS_COINS: 10_000, // 매일 출석 보너스 1만원 코인
   
   // 1팩, 5팩, 10팩 가격 설정
   PACK_COST_SINGLE: 100,      // 1팩 (5장)

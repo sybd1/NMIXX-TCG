@@ -27,10 +27,10 @@ const DEFAULT_GLOBAL_MAILS: MailItem[] = [
   {
     id: 'mail_welcome_2026',
     title: '🎉 NMIXX TCG 공식 클라우드 서버 오픈 기념!',
-    content: '엔믹스 TCG 정식 글로벌 서버 연동을 축하합니다! 모든 엔써(NSWER) 여러분께 특별 지원금 50,000 코인을 지급합니다.',
+    content: '엔믹스 TCG 정식 글로벌 서버 연동을 축하합니다! 모든 엔써(NSWER) 여러분께 특별 지원금 1,000,000 코인(100만원)을 지급합니다.',
     sender: '운영팀 SQU4D',
-    coinsReward: 50000,
-    dustReward: 500,
+    coinsReward: 1000000,
+    dustReward: 5000,
     isClaimed: false,
     createdAt: Date.now() - 3600000 * 2,
   },
