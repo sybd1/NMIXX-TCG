@@ -1,100 +1,62 @@
 import { GameState } from '../types/game';
-import { MASTER_CARDS, LEGACY_CARDS, CONCEPT_SETS } from '../data/cards';
-import { ACHIEVEMENTS } from '../data/achievements';
 
-const STORAGE_KEY = 'void_archive_gamestate_v1';
+const STORAGE_KEY = 'nmixx_tcg_gamestate_v2';
 
-// 🌟 모든 카드(615장 마스터 + 280장 레거시 + 세트 보상 카드), 모든 업적, 모든 세트 100% 완전 해금 상태 생성기
-export const createFullUnlockedState = (): GameState => {
-  const collection: Record<string, number> = {};
-
-  // 1. 모든 마스터 카드 3장씩 보유 (단, XR 초월 카드는 전 우주에 단 1장만 존재)
-  MASTER_CARDS.forEach(card => {
-    collection[card.id] = (card.rarity === 'XR' || card.id === 'card_xr_transcendent_park_741') ? 1 : 3;
-  });
-
-  // 2. 모든 레거시 카드 3장씩 보유
-  LEGACY_CARDS.forEach(card => {
-    collection[card.id] = 3;
-  });
-
-  // 3. 모든 세트 보상 카드도 3장씩 보유
-  CONCEPT_SETS.forEach(set => {
-    if (set.rewardCard) {
-      collection[set.rewardCard.id] = 3;
-    }
-  });
-
+/**
+ * 🌟 게스트(비로그인) 기본 초기 상태 생성기
+ * - 기본 지급 머니: 1,000,000 COIN (100만원)
+ * - 카드 도감: 0장 (팩 개봉을 통해 수집 시작)
+ */
+export const createGuestInitialState = (): GameState => {
   return {
-    coins: 1_000_000, // 기본 100만원 골드 지급
+    coins: 1_000_000, // 게스트 기본 머니 100만원
     dust: 0,
-    collection,
+    collection: {}, // 0장에서 시작
     pityCount: 0,
-    lastDailyBonus: new Date().toISOString().split('T')[0],
+    lastDailyBonus: null,
     packHistory: [],
     openedPacksTotal: 0,
     coinsSpentTotal: 0,
     soundMuted: false,
     isFirstVisit: false,
-    claimedSetRewards: CONCEPT_SETS.map(s => s.setId),
-    claimedAchievements: ACHIEVEMENTS.map(a => a.id),
+    claimedSetRewards: [],
+    claimedAchievements: [],
+    claimedMailIds: [],
+    claimedCouponCodes: [],
     coinReset_v16: true,
   };
 };
 
-export const DEFAULT_INITIAL_STATE: GameState = createFullUnlockedState();
+export const DEFAULT_INITIAL_STATE: GameState = createGuestInitialState();
 
 export class StorageService {
   public static loadState(): GameState {
     try {
-      const fullState = createFullUnlockedState();
       const data = localStorage.getItem(STORAGE_KEY);
       if (!data) {
-        this.saveState(fullState);
-        return fullState;
+        const fresh = createGuestInitialState();
+        this.saveState(fresh);
+        return fresh;
       }
 
-      const parsed = JSON.parse(data);
+      const parsed: GameState = JSON.parse(data);
 
-      // 기존 스토리지와 병합하되, 모든 카드와 세트/업적이 100% 해금되도록 보장
-      const mergedCollection = { ...fullState.collection, ...(parsed.collection || {}) };
-      // 누락된 카드가 없도록 전수 보충
-      Object.keys(fullState.collection).forEach(cardId => {
-        if (!mergedCollection[cardId] || mergedCollection[cardId] < 1) {
-          const isXR = cardId === 'card_xr_transcendent_park_741' || fullState.collection[cardId] === 1;
-          mergedCollection[cardId] = isXR ? 1 : 3;
-        }
-      });
+      // 과거 99,999,999 개발자 머니나 잔존 데이터가 있을 경우 100만원으로 초기화
+      if (!parsed.coinReset_v16 || parsed.coins > 10_000_000) {
+        parsed.coins = 1_000_000;
+        parsed.coinReset_v16 = true;
+      }
 
-      // 👑 XR 박진영 카드는 어떠한 경우에도 단 1장만 소지 가능하도록 강제 클램핑
+      // XR 박진영 카드는 최대 1장 제한
       const xrCardId = 'card_xr_transcendent_park_741';
-      if (mergedCollection[xrCardId]) {
-        mergedCollection[xrCardId] = Math.min(1, mergedCollection[xrCardId]);
+      if (parsed.collection && parsed.collection[xrCardId]) {
+        parsed.collection[xrCardId] = Math.min(1, parsed.collection[xrCardId]);
       }
 
-      // 💰 v1.6 전 유저 머니 100만원 강제 초기화 마이그레이션
-      const needsCoinReset = !parsed.coinReset_v16;
-      const finalCoins = needsCoinReset ? 1_000_000 : (parsed.coins ?? 1_000_000);
-
-      const mergedState: GameState = {
-        ...fullState,
-        ...parsed,
-        collection: mergedCollection,
-        coins: finalCoins,
-        dust: parsed.dust || 0,
-        openedPacksTotal: parsed.openedPacksTotal || 0,
-        coinsSpentTotal: parsed.coinsSpentTotal || 0,
-        claimedSetRewards: Array.from(new Set([...(parsed.claimedSetRewards || []), ...fullState.claimedSetRewards!])),
-        claimedAchievements: Array.from(new Set([...(parsed.claimedAchievements || []), ...fullState.claimedAchievements!])),
-        isFirstVisit: false,
-        coinReset_v16: true,
-      };
-
-      this.saveState(mergedState);
-      return mergedState;
+      return parsed;
     } catch (e) {
-      console.warn('Failed to load game state from localStorage, using full unlocked state:', e);
-      return createFullUnlockedState();
+      console.warn('Failed to load state, returning guest default:', e);
+      return createGuestInitialState();
     }
   }
 
@@ -102,19 +64,20 @@ export class StorageService {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (e) {
-      console.warn('Failed to save game state to localStorage:', e);
+      console.warn('Failed to save state to localStorage:', e);
     }
   }
 
   public static clearState(): GameState {
     try {
-      const fullState = createFullUnlockedState();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(fullState));
-      return fullState;
+      const fresh = createGuestInitialState();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(fresh));
+      // 구버전 스토리지 키 정리
+      localStorage.removeItem('void_archive_gamestate_v1');
+      return fresh;
     } catch (e) {
-      console.warn('Failed to clear localStorage:', e);
-      return createFullUnlockedState();
+      console.warn('Failed to clear state:', e);
+      return createGuestInitialState();
     }
   }
 }
-

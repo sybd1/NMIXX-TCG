@@ -23,7 +23,7 @@ export function useGameState() {
     sound.setMuted(state.soundMuted);
 
     const currentUser = AuthService.getCurrentUser();
-    if (currentUser?.isCloudSynced) {
+    if (currentUser?.isCloudSynced && currentUser.id && currentUser.id !== 'guest') {
       CloudSyncService.saveUserGameData(currentUser, {
         collection: state.collection,
         coins: state.coins,
@@ -35,31 +35,33 @@ export function useGameState() {
     }
   }, [state]);
 
-  // 2. 로그인 시 클라우드 데이터 자동 복원 및 병합
+  // 2. 로그인 시 해당 계정의 클라우드 데이터 전용 로드 / 로그아웃 시 게스트 초기화
   useEffect(() => {
     const unsubscribe = AuthService.subscribeAuthState(async (user) => {
-      if (user?.isCloudSynced && user.id) {
+      if (user?.isCloudSynced && user.id && user.id !== 'guest') {
         const cloudData = await CloudSyncService.loadUserGameData(user.id);
         if (cloudData) {
-          setState(prev => {
-            // 로컬과 클라우드 컬렉션 스마트 병합 (더 큰 수량 우선)
-            const mergedCollection: Record<string, number> = { ...prev.collection };
-            Object.entries(cloudData.collection || {}).forEach(([cardId, count]) => {
-              const isXR = cardId === 'card_xr_transcendent_park_741';
-              const maxCount = Math.max(mergedCollection[cardId] || 0, count);
-              mergedCollection[cardId] = isXR ? Math.min(1, maxCount) : maxCount;
-            });
-
-            return {
-              ...prev,
-              collection: mergedCollection,
-              coins: Math.max(prev.coins, cloudData.coins ?? 0, GAME_CONFIG.INITIAL_COINS),
-              dust: Math.max(prev.dust, cloudData.dust ?? prev.dust),
-              pityCount: cloudData.pityCounter ?? prev.pityCount,
-              openedPacksTotal: Math.max(prev.openedPacksTotal, cloudData.totalPacksOpened ?? prev.openedPacksTotal),
-              claimedAchievements: Array.from(new Set([...(prev.claimedAchievements || []), ...(cloudData.unlockedAchievements || [])])),
-            };
+          // 해당 계정의 실제 클라우드 저장 데이터로 완전 동기화
+          setState({
+            coins: cloudData.coins ?? GAME_CONFIG.INITIAL_COINS,
+            dust: cloudData.dust ?? 0,
+            collection: cloudData.collection || {},
+            pityCount: cloudData.pityCounter ?? 0,
+            openedPacksTotal: cloudData.totalPacksOpened ?? 0,
+            coinsSpentTotal: 0,
+            claimedAchievements: cloudData.unlockedAchievements || [],
+            claimedSetRewards: [],
+            claimedMailIds: [],
+            claimedCouponCodes: [],
+            lastDailyBonus: null,
+            packHistory: [],
+            soundMuted: false,
+            isFirstVisit: false,
+            coinReset_v16: true,
           });
+        } else {
+          // 클라우드에 아직 데이터가 없는 신규 계정일 경우 100만원 기본 지급으로 시작
+          setState(StorageService.clearState());
         }
       }
     });
