@@ -50,9 +50,6 @@ const PACK_FILTERS = [
   { id: 'op02', code: 'NX-02', name: '2탄 2025 NEW ERA' },
   { id: 'op03', code: 'NX-03', name: '3탄 Blue Valentine' },
   { id: 'op04', code: 'NX-04', name: '4탄 ZERO FRONTIER' },
-  { id: 'pack-nx-11', code: 'NX-11', name: '11탄 정점결전' },
-  { id: 'pack-nx-12', code: 'NX-12', name: '12탄 대항해시대' },
-  { id: 'pack-nx-13', code: 'NX-13', name: '13탄 신세계 개척' },
 ];
 
 export const CollectionPage: React.FC<CollectionPageProps> = ({

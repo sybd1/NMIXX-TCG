@@ -171,7 +171,7 @@ export interface BoosterPackConfig {
   totalCards: number;
 }
 
-// NMIXX 테마 4대 부스터 팩 시리즈 (총 600종 카드)
+// NMIXX 메인 4대 부스터 팩 시리즈 (NX-01 ~ NX-04)
 export const BOOSTER_PACKS: BoosterPackConfig[] = [
   {
     id: 'op01',
@@ -213,7 +213,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     gradient: 'from-blue-600 via-indigo-800 to-cyan-400',
     glowColor: 'rgba(59, 130, 246, 0.6)',
     themeColor: '#3b82f6',
-    totalCards: 125,
+    totalCards: 124,
   },
   {
     id: 'op04',
@@ -229,6 +229,10 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     themeColor: '#a855f7',
     totalCards: 87,
   },
+];
+
+// 보관용 레거시 팩 (archive/legacy-packs-11-13 브랜치 보관)
+export const RESERVED_LEGACY_PACKS: BoosterPackConfig[] = [
   {
     id: 'pack-nx-11',
     code: 'NX-11',
