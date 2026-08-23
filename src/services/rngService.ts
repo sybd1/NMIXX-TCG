@@ -73,7 +73,8 @@ export class RngService {
     userCollection?: Record<string, number>,
     forceUnowned = false
   ): Card {
-    let pool = getCardsByRarity(rarity);
+    // 👑 XR 박진영 카드는 전 우주 1장 유일 보상이므로 일반 팩 추첨 풀에서 100% 원천 배제
+    let pool = getCardsByRarity(rarity).filter(c => c.rarity !== 'XR' && c.id !== 'card_xr_transcendent_park_741');
     if (packId) {
       const packPool = pool.filter(c => c.packId === packId);
       if (packPool.length > 0) {
@@ -88,7 +89,7 @@ export class RngService {
         pool = unownedInPool; // 미보유 카드로만 추첨 풀 압축!
       } else {
         // 해당 등급의 팩 내 카드를 다 모았다면 전체 도감 내 해당 등급 미보유 카드 검색
-        const allRarityPool = getCardsByRarity(rarity);
+        const allRarityPool = getCardsByRarity(rarity).filter(c => c.rarity !== 'XR' && c.id !== 'card_xr_transcendent_park_741');
         const unownedGlobal = allRarityPool.filter(c => (userCollection[c.id] || 0) === 0);
         if (unownedGlobal.length > 0) {
           pool = unownedGlobal;

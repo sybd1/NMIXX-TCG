@@ -72,6 +72,7 @@ export const Header: React.FC<HeaderProps> = ({
           { id: 'home', label: 'PACK OPEN' },
           { id: 'collection', label: 'COLLECTION' },
           { id: 'achievements', label: 'ACHIEVEMENTS' },
+          { id: 'patch-notes', label: 'PATCH NOTES' },
           { id: 'settings', label: 'INFORMATION' },
         ].map(tab => (
           <button

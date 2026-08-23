@@ -66,6 +66,8 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
   const memberInfo = MEMBER_INFO[card.member] || MEMBER_INFO.NMIXX;
 
   const isHighTier = ['SR', 'SSR', 'UR', 'LR', 'MR', 'XR'].includes(card.rarity);
+  const isXR = card.rarity === 'XR' || card.id === 'card_xr_transcendent_park_741';
+  const effectiveCount = isXR ? Math.min(1, count) : count;
   const isXrMystery = card.rarity === 'XR' && !isOwned;
 
   // 3D 틸트 물리 엔진 상태
@@ -459,13 +461,13 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
             )}
 
             {/* 카드 획득/보유 수량 뱃지 (x2, x3 등 선명한 황금 네온 뱃지) */}
-            {count > 1 && (
+            {effectiveCount > 1 && (
               <div
                 className="absolute bottom-9 right-2 z-40 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-black border-2 border-white font-mono text-[9.5px] sm:text-[10.5px] font-black px-1.5 py-0.2 rounded-md shadow-[0_0_15px_rgba(250,204,21,0.95)] ring-1 ring-amber-400/80 pointer-events-none flex items-center gap-0.5 tracking-tight"
                 style={{ transform: 'translateZ(45px)' }}
               >
                 <span className="text-[8.5px]">x</span>
-                <span>{count}</span>
+                <span>{effectiveCount}</span>
               </div>
             )}
 

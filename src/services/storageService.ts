@@ -8,9 +8,9 @@ const STORAGE_KEY = 'void_archive_gamestate_v1';
 export const createFullUnlockedState = (): GameState => {
   const collection: Record<string, number> = {};
 
-  // 1. 모든 마스터 카드 3장씩 보유
+  // 1. 모든 마스터 카드 3장씩 보유 (단, XR 초월 카드는 전 우주에 단 1장만 존재)
   MASTER_CARDS.forEach(card => {
-    collection[card.id] = 3;
+    collection[card.id] = (card.rarity === 'XR' || card.id === 'card_xr_transcendent_park_741') ? 1 : 3;
   });
 
   // 2. 모든 레거시 카드 3장씩 보유
@@ -60,9 +60,16 @@ export class StorageService {
       // 누락된 카드가 없도록 전수 보충
       Object.keys(fullState.collection).forEach(cardId => {
         if (!mergedCollection[cardId] || mergedCollection[cardId] < 1) {
-          mergedCollection[cardId] = 3;
+          const isXR = cardId === 'card_xr_transcendent_park_741' || fullState.collection[cardId] === 1;
+          mergedCollection[cardId] = isXR ? 1 : 3;
         }
       });
+
+      // 👑 XR 박진영 카드는 어떠한 경우에도 단 1장만 소지 가능하도록 강제 클램핑
+      const xrCardId = 'card_xr_transcendent_park_741';
+      if (mergedCollection[xrCardId]) {
+        mergedCollection[xrCardId] = Math.min(1, mergedCollection[xrCardId]);
+      }
 
       const mergedState: GameState = {
         ...fullState,

@@ -556,7 +556,9 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                 {/* Cards Grid (1페이지당 24장만 렌더링하여 초고속 반응속도 유지) */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 justify-items-center">
                   {paginatedCards.map(card => {
-                    const count = collection[card.id] || 0;
+                    const isXR = card.rarity === 'XR' || card.id === 'card_xr_transcendent_park_741';
+                    const rawCount = collection[card.id] || 0;
+                    const count = isXR ? Math.min(1, rawCount) : rawCount;
                     const isOwned = count > 0;
 
                     return (

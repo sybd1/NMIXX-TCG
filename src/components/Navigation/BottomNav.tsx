@@ -1,5 +1,5 @@
 import React from 'react';
-import { Package, Layers, Trophy, Info } from 'lucide-react';
+import { Package, Layers, Trophy, FileText, Info } from 'lucide-react';
 import { NavTab } from '../../types/game';
 
 interface BottomNavProps {
@@ -12,6 +12,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, onSelectTab })
     { id: 'home', label: 'PACK', icon: Package },
     { id: 'collection', label: 'CARDS', icon: Layers },
     { id: 'achievements', label: 'ACHIEVE', icon: Trophy },
+    { id: 'patch-notes', label: 'PATCH', icon: FileText },
     { id: 'settings', label: 'INFO', icon: Info },
   ];
 

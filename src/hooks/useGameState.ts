@@ -43,10 +43,12 @@ export function useGameState() {
       let highestRarity = pack.cards[0].rarity;
 
       pack.cards.forEach((card, cIdx) => {
+        const isXR = card.rarity === 'XR' || card.id === 'card_xr_transcendent_park_741';
         const existingCount = newCollection[card.id] || 0;
         const isNew = existingCount === 0;
 
-        newCollection[card.id] = existingCount + 1;
+        // 👑 XR 카드는 어떠한 경우에도 단 1장만 소지 가능
+        newCollection[card.id] = isXR ? 1 : existingCount + 1;
 
         revealed.push({
           ...card,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useGameState } from './hooks/useGameState';
 import { NavTab } from './types/game';
 import { Card, RevealedCard } from './types/card';
@@ -17,6 +17,7 @@ import { UserProfileModal } from './components/Auth/UserProfileModal';
 import { HomePage } from './pages/Home/HomePage';
 import { CollectionPage } from './pages/Collection/CollectionPage';
 import { AchievementsPage } from './pages/Achievements/AchievementsPage';
+import { PatchNotesPage } from './pages/PatchNotes/PatchNotesPage';
 import { SettingsPage } from './pages/Settings/SettingsPage';
 
 export const App: React.FC = () => {
@@ -47,10 +48,15 @@ export const App: React.FC = () => {
     cost: number;
   } | null>(null);
 
+  // 개봉 중복 호출 방지용 락
+  const isOpeningLockRef = useRef(false);
+
   // 1팩 개봉 로직 (5장)
   const handleOpenSinglePack = (pack: BoosterPackConfig = BOOSTER_PACKS[0]) => {
+    if (isOpeningLockRef.current) return;
     if (!spendCoins(GAME_CONFIG.PACK_COST_SINGLE)) return;
 
+    isOpeningLockRef.current = true;
     sound.playClick();
     const result = RngService.generatePack(state.pityCount, pack.id, state.collection);
     const revealed = addPackResult(result.cards, result.newPity);
@@ -64,8 +70,10 @@ export const App: React.FC = () => {
 
   // 5팩 개봉 로직 (25장)
   const handleOpenFivePacks = (pack: BoosterPackConfig = BOOSTER_PACKS[0]) => {
+    if (isOpeningLockRef.current) return;
     if (!spendCoins(GAME_CONFIG.PACK_COST_FIVE)) return;
 
+    isOpeningLockRef.current = true;
     sound.playClick();
 
     let currentPity = state.pityCount;
@@ -92,8 +100,10 @@ export const App: React.FC = () => {
 
   // 10팩 개봉 로직 (50장)
   const handleOpenTenPacks = (pack: BoosterPackConfig = BOOSTER_PACKS[0]) => {
+    if (isOpeningLockRef.current) return;
     if (!spendCoins(GAME_CONFIG.PACK_COST_TEN)) return;
 
+    isOpeningLockRef.current = true;
     sound.playClick();
 
     let currentPity = state.pityCount;
@@ -181,6 +191,10 @@ export const App: React.FC = () => {
           />
         )}
 
+        {currentTab === 'patch-notes' && (
+          <PatchNotesPage />
+        )}
+
         {currentTab === 'settings' && (
           <SettingsPage
             state={state}
@@ -200,25 +214,24 @@ export const App: React.FC = () => {
           coins={state.coins}
           pityCount={state.pityCount}
           collection={state.collection}
-          onFinish={() => setOpeningState(null)}
+          onFinish={() => {
+            isOpeningLockRef.current = false;
+            setOpeningState(null);
+          }}
           onOpenPackCount={(targetCount) => {
             const currentPack = openingState.pack;
-            setOpeningState(null);
-            setTimeout(() => {
-              if (targetCount === 1) handleOpenSinglePack(currentPack);
-              else if (targetCount === 5) handleOpenFivePacks(currentPack);
-              else if (targetCount === 10) handleOpenTenPacks(currentPack);
-            }, 100);
+            isOpeningLockRef.current = false;
+            if (targetCount === 1) handleOpenSinglePack(currentPack);
+            else if (targetCount === 5) handleOpenFivePacks(currentPack);
+            else if (targetCount === 10) handleOpenTenPacks(currentPack);
           }}
           onOpenAnother={() => {
             const count = openingState.packCount;
             const currentPack = openingState.pack;
-            setOpeningState(null);
-            setTimeout(() => {
-              if (count === 1) handleOpenSinglePack(currentPack);
-              else if (count === 5) handleOpenFivePacks(currentPack);
-              else if (count === 10) handleOpenTenPacks(currentPack);
-            }, 100);
+            isOpeningLockRef.current = false;
+            if (count === 1) handleOpenSinglePack(currentPack);
+            else if (count === 5) handleOpenFivePacks(currentPack);
+            else if (count === 10) handleOpenTenPacks(currentPack);
           }}
           canAffordAnother={state.coins >= openingState.cost}
         />
