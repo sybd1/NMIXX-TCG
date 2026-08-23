@@ -128,8 +128,8 @@ export const AchievementsPage: React.FC<AchievementsPageProps> = ({
         })}
       </div>
 
-      {/* 3. Achievements List */}
-      <div className="flex flex-col gap-3.5">
+      {/* 3. Steam Style Compact Achievements List */}
+      <div className="flex flex-col gap-2">
         {filteredAchievements.map(ach => {
           const { current, target, percentage, isCompleted } = getAchievementProgress(ach);
           const isClaimed = claimedList.includes(ach.id);
@@ -137,109 +137,100 @@ export const AchievementsPage: React.FC<AchievementsPageProps> = ({
           return (
             <motion.div
               key={ach.id}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              className={`p-4 sm:p-6 rounded-3xl border transition-all flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 sm:gap-6 shadow-xl ${
+              className={`px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-2xl border transition-all flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 shadow-md ${
                 isCompleted
-                  ? 'bg-gradient-to-r from-emerald-950/40 via-void-900/90 to-void-950 border-emerald-500/50 shadow-emerald-950/30'
-                  : 'bg-void-900/80 border-void-800/90 hover:border-white/20'
+                  ? 'bg-gradient-to-r from-emerald-950/40 via-void-900/90 to-void-950 border-emerald-500/40 shadow-emerald-950/20'
+                  : 'bg-void-950/80 border-void-800/80 hover:border-white/20 hover:bg-void-900/60'
               }`}
             >
-              {/* 좌측: 통일된 카테고리 엠블렘 & 퀘스트 메인 정보 (큰 글씨) */}
-              <div className="flex items-start sm:items-center gap-4 min-w-[280px] flex-1">
-                {/* 엠블렘 박스 */}
+              {/* 좌측: 스팀 스타일 정사각 엠블렘 & 메인 퀘스트 텍스트 */}
+              <div className="flex items-center gap-3.5 flex-1 min-w-0">
+                {/* 스팀 스타일 스퀘어 엠블렘 박스 */}
                 <div
-                  className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 border shadow-lg ${
+                  className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 border shadow-inner ${
                     isCompleted
-                      ? 'bg-gradient-to-br from-emerald-500/25 to-teal-500/35 border-emerald-400/70 shadow-emerald-950/60'
-                      : 'bg-void-950 border-purple-500/30 text-slate-300 shadow-purple-950/40'
+                      ? 'bg-gradient-to-br from-emerald-500/20 to-teal-500/30 border-emerald-400/60 shadow-emerald-950/40'
+                      : 'bg-black/60 border-white/10 opacity-70 grayscale-[30%]'
                   }`}
                 >
                   {ach.icon}
                 </div>
 
-                {/* 퀘스트 메인 텍스트 (큰 글씨 타이틀 + 보상 + 작은 부연설명) */}
-                <div className="flex flex-col gap-1.5 flex-1">
-                  <div className="flex items-center gap-2.5 flex-wrap">
-                    {/* 🌟 1. 달성해야 할 퀘스트 타이틀 (큰 글씨) */}
-                    <h3 className="font-serif font-black text-base sm:text-lg text-white tracking-tight drop-shadow">
+                {/* 퀘스트 텍스트 & 설명 (스팀 계층 구조) */}
+                <div className="flex flex-col gap-0.5 flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="font-serif font-black text-sm sm:text-[15px] text-white truncate tracking-tight">
                       {ach.title}
                     </h3>
-                    {/* 보상 뱃지 */}
-                    <span className="text-[11px] font-mono font-black text-amber-300 bg-amber-950/90 px-2.5 py-0.5 rounded-lg border border-amber-500/40 shadow-sm flex items-center gap-1">
+                    <span className="text-[10px] font-mono font-black text-amber-300 bg-amber-950/80 px-2 py-0.2 rounded border border-amber-500/30 flex items-center gap-0.5">
                       <span>🪙</span>
-                      <span>+{ach.rewardCoins.toLocaleString()} COIN</span>
+                      <span>+{ach.rewardCoins.toLocaleString()}</span>
                     </span>
                   </div>
 
-                  {/* 🌟 2. 부연설명 (밑에 작게 표시) */}
-                  <p className="text-xs text-slate-400 font-sans leading-relaxed">
+                  <p className="text-[11px] text-slate-400 font-sans truncate">
                     {ach.description}
                   </p>
                 </div>
               </div>
 
-              {/* 중앙: 🌟 진행도 가시성 극대화 HUD (현재 / 목표 수치 대형 표시) */}
-              <div className="flex flex-col gap-1.5 w-full md:w-72 lg:w-80 bg-black/40 p-3 rounded-2xl border border-white/10">
-                <div className="flex justify-between items-baseline text-xs font-mono">
-                  <span className="text-slate-400 font-bold text-[11px]">퀘스트 진행도</span>
-                  <div className="flex items-baseline gap-1 font-mono">
-                    <strong className="text-pink-300 font-black text-sm sm:text-base">
-                      {current.toLocaleString()}
-                    </strong>
-                    <span className="text-slate-500 font-bold">/</span>
-                    <span className="text-slate-300 font-bold text-xs">
-                      {target.toLocaleString()}
+              {/* 중앙-우측: 스팀 스타일 슬림 진척도 바 & 수치 */}
+              <div className="flex items-center gap-3 sm:gap-4 flex-shrink-0 justify-between sm:justify-end border-t sm:border-t-0 border-white/5 pt-2 sm:pt-0">
+                {/* 인라인 진척도 수치 & 슬림 바 */}
+                <div className="flex flex-col gap-1 w-32 sm:w-40 lg:w-48">
+                  <div className="flex justify-between items-center text-[10.5px] font-mono">
+                    <span className="text-slate-400 font-bold">진행도</span>
+                    <span className="font-bold">
+                      <strong className="text-pink-300">{current.toLocaleString()}</strong>
+                      <span className="text-slate-500"> / </span>
+                      <span className="text-slate-300">{target.toLocaleString()}</span>
                     </span>
+                  </div>
+                  {/* 슬림 게이지 바 */}
+                  <div className="w-full h-1.5 bg-black/90 rounded-full overflow-hidden border border-white/10 relative">
+                    <div
+                      className={`h-full rounded-full transition-all duration-500 ${
+                        isCompleted
+                          ? 'bg-gradient-to-r from-emerald-500 to-teal-400 shadow-[0_0_8px_rgba(16,185,129,0.8)]'
+                          : 'bg-gradient-to-r from-pink-500 via-purple-500 to-amber-400'
+                      }`}
+                      style={{ width: `${Math.min(100, percentage)}%` }}
+                    />
                   </div>
                 </div>
 
-                {/* 굵고 선명한 진척도 바 */}
-                <div className="w-full h-3 bg-black/90 rounded-full overflow-hidden border border-white/15 relative p-0.5 shadow-inner">
-                  <div
-                    className={`h-full rounded-full transition-all duration-500 ${
-                      isCompleted
-                        ? 'bg-gradient-to-r from-emerald-500 to-teal-400 shadow-[0_0_12px_rgba(16,185,129,0.9)]'
-                        : 'bg-gradient-to-r from-pink-500 via-purple-500 to-amber-400 shadow-[0_0_10px_rgba(236,72,153,0.7)]'
-                    }`}
-                    style={{ width: `${Math.min(100, percentage)}%` }}
-                  />
-                </div>
-              </div>
-
-              {/* 🌟 우측 끝: 가시성 최고 퍼센테이지(%) 및 보상 버튼 */}
-              <div className="flex items-center justify-between md:justify-end gap-3 flex-shrink-0 border-t md:border-t-0 border-white/10 pt-2.5 md:pt-0">
-                {/* 큼직한 퍼센트 배지 */}
-                <div
-                  className={`px-4 py-2 rounded-2xl font-mono text-base sm:text-lg font-black tracking-tight border shadow-md flex items-center justify-center min-w-[95px] sm:min-w-[105px] ${
+                {/* 스팀 스타일 퍼센트 뱃지 */}
+                <span
+                  className={`px-2.5 py-1 rounded-xl font-mono text-xs sm:text-sm font-black border flex items-center justify-center min-w-[55px] sm:min-w-[62px] ${
                     isCompleted
-                      ? 'bg-emerald-500/20 text-emerald-300 border-emerald-400/70 shadow-emerald-950/60'
-                      : 'bg-void-950 text-amber-300 border-amber-500/40'
+                      ? 'bg-emerald-500/20 text-emerald-300 border-emerald-400/50'
+                      : 'bg-black/50 text-amber-300 border-white/10'
                   }`}
                 >
                   {isCompleted ? '100%' : `${percentage}%`}
-                </div>
+                </span>
 
-                {/* 보상 버튼 / 완료 뱃지 */}
+                {/* 보상 수령 버튼 / 완료 뱃지 */}
                 {isCompleted ? (
                   isClaimed ? (
-                    <div className="px-4 py-2.5 rounded-xl bg-void-950 text-emerald-400 font-mono font-bold text-xs border border-emerald-500/30 flex items-center gap-1.5 shadow-inner">
-                      <CheckCircle2 size={15} />
-                      <span>수령 완료</span>
+                    <div className="px-3 py-1.5 rounded-xl bg-void-950 text-emerald-400 font-mono font-bold text-xs border border-emerald-500/30 flex items-center gap-1">
+                      <CheckCircle2 size={13} />
+                      <span className="hidden sm:inline">완료</span>
                     </div>
                   ) : (
                     <button
                       onClick={() => onClaimReward(ach.id, ach.rewardCoins)}
-                      className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 hover:from-amber-400 hover:to-purple-500 text-white font-mono font-black text-xs shadow-lg shadow-rose-950/60 flex items-center gap-1.5 hover:scale-105 transition-all cursor-pointer border border-white/40 animate-bounce"
+                      className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 hover:from-amber-400 hover:to-rose-400 text-white font-mono font-black text-xs shadow-md shadow-rose-950/60 flex items-center gap-1 hover:scale-105 transition-all cursor-pointer border border-white/30 animate-pulse"
                     >
-                      <Gift size={15} className="text-yellow-200" />
-                      <span>보상 받기</span>
+                      <Gift size={13} className="text-yellow-200" />
+                      <span>수령</span>
                     </button>
                   )
                 ) : (
-                  <div className="px-4 py-2.5 rounded-xl bg-black/50 text-slate-500 font-mono font-bold text-xs border border-white/5 flex items-center gap-1.5">
-                    <Lock size={13} />
-                    <span>진행 중</span>
+                  <div className="px-2.5 py-1.5 rounded-xl bg-black/40 text-slate-500 font-mono font-bold text-[11px] border border-white/5 flex items-center gap-1">
+                    <Lock size={11} />
                   </div>
                 )}
               </div>
