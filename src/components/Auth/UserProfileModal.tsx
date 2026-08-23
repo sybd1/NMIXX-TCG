@@ -6,13 +6,12 @@ import { sound } from '../../services/soundService';
 import { X, LogOut, CheckCircle2, Cloud, Sparkles } from 'lucide-react';
 
 const NMIXX_PROFILE_MEMBERS = [
-  { id: 'LILY', name: '릴리', symbol: '🌸' },
-  { id: 'HAEWON', name: '해원', symbol: '🌊' },
-  { id: 'SULLYOON', name: '설윤', symbol: '🦌' },
-  { id: 'BAE', name: '배이', symbol: '🐥' },
-  { id: 'JIWOO', name: '지우', symbol: '🐶' },
-  { id: 'KYUJIN', name: '규진', symbol: '🐱' },
-  { id: 'PARK', name: '박진영', symbol: '👑' },
+  { id: 'LILY', name: '릴리', symbol: '🌸', color: 'from-sky-400 to-blue-600' },
+  { id: 'HAEWON', name: '해원', symbol: '🌊', color: 'from-purple-400 to-indigo-600' },
+  { id: 'SULLYOON', name: '설윤', symbol: '🦌', color: 'from-pink-400 to-rose-600' },
+  { id: 'BAE', name: '배이', symbol: '🐥', color: 'from-amber-400 to-yellow-600' },
+  { id: 'JIWOO', name: '지우', symbol: '🐶', color: 'from-rose-400 to-red-600' },
+  { id: 'KYUJIN', name: '규진', symbol: '🐱', color: 'from-emerald-400 to-green-600' },
 ];
 
 interface UserProfileModalProps {
@@ -35,6 +34,8 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
   const [isSaved, setIsSaved] = useState(false);
 
   if (!isOpen) return null;
+
+  const currentFav = NMIXX_PROFILE_MEMBERS.find(m => m.id === selectedMember) || NMIXX_PROFILE_MEMBERS[2];
 
   const handleSave = async () => {
     sound.playClick();
@@ -74,25 +75,21 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
 
         {/* 상단 프로필 헤더 */}
         <div className="flex items-center gap-4 border-b border-white/10 pb-4">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-pink-500 via-purple-600 to-amber-400 p-[2px] shadow-xl flex-shrink-0">
-            <div className="w-full h-full bg-void-950 rounded-[14px] flex items-center justify-center font-serif font-black text-2xl text-pink-300">
-              {displayName.charAt(0).toUpperCase()}
+          <div className={`w-16 h-16 rounded-2xl bg-gradient-to-tr ${currentFav.color} p-[2px] shadow-xl flex-shrink-0`}>
+            <div className="w-full h-full bg-void-950 rounded-[14px] flex items-center justify-center text-3xl">
+              {currentFav.symbol}
             </div>
           </div>
 
           <div className="flex flex-col gap-1 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="font-serif font-black text-xl text-white">
-                {user.displayName}
+                {displayName}
               </h3>
-              <span className={`text-[10px] font-mono font-black px-2 py-0.5 rounded-lg border ${
-                user.provider === 'google'
-                  ? 'bg-blue-950/80 text-blue-300 border-blue-500/40'
-                  : user.provider === 'kakao'
-                  ? 'bg-yellow-950/80 text-yellow-300 border-yellow-500/40'
-                  : 'bg-void-800 text-slate-400 border-white/10'
-              }`}>
-                {user.provider === 'google' ? 'GOOGLE' : user.provider === 'kakao' ? 'KAKAO' : 'GUEST'}
+              {/* 구글/카카오 대신 선택한 최애 멤버 뱃지 노출 */}
+              <span className="text-[11px] font-mono font-black px-2.5 py-0.5 rounded-lg border bg-pink-950/80 text-pink-300 border-pink-500/40 shadow-sm flex items-center gap-1">
+                <span>{currentFav.symbol}</span>
+                <span>{currentFav.name}</span>
               </span>
             </div>
 

@@ -3,6 +3,15 @@ import { Volume2, VolumeX, Gift, User } from 'lucide-react';
 import { NavTab } from '../../types/game';
 import { UserAccount } from '../../types/auth';
 
+const MEMBER_BADGES: Record<string, { symbol: string; name: string; bg: string }> = {
+  LILY: { symbol: '🌸', name: '릴리', bg: 'bg-sky-950/80 text-sky-300 border-sky-500/40' },
+  HAEWON: { symbol: '🌊', name: '해원', bg: 'bg-purple-950/80 text-purple-300 border-purple-500/40' },
+  SULLYOON: { symbol: '🦌', name: '설윤', bg: 'bg-pink-950/80 text-pink-300 border-pink-500/40' },
+  BAE: { symbol: '🐥', name: '배이', bg: 'bg-amber-950/80 text-amber-300 border-amber-500/40' },
+  JIWOO: { symbol: '🐶', name: '지우', bg: 'bg-rose-950/80 text-rose-300 border-rose-500/40' },
+  KYUJIN: { symbol: '🐱', name: '규진', bg: 'bg-emerald-950/80 text-emerald-300 border-emerald-500/40' },
+};
+
 interface HeaderProps {
   coins: number;
   soundMuted: boolean;
@@ -83,27 +92,27 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="flex items-center gap-2 sm:gap-2.5 relative">
         {/* 👤 소셜 로그인 / 유저 프로필 뱃지 */}
         {user ? (
-          <button
-            onClick={onOpenProfile}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-void-900 border border-purple-500/40 hover:border-pink-400 text-xs font-mono transition-all hover:scale-105 cursor-pointer shadow-md"
-            title="프로필 및 클라우드 연동 관리"
-          >
-            <div className="w-5 h-5 rounded-lg bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-[10px] font-black text-white">
-              {user.displayName.charAt(0).toUpperCase()}
-            </div>
-            <span className="font-bold text-white max-w-[80px] sm:max-w-[100px] truncate text-[11px]">
-              {user.displayName}
-            </span>
-            <span className={`text-[8.5px] font-mono font-black px-1.5 py-0.2 rounded hidden sm:inline ${
-              user.provider === 'google'
-                ? 'bg-blue-950 text-blue-300 border border-blue-500/30'
-                : user.provider === 'kakao'
-                ? 'bg-yellow-950 text-yellow-300 border border-yellow-500/30'
-                : 'bg-void-800 text-slate-400'
-            }`}>
-              {user.provider.toUpperCase()}
-            </span>
-          </button>
+          (() => {
+            const fav = MEMBER_BADGES[user.avatarMemberId || 'SULLYOON'] || MEMBER_BADGES.SULLYOON;
+            return (
+              <button
+                onClick={onOpenProfile}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-void-900 border border-purple-500/40 hover:border-pink-400 text-xs font-mono transition-all hover:scale-105 cursor-pointer shadow-md"
+                title="프로필 및 클라우드 연동 관리"
+              >
+                <div className="w-5 h-5 rounded-lg bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-xs">
+                  {fav.symbol}
+                </div>
+                <span className="font-bold text-white max-w-[80px] sm:max-w-[100px] truncate text-[11px]">
+                  {user.displayName}
+                </span>
+                <span className={`text-[9px] font-mono font-black px-1.5 py-0.2 rounded border hidden sm:inline-flex items-center gap-0.5 ${fav.bg}`}>
+                  <span>{fav.symbol}</span>
+                  <span>{fav.name}</span>
+                </span>
+              </button>
+            );
+          })()
         ) : (
           <button
             onClick={onOpenAuth}
