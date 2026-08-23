@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { UserAccount } from '../../types/auth';
 import { AuthService } from '../../services/authService';
 import { sound } from '../../services/soundService';
-import { X, LogOut, CheckCircle2, Cloud, Sparkles } from 'lucide-react';
+import { X, LogOut, CheckCircle2, Cloud, Sparkles, AlertCircle } from 'lucide-react';
 
 const NMIXX_PROFILE_MEMBERS = [
   { id: 'LILY', name: '릴리', symbol: '🌸', color: 'from-sky-400 to-blue-600' },
@@ -32,6 +32,8 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
   const [displayName, setDisplayName] = useState(user.displayName);
   const [selectedMember, setSelectedMember] = useState(user.avatarMemberId || 'SULLYOON');
   const [isSaved, setIsSaved] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -39,14 +41,27 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
 
   const handleSave = async () => {
     sound.playClick();
-    const updated = await AuthService.updateProfile({
-      displayName: displayName.trim() || user.displayName,
+    setErrorMessage(null);
+
+    const trimmedName = displayName.trim();
+    if (!trimmedName || trimmedName.length < 2) {
+      setErrorMessage('닉네임은 최소 2글자 이상 입력해 주세요.');
+      return;
+    }
+
+    setIsSaving(true);
+    const result = await AuthService.updateProfile({
+      displayName: trimmedName,
       avatarMemberId: selectedMember,
     });
-    if (updated) {
-      onUpdateUser(updated);
+    setIsSaving(false);
+
+    if (result.success && result.user) {
+      onUpdateUser(result.user);
       setIsSaved(true);
       setTimeout(() => setIsSaved(false), 2000);
+    } else {
+      setErrorMessage(result.message || '닉네임 변경에 실패했습니다.');
     }
   };
 
@@ -84,7 +99,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           <div className="flex flex-col gap-1 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="font-serif font-black text-xl text-white select-text">
-                {displayName}
+                {user.displayName}
               </h3>
               {/* 구글/카카오 대신 선택한 최애 멤버 뱃지 노출 */}
               <span className="text-[11px] font-mono font-black px-2.5 py-0.5 rounded-lg border bg-pink-950/80 text-pink-300 border-pink-500/40 shadow-sm flex items-center gap-1">
@@ -99,26 +114,37 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
 
             <div className="flex items-center gap-1.5 text-[10.5px] font-mono text-emerald-400 font-bold mt-0.5">
               <Cloud size={13} />
-              <span>클라우드 세이브 활성화됨 (암호화 동기화)</span>
+              <span>클라우드 세이브 활성화됨 (암호화 실시간 백업)</span>
             </div>
           </div>
         </div>
 
+        {/* 에러 메시지 배너 */}
+        {errorMessage && (
+          <div className="p-3 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-sans flex items-center gap-2">
+            <AlertCircle size={14} className="flex-shrink-0 text-rose-400" />
+            <span>{errorMessage}</span>
+          </div>
+        )}
+
         {/* 닉네임 수정 */}
         <div className="flex flex-col gap-1.5">
           <label className="text-xs font-mono font-bold text-slate-300">
-            닉네임 변경
+            닉네임 변경 (중복 불가)
           </label>
           <input
             type="text"
             value={displayName}
-            onChange={(e) => setDisplayName(e.target.value)}
+            onChange={(e) => {
+              setDisplayName(e.target.value);
+              setErrorMessage(null);
+            }}
             maxLength={12}
-            className="w-full px-4 py-2 rounded-xl bg-black/60 border border-purple-500/30 text-white font-serif text-sm focus:outline-none focus:border-pink-400 transition-all select-text"
+            className="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-purple-500/30 text-white font-serif text-sm focus:outline-none focus:border-pink-400 transition-all select-text"
           />
         </div>
 
-        {/* 최애 대표 멤버 아바타 선택 (6인 완벽한 대칭 균형 중앙 배치) */}
+        {/* 최애 대표 멤버 아바타 선택 */}
         <div className="flex flex-col gap-2">
           <label className="text-xs font-mono font-bold text-slate-300 flex items-center justify-between">
             <span>대표 엔믹스 최애 멤버 설정</span>
@@ -158,11 +184,12 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           </button>
 
           <button
+            disabled={isSaving}
             onClick={handleSave}
-            className="px-6 py-2 rounded-xl bg-gradient-to-r from-pink-600 via-purple-600 to-amber-500 hover:from-pink-500 hover:to-amber-400 text-white font-mono font-black text-xs shadow-lg shadow-pink-950/60 transition-all hover:scale-105 cursor-pointer flex items-center gap-1.5 border border-white/30"
+            className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 via-purple-600 to-amber-500 hover:from-pink-500 hover:to-amber-400 text-white font-mono font-black text-xs shadow-lg shadow-pink-950/60 transition-all hover:scale-105 cursor-pointer flex items-center gap-1.5 border border-white/30 disabled:opacity-50"
           >
             {isSaved ? <CheckCircle2 size={15} className="text-emerald-300" /> : <Sparkles size={15} />}
-            <span>{isSaved ? '저장 완료!' : '프로필 저장하기'}</span>
+            <span>{isSaving ? '중복 검사 중...' : isSaved ? '저장 완료!' : '프로필 저장하기'}</span>
           </button>
         </div>
       </motion.div>

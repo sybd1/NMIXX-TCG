@@ -130,7 +130,10 @@ export class MultiplayerService {
       hasXR: boolean;
     }
   ): Promise<void> {
-    if (!isFirebaseConfigured || !db || !user.id) return;
+    // 🛡️ 게스트는 랭킹에 등록되지 않으며, 소셜 계정 연동 유저만 랭킹 등록
+    if (!isFirebaseConfigured || !db || !user?.id || user.id === 'guest' || !user.isCloudSynced) {
+      return;
+    }
 
     try {
       const entryRef = doc(db, 'nmixx_tcg_leaderboard', user.id);

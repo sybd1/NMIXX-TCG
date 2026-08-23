@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { LeaderboardEntry } from '../../types/multiplayer';
 import { MultiplayerService } from '../../services/multiplayerService';
-import { Trophy, Crown, X, Sparkles, User } from 'lucide-react';
+import { Trophy, X, Sparkles, User } from 'lucide-react';
 
 interface LeaderboardModalProps {
   isOpen: boolean;
@@ -17,22 +17,20 @@ export const LeaderboardModal: React.FC<LeaderboardModalProps> = ({
 }) => {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'ALL' | 'XR_HALL'>('ALL');
 
   useEffect(() => {
     if (isOpen) {
       setIsLoading(true);
       MultiplayerService.fetchLeaderboard(50).then((list) => {
-        setEntries(list);
+        // 게스트 제외, 실제 연동 계정만 랭킹 표출
+        const validList = list.filter((e) => e.uid && e.uid !== 'guest');
+        setEntries(validList);
         setIsLoading(false);
       });
     }
   }, [isOpen]);
 
   if (!isOpen) return null;
-
-  const xrHallEntries = entries.filter((e) => e.hasXR);
-  const displayList = activeTab === 'ALL' ? entries : xrHallEntries;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-xl select-text">
@@ -57,53 +55,28 @@ export const LeaderboardModal: React.FC<LeaderboardModalProps> = ({
               <Trophy size={20} className="text-black fill-black" />
             </span>
             <h2 className="font-serif text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-200 to-amber-300">
-              글로벌 수집가 랭킹 & 명예의 전당
+              글로벌 수집가 랭킹 (Top 50)
             </h2>
           </div>
           <p className="text-xs text-slate-400 font-sans">
-            전 세계 엔써(NSWER)들의 실시간 카드 도감 수집률 순위입니다.
+            소셜 계정 연동을 완료한 엔써(NSWER)들의 실시간 카드 도감 수집률 순위입니다.
           </p>
         </div>
 
-        {/* 탭 네비게이션 */}
-        <div className="flex items-center justify-center gap-2 p-1 bg-void-950 rounded-2xl border border-white/10">
-          <button
-            onClick={() => setActiveTab('ALL')}
-            className={`flex-1 py-2 px-4 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
-              activeTab === 'ALL'
-                ? 'bg-gradient-to-r from-amber-500 to-pink-500 text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            🏆 종합 도감 수집 랭킹 (Top 50)
-          </button>
-          <button
-            onClick={() => setActiveTab('XR_HALL')}
-            className={`flex-1 py-2 px-4 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
-              activeTab === 'XR_HALL'
-                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Crown size={14} className="text-yellow-300" />
-            <span>[XR] 초월자 명예의 전당</span>
-          </button>
-        </div>
-
         {/* 랭킹 목록 */}
-        <div className="flex-1 overflow-y-auto pr-1 flex flex-col gap-2 min-h-[300px]">
+        <div className="flex-1 overflow-y-auto pr-1 flex flex-col gap-2 min-h-[320px]">
           {isLoading ? (
             <div className="flex flex-col items-center justify-center h-48 gap-3 text-slate-400 font-mono text-xs">
               <div className="w-8 h-8 rounded-full border-2 border-amber-400 border-t-transparent animate-spin" />
               <span>실시간 랭킹 데이터 집계 중...</span>
             </div>
-          ) : displayList.length === 0 ? (
+          ) : entries.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-48 text-center text-slate-500 font-mono text-xs gap-2">
               <Sparkles size={24} className="text-amber-500/50" />
-              <span>아직 등록된 랭커가 없습니다. 최초의 주인공이 되어보세요!</span>
+              <span>아직 등록된 랭커가 없습니다. 소셜 로그인 후 최초의 주인공이 되어보세요!</span>
             </div>
           ) : (
-            displayList.map((entry, idx) => {
+            entries.map((entry, idx) => {
               const rank = entry.rank || idx + 1;
               const isCurrentUser = currentUserId && entry.uid === currentUserId;
 
@@ -149,7 +122,7 @@ export const LeaderboardModal: React.FC<LeaderboardModalProps> = ({
                       )}
                     </div>
 
-                    {/* 닉네임 & XR 보유 뱃지 */}
+                    {/* 닉네임 */}
                     <div className="flex flex-col min-w-0">
                       <div className="flex items-center gap-1.5 truncate">
                         <span className="font-bold text-xs sm:text-sm text-slate-100 truncate">
@@ -158,11 +131,6 @@ export const LeaderboardModal: React.FC<LeaderboardModalProps> = ({
                         {isCurrentUser && (
                           <span className="px-1.5 py-0.2 rounded bg-pink-500/30 border border-pink-400 text-pink-300 text-[10px] font-mono font-bold">
                             나
-                          </span>
-                        )}
-                        {entry.hasXR && (
-                          <span className="px-1.5 py-0.2 rounded bg-gradient-to-r from-amber-400 to-pink-500 text-black text-[9px] font-mono font-black shadow-sm">
-                            👑 XR 초월자
                           </span>
                         )}
                       </div>

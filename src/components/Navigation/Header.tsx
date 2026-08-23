@@ -1,5 +1,5 @@
 import React from 'react';
-import { Volume2, VolumeX, Gift, User, Trophy, ArrowLeftRight, Mail } from 'lucide-react';
+import { Volume2, VolumeX, Gift, User, Trophy, Mail } from 'lucide-react';
 import { NavTab } from '../../types/game';
 import { UserAccount } from '../../types/auth';
 
@@ -25,7 +25,7 @@ interface HeaderProps {
   onOpenAuth?: () => void;
   onOpenProfile?: () => void;
   onOpenLeaderboard: () => void;
-  onOpenMarket: () => void;
+  onOpenMarket?: () => void;
   onOpenMailbox: () => void;
   unreadMailCount?: number;
 }
@@ -41,7 +41,6 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenAuth,
   onOpenProfile,
   onOpenLeaderboard,
-  onOpenMarket,
   onOpenMailbox,
   unreadMailCount = 0,
 }) => {
@@ -114,6 +113,7 @@ export const Header: React.FC<HeaderProps> = ({
               <Trophy size={13} className="text-amber-400" />
               <span>랭킹</span>
             </button>
+            {/* 🔄 [교환소 시스템 보류 - 추후 재활성화 가능]
             <button
               onClick={onOpenMarket}
               className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-void-900 hover:bg-void-800 text-cyan-300 border border-cyan-500/30 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer shadow-md"
@@ -122,6 +122,7 @@ export const Header: React.FC<HeaderProps> = ({
               <ArrowLeftRight size={13} className="text-cyan-400" />
               <span>교환소</span>
             </button>
+            */}
             <button
               onClick={onOpenMailbox}
               className="relative flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-void-900 hover:bg-void-800 text-pink-300 border border-pink-500/30 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer shadow-md"
@@ -210,7 +211,7 @@ export const Header: React.FC<HeaderProps> = ({
           <span>랭킹</span>
         </button>
 
-        {/* 🔄 모바일 교환소 버튼 */}
+        {/* 🔄 [모바일 교환소 보류 - 추후 재활성화 가능]
         <button
           onClick={onOpenMarket}
           className="flex-1 py-1 px-2 rounded-xl bg-void-900/90 border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
@@ -218,6 +219,7 @@ export const Header: React.FC<HeaderProps> = ({
           <ArrowLeftRight size={12} className="text-cyan-400" />
           <span>교환소</span>
         </button>
+        */}
 
         {/* 📬 모바일 우편함 버튼 */}
         <button

@@ -301,6 +301,11 @@ export function useGameState() {
     setState(freshState);
   }, []);
 
+  const logoutAndResetState = useCallback(() => {
+    const freshState = StorageService.clearState();
+    setState(freshState);
+  }, []);
+
   return {
     state,
     canAffordCoins,
@@ -319,6 +324,7 @@ export function useGameState() {
     addCoins,
     toggleSound,
     resetGame,
+    logoutAndResetState,
     dismissFirstVisit,
   };
 }

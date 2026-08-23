@@ -40,6 +40,7 @@ export const App: React.FC = () => {
     applyTradeResult,
     toggleSound,
     resetGame,
+    logoutAndResetState,
     dismissFirstVisit,
     addCoins,
   } = useGameState();
@@ -274,7 +275,10 @@ export const App: React.FC = () => {
           isOpen={isProfileModalOpen}
           onClose={() => setIsProfileModalOpen(false)}
           onUpdateUser={(updated) => setUser(updated)}
-          onLogout={() => setUser(null)}
+          onLogout={() => {
+            setUser(null);
+            logoutAndResetState();
+          }}
         />
       )}
 
