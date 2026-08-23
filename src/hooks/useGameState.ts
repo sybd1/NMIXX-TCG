@@ -2,17 +2,63 @@ import { useState, useEffect, useCallback } from 'react';
 import { GameState, PackHistoryItem } from '../types/game';
 import { Card, RevealedCard } from '../types/card';
 import { StorageService } from '../services/storageService';
+import { CloudSyncService } from '../services/cloudSyncService';
+import { AuthService } from '../services/authService';
 import { GAME_CONFIG } from '../config/gameConfig';
 import { sound } from '../services/soundService';
 
 export function useGameState() {
   const [state, setState] = useState<GameState>(() => StorageService.loadState());
 
-  // 상태가 바뀔 때마다 localStorage에 자동 영속화
+  // 1. 상태가 바뀔 때마다 localStorage 및 클라우드(Firestore)에 자동 동기화
   useEffect(() => {
     StorageService.saveState(state);
     sound.setMuted(state.soundMuted);
+
+    const currentUser = AuthService.getCurrentUser();
+    if (currentUser?.isCloudSynced) {
+      CloudSyncService.saveUserGameData(currentUser, {
+        collection: state.collection,
+        coins: state.coins,
+        dust: state.dust,
+        pityCounter: state.pityCount,
+        totalPacksOpened: state.openedPacksTotal,
+        unlockedAchievements: state.claimedAchievements,
+      });
+    }
   }, [state]);
+
+  // 2. 로그인 시 클라우드 데이터 자동 복원 및 병합
+  useEffect(() => {
+    const unsubscribe = AuthService.subscribeAuthState(async (user) => {
+      if (user?.isCloudSynced && user.id) {
+        const cloudData = await CloudSyncService.loadUserGameData(user.id);
+        if (cloudData) {
+          setState(prev => {
+            // 로컬과 클라우드 컬렉션 스마트 병합 (더 큰 수량 우선)
+            const mergedCollection: Record<string, number> = { ...prev.collection };
+            Object.entries(cloudData.collection || {}).forEach(([cardId, count]) => {
+              const isXR = cardId === 'card_xr_transcendent_park_741';
+              const maxCount = Math.max(mergedCollection[cardId] || 0, count);
+              mergedCollection[cardId] = isXR ? Math.min(1, maxCount) : maxCount;
+            });
+
+            return {
+              ...prev,
+              collection: mergedCollection,
+              coins: Math.max(prev.coins, cloudData.coins ?? prev.coins),
+              dust: Math.max(prev.dust, cloudData.dust ?? prev.dust),
+              pityCount: cloudData.pityCounter ?? prev.pityCount,
+              openedPacksTotal: Math.max(prev.openedPacksTotal, cloudData.totalPacksOpened ?? prev.openedPacksTotal),
+              claimedAchievements: Array.from(new Set([...(prev.claimedAchievements || []), ...(cloudData.unlockedAchievements || [])])),
+            };
+          });
+        }
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const toggleSound = useCallback(() => {
     setState(prev => {

@@ -8,9 +8,20 @@ export interface PatchNote {
 
 export const PATCH_NOTES: PatchNote[] = [
   {
+    version: 'v1.5.6',
+    date: '2026.08.24',
+    isLatest: true,
+    title: 'Google OAuth 2.0 & Kakao SDK 공식 소셜 로그인 및 Cloud Firestore 동기화 탑재',
+    changes: [
+      'Firebase Authentication 기반 공식 Google Sign-In (OAuth 2.0) 팝업 로그인 연동',
+      'Kakao JavaScript SDK 기반 공식 카카오 계정 로그인 연동',
+      'Cloud Firestore 기반 기기 간(PC ↔ 모바일) 카드 컬렉션, 코인, 천장 게이지 실시간 자동 백업 및 동기화 지원',
+      '소셜 키 미설정 환경에서도 로컬 암호화 세션으로 100% 안전하게 동작하는 듀얼 폴백 아키텍처 구현',
+    ],
+  },
+  {
     version: 'v1.5.5',
     date: '2026.08.23',
-    isLatest: true,
     title: '카드팩 개봉 진행 중 ESC 조기 이탈 방지 잠금 적용',
     changes: [
       '카드팩 찢기, 카드 딜링, 고등급 쇼케이스 진행 중에는 ESC 키를 통한 메인화면 조기 이탈 원천 차단',

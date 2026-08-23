@@ -20,47 +20,60 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState<'google' | 'kakao' | null>(null);
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   if (!isOpen) return null;
 
   const handleGoogleLogin = async () => {
-    setIsLoading(true);
-    setSelectedProvider('google');
-    sound.playClick();
-    
-    // 사실적인 소셜 인증 딜레이 시뮬레이션
-    setTimeout(async () => {
+    try {
+      setIsLoading(true);
+      setErrorMessage(null);
+      setSelectedProvider('google');
+      sound.playClick();
+
       const user = await AuthService.loginWithGoogle(nicknameInput.trim() || undefined);
-      setIsLoading(false);
       sound.playLegendaryReveal();
       onLoginSuccess(user);
       onClose();
-    }, 600);
+    } catch (err: any) {
+      console.warn('Google login error:', err);
+      setErrorMessage(err.message || 'Google 로그인 처리 중 문제가 발생했습니다.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKakaoLogin = async () => {
-    setIsLoading(true);
-    setSelectedProvider('kakao');
-    sound.playClick();
+    try {
+      setIsLoading(true);
+      setErrorMessage(null);
+      setSelectedProvider('kakao');
+      sound.playClick();
 
-    setTimeout(async () => {
       const user = await AuthService.loginWithKakao(nicknameInput.trim() || undefined);
-      setIsLoading(false);
       sound.playLegendaryReveal();
       onLoginSuccess(user);
       onClose();
-    }, 600);
+    } catch (err: any) {
+      console.warn('Kakao login error:', err);
+      setErrorMessage(err.message || '카카오 로그인 처리 중 문제가 발생했습니다.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleGuestLogin = async () => {
-    setIsLoading(true);
-    sound.playClick();
-    setTimeout(async () => {
+    try {
+      setIsLoading(true);
+      setErrorMessage(null);
+      sound.playClick();
       const user = await AuthService.loginAsGuest();
-      setIsLoading(false);
       sound.playClick();
       onLoginSuccess(user);
       onClose();
-    }, 300);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -109,6 +122,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             className="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-purple-500/30 text-white font-serif text-sm focus:outline-none focus:border-pink-400 focus:ring-1 focus:ring-pink-400 transition-all placeholder:text-slate-600"
           />
         </div>
+
+        {errorMessage && (
+          <div className="p-3 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-sans">
+            ⚠️ {errorMessage}
+          </div>
+        )}
 
         {/* 소셜 로그인 버튼 리스트 */}
         <div className="flex flex-col gap-3">

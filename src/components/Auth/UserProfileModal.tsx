@@ -50,9 +50,9 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
     }
   };
 
-  const handleLogoutClick = () => {
+  const handleLogoutClick = async () => {
     sound.playClick();
-    AuthService.logout();
+    await AuthService.logout();
     onLogout();
     onClose();
   };
