@@ -225,21 +225,44 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
       ctx.lineWidth = 4;
       ctx.strokeRect(4, topCrimpHeight, width - 8, height - topCrimpHeight - bottomCrimpHeight);
 
-      // 5. Minimal, Ultra-Clean Branding (Cleanly below the top crimped seal)
-      const headerY = topCrimpHeight + 52;
+      // 5. Minimal, Ultra-Clean Branding (Pack-Themed & Large Crisp Typography)
+      const headerY = topCrimpHeight + 64;
 
-      ctx.font = '900 38px monospace';
-      ctx.fillStyle = '#fde047';
+      const packThemeMap: Record<string, { codeColor: string; brandColor: string }> = {
+        'NX-01': {
+          codeColor: '#fde047', // Bold Electric Gold
+          brandColor: '#38bdf8', // Neon Sky Cyan
+        },
+        'NX-02': {
+          codeColor: '#fbbf24', // Warm Amber Gold
+          brandColor: '#fb7185', // Rose Coral
+        },
+        'NX-03': {
+          codeColor: '#67e8f9', // Ice Aqua
+          brandColor: '#ffffff', // Crisp Silver White
+        },
+        'NX-04': {
+          codeColor: '#f43f5e', // Hot Cyber Magenta
+          brandColor: '#c084fc', // Electric Violet
+        },
+      };
+
+      const theme = packThemeMap[pack.code] || packThemeMap['NX-01'];
+
+      // Left: Pack Code [NX 01]
+      ctx.font = '900 54px monospace';
+      ctx.fillStyle = theme.codeColor;
       ctx.textAlign = 'left';
-      ctx.shadowColor = 'rgba(0,0,0,0.95)';
-      ctx.shadowBlur = 12;
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.98)';
+      ctx.shadowBlur = 18;
       ctx.fillText(`[${pack.code}]`, 55, headerY);
 
-      ctx.font = '900 30px sans-serif';
-      ctx.fillStyle = '#f8fafc';
+      // Right: Brand Text NMIXX TCG
+      ctx.font = '900 44px sans-serif';
+      ctx.fillStyle = theme.brandColor;
       ctx.textAlign = 'right';
-      ctx.shadowColor = 'rgba(0,0,0,0.95)';
-      ctx.shadowBlur = 12;
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.98)';
+      ctx.shadowBlur = 18;
       ctx.fillText('NMIXX TCG', width - 55, headerY);
 
       // 6. Minimal Copyright on bottom crimp
