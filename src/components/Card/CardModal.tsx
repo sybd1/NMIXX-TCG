@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '../../types/card';
 import { CardVisual } from './CardVisual';
 import { RARITY_CONFIGS, FINISH_CONFIGS, RARITY_TO_FINISH } from '../../config/gameConfig';
 import { sound } from '../../services/soundService';
-import { X, Sparkles, Layers, Shield, Sparkle, Volume2, Coins } from 'lucide-react';
+import { X, Sparkles, Layers, Shield, Sparkle, Volume2 } from 'lucide-react';
 
 interface CardModalProps {
   card: Card | null;
@@ -12,12 +12,6 @@ interface CardModalProps {
   isOpen: boolean;
   onClose: () => void;
   onAddCoins?: (amount: number) => void;
-}
-
-interface EasterEggParticle {
-  id: number;
-  x: number;
-  y: number;
 }
 
 export const CardModal: React.FC<CardModalProps> = ({
@@ -31,9 +25,7 @@ export const CardModal: React.FC<CardModalProps> = ({
   const isOwned = count > 0;
   const isJypCard = card ? (card.member === 'PARK' || card.rarity === 'XR' || card.name.includes('박진영')) : false;
 
-  const [particles, setParticles] = useState<EasterEggParticle[]>([]);
-  const [jypEasterEggCount, setJypEasterEggCount] = useState<number>(0);
-  const [lastEasterEggTime, setLastEasterEggTime] = useState<number>(0);
+  const lastEasterEggRef = useRef<number>(0);
 
   useEffect(() => {
     if (isOpen && card && isOwned && isHighTier) {
@@ -41,34 +33,17 @@ export const CardModal: React.FC<CardModalProps> = ({
     }
   }, [isOpen, card, isOwned, isHighTier]);
 
-  const handleJypClick = (e: React.MouseEvent) => {
+  // 비밀 시크릿 이스터에그: 유저가 눈치채지 못하게 조용히 골드 지급
+  const handleCardClick = () => {
     if (!isJypCard) return;
 
     const now = Date.now();
-    if (now - lastEasterEggTime < 200) return; // 200ms 쿨다운
-    setLastEasterEggTime(now);
-
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const newP: EasterEggParticle = {
-      id: Date.now() + Math.random(),
-      x: isNaN(x) ? rect.width / 2 : x,
-      y: isNaN(y) ? rect.height / 2 : y,
-    };
-
-    setParticles(prev => [...prev.slice(-10), newP]);
-    setJypEasterEggCount(prev => prev + 1);
+    if (now - lastEasterEggRef.current < 250) return; // 250ms 쿨다운
+    lastEasterEggRef.current = now;
 
     if (onAddCoins) {
       onAddCoins(50);
     }
-    sound.playClick();
-
-    setTimeout(() => {
-      setParticles(prev => prev.filter(p => p.id !== newP.id));
-    }, 900);
   };
 
   if (!card) return null;
@@ -107,14 +82,11 @@ export const CardModal: React.FC<CardModalProps> = ({
               <X size={22} />
             </button>
 
-            {/* Left: Card Visual (1.3배 이상 대형 고화질 3D 카드 + JYP 이스터에그 클릭 영역) */}
-            <div className="flex-shrink-0 flex flex-col items-center py-2 relative">
+            {/* Left: Card Visual (1.3배 이상 대형 고화질 3D 카드) */}
+            <div className="flex-shrink-0 flex justify-center py-2">
               <div
-                onClick={handleJypClick}
-                className={`transform hover:scale-105 transition-transform duration-300 relative ${
-                  isJypCard ? 'cursor-pointer' : ''
-                }`}
-                title={isJypCard ? '👑 박진영 카드를 탭하여 특별한 골드를 획득하세요!' : undefined}
+                onClick={handleCardClick}
+                className="transform hover:scale-105 transition-transform duration-300"
               >
                 <CardVisual
                   card={card}
@@ -124,35 +96,7 @@ export const CardModal: React.FC<CardModalProps> = ({
                   size="lg"
                   className="w-64 sm:w-76 lg:w-[330px] h-[380px] sm:h-[460px] lg:h-[490px]"
                 />
-
-                {/* JYP 이스터에그 플로팅 +50G 파티클 애니메이션 */}
-                {particles.map(p => (
-                  <motion.div
-                    key={p.id}
-                    initial={{ opacity: 1, y: 0, scale: 0.8 }}
-                    animate={{ opacity: 0, y: -70, scale: 1.4 }}
-                    transition={{ duration: 0.85, ease: 'easeOut' }}
-                    className="absolute z-50 pointer-events-none flex items-center gap-1 font-mono font-black text-amber-300 bg-black/90 px-2.5 py-1 rounded-full border border-amber-400 shadow-[0_0_15px_rgba(250,204,21,0.9)]"
-                    style={{ left: `${p.x}px`, top: `${p.y}px` }}
-                  >
-                    <Coins size={14} className="text-yellow-400 animate-spin" />
-                    <span>+50G</span>
-                  </motion.div>
-                ))}
               </div>
-
-              {/* JYP 초월 카드 전용 이스터에그 안내 배너 */}
-              {isJypCard && (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleJypClick}
-                  className="mt-3.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 text-white font-mono font-black text-xs shadow-lg border border-amber-300/60 flex items-center gap-2 cursor-pointer animate-pulse"
-                >
-                  <Coins size={14} className="text-yellow-200" />
-                  <span>👑 JYP 탭하고 +50G 받기! {jypEasterEggCount > 0 && `(누적 +${jypEasterEggCount * 50}G)`}</span>
-                </motion.button>
-              )}
             </div>
 
             {/* Right: Card Info & Actions (1.3배 대형 폰트 & 뛰어난 가독성) */}
