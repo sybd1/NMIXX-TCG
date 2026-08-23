@@ -288,7 +288,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
           <>
             {/* Layer 1: 깊이감 있는 패럴랙스 배경 그라데이션 (-28px) */}
             <div
-              className={`absolute inset-0 bg-gradient-to-b ${card.gradient} transition-transform duration-150 pointer-events-none opacity-80`}
+              className={`absolute inset-0 bg-gradient-to-b ${card.gradient} transition-transform duration-150 pointer-events-none opacity-85`}
               style={{
                 transform: isOwned && isHighTier
                   ? `translateZ(-28px) scale(1.10) translate(${styleState.rotY * -0.45}px, ${styleState.rotX * 0.45}px)`
@@ -296,7 +296,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               }}
             />
 
-            {/* Layer 2: 앰비언트 블러 배경 (가로형 이미지 여백 완벽 커버 & 몽환적 백라이트) */}
+            {/* Layer 2: 강한 블러 앰비언트 배경 (filter: blur(24px) brightness(0.7) & 1.65배 확대) */}
             {card.image && (
               <div
                 className="absolute inset-0 overflow-hidden pointer-events-none"
@@ -310,30 +310,34 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                   src={card.image}
                   alt=""
                   aria-hidden="true"
-                  className="w-full h-full object-cover scale-150 blur-xl brightness-75 contrast-125 opacity-70"
+                  className="w-full h-full object-cover scale-[1.65] blur-[24px] brightness-[0.7] contrast-125 opacity-80"
                 />
-                {/* 앰비언트 비네팅 & 글로우 틴트 */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/60" />
+                {/* 앰비언트 비네팅 및 글로우 레이어 */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/75" />
               </div>
             )}
 
-            {/* Layer 3: 메인 포그라운드 이미지 (100% 크롭 방지 object-contain & 입체 팝업 +16px) */}
+            {/* Layer 3: 메인 포그라운드 이미지 (100% 원본 비율 유지 object-contain & 입체 액자 프레임) */}
             {card.image && (
               <div
-                className="absolute inset-0 flex items-center justify-center p-1 pointer-events-none"
+                className="absolute inset-0 flex items-center justify-center p-2.5 pt-8 pb-10 pointer-events-none"
                 style={{
                   transform: isOwned && isHighTier
                     ? `translateZ(16px) scale(1.02) translate(${styleState.rotY * 0.55}px, ${styleState.rotX * -0.55}px)`
                     : undefined,
                 }}
               >
-                <img
-                  src={card.image}
-                  alt={card.name}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-contain object-center drop-shadow-[0_8px_20px_rgba(0,0,0,0.85)] group-hover:scale-105 transition-all duration-200 pointer-events-none"
-                />
+                <div className="relative max-w-full max-h-full flex items-center justify-center">
+                  <img
+                    src={card.image}
+                    alt={card.name}
+                    loading="lazy"
+                    decoding="async"
+                    className="max-w-full max-h-full object-contain rounded-lg shadow-[0_10px_25px_rgba(0,0,0,0.9)] ring-1 ring-white/20 group-hover:scale-105 transition-all duration-200 pointer-events-none"
+                  />
+                  {/* 사진 내부 미세한 반사광 하이라이트 림 */}
+                  <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-white/15 pointer-events-none" />
+                </div>
               </div>
             )}
 
@@ -364,20 +368,17 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               />
             )}
 
-            {/* 상단 얇은 은은한 섀도우 그라데이션 */}
-            <div className="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-black/75 via-black/35 to-transparent pointer-events-none z-10" />
-
-            {/* Layer 6: 상단 미니멀 HUD 헤더 (3D 전면 포그라운드 뎁스 +40px) */}
+            {/* Layer 6: 상단 정돈된 글래스모피즘 HUD 헤더 바 (+40px) */}
             <div
-              className="relative z-20 p-2 flex items-center justify-between pointer-events-none"
+              className="relative z-20 w-full p-2 flex items-center justify-between pointer-events-none bg-black/40 backdrop-blur-md border-b border-white/10"
               style={{
                 transform: isOwned && isHighTier
                   ? `translateZ(40px) translate(${styleState.rotY * 0.8}px, ${styleState.rotX * -0.8}px)`
                   : undefined,
               }}
             >
-              <span className="font-mono text-[8.5px] font-extrabold text-white/90 bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded-lg border border-white/20 shadow-sm">
-                NO. #{String(card.collectionNumber).padStart(3, '0')}
+              <span className="font-mono text-[8.5px] font-black text-amber-300 bg-black/70 px-2 py-0.5 rounded-md border border-amber-500/40 shadow-sm">
+                #{String(card.collectionNumber).padStart(3, '0')}
               </span>
 
               <div className="flex items-center gap-1">
@@ -387,7 +388,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                   </span>
                 )}
                 <span className="text-[7.5px] font-mono font-black text-pink-200 bg-black/70 backdrop-blur-sm px-1.5 py-0.5 rounded border border-pink-500/40">
-                  {isLogoCard ? '심볼' : (isNmixxGroup ? '단체' : memberInfo.nameKo)}
+                  {isLogoCard ? '⚓ 심볼' : (isNmixxGroup ? '✨ 단체' : `${card.symbol || ''} ${memberInfo.nameKo}`)}
                 </span>
                 <span className={`text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded border ${config.badgeBg} shadow-md backdrop-blur-sm`}>
                   {card.rarity}
@@ -395,22 +396,30 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               </div>
             </div>
 
-            {/* 하단 미니멀 네임태그 (사진 가림 원천 방지 & 초슬림 콤팩트 렌더링) */}
+            {/* Layer 7: 하단 글래스모피즘 정보 패널 (설명글/인용구 & 공간 꽉 채우기 +35px) */}
             {showDetails && (
               <div
-                className="relative z-20 mt-auto pt-3 pb-1.5 px-2 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex items-center justify-between pointer-events-none w-full overflow-hidden"
+                className="relative z-20 mt-auto w-full p-2 bg-black/60 backdrop-blur-md border-t border-white/15 flex flex-col gap-0.5 pointer-events-none"
                 style={{
                   transform: isOwned && isHighTier
                     ? `translateZ(35px) translate(${styleState.rotY * 0.7}px, ${styleState.rotX * -0.7}px)`
                     : undefined,
                 }}
               >
-                <span className="font-serif font-black text-white text-[10.5px] sm:text-[11.5px] tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] whitespace-nowrap overflow-hidden text-ellipsis block truncate max-w-[70%] leading-none">
-                  {isLogoCard ? 'Fe3O4: FORWARD 심볼' : (card.name.replace(/^\[[^\]]+\]\s*/, '') || card.name)}
-                </span>
-                <span className="text-[7px] sm:text-[7.5px] font-mono font-bold text-slate-300 uppercase whitespace-nowrap overflow-hidden text-ellipsis drop-shadow leading-none opacity-80 flex-shrink-0">
-                  {card.era}
-                </span>
+                {/* 카드 타이틀 & 심볼/에라 */}
+                <div className="flex items-center justify-between w-full overflow-hidden">
+                  <span className="font-serif font-black text-white text-[10.5px] sm:text-[11.5px] tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] whitespace-nowrap overflow-hidden text-ellipsis block truncate max-w-[72%] leading-tight">
+                    {isLogoCard ? 'Fe3O4: FORWARD 심볼' : (card.name.replace(/^\[[^\]]+\]\s*/, '') || card.name)}
+                  </span>
+                  <span className="text-[7px] sm:text-[7.5px] font-mono font-extrabold text-amber-300 uppercase whitespace-nowrap overflow-hidden text-ellipsis drop-shadow leading-tight bg-amber-950/60 px-1 py-0.2 rounded border border-amber-500/30">
+                    {card.era}
+                  </span>
+                </div>
+
+                {/* 카드 설명글 / 인용구 (가로형 여백을 알차고 감성적으로 채워줌) */}
+                <p className="text-[7.5px] sm:text-[8px] font-sans text-slate-300/90 leading-tight truncate italic drop-shadow-sm">
+                  {card.quote ? `"${card.quote}"` : card.description}
+                </p>
               </div>
             )}
 
