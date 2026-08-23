@@ -77,11 +77,11 @@ export const BoosterPackThreeView: React.FC<BoosterPackThreeViewProps> = ({
     // Ultra-Realistic Aluminum Foil Packaging Material with Controlled Specular Highlights
     const frontMaterial = new THREE.MeshPhysicalMaterial({
       color: 0xffffff,
-      metalness: 0.38,
-      roughness: 0.30,
-      clearcoat: 0.18,
-      clearcoatRoughness: 0.25,
-      reflectivity: 0.55,
+      metalness: 0.43,
+      roughness: 0.27,
+      clearcoat: 0.23,
+      clearcoatRoughness: 0.22,
+      reflectivity: 0.60,
       normalMap: normalTexture,
       normalScale: new THREE.Vector2(0.40, 0.40),
       side: THREE.FrontSide,
