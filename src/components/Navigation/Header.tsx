@@ -1,5 +1,5 @@
 import React from 'react';
-import { Volume2, VolumeX, Gift, User, Trophy, Mail } from 'lucide-react';
+import { Volume2, VolumeX, Gift, User, Mail } from 'lucide-react';
 import { NavTab } from '../../types/game';
 import { UserAccount } from '../../types/auth';
 
@@ -54,7 +54,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   const userFav = user ? (MEMBER_BADGES[user.avatarMemberId || 'SULLYOON'] || MEMBER_BADGES.SULLYOON) : null;
 
-  // 🌟 사용자 지정 카테고리 순서: 팩오픈 -> 컬렉션 -> 업적 -> 랭킹 -> 인포메이션 -> 패치노트
+  // 🌟 상단 카테고리: 팩오픈 -> 컬렉션 -> 업적 -> 랭킹 -> 인포메이션 -> 패치노트
   const navTabs: { id: NavTab | 'ranking'; label: string; action?: () => void }[] = [
     { id: 'home', label: 'PACK OPEN' },
     { id: 'collection', label: 'COLLECTION' },
@@ -116,21 +116,12 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* 우측 핵심 통화 & 유저 액션 바 */}
         <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-          {/* 💻 Desktop 전용 랭킹 & 우편함 버튼 */}
+          {/* 📬 Desktop 우편함 버튼 */}
           <div className="hidden lg:flex items-center gap-1.5 mr-1">
-            <button
-              onClick={onOpenLeaderboard}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-void-900 hover:bg-void-800 text-amber-300 border border-amber-500/30 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer shadow-md"
-              title="글로벌 수집가 랭킹"
-            >
-              <Trophy size={13} className="text-amber-400" />
-              <span>랭킹</span>
-            </button>
-
             <button
               onClick={onOpenMailbox}
               className="relative flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-void-900 hover:bg-void-800 text-pink-300 border border-pink-500/30 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer shadow-md"
-              title="우편함 & 쿠폰"
+              title="공식 우편함 & 쿠폰"
             >
               <Mail size={13} className="text-pink-400" />
               <span>우편</span>
@@ -168,7 +159,7 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </div>
 
-          {/* 👤 로그인 상태: 아이콘 대신 유저 닉네임을 확실하게 표시 */}
+          {/* 👤 로그인 상태: 닉네임 확실하게 표시 */}
           {user ? (
             <button
               onClick={onOpenProfile}
@@ -203,23 +194,14 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* 📱 Mobile 전용 서브 퀵 액션 바 (lg 미만 화면) */}
-      <div className="lg:hidden w-full bg-void-950/90 border-t border-white/5 px-3 py-1.5 flex items-center justify-between gap-1.5 overflow-x-auto select-none">
-        {/* 🏆 모바일 랭킹 버튼 (상단 독립 배치) */}
-        <button
-          onClick={onOpenLeaderboard}
-          className="flex-1 py-1 px-2 rounded-xl bg-void-900/90 border border-amber-500/30 hover:border-amber-400 text-amber-300 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
-        >
-          <Trophy size={12} className="text-amber-400" />
-          <span>랭킹</span>
-        </button>
-
+      <div className="lg:hidden w-full bg-void-950/90 border-t border-white/5 px-3 py-1.5 flex items-center justify-between gap-2 overflow-x-auto select-none">
         {/* 📬 모바일 우편함 버튼 */}
         <button
           onClick={onOpenMailbox}
-          className="relative flex-1 py-1 px-2 rounded-xl bg-void-900/90 border border-pink-500/30 hover:border-pink-400 text-pink-300 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
+          className="relative flex-1 py-1 px-3 rounded-xl bg-void-900/90 border border-pink-500/30 hover:border-pink-400 text-pink-300 text-[11px] font-mono font-bold flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
         >
-          <Mail size={12} className="text-pink-400" />
-          <span>우편</span>
+          <Mail size={13} className="text-pink-400" />
+          <span>공식 우편함</span>
           {unreadMailCount > 0 && (
             <span className="px-1.5 py-0.2 rounded-full bg-pink-500 text-white text-[8px] font-black animate-pulse">
               {unreadMailCount}
@@ -230,7 +212,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* 🔊 모바일 사운드 토글 */}
         <button
           onClick={onToggleSound}
-          className="py-1 px-2.5 rounded-xl bg-void-900/90 border border-white/10 text-slate-400 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
+          className="py-1 px-3 rounded-xl bg-void-900/90 border border-white/10 text-slate-400 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
         >
           {soundMuted ? <VolumeX size={12} /> : <Volume2 size={12} className="text-pink-400" />}
           <span>{soundMuted ? '음소거' : '소리 ON'}</span>

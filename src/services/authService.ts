@@ -72,11 +72,16 @@ export class AuthService {
         const email = fbUser.email || `${fbUser.uid.substring(0, 8)}@gmail.com`;
         let displayName = customName?.trim() || fbUser.displayName || `엔써_${fbUser.uid.substring(0, 5)}`;
         const avatarUrl = fbUser.photoURL || '/cards/card_003.jpg';
-
-        // 닉네임 중복 시 고유 해시 부착
-        const available = await this.isNicknameAvailable(displayName, uid);
-        if (!available && !customName) {
-          displayName = `${displayName}_${fbUser.uid.substring(0, 4)}`;
+        
+        // 👑 chip sofa 운영자 계정 공식 닉네임 자동 세팅
+        if (displayName.toLowerCase().includes('chip sofa') || email.toLowerCase().includes('chip') || customName?.includes('chip')) {
+          displayName = '운영자 chip sofa';
+        } else {
+          // 닉네임 중복 시 고유 해시 부착
+          const available = await this.isNicknameAvailable(displayName, uid);
+          if (!available && !customName) {
+            displayName = `${displayName}_${fbUser.uid.substring(0, 4)}`;
+          }
         }
 
         const account: UserAccount = {
@@ -289,6 +294,9 @@ export class AuthService {
       const data = localStorage.getItem(AUTH_STORAGE_KEY);
       if (!data) return null;
       const parsed: UserAccount = JSON.parse(data);
+      if (parsed.displayName?.toLowerCase().includes('chip sofa') || parsed.email?.toLowerCase().includes('chip')) {
+        parsed.displayName = '운영자 chip sofa';
+      }
       this.currentUser = parsed;
       return parsed;
     } catch (e) {

@@ -27,8 +27,8 @@ const DEFAULT_GLOBAL_MAILS: MailItem[] = [
   {
     id: 'mail_welcome_2026',
     title: '🎉 NMIXX TCG 공식 클라우드 서버 오픈 기념!',
-    content: '엔믹스 TCG 정식 글로벌 서버 연동을 축하합니다! 모든 엔써(NSWER) 여러분께 특별 지원금 1,000,000 코인(100만원)을 지급합니다.',
-    sender: '운영팀 SQU4D',
+    content: '엔믹스 TCG 정식 글로벌 서버 연동을 축하합니다! 모든 엔써(NSWER) 여러분께 특별 지원금 1,000,000 코인(100만원)을 지급합니다. - 운영자 chip sofa 드림',
+    sender: '운영자 chip sofa',
     coinsReward: 1000000,
     dustReward: 5000,
     isClaimed: false,
@@ -37,9 +37,9 @@ const DEFAULT_GLOBAL_MAILS: MailItem[] = [
   {
     id: 'mail_fe3o4_celebration',
     title: '✨ Fe3O4: FORWARD 팩 출시 기념 특별 보급품',
-    content: '신규 카드팩 출시를 기념하여 무료 카드팩 5개를 개봉할 수 있는 보너스 5,000 코인을 드립니다!',
-    sender: 'MIXX LAB 연구소',
-    coinsReward: 5000,
+    content: '신규 카드팩 출시를 기념하여 무료 카드팩을 개봉할 수 있는 보너스 50,000 코인을 드립니다! - 운영자 chip sofa 드림',
+    sender: '운영자 chip sofa',
+    coinsReward: 50000,
     dustReward: 100,
     isClaimed: false,
     createdAt: Date.now() - 3600000 * 12,
@@ -47,9 +47,9 @@ const DEFAULT_GLOBAL_MAILS: MailItem[] = [
   {
     id: 'mail_daily_support',
     title: '💖 데일리 엔써 응원 상자',
-    content: '오늘도 엔믹스와 함께 즐거운 카드 수집 되세요! 파이팅!',
-    sender: '엔믹스 공식 서포터즈',
-    coinsReward: 3000,
+    content: '오늘도 엔믹스와 함께 즐거운 카드 수집 되세요! 파이팅! - 운영자 chip sofa 드림',
+    sender: '운영자 chip sofa',
+    coinsReward: 10000,
     isClaimed: false,
     createdAt: Date.now() - 3600000 * 24,
   },
@@ -347,114 +347,14 @@ export class MultiplayerService {
   }
 
   // ---------------------------------------------------------------------------
-  // 🤖 Mock Fallback Data (오프라인 / 데모 지원)
+  // 🤖 Clean Fallback Data (더미 계정 제거 및 실시간 실유저 전용)
   // ---------------------------------------------------------------------------
   private static getMockLeaderboard(): LeaderboardEntry[] {
-    return [
-      {
-        uid: 'user_mock_1',
-        displayName: '엔써_릴리바라기',
-        avatarUrl: '/cards/card_001.jpg',
-        avatarMemberId: 'LILY',
-        uniqueCardCount: 651,
-        collectionRate: 100.0,
-        totalPacksOpened: 1420,
-        coins: 1250000,
-        hasXR: true,
-        rank: 1,
-        updatedAt: Date.now(),
-      },
-      {
-        uid: 'user_mock_2',
-        displayName: '오해원장꾸',
-        avatarUrl: '/cards/card_002.jpg',
-        avatarMemberId: 'HAEWON',
-        uniqueCardCount: 648,
-        collectionRate: 99.5,
-        totalPacksOpened: 1100,
-        coins: 840000,
-        hasXR: false,
-        rank: 2,
-        updatedAt: Date.now(),
-      },
-      {
-        uid: 'user_mock_3',
-        displayName: '설윤아기사슴',
-        avatarUrl: '/cards/card_003.jpg',
-        avatarMemberId: 'SULLYOON',
-        uniqueCardCount: 635,
-        collectionRate: 97.5,
-        totalPacksOpened: 950,
-        coins: 520000,
-        hasXR: false,
-        rank: 3,
-        updatedAt: Date.now(),
-      },
-      {
-        uid: 'user_mock_4',
-        displayName: '배이노랑병아리',
-        avatarUrl: '/cards/card_004.jpg',
-        avatarMemberId: 'BAE',
-        uniqueCardCount: 610,
-        collectionRate: 93.7,
-        totalPacksOpened: 820,
-        coins: 310000,
-        hasXR: false,
-        rank: 4,
-        updatedAt: Date.now(),
-      },
-      {
-        uid: 'user_mock_5',
-        displayName: '지우멍뭉이',
-        avatarUrl: '/cards/card_005.jpg',
-        avatarMemberId: 'JIWOO',
-        uniqueCardCount: 590,
-        collectionRate: 90.6,
-        totalPacksOpened: 740,
-        coins: 190000,
-        hasXR: false,
-        rank: 5,
-        updatedAt: Date.now(),
-      },
-    ];
+    return [];
   }
 
   private static getMockFeed(): GlobalPullFeedItem[] {
-    return [
-      {
-        id: 'feed_1',
-        uid: 'mock_1',
-        userName: '엔써_설윤사슴',
-        cardId: 'nmixx_303',
-        cardName: '설윤 - Blue Valentine',
-        rarity: 'MR',
-        member: 'SULLYOON',
-        image: '/cards/card_303.JPG',
-        timestamp: Date.now() - 15000,
-      },
-      {
-        id: 'feed_2',
-        uid: 'mock_2',
-        userName: '해원장꾸러기',
-        cardId: 'nmixx_002',
-        cardName: '해원 - MIXX LAB',
-        rarity: 'LR',
-        member: 'HAEWON',
-        image: '/cards/card_002.jpg',
-        timestamp: Date.now() - 45000,
-      },
-      {
-        id: 'feed_3',
-        uid: 'mock_3',
-        userName: '전설의엔써',
-        cardId: 'card_xr_transcendent_park_741',
-        cardName: '[XR] Transcendent - 박진영',
-        rarity: 'XR',
-        member: 'NMIXX',
-        image: '/image/XR-park.jpg',
-        timestamp: Date.now() - 120000,
-      },
-    ];
+    return [];
   }
 
   private static getMockTradeListings(): CardTradeListing[] {
