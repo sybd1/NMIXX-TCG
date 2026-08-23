@@ -350,68 +350,7 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
       ctx.lineWidth = 4;
       ctx.strokeRect(4, topCrimpHeight, width - 8, height - topCrimpHeight - bottomCrimpHeight);
 
-      // 6. Minimal, Ultra-Clean Top Branding with High-Contrast Glassmorphic Capsules
-      const badgeY = topCrimpHeight + 16;
-      const textY = badgeY + 44;
-
-      const packThemeMap: Record<string, { codeColor: string; brandColor: string }> = {
-        'NX-01': {
-          codeColor: '#fde047', // Bold Electric Gold
-          brandColor: '#38bdf8', // Neon Sky Cyan
-        },
-        'NX-02': {
-          codeColor: '#fbbf24', // Warm Amber Gold
-          brandColor: '#fb7185', // Rose Coral
-        },
-        'NX-03': {
-          codeColor: '#67e8f9', // Ice Aqua
-          brandColor: '#ffffff', // Crisp Silver White
-        },
-        'NX-04': {
-          codeColor: '#f43f5e', // Hot Cyber Magenta
-          brandColor: '#c084fc', // Electric Violet
-        },
-      };
-
-      const theme = packThemeMap[pack.code] || packThemeMap['NX-01'];
-
-      // Left: Pack Code Badge [NX-01]
-      const leftBadgeText = `[${pack.code}]`;
-      ctx.font = '900 46px monospace';
-      const leftW = ctx.measureText(leftBadgeText).width + 36;
-      ctx.fillStyle = 'rgba(10, 13, 24, 0.85)';
-      ctx.strokeStyle = theme.codeColor;
-      ctx.lineWidth = 2.5;
-      ctx.beginPath();
-      ctx.roundRect(40, badgeY, leftW, 60, 12);
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.fillStyle = theme.codeColor;
-      ctx.textAlign = 'left';
-      ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
-      ctx.shadowBlur = 12;
-      ctx.fillText(leftBadgeText, 58, textY);
-
-      // Right: Brand Badge NMIXX TCG
-      const rightBadgeText = 'NMIXX TCG';
-      ctx.font = '900 38px sans-serif';
-      const rightW = ctx.measureText(rightBadgeText).width + 36;
-      ctx.fillStyle = 'rgba(10, 13, 24, 0.85)';
-      ctx.strokeStyle = theme.brandColor;
-      ctx.lineWidth = 2.5;
-      ctx.beginPath();
-      ctx.roundRect(width - 40 - rightW, badgeY, rightW, 60, 12);
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.fillStyle = theme.brandColor;
-      ctx.textAlign = 'right';
-      ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
-      ctx.shadowBlur = 12;
-      ctx.fillText(rightBadgeText, width - 58, textY);
-
-      // 7. Minimal Copyright on bottom crimp
+      // 6. Minimal Copyright on bottom crimp
       ctx.font = 'bold 22px monospace';
       ctx.fillStyle = '#e2e8f0';
       ctx.textAlign = 'center';
