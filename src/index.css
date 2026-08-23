@@ -417,30 +417,51 @@
   );
 }
 
-/* 2. 포일 비닐 구김/주름 음영 (Foil Wrinkle Creases) */
+/* 2. 물리 기반 포일 비닐 구김/주름 음영 (PBR Foil Wrinkle & Micro-Creases) */
 .foil-wrinkle-texture {
   background: 
-    linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 20%, rgba(0,0,0,0.35) 40%, transparent 60%, rgba(255,255,255,0.2) 80%, transparent 100%),
-    linear-gradient(225deg, transparent 0%, rgba(255,255,255,0.1) 25%, rgba(0,0,0,0.4) 50%, transparent 75%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 8px);
+    linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 18%, rgba(0,0,0,0.45) 38%, transparent 58%, rgba(255,255,255,0.25) 78%, transparent 100%),
+    linear-gradient(225deg, transparent 0%, rgba(255,255,255,0.15) 25%, rgba(0,0,0,0.5) 50%, transparent 75%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 6px),
+    radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.3) 0%, transparent 70%);
 }
 
-/* 3. 홀로그래픽 오로라 반사광 (Holographic Foil Sheen) */
+/* 3. 홀로그래픽 오로라 반사광 (Holographic Foil Sheen & Iridescence) */
 .foil-holo-sheen {
   background: linear-gradient(
     115deg,
-    transparent 20%,
-    rgba(56, 189, 248, 0.25) 35%,
-    rgba(236, 72, 153, 0.35) 45%,
-    rgba(250, 204, 21, 0.4) 55%,
-    rgba(168, 85, 247, 0.3) 65%,
-    transparent 80%
+    transparent 15%,
+    rgba(56, 189, 248, 0.3) 30%,
+    rgba(236, 72, 153, 0.4) 45%,
+    rgba(250, 204, 21, 0.45) 55%,
+    rgba(168, 85, 247, 0.35) 70%,
+    transparent 85%
   );
   background-size: 250% 250%;
   mix-blend-mode: color-dodge;
 }
 
-/* 4. 팩 찢어질 때 튀는 은박/골드 파편 파티클 */
+/* 4. 마우스 인터랙티브 PBR 동적 스펙큘러 글레어 (Dynamic PBR Specular Glare) */
+.pbr-specular-glare {
+  background: radial-gradient(
+    circle 240px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.15) 35%,
+    transparent 75%
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* 5. 플로팅 3D 다중 앰비언트 드롭 섀도우 (Floating Multi-tier Ambient Shadow) */
+.pbr-pack-shadow {
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.9),
+    0 12px 24px -8px rgba(0, 0, 0, 0.8),
+    0 0 35px var(--pack-glow, rgba(236, 72, 153, 0.4));
+}
+
+/* 6. 팩 찢어질 때 튀는 은박/골드 파편 파티클 */
 @keyframes foil-flake-burst {
   0% {
     transform: translate(0, 0) scale(1) rotate(0deg);
@@ -455,7 +476,7 @@
 .foil-flake {
   position: absolute;
   background: linear-gradient(45deg, #fff, #facc15, #e2e8f0);
-  box-shadow: 0 0 6px rgba(250, 204, 21, 0.9);
+  box-shadow: 0 0 8px rgba(250, 204, 21, 0.95);
   animation: foil-flake-burst 0.8s ease-out forwards;
   pointer-events: none;
 }

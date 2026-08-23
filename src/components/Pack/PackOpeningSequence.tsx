@@ -511,8 +511,8 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                 <div className="absolute top-0 inset-x-0 h-6 bg-gradient-to-r from-slate-200 via-white to-slate-400 border-b-2 border-white shadow-md z-25 [clip-path:polygon(0%_0%,15%_100%,30%_20%,45%_90%,60%_10%,75%_100%,90%_30%,100%_100%,100%_0%)]" />
               )}
 
-              {/* 2. 중앙 메인 아트워크 & 은박 주름/오로라 레이어 */}
-              <div className="relative flex-1 w-full overflow-hidden flex flex-col justify-between p-3">
+              {/* 2. 중앙 메인 아트워크 & PBR 은박 주름/오로라 레이어 */}
+              <div className="relative flex-1 w-full overflow-hidden flex flex-col justify-between p-3 [transform:translateZ(8px)]">
                 {/* 팩 커버 고화질 이미지 */}
                 <img
                   src={pack.image}
@@ -521,11 +521,11 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 pointer-events-none"
                 />
 
-                {/* 실제 포일 비닐 구김/주름 음영 (Foil Wrinkle Creases) */}
-                <div className="absolute inset-0 foil-wrinkle-texture opacity-70 pointer-events-none" />
+                {/* PBR 물리 기반 포일 비닐 구김/주름 음영 (PBR Foil Wrinkle Creases) */}
+                <div className="absolute inset-0 foil-wrinkle-texture opacity-75 pointer-events-none" />
 
                 {/* 홀로그래픽 오로라 반사광 (Holographic Foil Sheen) */}
-                <div className="absolute inset-0 foil-holo-sheen opacity-60 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+                <div className="absolute inset-0 foil-holo-sheen opacity-65 group-hover:opacity-95 transition-opacity duration-500 pointer-events-none" />
 
                 {/* 비닐 호일 입체 명암 그라데이션 */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/85 pointer-events-none" />
@@ -544,14 +544,14 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                 )}
 
                 {/* 중앙 상단: 믹스토피아 공식 TCG 로고 엠블렘 워터마크 */}
-                <div className="relative z-20 flex justify-center mt-1">
-                  <span className="text-[9px] font-mono font-black tracking-widest text-white/95 uppercase bg-black/70 backdrop-blur-md px-3 py-0.5 rounded-full border border-pink-400/50 shadow-md">
+                <div className="relative z-20 flex justify-center mt-1 [transform:translateZ(15px)]">
+                  <span className="text-[9px] font-mono font-black tracking-widest text-white/95 uppercase bg-black/75 backdrop-blur-md px-3 py-0.5 rounded-full border border-pink-400/50 shadow-md">
                     ✨ NMIXX OFFICIAL TRADING CARD GAME
                   </span>
                 </div>
 
                 {/* 중앙 하단: 굵직한 메탈릭 골드/실버 타이틀 밴드 (2단 표기: NX 01 / Fe3O4: FORWARD) */}
-                <div className="relative z-20 flex flex-col items-center justify-center text-center bg-black/85 backdrop-blur-md py-2 px-3.5 rounded-2xl border border-white/25 shadow-2xl mt-auto mb-1">
+                <div className="relative z-20 flex flex-col items-center justify-center text-center bg-black/85 backdrop-blur-md py-2 px-3.5 rounded-2xl border border-white/25 shadow-2xl mt-auto mb-1 [transform:translateZ(18px)]">
                   <span className="font-mono text-[10px] sm:text-[11px] font-black tracking-widest text-amber-300 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] uppercase mb-0.5">
                     {pack.code.replace('-', ' ')}
                   </span>
@@ -579,7 +579,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
               </div>
 
               {/* 3. 최하단 비닐 톱니 압착 실링 (Sawtooth Crimped Bottom Seal) + 라이선스 카피라이트 */}
-              <div className="relative z-30 w-full bg-gradient-to-t from-slate-700 via-slate-900 to-black/95 border-t border-white/25 px-3 pt-2 pb-2.5 flex flex-col shadow-inner pack-crimped-bottom">
+              <div className="relative z-30 w-full bg-gradient-to-t from-slate-700 via-slate-900 to-black/95 border-t border-white/25 px-3 pt-2 pb-2.5 flex flex-col shadow-inner pack-crimped-bottom [transform:translateZ(12px)]">
                 {/* 하단 톱니형 압착 엠보싱 패턴 */}
                 <div className="absolute inset-0 opacity-40 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.3)_0px,rgba(255,255,255,0.3)_2px,transparent_2px,transparent_6px)] pointer-events-none" />
 
