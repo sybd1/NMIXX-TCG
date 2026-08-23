@@ -98,10 +98,10 @@ export const ACHIEVEMENTS: Achievement[] = [
     category: 'PACK_SETS',
     type: 'PACK_SET',
     targetPackId: 'op01',
-    title: 'NMIXX 계승되는 의지 카드 모두 수집',
-    description: 'NX-01 계승되는 의지 팩 전종 150장을 모두 수집하세요.',
+    title: 'NX1 Fe3O4: FORWARD 카드 모두 수집',
+    description: 'NX-01 Fe3O4: FORWARD 팩 전종 127장을 모두 수집하세요.',
     icon: '🏆',
-    targetValue: 150,
+    targetValue: 127,
     rewardCoins: 50_000,
   },
   {
