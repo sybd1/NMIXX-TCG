@@ -107,8 +107,21 @@ export class MultiplayerService {
       let rank = 1;
       snapshot.forEach(docSnap => {
         const data = docSnap.data() as LeaderboardEntry;
+        const uid = docSnap.id || data.uid;
+
+        // 🛡️ 게스트 및 과거 테스트 더미 계정 제외
+        if (
+          !uid ||
+          uid === 'guest' ||
+          uid.startsWith('mock_') ||
+          uid.startsWith('user_mock_')
+        ) {
+          return;
+        }
+
         entries.push({
           ...data,
+          uid,
           rank: rank++,
         });
       });

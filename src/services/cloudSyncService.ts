@@ -20,6 +20,10 @@ export class CloudSyncService {
   private static syncTimeout: any = null;
   private static lastSavedHash: string = '';
 
+  public static forceResetHash(): void {
+    this.lastSavedHash = '';
+  }
+
   /**
    * 클라우드 Firestore에서 특정 유저의 게임 데이터 로드 (오프라인 내성 탑재)
    */
@@ -59,8 +63,8 @@ export class CloudSyncService {
     const firestore = db;
     if (!isFirebaseConfigured || !firestore || !user?.id) return false;
 
-    // 변경점이 없는 중복 쓰기 원천 차단 (Firestore 쿼터 및 네트워크 트래픽 90% 절약)
-    const currentHash = `${Object.keys(data.collection).length}_${data.coins}_${data.pityCounter}_${data.totalPacksOpened}_${(data.unlockedAchievements || []).length}`;
+    // 변경점이 없는 중복 쓰기 원천 차단 (닉네임/아바타 변경 시 즉시 동기화 포함)
+    const currentHash = `${user.displayName}_${user.avatarMemberId}_${Object.keys(data.collection).length}_${data.coins}_${data.pityCounter}_${data.totalPacksOpened}_${(data.unlockedAchievements || []).length}`;
     if (currentHash === this.lastSavedHash) {
       return true;
     }

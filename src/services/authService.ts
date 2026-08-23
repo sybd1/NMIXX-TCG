@@ -16,6 +16,7 @@ import {
 import { auth, db, googleProvider, isFirebaseConfigured, initKakaoSdk } from '../config/firebase';
 import { UserAccount } from '../types/auth';
 import { SecurityService } from './securityService';
+import { CloudSyncService } from './cloudSyncService';
 
 const AUTH_STORAGE_KEY = 'nmixx_tcg_auth_session_v1';
 
@@ -335,6 +336,7 @@ export class AuthService {
     };
 
     await this.saveSession(updatedAccount);
+    CloudSyncService.forceResetHash();
 
     // Firestore users 및 leaderboard 문서 실시간 업데이트
     if (isFirebaseConfigured && db && updatedAccount.id && updatedAccount.id !== 'guest') {
