@@ -172,9 +172,9 @@ export function generateFoilNormalMap(packCode = 'NX-01'): THREE.CanvasTexture {
 
 /**
  * Creates high-resolution, crystal-clear 100% authentic booster pack texture:
- * - NO fake messy boxes or cluttered text overlays!
- * - 100% crisp, vibrant original artwork fully covering the pack.
- * - Premium authentic aluminum foil top/bottom crimp finish.
+ * - Smart aspect ratio handling (square / landscape artworks are 100% uncropped!)
+ * - Beautiful seamless ambient bled background
+ * - Minimal, ultra-clean official package design
  */
 export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.CanvasTexture> {
   return new Promise((resolve) => {
@@ -189,19 +189,89 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
     ctx.fillStyle = '#0b0c10';
     ctx.fillRect(0, 0, width, height);
 
-    // 2. Load original image and render with 100% FULL SHARPNESS & VIBRANCY
+    // 2. Load original image and render with ZERO cropping & aspect preservation
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.onload = () => {
+      const topCrimpHeight = height * 0.08; // ~184px
+      const bottomCrimpHeight = height * 0.075; // ~172px
+      const usableY = topCrimpHeight;
+      const usableHeight = height - topCrimpHeight - bottomCrimpHeight;
+
+      const imgAspect = img.width / img.height;
+
+      // Draw background ambient color bleed from image
       ctx.save();
-      // Draw cover image cleanly across the whole front face
-      ctx.drawImage(img, 0, height * 0.065, width, height * 0.87);
+      // Draw background gradient matching pack theme
+      if (pack.code === 'NX-01') {
+        const bgGrad = ctx.createLinearGradient(0, 0, 0, height);
+        bgGrad.addColorStop(0, '#0a0d18');
+        bgGrad.addColorStop(0.3, '#10172e');
+        bgGrad.addColorStop(0.7, '#1e1b4b');
+        bgGrad.addColorStop(1, '#090a12');
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, width, height);
+      } else if (pack.code === 'NX-03') {
+        const bgGrad = ctx.createLinearGradient(0, 0, 0, height);
+        bgGrad.addColorStop(0, '#04101e');
+        bgGrad.addColorStop(0.3, '#0c2340');
+        bgGrad.addColorStop(0.7, '#172554');
+        bgGrad.addColorStop(1, '#020617');
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, width, height);
+      } else {
+        const bgGrad = ctx.createLinearGradient(0, 0, 0, height);
+        bgGrad.addColorStop(0, '#180e04');
+        bgGrad.addColorStop(0.5, '#2e1208');
+        bgGrad.addColorStop(1, '#0a0704');
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, width, height);
+      }
       ctx.restore();
 
-      // 3. Realistic Aluminum Foil Crimp Seals on Top & Bottom (Pure Silver Metal Shimmer)
-      const topCrimpHeight = height * 0.08;
-      const bottomCrimpHeight = height * 0.075;
+      if (imgAspect >= 0.85) {
+        // Square or landscape artwork (e.g. NX-01 640x640 or NX-03 3000x3000)
+        // 100% UN-CROPPED: Draw image full-width in the center
+        const drawWidth = width;
+        const drawHeight = width / imgAspect;
+        const drawY = usableY + 70; // Positioned nicely under the top header
 
+        // Draw main artwork with 100% sharpness & NO cropping
+        ctx.drawImage(img, 0, drawY, drawWidth, drawHeight);
+
+        // Elegant metallic subtle divider line below artwork
+        const dividerY = drawY + drawHeight + 15;
+        const lineGrad = ctx.createLinearGradient(width * 0.1, 0, width * 0.9, 0);
+        lineGrad.addColorStop(0, 'transparent');
+        lineGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.45)');
+        lineGrad.addColorStop(1, 'transparent');
+        ctx.strokeStyle = lineGrad;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(width * 0.1, dividerY);
+        ctx.lineTo(width * 0.9, dividerY);
+        ctx.stroke();
+
+        // High-end Metallic Album Title below artwork
+        const albumTitle = pack.name.includes(' - ') ? pack.name.split(' - ')[1] : pack.name;
+        ctx.font = '900 68px "Cinzel", "Times New Roman", serif';
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.shadowColor = 'rgba(0,0,0,0.95)';
+        ctx.shadowBlur = 20;
+        ctx.fillText(albumTitle, width / 2, dividerY + 80);
+
+        // Subtitle Slogan
+        ctx.font = 'bold 30px sans-serif';
+        ctx.fillStyle = '#cbd5e1';
+        ctx.shadowBlur = 10;
+        ctx.fillText(pack.subtitle, width / 2, dividerY + 130);
+      } else {
+        // Portrait artwork (e.g. NX-02 or NX-04)
+        ctx.drawImage(img, 0, usableY, width, usableHeight);
+      }
+
+      // 3. Realistic Aluminum Foil Crimp Seals on Top & Bottom
       // Top Silver Foil Crimp Bar
       const topGrad = ctx.createLinearGradient(0, 0, 0, topCrimpHeight);
       topGrad.addColorStop(0, '#64748b');
@@ -221,12 +291,12 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
       ctx.fillRect(0, height - bottomCrimpHeight, width, bottomCrimpHeight);
 
       // 4. Subtle Metallic Rim Lighting along borders
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
       ctx.lineWidth = 4;
       ctx.strokeRect(4, topCrimpHeight, width - 8, height - topCrimpHeight - bottomCrimpHeight);
 
       // 5. Minimal, Ultra-Clean Branding (Pack-Themed & Large Crisp Typography)
-      const headerY = topCrimpHeight + 64;
+      const headerY = topCrimpHeight + 56;
 
       const packThemeMap: Record<string, { codeColor: string; brandColor: string }> = {
         'NX-01': {
@@ -250,7 +320,7 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
       const theme = packThemeMap[pack.code] || packThemeMap['NX-01'];
 
       // Left: Pack Code [NX 01]
-      ctx.font = '900 54px monospace';
+      ctx.font = '900 52px monospace';
       ctx.fillStyle = theme.codeColor;
       ctx.textAlign = 'left';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.98)';
@@ -258,7 +328,7 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
       ctx.fillText(`[${pack.code}]`, 55, headerY);
 
       // Right: Brand Text NMIXX TCG
-      ctx.font = '900 44px sans-serif';
+      ctx.font = '900 42px sans-serif';
       ctx.fillStyle = theme.brandColor;
       ctx.textAlign = 'right';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.98)';
