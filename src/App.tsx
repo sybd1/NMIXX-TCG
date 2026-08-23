@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { useGameState } from './hooks/useGameState';
 import { NavTab } from './types/game';
 import { Card, RevealedCard } from './types/card';
+import { UserAccount } from './types/auth';
 import { GAME_CONFIG, BoosterPackConfig, BOOSTER_PACKS } from './config/gameConfig';
 import { RngService } from './services/rngService';
 import { sound } from './services/soundService';
+import { AuthService } from './services/authService';
 
 import { Header } from './components/Navigation/Header';
 import { BottomNav } from './components/Navigation/BottomNav';
 import { PackOpeningSequence } from './components/Pack/PackOpeningSequence';
+import { AuthModal } from './components/Auth/AuthModal';
+import { UserProfileModal } from './components/Auth/UserProfileModal';
 
 import { HomePage } from './pages/Home/HomePage';
 import { CollectionPage } from './pages/Collection/CollectionPage';
@@ -31,6 +35,10 @@ export const App: React.FC = () => {
   } = useGameState();
 
   const [currentTab, setCurrentTab] = useState<NavTab>('home');
+  const [user, setUser] = useState<UserAccount | null>(() => AuthService.getCurrentUser());
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+
   const [openingState, setOpeningState] = useState<{
     cards: RevealedCard[];
     pack: BoosterPackConfig;
@@ -135,6 +143,9 @@ export const App: React.FC = () => {
           sound.playClick();
           setCurrentTab(tab);
         }}
+        user={user}
+        onOpenAuth={() => setIsAuthModalOpen(true)}
+        onOpenProfile={() => setIsProfileModalOpen(true)}
       />
 
       {/* 2. Main Page View Container */}
@@ -219,6 +230,24 @@ export const App: React.FC = () => {
           setCurrentTab(tab);
         }}
       />
+
+      {/* 5. Google & Kakao 1초 원클릭 간편 소셜 로그인 / 회원가입 모달 */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onLoginSuccess={(loggedUser) => setUser(loggedUser)}
+      />
+
+      {/* 6. 유저 프로필 & 클라우드 동기화 관리 모달 */}
+      {user && (
+        <UserProfileModal
+          user={user}
+          isOpen={isProfileModalOpen}
+          onClose={() => setIsProfileModalOpen(false)}
+          onUpdateUser={(updated) => setUser(updated)}
+          onLogout={() => setUser(null)}
+        />
+      )}
     </div>
   );
 };

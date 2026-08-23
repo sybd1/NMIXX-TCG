@@ -1,6 +1,7 @@
 import React from 'react';
-import { Volume2, VolumeX, Gift } from 'lucide-react';
+import { Volume2, VolumeX, Gift, User } from 'lucide-react';
 import { NavTab } from '../../types/game';
+import { UserAccount } from '../../types/auth';
 
 interface HeaderProps {
   coins: number;
@@ -11,6 +12,9 @@ interface HeaderProps {
   onClaimMysteryBox: () => void;
   currentTab: NavTab;
   onSelectTab: (tab: NavTab) => void;
+  user?: UserAccount | null;
+  onOpenAuth?: () => void;
+  onOpenProfile?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -20,6 +24,9 @@ export const Header: React.FC<HeaderProps> = ({
   onClaimMysteryBox,
   currentTab,
   onSelectTab,
+  user,
+  onOpenAuth,
+  onOpenProfile,
 }) => {
   const [showRewardToast, setShowRewardToast] = React.useState(false);
 
@@ -73,15 +80,50 @@ export const Header: React.FC<HeaderProps> = ({
       </nav>
 
       {/* Right Currencies & Actions */}
-      <div className="flex items-center gap-2.5 sm:gap-3 relative">
+      <div className="flex items-center gap-2 sm:gap-2.5 relative">
+        {/* 👤 소셜 로그인 / 유저 프로필 뱃지 */}
+        {user ? (
+          <button
+            onClick={onOpenProfile}
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-void-900 border border-purple-500/40 hover:border-pink-400 text-xs font-mono transition-all hover:scale-105 cursor-pointer shadow-md"
+            title="프로필 및 클라우드 연동 관리"
+          >
+            <div className="w-5 h-5 rounded-lg bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-[10px] font-black text-white">
+              {user.displayName.charAt(0).toUpperCase()}
+            </div>
+            <span className="font-bold text-white max-w-[80px] sm:max-w-[100px] truncate text-[11px]">
+              {user.displayName}
+            </span>
+            <span className={`text-[8.5px] font-mono font-black px-1.5 py-0.2 rounded hidden sm:inline ${
+              user.provider === 'google'
+                ? 'bg-blue-950 text-blue-300 border border-blue-500/30'
+                : user.provider === 'kakao'
+                ? 'bg-yellow-950 text-yellow-300 border border-yellow-500/30'
+                : 'bg-void-800 text-slate-400'
+            }`}>
+              {user.provider.toUpperCase()}
+            </span>
+          </button>
+        ) : (
+          <button
+            onClick={onOpenAuth}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-mono font-black text-xs shadow-md shadow-pink-950/50 transition-all hover:scale-105 active:scale-95 cursor-pointer border border-pink-400/30"
+            title="Google 및 카카오 계정으로 간편 가입"
+          >
+            <User size={13} />
+            <span className="hidden xs:inline">로그인 / 회원가입</span>
+            <span className="xs:hidden">로그인</span>
+          </button>
+        )}
+
         {/* 🎁 ??? 미스터리 박스 버튼 (클릭 시 게임머니 만원 +10,000 COIN 충전) */}
         <button
           onClick={handleMysteryClick}
-          className="relative flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-pink-600 via-purple-600 to-amber-400 hover:from-pink-500 hover:to-amber-300 text-white font-mono font-black text-xs shadow-lg shadow-pink-950/60 hover:scale-105 transition-all active:scale-95 cursor-pointer border border-white/20"
+          className="relative flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-gradient-to-r from-pink-600 via-purple-600 to-amber-400 hover:from-pink-500 hover:to-amber-300 text-white font-mono font-black text-xs shadow-lg shadow-pink-950/60 hover:scale-105 transition-all active:scale-95 cursor-pointer border border-white/20"
           title="미스터리 박스를 열어 게임 머니 만원(+10,000 COIN)을 충전하세요!"
         >
-          <Gift size={14} className="text-yellow-300 animate-bounce" />
-          <span className="tracking-widest font-black">???</span>
+          <Gift size={13} className="text-yellow-300 animate-bounce" />
+          <span className="tracking-widest font-black text-[11px]">???</span>
         </button>
 
         {/* 만원 충전 토스트 팝업 */}
@@ -92,20 +134,20 @@ export const Header: React.FC<HeaderProps> = ({
         )}
 
         {/* Coins */}
-        <div className="flex items-center gap-1.5 bg-void-900 border border-amber-500/30 px-3 py-1 rounded-xl">
+        <div className="flex items-center gap-1.5 bg-void-900 border border-amber-500/30 px-2.5 py-1 rounded-xl">
           <span className="text-amber-400 text-xs">🪙</span>
           <span className="font-mono text-xs font-bold text-amber-300">
-            {coins.toLocaleString()} COIN
+            {coins.toLocaleString()} <span className="hidden sm:inline">COIN</span>
           </span>
         </div>
 
         {/* Sound Toggle */}
         <button
           onClick={onToggleSound}
-          className="p-2 rounded-xl bg-void-900 border border-void-800 hover:border-slate-600 text-slate-400 hover:text-slate-200 transition-colors"
+          className="p-1.5 rounded-lg bg-void-900 hover:bg-void-800 text-slate-400 hover:text-slate-200 border border-void-800 transition-colors cursor-pointer"
           title={soundMuted ? '음소거 해제' : '음소거'}
         >
-          {soundMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+          {soundMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
         </button>
       </div>
     </header>
