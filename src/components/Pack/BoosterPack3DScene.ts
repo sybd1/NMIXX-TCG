@@ -1,83 +1,23 @@
 import * as THREE from 'three';
 import { BoosterPackConfig } from '../../config/gameConfig';
 
-export interface PackMaterialProfile {
-  thickness: number; // 3D z-depth puff
-  normalScale: number; // wrinkle bump strength
-  metalness: number;
-  roughness: number;
-  iridescence: number;
-  iridescenceIOR: number;
-  sparkleColor: number;
-  rimColor: number;
-}
-
-export function getPackProfile(packCode: string): PackMaterialProfile {
-  switch (packCode) {
-    case 'NX-01':
-      return {
-        thickness: 0.32,
-        normalScale: 0.72,
-        metalness: 0.76,
-        roughness: 0.24,
-        iridescence: 0.55,
-        iridescenceIOR: 1.38,
-        sparkleColor: 0x38bdf8,
-        rimColor: 0xec4899,
-      };
-    case 'NX-02':
-      return {
-        thickness: 0.27,
-        normalScale: 0.48,
-        metalness: 0.70,
-        roughness: 0.28,
-        iridescence: 0.35,
-        iridescenceIOR: 1.25,
-        sparkleColor: 0xfacc15,
-        rimColor: 0xf59e0b,
-      };
-    case 'NX-03':
-      return {
-        thickness: 0.30,
-        normalScale: 0.65,
-        metalness: 0.78,
-        roughness: 0.22,
-        iridescence: 0.62,
-        iridescenceIOR: 1.42,
-        sparkleColor: 0x60a5fa,
-        rimColor: 0x38bdf8,
-      };
-    case 'NX-04':
-    default:
-      return {
-        thickness: 0.34,
-        normalScale: 0.80,
-        metalness: 0.75,
-        roughness: 0.25,
-        iridescence: 0.48,
-        iridescenceIOR: 1.32,
-        sparkleColor: 0xe879f9,
-        rimColor: 0xa855f7,
-      };
-  }
-}
-
 /**
- * Generates a high-precision 3D booster pack geometry with substantial thickness & asymmetric pillow volume
+ * Generates ultra-realistic 3D booster pack geometry:
+ * - Crisp physical sawteeth on top & bottom seals
+ * - Compact realistic punch hole
+ * - Authentic 3D physical puff volume with realistic foil pouch curvature
  */
 export function createBoosterPackGeometry(
-  packCode = 'NX-01',
   width = 3.2,
   height = 4.8,
-  toothCount = 36,
+  toothCount = 38,
   isBack = false
 ): THREE.BufferGeometry {
-  const profile = getPackProfile(packCode);
   const shape = new THREE.Shape();
   const halfW = width / 2;
   const halfH = height / 2;
   const toothWidth = width / toothCount;
-  const toothDepth = 0.045; // Compact realistic sawteeth
+  const toothDepth = 0.04; // Sleek, authentic sawtooth height
 
   // Start at bottom-left inner corner
   shape.moveTo(-halfW, -halfH + toothDepth);
@@ -108,23 +48,20 @@ export function createBoosterPackGeometry(
     shape.lineTo(x2, y2);
   }
 
-  // Punch Hole in top center
+  // Realistic small circular punch hole in top header
   const holePath = new THREE.Path();
-  const holeRadius = 0.095;
-  const holeY = halfH - 0.36;
+  const holeRadius = 0.085;
+  const holeY = halfH - 0.32;
   holePath.absarc(0, holeY, holeRadius, 0, Math.PI * 2, true);
   shape.holes.push(holePath);
 
-  // Generate Shape Geometry
+  // High tessellation shape geometry
   const geometry = new THREE.ShapeGeometry(shape, 32);
   const pos = geometry.attributes.position;
   const uvs: number[] = [];
 
-  const topCrimpBound = halfH - 0.48;
-  const bottomCrimpBound = -halfH + 0.42;
-
-  // Randomized seed based on pack
-  const seed = packCode === 'NX-01' ? 1.1 : packCode === 'NX-02' ? 2.3 : packCode === 'NX-03' ? 3.7 : 4.9;
+  const topCrimpBound = halfH - 0.44;
+  const bottomCrimpBound = -halfH + 0.38;
 
   for (let i = 0; i < pos.count; i++) {
     const x = pos.getX(i);
@@ -135,29 +72,21 @@ export function createBoosterPackGeometry(
     uvs.push(u, v);
 
     const normX = x / halfW; // [-1, 1]
-    const normY = y / halfH; // [-1, 1]
-
     const isTopCrimp = y > topCrimpBound;
     const isBottomCrimp = y < bottomCrimpBound;
 
     let z = 0;
     if (!isTopCrimp && !isBottomCrimp) {
-      // Substantial 3D thickness puff with asymmetric organic curvature
-      const asymX = normX * 0.92 + 0.08 * Math.sin(seed);
-      const domeX = Math.cos(Math.min(Math.max(asymX, -1), 1) * (Math.PI / 2));
+      // Natural 3D foil pouch puff (cards stuffed inside)
+      const domeX = Math.cos(normX * (Math.PI / 2));
       const domeY = Math.sin(((y - bottomCrimpBound) / (topCrimpBound - bottomCrimpBound)) * Math.PI);
-      
-      const basePuff = domeX * domeY * profile.thickness;
+      const puff = domeX * domeY * 0.28;
 
-      // Pack-specific unique organic wave folds
-      const organicWave = (
-        Math.sin(normX * (7.0 + seed) + normY * (5.0 + seed)) * 0.022 +
-        Math.cos(normX * (11.0 - seed) - normY * (8.0 + seed)) * 0.015
-      ) * (1 - Math.abs(normX) * 0.4);
-
-      z = isBack ? -(basePuff * 0.85 + organicWave * 0.5) : (basePuff + organicWave);
+      // Subtle organic surface curvature
+      const microCurve = Math.sin(normX * 6.0 + y * 4.0) * 0.012 * (1 - Math.abs(normX) * 0.5);
+      z = isBack ? -(puff * 0.85) : (puff + microCurve);
     } else {
-      z = isBack ? -0.005 : 0.005;
+      z = isBack ? -0.004 : 0.004;
     }
 
     pos.setZ(i, z);
@@ -170,7 +99,7 @@ export function createBoosterPackGeometry(
 }
 
 /**
- * Generates pack-specific randomized procedural normal map for distinct wrinkle patterns
+ * Generates natural physical foil wrinkles & vertical crimp normal maps (realistic foil pouch creases)
  */
 export function generateFoilNormalMap(packCode = 'NX-01'): THREE.CanvasTexture {
   const size = 1024;
@@ -185,20 +114,20 @@ export function generateFoilNormalMap(packCode = 'NX-01'): THREE.CanvasTexture {
   const imgData = ctx.getImageData(0, 0, size, size);
   const data = imgData.data;
 
-  // Pack-specific frequency parameters
-  const freqMap: Record<string, { f1: number; f2: number; f3: number; crimp: number; tensionPow: number }> = {
-    'NX-01': { f1: 6.2, f2: 10.4, f3: 18.0, crimp: 72, tensionPow: 2.2 },
-    'NX-02': { f1: 4.0, f2: 6.8, f3: 12.0, crimp: 64, tensionPow: 1.8 },
-    'NX-03': { f1: 8.5, f2: 14.2, f3: 24.0, crimp: 80, tensionPow: 2.8 },
-    'NX-04': { f1: 5.5, f2: 12.0, f3: 16.5, crimp: 76, tensionPow: 2.5 },
+  // Realistic foil wrinkle parameters per pack
+  const params: Record<string, { crimpFreq: number; w1: number; w2: number }> = {
+    'NX-01': { crimpFreq: 76, w1: 5.4, w2: 8.2 },
+    'NX-02': { crimpFreq: 68, w1: 4.2, w2: 6.5 },
+    'NX-03': { crimpFreq: 82, w1: 6.8, w2: 9.6 },
+    'NX-04': { crimpFreq: 74, w1: 5.8, w2: 7.8 },
   };
 
-  const { f1, f2, f3, crimp, tensionPow } = freqMap[packCode] || freqMap['NX-01'];
+  const { crimpFreq, w1, w2 } = params[packCode] || params['NX-01'];
 
   for (let y = 0; y < size; y++) {
     const ny = y / size;
-    const isTop = ny < 0.10;
-    const isBottom = ny > 0.91;
+    const isTop = ny < 0.09;
+    const isBottom = ny > 0.92;
 
     for (let x = 0; x < size; x++) {
       const nx = x / size;
@@ -207,22 +136,22 @@ export function generateFoilNormalMap(packCode = 'NX-01'): THREE.CanvasTexture {
       let height = 0.5;
 
       if (isTop || isBottom) {
-        const ridge = Math.sin(nx * Math.PI * crimp);
-        height += ridge * 0.32;
+        // Crisp vertical mechanical crimp lines
+        height += Math.sin(nx * Math.PI * crimpFreq) * 0.28;
       } else {
-        const d1 = Math.sin((nx * f1 + ny * f2) * Math.PI + Math.cos(nx * f3 * 0.5)) * 0.07;
-        const d2 = Math.cos((nx * f2 - ny * f1) * Math.PI) * 0.05;
-        const d3 = Math.sin((nx * f3 + ny * f3 * 0.8) * Math.PI) * 0.03;
+        // Natural foil packaging tension creases
+        const c1 = Math.sin((nx * w1 + ny * w2) * Math.PI) * 0.045;
+        const c2 = Math.cos((nx * w2 - ny * w1) * Math.PI) * 0.035;
         
-        const cornerDist = Math.hypot(nx - 0.5, ny - 0.5);
-        const tension = Math.sin(cornerDist * (f2 * 2.0) * Math.PI) * Math.pow(1 - cornerDist, tensionPow) * 0.05;
-        const micro = (Math.sin(nx * 140) * Math.cos(ny * 140)) * 0.015;
+        // Edge pull wrinkles
+        const edgeDist = Math.min(nx, 1 - nx);
+        const edgeCrease = Math.sin(ny * 22.0 * Math.PI) * Math.exp(-edgeDist * 6.0) * 0.04;
 
-        height += d1 + d2 + d3 + tension + micro;
+        height += c1 + c2 + edgeCrease;
       }
 
-      const nxVal = Math.floor(128 + (height - 0.5) * 95);
-      const nyVal = Math.floor(128 + (height - 0.5) * 95);
+      const nxVal = Math.floor(128 + (height - 0.5) * 75);
+      const nyVal = Math.floor(128 + (height - 0.5) * 75);
 
       data[idx] = Math.max(0, Math.min(255, nxVal));
       data[idx + 1] = Math.max(0, Math.min(255, nyVal));
@@ -242,7 +171,10 @@ export function generateFoilNormalMap(packCode = 'NX-01'): THREE.CanvasTexture {
 }
 
 /**
- * Creates high-resolution pack graphic texture with 100% crystal-clear cover artwork
+ * Creates high-resolution, crystal-clear 100% authentic booster pack texture:
+ * - NO fake messy boxes or cluttered text overlays!
+ * - 100% crisp, vibrant original artwork fully covering the pack.
+ * - Premium authentic aluminum foil top/bottom crimp finish.
  */
 export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.CanvasTexture> {
   return new Promise((resolve) => {
@@ -253,124 +185,65 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
     canvas.height = height;
     const ctx = canvas.getContext('2d')!;
 
-    // 1. Draw Iridescent Holographic Background Gradient
-    const bgGrad = ctx.createLinearGradient(0, 0, width, height);
-    if (pack.code === 'NX-01') {
-      bgGrad.addColorStop(0, '#1e1b4b');
-      bgGrad.addColorStop(0.20, '#0284c7');
-      bgGrad.addColorStop(0.50, '#db2777');
-      bgGrad.addColorStop(0.80, '#7c3aed');
-      bgGrad.addColorStop(1, '#0f172a');
-    } else if (pack.code === 'NX-02') {
-      bgGrad.addColorStop(0, '#451a03');
-      bgGrad.addColorStop(0.20, '#d97706');
-      bgGrad.addColorStop(0.50, '#e11d48');
-      bgGrad.addColorStop(0.80, '#9333ea');
-      bgGrad.addColorStop(1, '#1e1b4b');
-    } else if (pack.code === 'NX-03') {
-      bgGrad.addColorStop(0, '#082f49');
-      bgGrad.addColorStop(0.20, '#0284c7');
-      bgGrad.addColorStop(0.50, '#4f46e5');
-      bgGrad.addColorStop(0.80, '#9333ea');
-      bgGrad.addColorStop(1, '#020617');
-    } else {
-      bgGrad.addColorStop(0, '#4c0519');
-      bgGrad.addColorStop(0.20, '#9333ea');
-      bgGrad.addColorStop(0.50, '#db2777');
-      bgGrad.addColorStop(0.80, '#2563eb');
-      bgGrad.addColorStop(1, '#09090b');
-    }
-    ctx.fillStyle = bgGrad;
+    // 1. Solid Clean Studio Foil Base
+    ctx.fillStyle = '#0b0c10';
     ctx.fillRect(0, 0, width, height);
 
-    // 2. Load and draw Cover Image with 100% MAXIMUM CLARITY
+    // 2. Load original image and render with 100% FULL SHARPNESS & VIBRANCY
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.onload = () => {
       ctx.save();
-      // Razor-sharp 100% opacity cover art
-      ctx.globalAlpha = 0.98;
-      ctx.drawImage(img, 0, height * 0.08, width, height * 0.78);
+      // Draw cover image cleanly across the whole front face
+      ctx.drawImage(img, 0, height * 0.065, width, height * 0.87);
       ctx.restore();
 
-      // Delicate edge-only vignette for rich contrast without washing out the center
-      const edgeVignette = ctx.createLinearGradient(0, 0, 0, height);
-      edgeVignette.addColorStop(0, 'rgba(0, 0, 0, 0.45)');
-      edgeVignette.addColorStop(0.08, 'rgba(0, 0, 0, 0)');
-      edgeVignette.addColorStop(0.55, 'rgba(0, 0, 0, 0)');
-      edgeVignette.addColorStop(0.72, 'rgba(0, 0, 0, 0.65)');
-      edgeVignette.addColorStop(1, 'rgba(0, 0, 0, 0.85)');
-      ctx.fillStyle = edgeVignette;
-      ctx.fillRect(0, 0, width, height);
+      // 3. Realistic Aluminum Foil Crimp Seals on Top & Bottom (Pure Silver Metal Shimmer)
+      const topCrimpHeight = height * 0.08;
+      const bottomCrimpHeight = height * 0.075;
 
-      // Slim top & bottom crimp shading
-      ctx.fillStyle = 'rgba(0,0,0,0.55)';
-      ctx.fillRect(0, 0, width, height * 0.085);
-      ctx.fillRect(0, height * 0.915, width, height * 0.085);
+      // Top Silver Foil Crimp Bar
+      const topGrad = ctx.createLinearGradient(0, 0, 0, topCrimpHeight);
+      topGrad.addColorStop(0, '#64748b');
+      topGrad.addColorStop(0.3, '#cbd5e1');
+      topGrad.addColorStop(0.6, '#94a3b8');
+      topGrad.addColorStop(1, '#334155');
+      ctx.fillStyle = topGrad;
+      ctx.fillRect(0, 0, width, topCrimpHeight);
 
-      // 3. Render Top Metadata
-      ctx.font = '900 48px monospace';
-      ctx.fillStyle = '#fde047';
+      // Bottom Silver Foil Crimp Bar
+      const bottomGrad = ctx.createLinearGradient(0, height - bottomCrimpHeight, 0, height);
+      bottomGrad.addColorStop(0, '#334155');
+      bottomGrad.addColorStop(0.4, '#94a3b8');
+      bottomGrad.addColorStop(0.7, '#cbd5e1');
+      bottomGrad.addColorStop(1, '#64748b');
+      ctx.fillStyle = bottomGrad;
+      ctx.fillRect(0, height - bottomCrimpHeight, width, bottomCrimpHeight);
+
+      // 4. Subtle Metallic Rim Lighting along borders
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(4, topCrimpHeight, width - 8, height - topCrimpHeight - bottomCrimpHeight);
+
+      // 5. Minimal, Ultra-Clean Top Branding (Authentic TCG Style)
+      ctx.font = '900 42px monospace';
+      ctx.fillStyle = '#f8fafc';
       ctx.textAlign = 'left';
-      ctx.shadowColor = 'rgba(0,0,0,0.95)';
-      ctx.shadowBlur = 14;
-      ctx.fillText(`[${pack.code}]`, 65, 125);
+      ctx.shadowColor = 'rgba(0,0,0,0.8)';
+      ctx.shadowBlur = 10;
+      ctx.fillText(`[${pack.code}]`, 55, 115);
 
-      ctx.font = '900 36px sans-serif';
-      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 32px sans-serif';
+      ctx.fillStyle = '#f8fafc';
       ctx.textAlign = 'right';
-      ctx.fillText('JYP / MIXX', width - 65, 105);
-      ctx.font = 'bold 26px sans-serif';
-      ctx.fillStyle = '#cbd5e1';
-      ctx.fillText('ENTERTAINMENT', width - 65, 142);
+      ctx.fillText('NMIXX TCG', width - 55, 115);
 
-      // 4. Render Main Title (2-Line Format)
+      // 6. Minimal Copyright on bottom crimp
+      ctx.font = 'bold 22px monospace';
+      ctx.fillStyle = '#e2e8f0';
       ctx.textAlign = 'center';
-      
-      // Top pack number
-      ctx.font = '900 62px monospace';
-      ctx.fillStyle = '#fde047';
-      ctx.shadowColor = 'rgba(0,0,0,0.95)';
-      ctx.shadowBlur = 20;
-      ctx.fillText(pack.code.replace('-', ' '), width / 2, height * 0.54);
-
-      // Main album title (Large Metallic Embossed)
-      const albumTitle = pack.name.includes(' - ') ? pack.name.split(' - ')[1] : pack.name;
-      ctx.font = '900 96px "Cinzel", "Times New Roman", serif';
-      ctx.fillStyle = '#ffffff';
-      ctx.shadowColor = 'rgba(0,0,0,0.98)';
-      ctx.shadowBlur = 32;
-      ctx.fillText(albumTitle, width / 2, height * 0.61);
-
-      // Subtitle
-      ctx.font = 'bold 38px sans-serif';
-      ctx.fillStyle = '#f1f5f9';
-      ctx.shadowBlur = 16;
-      ctx.fillText('NMIXX TRADING CARD GAME', width / 2, height * 0.665);
-
-      // 5. Spec Box (High Sharpness)
-      const boxW = width * 0.88;
-      const boxH = 115;
-      const boxX = (width - boxW) / 2;
-      const boxY = height * 0.76;
-
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.78)';
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
-      ctx.lineWidth = 3.5;
-      ctx.beginPath();
-      ctx.roundRect(boxX, boxY, boxW, boxH, 20);
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.font = 'bold 38px monospace';
-      ctx.fillStyle = '#ffffff';
-      ctx.shadowBlur = 0;
-      ctx.fillText(`전 ${pack.totalCards}종 + 특수 레어  |  1팩 5장입  |  부스터 팩`, width / 2, boxY + 72);
-
-      // 6. Copyright
-      ctx.font = '28px monospace';
-      ctx.fillStyle = '#94a3b8';
-      ctx.fillText('© JYP ENTERTAINMENT. MADE IN MIXXTOPIA', width / 2, height * 0.865);
+      ctx.shadowBlur = 6;
+      ctx.fillText('© JYP ENTERTAINMENT. ALL RIGHTS RESERVED', width / 2, height - 42);
 
       const texture = new THREE.CanvasTexture(canvas);
       texture.wrapS = THREE.ClampToEdgeWrapping;
