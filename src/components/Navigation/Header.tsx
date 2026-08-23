@@ -53,150 +53,193 @@ export const Header: React.FC<HeaderProps> = ({
     setTimeout(() => setShowRewardToast(false), 2000);
   };
 
+  const userFav = user ? (MEMBER_BADGES[user.avatarMemberId || 'SULLYOON'] || MEMBER_BADGES.SULLYOON) : null;
+
   return (
-    <header className="sticky top-0 z-40 w-full h-16 bg-void-950/85 backdrop-blur-xl border-b border-void-800/80 px-3 sm:px-4 md:px-8 flex items-center justify-between relative">
-      {/* Brand */}
-      <div
-        onClick={() => onSelectTab('home')}
-        className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group z-10"
-      >
-        <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-pink-500 via-purple-600 to-sky-400 p-[1.5px] flex items-center justify-center shadow-lg shadow-pink-950/50 flex-shrink-0">
-          <div className="w-full h-full bg-void-950 rounded-[7px] flex items-center justify-center">
-            <span className="text-pink-400 font-serif font-black text-sm">N</span>
+    <header className="sticky top-0 z-40 w-full bg-void-950/95 backdrop-blur-xl border-b border-void-800/80 flex flex-col">
+      {/* 📱 메인 상단 헤더 바 (Desktop & Mobile 공통) */}
+      <div className="w-full h-14 sm:h-16 px-3 sm:px-4 md:px-8 flex items-center justify-between relative">
+        {/* Brand Logo & Title */}
+        <div
+          onClick={() => onSelectTab('home')}
+          className="flex items-center gap-2 sm:gap-2.5 cursor-pointer group flex-shrink-0"
+        >
+          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-tr from-pink-500 via-purple-600 to-sky-400 p-[1.5px] flex items-center justify-center shadow-lg shadow-pink-950/50 flex-shrink-0">
+            <div className="w-full h-full bg-void-950 rounded-[6px] flex items-center justify-center">
+              <span className="text-pink-400 font-serif font-black text-xs sm:text-sm">N</span>
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-serif font-black text-sm sm:text-base md:text-lg tracking-wider sm:tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-200 to-sky-200 group-hover:from-pink-200 group-hover:to-amber-200 transition-colors">
+              NMIXX TCG
+            </span>
+            <span className="text-[7.5px] font-mono tracking-widest text-slate-400 font-bold hidden xl:inline">
+              OFFICIAL DIGITAL CARD PROTOCOL
+            </span>
           </div>
         </div>
-        <div className="flex flex-col">
-          <span className="font-serif font-black text-sm sm:text-base md:text-lg tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-200 to-sky-200 group-hover:from-pink-200 group-hover:to-amber-200 transition-colors">
-            NMIXX TCG
-          </span>
-          <span className="text-[8px] sm:text-[8.5px] font-mono tracking-widest text-slate-400 font-bold hidden md:inline">
-            OFFICIAL DIGITAL CARD PROTOCOL
-          </span>
+
+        {/* 💻 Desktop Navigation Tabs (화면 정중앙 완벽 고정) */}
+        <nav className="hidden lg:flex items-center gap-1 bg-void-900/90 p-1.5 rounded-2xl border border-void-800/90 absolute left-1/2 -translate-x-1/2 shadow-xl backdrop-blur-md">
+          {[
+            { id: 'home', label: 'PACK OPEN' },
+            { id: 'collection', label: 'COLLECTION' },
+            { id: 'achievements', label: 'ACHIEVEMENTS' },
+            { id: 'patch-notes', label: 'PATCH NOTES' },
+            { id: 'settings', label: 'INFORMATION' },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => onSelectTab(tab.id as NavTab)}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold tracking-wider transition-all cursor-pointer ${
+                currentTab === tab.id
+                  ? 'bg-gradient-to-r from-pink-600/40 via-purple-600/40 to-amber-500/30 text-white border border-pink-400/50 shadow-md shadow-pink-950/50 scale-[1.02]'
+                  : 'text-slate-400 hover:text-slate-100 hover:bg-white/5 border border-transparent'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </nav>
+
+        {/* 우측 핵심 통화 & 유저 액션 바 */}
+        <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+          {/* 💻 Desktop 전용 멀티플레이 버튼군 (lg 이상에서만 상단에 표시) */}
+          <div className="hidden lg:flex items-center gap-1.5 mr-1">
+            <button
+              onClick={onOpenLeaderboard}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-void-900 hover:bg-void-800 text-amber-300 border border-amber-500/30 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer shadow-md"
+              title="글로벌 수집가 랭킹"
+            >
+              <Trophy size={13} className="text-amber-400" />
+              <span>랭킹</span>
+            </button>
+            <button
+              onClick={onOpenMarket}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-void-900 hover:bg-void-800 text-cyan-300 border border-cyan-500/30 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer shadow-md"
+              title="1:1 중복 카드 교환소"
+            >
+              <ArrowLeftRight size={13} className="text-cyan-400" />
+              <span>교환소</span>
+            </button>
+            <button
+              onClick={onOpenMailbox}
+              className="relative flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-void-900 hover:bg-void-800 text-pink-300 border border-pink-500/30 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer shadow-md"
+              title="우편함 & 쿠폰"
+            >
+              <Mail size={13} className="text-pink-400" />
+              <span>우편</span>
+              {unreadMailCount > 0 && (
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-pink-500 text-white text-[9px] font-black flex items-center justify-center animate-bounce shadow-md">
+                  {unreadMailCount}
+                </span>
+              )}
+            </button>
+          </div>
+
+          {/* 🎁 ??? 미스터리 박스 버튼 */}
+          <div className="relative">
+            <button
+              onClick={handleMysteryClick}
+              className="flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-full bg-gradient-to-r from-pink-600 via-purple-600 to-amber-400 hover:from-pink-500 hover:to-amber-300 text-white font-mono font-black text-[11px] shadow-lg shadow-pink-950/60 hover:scale-105 transition-all active:scale-95 cursor-pointer border border-white/20"
+              title="미스터리 박스 (+10,000 COIN)"
+            >
+              <Gift size={12} className="text-yellow-300 animate-bounce" />
+              <span className="tracking-wider font-black">???</span>
+            </button>
+
+            {showRewardToast && (
+              <div className="absolute -bottom-8 right-0 bg-amber-500 text-black font-mono font-black text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded-full shadow-2xl animate-pulse z-50 border border-yellow-200 pointer-events-none whitespace-nowrap">
+                🎉 +10,000 COIN!
+              </div>
+            )}
+          </div>
+
+          {/* 🪙 Coins Balance Display */}
+          <div className="flex items-center gap-1 bg-void-900 border border-amber-500/30 px-2 sm:px-2.5 py-1 rounded-xl">
+            <span className="text-amber-400 text-xs">🪙</span>
+            <span className="font-mono text-[11px] sm:text-xs font-bold text-amber-300">
+              {coins.toLocaleString()}
+            </span>
+          </div>
+
+          {/* 👤 소셜 로그인 / 유저 프로필 뱃지 */}
+          {user ? (
+            <button
+              onClick={onOpenProfile}
+              className="flex items-center gap-1 px-2 py-1 rounded-xl bg-void-900 border border-purple-500/40 hover:border-pink-400 text-xs font-mono transition-all hover:scale-105 cursor-pointer shadow-md"
+              title="프로필 및 클라우드 연동"
+            >
+              <div className="w-5 h-5 rounded-lg bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-xs flex-shrink-0">
+                {userFav?.symbol || '🌸'}
+              </div>
+              <span className="font-bold text-white max-w-[50px] sm:max-w-[80px] truncate text-[11px] hidden xs:inline">
+                {user.displayName}
+              </span>
+            </button>
+          ) : (
+            <button
+              onClick={onOpenAuth}
+              className="flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-mono font-bold text-xs shadow-md transition-all hover:scale-105 cursor-pointer border border-pink-400/30"
+              title="소셜 로그인"
+            >
+              <User size={12} />
+              <span className="text-[11px]">로그인</span>
+            </button>
+          )}
+
+          {/* 🔊 Desktop Sound Toggle */}
+          <button
+            onClick={onToggleSound}
+            className="p-1.5 rounded-lg bg-void-900 hover:bg-void-800 text-slate-400 hover:text-slate-200 border border-void-800 transition-colors cursor-pointer hidden lg:inline-flex"
+            title={soundMuted ? '음소거 해제' : '음소거'}
+          >
+            {soundMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+          </button>
         </div>
       </div>
 
-      {/* 🌟 Desktop Navigation Tabs (화면 정중앙 완벽 고정) */}
-      <nav className="hidden lg:flex items-center gap-1 bg-void-900/90 p-1.5 rounded-2xl border border-void-800/90 absolute left-1/2 -translate-x-1/2 shadow-xl backdrop-blur-md">
-        {[
-          { id: 'home', label: 'PACK OPEN' },
-          { id: 'collection', label: 'COLLECTION' },
-          { id: 'achievements', label: 'ACHIEVEMENTS' },
-          { id: 'patch-notes', label: 'PATCH NOTES' },
-          { id: 'settings', label: 'INFORMATION' },
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => onSelectTab(tab.id as NavTab)}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold tracking-wider transition-all cursor-pointer ${
-              currentTab === tab.id
-                ? 'bg-gradient-to-r from-pink-600/40 via-purple-600/40 to-amber-500/30 text-white border border-pink-400/50 shadow-md shadow-pink-950/50 scale-[1.02]'
-                : 'text-slate-400 hover:text-slate-100 hover:bg-white/5 border border-transparent'
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </nav>
-
-      {/* Right Currencies & Actions */}
-      <div className="flex items-center gap-1.5 sm:gap-2 relative z-10">
-        {/* 🏆 글로벌 랭킹 버튼 */}
+      {/* 📱 Mobile 전용 서브 퀵 액션 바 (lg 미만 화면에서만 슬림하게 노출) */}
+      <div className="lg:hidden w-full bg-void-950/90 border-t border-white/5 px-3 py-1.5 flex items-center justify-between gap-1.5 overflow-x-auto select-none">
+        {/* 🏆 모바일 랭킹 버튼 */}
         <button
           onClick={onOpenLeaderboard}
-          className="flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-xl bg-void-900 hover:bg-void-800 text-amber-300 border border-amber-500/30 hover:border-amber-400 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer shadow-md"
-          title="글로벌 수집가 랭킹 & XR 명예의 전당"
+          className="flex-1 py-1 px-2 rounded-xl bg-void-900/90 border border-amber-500/30 hover:border-amber-400 text-amber-300 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
         >
-          <Trophy size={14} className="text-amber-400" />
-          <span className="hidden sm:inline">랭킹</span>
+          <Trophy size={12} className="text-amber-400" />
+          <span>랭킹</span>
         </button>
 
-        {/* 🔄 중복 카드 교환소 버튼 */}
+        {/* 🔄 모바일 교환소 버튼 */}
         <button
           onClick={onOpenMarket}
-          className="flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-xl bg-void-900 hover:bg-void-800 text-cyan-300 border border-cyan-500/30 hover:border-cyan-400 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer shadow-md"
-          title="엔써 중복 카드 1:1 교환소"
+          className="flex-1 py-1 px-2 rounded-xl bg-void-900/90 border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
         >
-          <ArrowLeftRight size={14} className="text-cyan-400" />
-          <span className="hidden sm:inline">교환소</span>
+          <ArrowLeftRight size={12} className="text-cyan-400" />
+          <span>교환소</span>
         </button>
 
-        {/* 📬 우편함 & 쿠폰 버튼 (알림 배지 탑재) */}
+        {/* 📬 모바일 우편함 버튼 */}
         <button
           onClick={onOpenMailbox}
-          className="relative flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-xl bg-void-900 hover:bg-void-800 text-pink-300 border border-pink-500/30 hover:border-pink-400 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer shadow-md"
-          title="공식 우편함 및 쿠폰 등록"
+          className="relative flex-1 py-1 px-2 rounded-xl bg-void-900/90 border border-pink-500/30 hover:border-pink-400 text-pink-300 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
         >
-          <Mail size={14} className="text-pink-400" />
-          <span className="hidden sm:inline">우편</span>
+          <Mail size={12} className="text-pink-400" />
+          <span>우편</span>
           {unreadMailCount > 0 && (
-            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-pink-500 text-white text-[9px] font-black flex items-center justify-center animate-bounce shadow-md">
+            <span className="px-1.5 py-0.2 rounded-full bg-pink-500 text-white text-[8px] font-black animate-pulse">
               {unreadMailCount}
             </span>
           )}
         </button>
 
-        {/* 👤 소셜 로그인 / 유저 프로필 뱃지 */}
-        {user ? (
-          (() => {
-            const fav = MEMBER_BADGES[user.avatarMemberId || 'SULLYOON'] || MEMBER_BADGES.SULLYOON;
-            return (
-              <button
-                onClick={onOpenProfile}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-void-900 border border-purple-500/40 hover:border-pink-400 text-xs font-mono transition-all hover:scale-105 cursor-pointer shadow-md"
-                title="프로필 및 클라우드 연동 관리"
-              >
-                <div className="w-5 h-5 rounded-lg bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-xs">
-                  {fav.symbol}
-                </div>
-                <span className="font-bold text-white max-w-[60px] sm:max-w-[90px] truncate text-[11px]">
-                  {user.displayName}
-                </span>
-              </button>
-            );
-          })()
-        ) : (
-          <button
-            onClick={onOpenAuth}
-            className="flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-mono font-black text-xs shadow-md shadow-pink-950/50 transition-all hover:scale-105 active:scale-95 cursor-pointer border border-pink-400/30"
-            title="Google 및 카카오 계정으로 간편 가입"
-          >
-            <User size={13} />
-            <span className="hidden sm:inline">로그인</span>
-          </button>
-        )}
-
-        {/* 🎁 ??? 미스터리 박스 버튼 */}
-        <button
-          onClick={handleMysteryClick}
-          className="relative flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-full bg-gradient-to-r from-pink-600 via-purple-600 to-amber-400 hover:from-pink-500 hover:to-amber-300 text-white font-mono font-black text-xs shadow-lg shadow-pink-950/60 hover:scale-105 transition-all active:scale-95 cursor-pointer border border-white/20"
-          title="미스터리 박스를 열어 게임 머니 만원(+10,000 COIN)을 충전하세요!"
-        >
-          <Gift size={12} className="text-yellow-300 animate-bounce" />
-          <span className="tracking-widest font-black text-[10px]">???</span>
-        </button>
-
-        {/* 만원 충전 토스트 팝업 */}
-        {showRewardToast && (
-          <div className="absolute -bottom-8 left-0 transform -translate-x-4 bg-amber-500 text-black font-mono font-black text-[11px] px-2.5 py-0.5 rounded-full shadow-2xl animate-pulse z-50 border border-yellow-200 pointer-events-none whitespace-nowrap">
-            🎉 +10,000 COIN 충전 완료!
-          </div>
-        )}
-
-        {/* Coins */}
-        <div className="flex items-center gap-1 bg-void-900 border border-amber-500/30 px-2 sm:px-2.5 py-1 rounded-xl">
-          <span className="text-amber-400 text-xs">🪙</span>
-          <span className="font-mono text-[11px] sm:text-xs font-bold text-amber-300">
-            {coins.toLocaleString()}
-          </span>
-        </div>
-
-        {/* Sound Toggle */}
+        {/* 🔊 모바일 사운드 토글 */}
         <button
           onClick={onToggleSound}
-          className="p-1.5 rounded-lg bg-void-900 hover:bg-void-800 text-slate-400 hover:text-slate-200 border border-void-800 transition-colors cursor-pointer hidden sm:inline-flex"
-          title={soundMuted ? '음소거 해제' : '음소거'}
+          className="py-1 px-2.5 rounded-xl bg-void-900/90 border border-white/10 text-slate-400 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
         >
-          {soundMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+          {soundMuted ? <VolumeX size={12} /> : <Volume2 size={12} className="text-pink-400" />}
+          <span>{soundMuted ? '음소거' : '소리 ON'}</span>
         </button>
       </div>
     </header>
