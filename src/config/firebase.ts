@@ -3,12 +3,12 @@ import { getAuth, Auth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore, Firestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || '',
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || '',
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || '',
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || '',
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '',
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || '',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || 'AIzaSyCGPrjF48OGAqfhJzUCd7Wb-_msS87kQNA',
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || 'nmixx-tcg.firebaseapp.com',
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || 'nmixx-tcg',
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || 'nmixx-tcg.firebasestorage.app',
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '1084995327740',
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || '1:1084995327740:web:85afe61c858b30c47e6979',
 };
 
 export const isFirebaseConfigured = Boolean(
