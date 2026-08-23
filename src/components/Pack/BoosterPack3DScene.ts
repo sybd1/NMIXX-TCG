@@ -310,8 +310,15 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
         ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
         ctx.shadowBlur = 8;
         ctx.fillText(`전 ${pack.totalCards}종 + 특수 레어  •  1팩 5장입  •  BOOSTER PACK`, width / 2, bottomAreaY + 195);
+      } else if (pack.code === 'NX-04') {
+        // 🌟 NX-04 Specific: Natural aspect ratio & face-centered framing (no distortion & full character visibility)
+        const targetAspect = img.width / img.height; // ~0.707
+        const drawWidth = width;
+        const drawHeight = width / targetAspect; // ~2171px
+        const drawY = usableY - (drawHeight - usableHeight) * 0.32; // Perfectly center members' faces
+        ctx.drawImage(img, 0, drawY, drawWidth, drawHeight);
       } else {
-        // Portrait artwork (e.g. NX-02 or NX-04)
+        // NX-02 Portrait artwork
         ctx.drawImage(img, 0, usableY, width, usableHeight);
       }
 
