@@ -26,18 +26,19 @@ export const createFullUnlockedState = (): GameState => {
   });
 
   return {
-    coins: 99_999_999, // 9999만 골드
-    dust: 999_999, // 99만 더스트
+    coins: 1_000_000, // 기본 100만원 골드 지급
+    dust: 0,
     collection,
     pityCount: 0,
     lastDailyBonus: new Date().toISOString().split('T')[0],
     packHistory: [],
-    openedPacksTotal: 999,
-    coinsSpentTotal: 99_999_990,
+    openedPacksTotal: 0,
+    coinsSpentTotal: 0,
     soundMuted: false,
     isFirstVisit: false,
     claimedSetRewards: CONCEPT_SETS.map(s => s.setId),
     claimedAchievements: ACHIEVEMENTS.map(a => a.id),
+    coinReset_v16: true,
   };
 };
 
@@ -71,17 +72,22 @@ export class StorageService {
         mergedCollection[xrCardId] = Math.min(1, mergedCollection[xrCardId]);
       }
 
+      // 💰 v1.6 전 유저 머니 100만원 강제 초기화 마이그레이션
+      const needsCoinReset = !parsed.coinReset_v16;
+      const finalCoins = needsCoinReset ? 1_000_000 : (parsed.coins ?? 1_000_000);
+
       const mergedState: GameState = {
         ...fullState,
         ...parsed,
         collection: mergedCollection,
-        coins: Math.max(parsed.coins || 0, 99_999_999),
-        dust: Math.max(parsed.dust || 0, 999_999),
-        openedPacksTotal: Math.max(parsed.openedPacksTotal || 0, 999),
-        coinsSpentTotal: Math.max(parsed.coinsSpentTotal || 0, 99_999_990),
+        coins: finalCoins,
+        dust: parsed.dust || 0,
+        openedPacksTotal: parsed.openedPacksTotal || 0,
+        coinsSpentTotal: parsed.coinsSpentTotal || 0,
         claimedSetRewards: Array.from(new Set([...(parsed.claimedSetRewards || []), ...fullState.claimedSetRewards!])),
         claimedAchievements: Array.from(new Set([...(parsed.claimedAchievements || []), ...fullState.claimedAchievements!])),
         isFirstVisit: false,
+        coinReset_v16: true,
       };
 
       this.saveState(mergedState);

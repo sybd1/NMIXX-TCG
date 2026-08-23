@@ -42,4 +42,5 @@ export interface GameState {
   claimedAchievements?: string[]; // 이미 보상을 수령한 업적 ID 목록
   claimedMailIds?: string[]; // 이미 수령한 우편 ID 목록
   claimedCouponCodes?: string[]; // 이미 사용한 쿠폰 코드 목록
+  coinReset_v16?: boolean; // v1.6.0 전 유저 100만원 초기화 적용 플래그
 }
