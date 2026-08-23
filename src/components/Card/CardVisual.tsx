@@ -177,6 +177,24 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
   const isLogoCard = card.theme?.includes('심볼') || card.theme?.includes('로고') || card.name.includes('심볼') || card.name.includes('로고');
   const isSsrPlus = ['SSR', 'UR', 'LR', 'MR', 'XR'].includes(card.rarity);
 
+  // 9단계 Rarity별 이너 프레임 라인 & 코너 악센트 색상 가이드
+  const innerFrameStyles: Record<Card['rarity'], { border: string; corner: string; glow: string }> = {
+    C: { border: 'border-slate-500/40', corner: 'border-slate-400/60', glow: '' },
+    UC: { border: 'border-emerald-400/50', corner: 'border-emerald-300', glow: 'shadow-[0_0_6px_rgba(52,211,153,0.3)]' },
+    R: { border: 'border-slate-200/80', corner: 'border-white', glow: 'shadow-[0_0_10px_rgba(255,255,255,0.45)]' },
+    SR: { border: 'border-purple-400/80', corner: 'border-purple-300', glow: 'shadow-[0_0_12px_rgba(192,132,252,0.55)]' },
+    SSR: { border: 'border-[1.5px] border-amber-300', corner: 'border-yellow-200', glow: 'shadow-[0_0_15px_rgba(245,158,11,0.65)]' },
+    UR: { border: 'border-[2px] border-rose-400', corner: 'border-rose-200', glow: 'shadow-[0_0_18px_rgba(244,63,94,0.75)]' },
+    LR: { border: 'border-[2px] border-yellow-300', corner: 'border-amber-200', glow: 'shadow-[0_0_20px_rgba(234,179,8,0.85)]' },
+    MR: { border: 'border-[2px] border-cyan-300', corner: 'border-white', glow: 'shadow-[0_0_22px_rgba(6,182,212,0.9)]' },
+    XR: { border: 'border-[2.5px] border-rose-500', corner: 'border-amber-300', glow: 'shadow-[0_0_25px_rgba(244,63,94,0.95)]' },
+  };
+
+  const currentInnerFrame = innerFrameStyles[card.rarity] || innerFrameStyles.C;
+  const serialCode = card.packCode
+    ? `${card.packCode.replace('-', '')}-${String(card.collectionNumber).padStart(3, '0')}`
+    : `NX1-${String(card.collectionNumber).padStart(3, '0')}`;
+
   return (
     <div
       ref={cardRef}
@@ -258,7 +276,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
             {/* 상단 미스터리 HUD */}
             <div className="relative z-20 w-full flex items-center justify-between pointer-events-none">
               <span className="font-mono text-[8.5px] font-black text-rose-300 bg-black/80 px-2 py-0.5 rounded-lg border border-rose-500/30">
-                NO. #{String(card.collectionNumber).padStart(3, '0')}
+                {serialCode}
               </span>
               <span className="text-[8.5px] font-black tracking-widest bg-gradient-to-r from-rose-600 to-amber-500 text-white px-2 py-0.5 rounded border border-white/30 shadow-lg animate-pulse">
                 XR 초월
@@ -341,21 +359,31 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               </div>
             )}
 
-            {/* Layer 4: SSR+ 전용 프리미엄 메탈릭 코너 림 데코레이션 (+25px) */}
-            {isOwned && isSsrPlus && (
-              <div
-                className="absolute inset-1 rounded-xl border border-amber-300/40 pointer-events-none transition-transform duration-150"
-                style={{
-                  transform: `translateZ(25px)`,
-                  boxShadow: 'inset 0 0 14px rgba(250,204,21,0.25)',
-                }}
-              >
-                <div className="absolute top-1 left-1 w-2 h-2 border-t-2 border-l-2 border-amber-300" />
-                <div className="absolute top-1 right-1 w-2 h-2 border-t-2 border-r-2 border-amber-300" />
-                <div className="absolute bottom-1 left-1 w-2 h-2 border-b-2 border-l-2 border-amber-300" />
-                <div className="absolute bottom-1 right-1 w-2 h-2 border-b-2 border-r-2 border-amber-300" />
-              </div>
-            )}
+            {/* 🌟 Layer 4: 공통 내부 장식 테두리 프레임 (Unified Inner TCG Decorative Frame) + 코너 노드 악센트 (+25px) */}
+            <div
+              className={`absolute inset-[6px] rounded-xl border ${currentInnerFrame.border} ${currentInnerFrame.glow} pointer-events-none transition-all duration-200 z-15`}
+              style={{
+                transform: isOwned && isHighTier
+                  ? `translateZ(25px) translate(${styleState.rotY * 0.5}px, ${styleState.rotX * -0.5}px)`
+                  : undefined,
+              }}
+            >
+              {/* 네 모서리 TCG 기하학적 꺾임 장식 노드 (Corner Node Accents) */}
+              <div className={`absolute top-0.5 left-0.5 w-2 h-2 border-t-2 border-l-2 ${currentInnerFrame.corner}`} />
+              <div className={`absolute top-0.5 right-0.5 w-2 h-2 border-t-2 border-r-2 ${currentInnerFrame.corner}`} />
+              <div className={`absolute bottom-0.5 left-0.5 w-2 h-2 border-b-2 border-l-2 ${currentInnerFrame.corner}`} />
+              <div className={`absolute bottom-0.5 right-0.5 w-2 h-2 border-b-2 border-r-2 ${currentInnerFrame.corner}`} />
+
+              {/* 고등급(SSR+) 전용 이너 젬 노드 */}
+              {isSsrPlus && (
+                <>
+                  <div className="absolute -top-1 -left-1 w-1.5 h-1.5 rounded-full bg-amber-300 shadow-[0_0_6px_rgba(250,204,21,1)]" />
+                  <div className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full bg-amber-300 shadow-[0_0_6px_rgba(250,204,21,1)]" />
+                  <div className="absolute -bottom-1 -left-1 w-1.5 h-1.5 rounded-full bg-amber-300 shadow-[0_0_6px_rgba(250,204,21,1)]" />
+                  <div className="absolute -bottom-1 -right-1 w-1.5 h-1.5 rounded-full bg-amber-300 shadow-[0_0_6px_rgba(250,204,21,1)]" />
+                </>
+              )}
+            </div>
 
             {/* Layer 5: 3D 양각 테두리 이너 베벨 광택 림 (+30px) */}
             {isOwned && isHighTier && (
@@ -377,8 +405,8 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                   : undefined,
               }}
             >
-              <span className="font-mono text-[8.5px] font-black text-amber-300 bg-black/70 px-2 py-0.5 rounded-md border border-amber-500/40 shadow-sm">
-                #{String(card.collectionNumber).padStart(3, '0')}
+              <span className="font-mono text-[8px] sm:text-[8.5px] font-black text-amber-300 bg-black/70 px-2 py-0.5 rounded-md border border-amber-500/40 shadow-sm tracking-tight">
+                {serialCode}
               </span>
 
               <div className="flex items-center gap-1">
@@ -396,40 +424,47 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               </div>
             </div>
 
-            {/* Layer 7: 하단 글래스모피즘 정보 패널 (설명글/인용구 & 공간 꽉 채우기 +35px) */}
+            {/* Layer 7: 하단 글래스모피즘 규격화 정보 패널 (표준 메타데이터 + 설명글 +35px) */}
             {showDetails && (
               <div
-                className="relative z-20 mt-auto w-full p-2 bg-black/60 backdrop-blur-md border-t border-white/15 flex flex-col gap-0.5 pointer-events-none"
+                className="relative z-20 mt-auto w-full p-2 bg-black/65 backdrop-blur-md border-t border-white/15 flex flex-col gap-0.5 pointer-events-none"
                 style={{
                   transform: isOwned && isHighTier
                     ? `translateZ(35px) translate(${styleState.rotY * 0.7}px, ${styleState.rotX * -0.7}px)`
                     : undefined,
                 }}
               >
-                {/* 카드 타이틀 & 심볼/에라 */}
+                {/* 1열: 카드 타이틀 & 심볼/에라 */}
                 <div className="flex items-center justify-between w-full overflow-hidden">
-                  <span className="font-serif font-black text-white text-[10.5px] sm:text-[11.5px] tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] whitespace-nowrap overflow-hidden text-ellipsis block truncate max-w-[72%] leading-tight">
+                  <span className="font-serif font-black text-white text-[10px] sm:text-[11.5px] tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] whitespace-nowrap overflow-hidden text-ellipsis block truncate max-w-[72%] leading-tight">
                     {isLogoCard ? 'Fe3O4: FORWARD 심볼' : (card.name.replace(/^\[[^\]]+\]\s*/, '') || card.name)}
                   </span>
-                  <span className="text-[7px] sm:text-[7.5px] font-mono font-extrabold text-amber-300 uppercase whitespace-nowrap overflow-hidden text-ellipsis drop-shadow leading-tight bg-amber-950/60 px-1 py-0.2 rounded border border-amber-500/30">
+                  <span className="text-[7px] sm:text-[7.5px] font-mono font-extrabold text-amber-300 uppercase whitespace-nowrap overflow-hidden text-ellipsis drop-shadow leading-tight bg-amber-950/60 px-1 py-0.2 rounded border border-amber-500/30 flex-shrink-0">
                     {card.era}
                   </span>
                 </div>
 
-                {/* 카드 설명글 / 인용구 (가로형 여백을 알차고 감성적으로 채워줌) */}
+                {/* 2열: 카드 설명글 / 인용구 */}
                 <p className="text-[7.5px] sm:text-[8px] font-sans text-slate-300/90 leading-tight truncate italic drop-shadow-sm">
                   {card.quote ? `"${card.quote}"` : card.description}
                 </p>
+
+                {/* 3열: 하단 표준화 규격 메타데이터 라인 (TCG 공식 규격: 일련번호 • 심볼 • 레어도 가공) */}
+                <div className="flex items-center justify-between text-[6.5px] sm:text-[7px] font-mono text-slate-400/90 pt-0.5 border-t border-white/10 mt-0.5 leading-none">
+                  <span className="tracking-tight text-amber-300/90 font-bold">{serialCode}</span>
+                  <span className="truncate max-w-[100px] text-slate-300">{card.packName || 'NMIXX TCG'}</span>
+                  <span className="text-pink-300 font-bold">{card.finishType || 'NORMAL'}</span>
+                </div>
               </div>
             )}
 
             {/* 카드 획득/보유 수량 뱃지 (x2, x3 등 선명한 황금 네온 뱃지) */}
             {count > 1 && (
               <div
-                className="absolute bottom-2 right-2 z-40 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-black border-2 border-white font-mono text-[10px] sm:text-[11.5px] font-black px-2 py-0.5 rounded-lg shadow-[0_0_18px_rgba(250,204,21,0.95)] ring-2 ring-amber-400/80 pointer-events-none flex items-center gap-0.5 tracking-tight"
+                className="absolute bottom-9 right-2 z-40 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-black border-2 border-white font-mono text-[9.5px] sm:text-[10.5px] font-black px-1.5 py-0.2 rounded-md shadow-[0_0_15px_rgba(250,204,21,0.95)] ring-1 ring-amber-400/80 pointer-events-none flex items-center gap-0.5 tracking-tight"
                 style={{ transform: 'translateZ(45px)' }}
               >
-                <span className="text-[9px]">x</span>
+                <span className="text-[8.5px]">x</span>
                 <span>{count}</span>
               </div>
             )}
@@ -450,3 +485,4 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     </div>
   );
 });
+
