@@ -259,6 +259,7 @@ export const App: React.FC = () => {
           sound.playClick();
           setCurrentTab(tab);
         }}
+        onOpenLeaderboard={() => setIsLeaderboardOpen(true)}
       />
 
       {/* 6. Google & Kakao 소셜 로그인 모달 */}

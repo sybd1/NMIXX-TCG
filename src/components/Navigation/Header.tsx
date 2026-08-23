@@ -54,6 +54,16 @@ export const Header: React.FC<HeaderProps> = ({
 
   const userFav = user ? (MEMBER_BADGES[user.avatarMemberId || 'SULLYOON'] || MEMBER_BADGES.SULLYOON) : null;
 
+  // 🌟 사용자 지정 카테고리 순서: 팩오픈 -> 컬렉션 -> 업적 -> 랭킹 -> 인포메이션 -> 패치노트
+  const navTabs: { id: NavTab | 'ranking'; label: string; action?: () => void }[] = [
+    { id: 'home', label: 'PACK OPEN' },
+    { id: 'collection', label: 'COLLECTION' },
+    { id: 'achievements', label: 'ACHIEVEMENTS' },
+    { id: 'ranking', label: 'RANKING', action: onOpenLeaderboard },
+    { id: 'settings', label: 'INFORMATION' },
+    { id: 'patch-notes', label: 'PATCH NOTES' },
+  ];
+
   return (
     <header className="sticky top-0 z-40 w-full bg-void-950/95 backdrop-blur-xl border-b border-void-800/80 flex flex-col">
       {/* 📱 메인 상단 헤더 바 (Desktop & Mobile 공통) */}
@@ -78,32 +88,35 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* 💻 Desktop Navigation Tabs (화면 정중앙 완벽 고정) */}
+        {/* 💻 Desktop Navigation Tabs (순서: 팩오픈 -> 컬렉션 -> 업적 -> 랭킹 -> 인포메이션 -> 패치노트) */}
         <nav className="hidden lg:flex items-center gap-1 bg-void-900/90 p-1.5 rounded-2xl border border-void-800/90 absolute left-1/2 -translate-x-1/2 shadow-xl backdrop-blur-md">
-          {[
-            { id: 'home', label: 'PACK OPEN' },
-            { id: 'collection', label: 'COLLECTION' },
-            { id: 'achievements', label: 'ACHIEVEMENTS' },
-            { id: 'patch-notes', label: 'PATCH NOTES' },
-            { id: 'settings', label: 'INFORMATION' },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => onSelectTab(tab.id as NavTab)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold tracking-wider transition-all cursor-pointer ${
-                currentTab === tab.id
-                  ? 'bg-gradient-to-r from-pink-600/40 via-purple-600/40 to-amber-500/30 text-white border border-pink-400/50 shadow-md shadow-pink-950/50 scale-[1.02]'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-white/5 border border-transparent'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+          {navTabs.map((tab) => {
+            const isSelected = currentTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => {
+                  if (tab.action) {
+                    tab.action();
+                  } else {
+                    onSelectTab(tab.id as NavTab);
+                  }
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold tracking-wider transition-all cursor-pointer ${
+                  isSelected
+                    ? 'bg-gradient-to-r from-pink-600/40 via-purple-600/40 to-amber-500/30 text-white border border-pink-400/50 shadow-md shadow-pink-950/50 scale-[1.02]'
+                    : 'text-slate-400 hover:text-slate-100 hover:bg-white/5 border border-transparent'
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
         </nav>
 
         {/* 우측 핵심 통화 & 유저 액션 바 */}
         <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-          {/* 💻 Desktop 전용 멀티플레이 버튼군 (lg 이상에서만 상단에 표시) */}
+          {/* 💻 Desktop 전용 랭킹 & 우편함 버튼 */}
           <div className="hidden lg:flex items-center gap-1.5 mr-1">
             <button
               onClick={onOpenLeaderboard}
@@ -113,16 +126,7 @@ export const Header: React.FC<HeaderProps> = ({
               <Trophy size={13} className="text-amber-400" />
               <span>랭킹</span>
             </button>
-            {/* 🔄 [교환소 시스템 보류 - 추후 재활성화 가능]
-            <button
-              onClick={onOpenMarket}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-void-900 hover:bg-void-800 text-cyan-300 border border-cyan-500/30 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer shadow-md"
-              title="1:1 중복 카드 교환소"
-            >
-              <ArrowLeftRight size={13} className="text-cyan-400" />
-              <span>교환소</span>
-            </button>
-            */}
+
             <button
               onClick={onOpenMailbox}
               className="relative flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-void-900 hover:bg-void-800 text-pink-300 border border-pink-500/30 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer shadow-md"
@@ -164,24 +168,22 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </div>
 
-          {/* 👤 소셜 로그인 / 유저 프로필 뱃지 */}
+          {/* 👤 로그인 상태: 아이콘 대신 유저 닉네임을 확실하게 표시 */}
           {user ? (
             <button
               onClick={onOpenProfile}
-              className="flex items-center gap-1 px-2 py-1 rounded-xl bg-void-900 border border-purple-500/40 hover:border-pink-400 text-xs font-mono transition-all hover:scale-105 cursor-pointer shadow-md"
-              title="프로필 및 클라우드 연동"
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-gradient-to-r from-purple-950/90 to-pink-950/90 border border-purple-500/50 hover:border-pink-400 text-xs font-mono transition-all hover:scale-105 cursor-pointer shadow-md"
+              title="프로필 및 클라우드 연동 관리"
             >
-              <div className="w-5 h-5 rounded-lg bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-xs flex-shrink-0">
-                {userFav?.symbol || '🌸'}
-              </div>
-              <span className="font-bold text-white max-w-[50px] sm:max-w-[80px] truncate text-[11px] hidden xs:inline">
+              <span className="text-xs">{userFav?.symbol || '🌸'}</span>
+              <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-200 to-amber-200 max-w-[90px] sm:max-w-[120px] truncate text-[11.5px] sm:text-xs">
                 {user.displayName}
               </span>
             </button>
           ) : (
             <button
               onClick={onOpenAuth}
-              className="flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-mono font-bold text-xs shadow-md transition-all hover:scale-105 cursor-pointer border border-pink-400/30"
+              className="flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-mono font-bold text-xs shadow-md transition-all hover:scale-105 cursor-pointer border border-pink-400/30"
               title="소셜 로그인"
             >
               <User size={12} />
@@ -200,9 +202,9 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* 📱 Mobile 전용 서브 퀵 액션 바 (lg 미만 화면에서만 슬림하게 노출) */}
+      {/* 📱 Mobile 전용 서브 퀵 액션 바 (lg 미만 화면) */}
       <div className="lg:hidden w-full bg-void-950/90 border-t border-white/5 px-3 py-1.5 flex items-center justify-between gap-1.5 overflow-x-auto select-none">
-        {/* 🏆 모바일 랭킹 버튼 */}
+        {/* 🏆 모바일 랭킹 버튼 (상단 독립 배치) */}
         <button
           onClick={onOpenLeaderboard}
           className="flex-1 py-1 px-2 rounded-xl bg-void-900/90 border border-amber-500/30 hover:border-amber-400 text-amber-300 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
@@ -210,16 +212,6 @@ export const Header: React.FC<HeaderProps> = ({
           <Trophy size={12} className="text-amber-400" />
           <span>랭킹</span>
         </button>
-
-        {/* 🔄 [모바일 교환소 보류 - 추후 재활성화 가능]
-        <button
-          onClick={onOpenMarket}
-          className="flex-1 py-1 px-2 rounded-xl bg-void-900/90 border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
-        >
-          <ArrowLeftRight size={12} className="text-cyan-400" />
-          <span>교환소</span>
-        </button>
-        */}
 
         {/* 📬 모바일 우편함 버튼 */}
         <button
