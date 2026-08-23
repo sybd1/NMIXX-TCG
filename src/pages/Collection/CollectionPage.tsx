@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, Rarity } from '../../types/card';
 import { MASTER_CARDS, LEGACY_CARDS, CONCEPT_SETS } from '../../data/cards';
@@ -114,80 +114,82 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
     set.cardIds.every(id => (collection[id] || 0) > 0)
   ).length;
 
-  // 필터링 및 오름차순/내림차순 정렬 (다 모은 카드 & 모으지 못한 카드 확인)
-  const filteredCards = allViewableCards.filter(card => {
-    const aCount = collection[card.id] || 0;
-    const isOwned = aCount > 0;
+  // 필터링 및 오름차순/내림차순 정렬 (useMemo로 651장 고속 메모이제이션)
+  const filteredCards = useMemo(() => {
+    return allViewableCards.filter(card => {
+      const aCount = collection[card.id] || 0;
+      const isOwned = aCount > 0;
 
-    // 1. 보유 상태 필터 (전체 / 모은 카드만 / 못 모은 카드만)
-    if (ownershipFilter === 'OWNED_ONLY' && !isOwned) return false;
-    if (ownershipFilter === 'UNOWNED_ONLY' && isOwned) return false;
+      // 1. 보유 상태 필터 (전체 / 모은 카드만 / 못 모은 카드만)
+      if (ownershipFilter === 'OWNED_ONLY' && !isOwned) return false;
+      if (ownershipFilter === 'UNOWNED_ONLY' && isOwned) return false;
 
-    // 2. 팩 / 멤버 / 레어도 필터
-    const matchPack = selectedPack === 'ALL' || card.packId === selectedPack;
-    const matchMember = selectedMember === 'ALL' || card.member === selectedMember;
-    const matchRarity = selectedRarity === 'ALL' || card.rarity === selectedRarity;
-    return matchPack && matchMember && matchRarity;
-  }).sort((a, b) => {
-    const aCount = collection[a.id] || 0;
-    const bCount = collection[b.id] || 0;
-    const aOwned = aCount > 0;
-    const bOwned = bCount > 0;
+      // 2. 팩 / 멤버 / 레어도 필터
+      const matchPack = selectedPack === 'ALL' || card.packId === selectedPack;
+      const matchMember = selectedMember === 'ALL' || card.member === selectedMember;
+      const matchRarity = selectedRarity === 'ALL' || card.rarity === selectedRarity;
+      return matchPack && matchMember && matchRarity;
+    }).sort((a, b) => {
+      const aCount = collection[a.id] || 0;
+      const bCount = collection[b.id] || 0;
+      const aOwned = aCount > 0;
+      const bOwned = bCount > 0;
 
-    const dirMultiplier = sortDirection === 'ASC' ? -1 : 1;
+      const dirMultiplier = sortDirection === 'ASC' ? -1 : 1;
 
-    // 1. 보유 카드 중 높은 등급순 (또는 낮은 등급순)
-    if (sortBy === 'OWNED_HIGH_RARITY') {
-      if (aOwned && !bOwned) return -1;
-      if (!aOwned && bOwned) return 1;
-      if (aOwned && bOwned) {
-        if (RARITY_ORDER[b.rarity] !== RARITY_ORDER[a.rarity]) {
-          return (RARITY_ORDER[b.rarity] - RARITY_ORDER[a.rarity]) * dirMultiplier;
+      // 1. 보유 카드 중 높은 등급순 (또는 낮은 등급순)
+      if (sortBy === 'OWNED_HIGH_RARITY') {
+        if (aOwned && !bOwned) return -1;
+        if (!aOwned && bOwned) return 1;
+        if (aOwned && bOwned) {
+          if (RARITY_ORDER[b.rarity] !== RARITY_ORDER[a.rarity]) {
+            return (RARITY_ORDER[b.rarity] - RARITY_ORDER[a.rarity]) * dirMultiplier;
+          }
+          return (a.collectionNumber - b.collectionNumber) * (sortDirection === 'ASC' ? -1 : 1);
         }
         return (a.collectionNumber - b.collectionNumber) * (sortDirection === 'ASC' ? -1 : 1);
       }
-      return (a.collectionNumber - b.collectionNumber) * (sortDirection === 'ASC' ? -1 : 1);
-    }
 
-    // 2. 모은 카드 우선 (보유순)
-    if (sortBy === 'OWNED_FIRST') {
-      if (aOwned && !bOwned) return -1;
-      if (!aOwned && bOwned) return 1;
-      return (a.collectionNumber - b.collectionNumber) * (sortDirection === 'ASC' ? -1 : 1);
-    }
-
-    // 3. 아직 못 모은 카드 우선 (미보유순)
-    if (sortBy === 'UNOWNED_FIRST') {
-      if (!aOwned && bOwned) return -1;
-      if (aOwned && !bOwned) return 1;
-      return (a.collectionNumber - b.collectionNumber) * (sortDirection === 'ASC' ? -1 : 1);
-    }
-
-    // 4. 도감 번호순 (오름차순 #001~ / 내림차순 #600~)
-    if (sortBy === 'NUMBER') {
-      return sortDirection === 'ASC'
-        ? a.collectionNumber - b.collectionNumber
-        : b.collectionNumber - a.collectionNumber;
-    }
-
-    // 5. 등급/희귀도순 (MR~C / C~MR)
-    if (sortBy === 'RARITY') {
-      if (RARITY_ORDER[b.rarity] !== RARITY_ORDER[a.rarity]) {
-        return (RARITY_ORDER[b.rarity] - RARITY_ORDER[a.rarity]) * dirMultiplier;
+      // 2. 모은 카드 우선 (보유순)
+      if (sortBy === 'OWNED_FIRST') {
+        if (aOwned && !bOwned) return -1;
+        if (!aOwned && bOwned) return 1;
+        return (a.collectionNumber - b.collectionNumber) * (sortDirection === 'ASC' ? -1 : 1);
       }
-      return a.collectionNumber - b.collectionNumber;
-    }
 
-    // 6. 보유 수량순 (많은순 / 적은순)
-    if (sortBy === 'OWNED_COUNT') {
-      if (bCount !== aCount) {
-        return (bCount - aCount) * dirMultiplier;
+      // 3. 아직 못 모은 카드 우선 (미보유순)
+      if (sortBy === 'UNOWNED_FIRST') {
+        if (!aOwned && bOwned) return -1;
+        if (aOwned && !bOwned) return 1;
+        return (a.collectionNumber - b.collectionNumber) * (sortDirection === 'ASC' ? -1 : 1);
       }
-      return a.collectionNumber - b.collectionNumber;
-    }
 
-    return 0;
-  });
+      // 4. 도감 번호순 (오름차순 #001~ / 내림차순 #600~)
+      if (sortBy === 'NUMBER') {
+        return sortDirection === 'ASC'
+          ? a.collectionNumber - b.collectionNumber
+          : b.collectionNumber - a.collectionNumber;
+      }
+
+      // 5. 등급/희귀도순 (MR~C / C~MR)
+      if (sortBy === 'RARITY') {
+        if (RARITY_ORDER[b.rarity] !== RARITY_ORDER[a.rarity]) {
+          return (RARITY_ORDER[b.rarity] - RARITY_ORDER[a.rarity]) * dirMultiplier;
+        }
+        return a.collectionNumber - b.collectionNumber;
+      }
+
+      // 6. 보유 수량순 (많은순 / 적은순)
+      if (sortBy === 'OWNED_COUNT') {
+        if (bCount !== aCount) {
+          return (bCount - aCount) * dirMultiplier;
+        }
+        return a.collectionNumber - b.collectionNumber;
+      }
+
+      return 0;
+    });
+  }, [allViewableCards, collection, ownershipFilter, selectedPack, selectedMember, selectedRarity, sortBy, sortDirection]);
 
   return (
     <div className="flex-1 max-w-[1440px] mx-auto w-full px-4 sm:px-6 md:px-8 py-8 flex flex-col gap-6">
