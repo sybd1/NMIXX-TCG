@@ -38,7 +38,7 @@ export { app, auth, db, googleProvider };
 
 // 🌟 Kakao SDK 초기화 헬퍼
 export const initKakaoSdk = (): boolean => {
-  const kakaoKey = import.meta.env.VITE_KAKAO_JS_KEY || '';
+  const kakaoKey = import.meta.env.VITE_KAKAO_JS_KEY || '4d317c4dabd842b50e303af1f88e485a';
   if (typeof window !== 'undefined' && (window as any).Kakao) {
     const kakao = (window as any).Kakao;
     if (!kakao.isInitialized() && kakaoKey) {
