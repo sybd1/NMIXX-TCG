@@ -180,7 +180,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     subtitle: 'Fe3O4: FORWARD • VOL.01',
     description: 'NMIXX CHANGE UP! 미지의 필드를 개척하며 한계를 뚫고 나아가는 《Fe3O4: FORWARD》 1탄 정규 부스터 팩.',
     slogan: '새로운 필드를 향해 거침없이 전진하라, Fe3O4: FORWARD!',
-    image: '/card-pack-image/nx1-fe3o4-foward/logo.jpg',
+    image: '/card-pack-image/nx1-fe3o4-foward/fe2o4cardpack.jpeg',
     objectPosition: 'center center',
     gradient: 'from-pink-600 via-purple-600 to-amber-500',
     glowColor: 'rgba(236, 72, 153, 0.5)',
