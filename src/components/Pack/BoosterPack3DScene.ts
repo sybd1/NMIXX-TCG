@@ -231,41 +231,78 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
 
       if (imgAspect >= 0.85) {
         // Square or landscape artwork (e.g. NX-01 640x640 or NX-03 3000x3000)
-        // 100% UN-CROPPED: Draw image full-width in the center
+        // 1. Position directly below top crimp seal with ZERO top background gap
         const drawWidth = width;
-        const drawHeight = width / imgAspect;
-        const drawY = usableY + 70; // Positioned nicely under the top header
+        const drawHeight = width / imgAspect; // 1536px for 1:1
+        const drawY = topCrimpHeight; // Flush directly against the top crimp seal
 
-        // Draw main artwork with 100% sharpness & NO cropping
+        // Draw main artwork with 100% clarity & NO cropping
         ctx.drawImage(img, 0, drawY, drawWidth, drawHeight);
 
-        // Elegant metallic subtle divider line below artwork
-        const dividerY = drawY + drawHeight + 15;
-        const lineGrad = ctx.createLinearGradient(width * 0.1, 0, width * 0.9, 0);
+        // 2. Rich Bottom Package Area (Y: 1720 ~ 2132, 412px height)
+        const bottomAreaY = drawY + drawHeight; // ~1720px
+
+        // Metallic Divider Accent Line
+        const lineGrad = ctx.createLinearGradient(width * 0.08, 0, width * 0.92, 0);
         lineGrad.addColorStop(0, 'transparent');
-        lineGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.45)');
+        lineGrad.addColorStop(0.3, pack.code === 'NX-01' ? '#fde047' : '#38bdf8');
+        lineGrad.addColorStop(0.7, pack.code === 'NX-01' ? '#38bdf8' : '#e0e7ff');
         lineGrad.addColorStop(1, 'transparent');
         ctx.strokeStyle = lineGrad;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 3.5;
         ctx.beginPath();
-        ctx.moveTo(width * 0.1, dividerY);
-        ctx.lineTo(width * 0.9, dividerY);
+        ctx.moveTo(width * 0.08, bottomAreaY + 12);
+        ctx.lineTo(width * 0.92, bottomAreaY + 12);
         ctx.stroke();
 
-        // High-end Metallic Album Title below artwork
+        // High-end Large Metallic Album Title
         const albumTitle = pack.name.includes(' - ') ? pack.name.split(' - ')[1] : pack.name;
-        ctx.font = '900 68px "Cinzel", "Times New Roman", serif';
-        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 84px "Cinzel", "Times New Roman", serif';
+        
+        // Metallic Gradient for Text
+        const titleGrad = ctx.createLinearGradient(0, bottomAreaY + 40, 0, bottomAreaY + 120);
+        if (pack.code === 'NX-01') {
+          titleGrad.addColorStop(0, '#ffffff');
+          titleGrad.addColorStop(0.5, '#fef08a');
+          titleGrad.addColorStop(1, '#f59e0b');
+        } else {
+          titleGrad.addColorStop(0, '#ffffff');
+          titleGrad.addColorStop(0.5, '#bae6fd');
+          titleGrad.addColorStop(1, '#38bdf8');
+        }
+        ctx.fillStyle = titleGrad;
         ctx.textAlign = 'center';
-        ctx.shadowColor = 'rgba(0,0,0,0.95)';
-        ctx.shadowBlur = 20;
-        ctx.fillText(albumTitle, width / 2, dividerY + 80);
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.98)';
+        ctx.shadowBlur = 24;
+        ctx.fillText(albumTitle, width / 2, bottomAreaY + 95);
 
         // Subtitle Slogan
-        ctx.font = 'bold 30px sans-serif';
-        ctx.fillStyle = '#cbd5e1';
-        ctx.shadowBlur = 10;
-        ctx.fillText(pack.subtitle, width / 2, dividerY + 130);
+        ctx.font = 'bold 32px sans-serif';
+        ctx.fillStyle = pack.code === 'NX-01' ? '#38bdf8' : '#e0e7ff';
+        ctx.shadowBlur = 14;
+        const subText = pack.code === 'NX-01'
+          ? 'NMIXX 2ND EP • BREAK THE BOUNDARIES'
+          : 'NMIXX SPECIAL COLLECTION • SWEET MELODY';
+        ctx.fillText(subText, width / 2, bottomAreaY + 155);
+
+        // TCG Official Spec Pill Box
+        const specBoxW = width * 0.88;
+        const specBoxH = 76;
+        const specBoxX = (width - specBoxW) / 2;
+        const specBoxY = bottomAreaY + 195;
+
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.82)';
+        ctx.strokeStyle = pack.code === 'NX-01' ? 'rgba(253, 224, 71, 0.5)' : 'rgba(56, 189, 248, 0.5)';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.roundRect(specBoxX, specBoxY, specBoxW, specBoxH, 16);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.font = 'bold 28px monospace';
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowBlur = 0;
+        ctx.fillText(`전 ${pack.totalCards}종 + 특수 레어  |  1팩 5장입  |  BOOSTER PACK`, width / 2, specBoxY + 48);
       } else {
         // Portrait artwork (e.g. NX-02 or NX-04)
         ctx.drawImage(img, 0, usableY, width, usableHeight);
@@ -295,8 +332,9 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
       ctx.lineWidth = 4;
       ctx.strokeRect(4, topCrimpHeight, width - 8, height - topCrimpHeight - bottomCrimpHeight);
 
-      // 5. Minimal, Ultra-Clean Branding (Pack-Themed & Large Crisp Typography)
-      const headerY = topCrimpHeight + 56;
+      // 5. Minimal, Ultra-Clean Branding with High-Contrast Glassmorphic Capsules
+      const badgeY = topCrimpHeight + 18;
+      const textY = badgeY + 46;
 
       const packThemeMap: Record<string, { codeColor: string; brandColor: string }> = {
         'NX-01': {
@@ -319,21 +357,41 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
 
       const theme = packThemeMap[pack.code] || packThemeMap['NX-01'];
 
-      // Left: Pack Code [NX 01]
-      ctx.font = '900 52px monospace';
+      // Left: Pack Code Badge [NX 01]
+      const leftBadgeText = `[${pack.code}]`;
+      ctx.font = '900 48px monospace';
+      const leftW = ctx.measureText(leftBadgeText).width + 36;
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.76)';
+      ctx.strokeStyle = theme.codeColor;
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.roundRect(42, badgeY, leftW, 64, 14);
+      ctx.fill();
+      ctx.stroke();
+
       ctx.fillStyle = theme.codeColor;
       ctx.textAlign = 'left';
-      ctx.shadowColor = 'rgba(0, 0, 0, 0.98)';
-      ctx.shadowBlur = 18;
-      ctx.fillText(`[${pack.code}]`, 55, headerY);
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
+      ctx.shadowBlur = 12;
+      ctx.fillText(leftBadgeText, 60, textY);
 
-      // Right: Brand Text NMIXX TCG
-      ctx.font = '900 42px sans-serif';
+      // Right: Brand Badge NMIXX TCG
+      const rightBadgeText = 'NMIXX TCG';
+      ctx.font = '900 40px sans-serif';
+      const rightW = ctx.measureText(rightBadgeText).width + 36;
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.76)';
+      ctx.strokeStyle = theme.brandColor;
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.roundRect(width - 42 - rightW, badgeY, rightW, 64, 14);
+      ctx.fill();
+      ctx.stroke();
+
       ctx.fillStyle = theme.brandColor;
       ctx.textAlign = 'right';
-      ctx.shadowColor = 'rgba(0, 0, 0, 0.98)';
-      ctx.shadowBlur = 18;
-      ctx.fillText('NMIXX TCG', width - 55, headerY);
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
+      ctx.shadowBlur = 12;
+      ctx.fillText(rightBadgeText, width - 60, textY);
 
       // 6. Minimal Copyright on bottom crimp
       ctx.font = 'bold 22px monospace';
