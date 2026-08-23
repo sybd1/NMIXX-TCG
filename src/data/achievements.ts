@@ -91,7 +91,7 @@ export const ACHIEVEMENTS: Achievement[] = [
   },
 
   // ----------------------------------------------------
-  // 2. 4대 부스터 팩 전종 수집 완주 업적 ➔ 통일 엠블렘: 🏆
+  // 2. 부스터 팩 전종 수집 완주 업적 ➔ 통일 엠블렘: 🏆
   // ----------------------------------------------------
   {
     id: 'set_complete_op01',
@@ -109,10 +109,10 @@ export const ACHIEVEMENTS: Achievement[] = [
     category: 'PACK_SETS',
     type: 'PACK_SET',
     targetPackId: 'op02',
-    title: 'NMIXX 정점결전 카드 모두 수집',
-    description: 'NX-02 정점결전 팩 전종 150장을 모두 수집하세요.',
+    title: 'NX2 2025 NEW ERA 카드 모두 수집',
+    description: 'NX-02 2025 NEW ERA 팩 전종 115장을 모두 수집하세요.',
     icon: '🏆',
-    targetValue: 150,
+    targetValue: 115,
     rewardCoins: 50_000,
   },
   {
@@ -120,10 +120,10 @@ export const ACHIEVEMENTS: Achievement[] = [
     category: 'PACK_SETS',
     type: 'PACK_SET',
     targetPackId: 'op03',
-    title: 'NMIXX Blue Valentine 카드 모두 수집',
-    description: 'NX-03 Blue Valentine 팩 전종 150장을 모두 수집하세요.',
+    title: 'NX3 Blue Valentine 카드 모두 수집',
+    description: 'NX-03 Blue Valentine 팩 전종 125장을 모두 수집하세요.',
     icon: '🏆',
-    targetValue: 150,
+    targetValue: 125,
     rewardCoins: 50_000,
   },
   {
@@ -131,11 +131,22 @@ export const ACHIEVEMENTS: Achievement[] = [
     category: 'PACK_SETS',
     type: 'PACK_SET',
     targetPackId: 'op04',
-    title: 'NMIXX ZERO FRONTIER 카드 모두 수집',
-    description: 'NX-04 ZERO FRONTIER 팩 전종 150장을 모두 수집하세요.',
+    title: 'NX4 ZERO FRONTIER 카드 모두 수집',
+    description: 'NX-04 ZERO FRONTIER 팩 전종 87장을 모두 수집하세요.',
     icon: '🏆',
-    targetValue: 150,
+    targetValue: 87,
     rewardCoins: 50_000,
+  },
+  {
+    id: 'set_complete_nx11',
+    category: 'PACK_SETS',
+    type: 'PACK_SET',
+    targetPackId: 'pack-nx-11',
+    title: 'NX-11 정점결전 카드 모두 수집',
+    description: 'NX-11 정점결전 팩 전종 486장을 모두 수집하세요.',
+    icon: '🏆',
+    targetValue: 486,
+    rewardCoins: 100_000,
   },
 
   // ----------------------------------------------------

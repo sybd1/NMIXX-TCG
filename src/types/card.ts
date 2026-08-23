@@ -44,6 +44,8 @@ export interface Card {
   isSpecialEdition?: boolean; // 고등급 스페셜 후가공 에디션 여부
   isEmbossed3D?: boolean; // 3D 양각 테두리 및 깊이감 있는 패럴랙스 입체 뎁스 여부
   isLegacy?: boolean; // 구버전 한정판 소장용 레거시 카드 여부
+  isLandscape?: boolean; // 가로형 이미지 여부
+  aspectRatio?: string; // 원본 이미지 종횡비 (예: 16:9)
 }
 
 export interface RevealedCard extends Card {
