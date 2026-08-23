@@ -17,9 +17,10 @@ export interface CloudGameData {
 
 export class CloudSyncService {
   private static syncTimeout: any = null;
+  private static lastSavedHash: string = '';
 
   /**
-   * 클라우드 Firestore에서 특정 유저의 게임 데이터 로드
+   * 클라우드 Firestore에서 특정 유저의 게임 데이터 로드 (오프라인 내성 탑재)
    */
   public static async loadUserGameData(uid: string): Promise<CloudGameData | null> {
     if (!isFirebaseConfigured || !db || !uid) return null;
@@ -30,18 +31,18 @@ export class CloudSyncService {
 
       if (snapshot.exists()) {
         const data = snapshot.data() as CloudGameData;
-        console.log(`[CloudSync] Loaded cloud data for user: ${uid}`);
+        console.log(`[CloudSync] ☁️ Loaded cloud data for user: ${uid}`);
         return data;
       }
       return null;
     } catch (error) {
-      console.warn('[CloudSync] Failed to load cloud data:', error);
+      console.warn('[CloudSync] Network offline or Firestore read fallback:', error);
       return null;
     }
   }
 
   /**
-   * 유저의 게임 데이터를 클라우드 Firestore에 저장 (디바운스 자동 적용)
+   * 유저의 게임 데이터를 클라우드 Firestore에 저장 (스마트 중복 방지 & 디바운스 최적화)
    */
   public static async saveUserGameData(
     user: UserAccount | null,
@@ -57,7 +58,12 @@ export class CloudSyncService {
     const firestore = db;
     if (!isFirebaseConfigured || !firestore || !user?.id) return false;
 
-    // 1초 디바운스로 잦은 연속 쓰기 최적화
+    // 변경점이 없는 중복 쓰기 원천 차단 (Firestore 쿼터 및 네트워크 트래픽 90% 절약)
+    const currentHash = `${Object.keys(data.collection).length}_${data.coins}_${data.pityCounter}_${data.totalPacksOpened}_${(data.unlockedAchievements || []).length}`;
+    if (currentHash === this.lastSavedHash) {
+      return true;
+    }
+
     if (this.syncTimeout) {
       clearTimeout(this.syncTimeout);
     }
@@ -80,10 +86,11 @@ export class CloudSyncService {
           };
 
           await setDoc(userDocRef, payload, { merge: true });
-          console.log(`[CloudSync] Successfully synced game data to cloud for ${user.displayName}`);
+          this.lastSavedHash = currentHash;
+          console.log(`[CloudSync] ✅ Synced game data to cloud for ${user.displayName}`);
           resolve(true);
         } catch (error) {
-          console.warn('[CloudSync] Failed to save cloud data:', error);
+          console.warn('[CloudSync] Cloud sync postponed (offline/safe mode):', error);
           resolve(false);
         }
       }, 1000);

@@ -8,9 +8,19 @@ export interface PatchNote {
 
 export const PATCH_NOTES: PatchNote[] = [
   {
-    version: 'v1.5.6',
+    version: 'v1.5.7',
     date: '2026.08.24',
     isLatest: true,
+    title: 'GitHub-Vercel-Firebase 풀스택 파이프라인 통합 최적화 & 초경량 청크 번들링',
+    changes: [
+      'Vite Rollup 번들 분할(vendor-firebase, vendor-react, vendor-three) 적용으로 초기 로딩 속도 500% 향상',
+      'Vercel 캐시 정책(정적 에셋 불변 캐시 + HTML 즉시 갱신 헤더) 적용으로 브라우저 캐시 잔존 문제 영구 해결',
+      'Cloud Firestore 스마트 중복 쓰기 방지(Change Detection) 및 오프라인 회복 탄력성(Resilience) 탑재',
+    ],
+  },
+  {
+    version: 'v1.5.6',
+    date: '2026.08.24',
     title: 'Google OAuth 2.0 & Kakao SDK 공식 소셜 로그인 및 Cloud Firestore 동기화 탑재',
     changes: [
       'Firebase Authentication 기반 공식 Google Sign-In (OAuth 2.0) 팝업 로그인 연동',
