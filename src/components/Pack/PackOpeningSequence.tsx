@@ -606,29 +606,47 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xl"
+                className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/95 backdrop-blur-2xl select-none"
                 onClick={() => setJackpotModalCard(null)}
               >
-                {/* 배경 폭죽 & 성운 */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(250,204,21,0.2)_0%,rgba(236,72,153,0.25)_40%,transparent_75%)] animate-pulse pointer-events-none" />
+                {/* 1. 배경 회전 360도 초호화 라이트 빔 레이 (Light Ray Sunburst) */}
+                <div
+                  className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden"
+                  style={{
+                    background: jackpotModalCard.rarity === 'MR'
+                      ? 'radial-gradient(circle at center, rgba(6,182,212,0.3) 0%, rgba(168,85,247,0.25) 35%, transparent 70%)'
+                      : jackpotModalCard.rarity === 'LR'
+                      ? 'radial-gradient(circle at center, rgba(234,179,8,0.35) 0%, rgba(245,158,11,0.2) 40%, transparent 70%)'
+                      : jackpotModalCard.rarity === 'UR'
+                      ? 'radial-gradient(circle at center, rgba(244,63,94,0.35) 0%, rgba(236,72,153,0.25) 40%, transparent 70%)'
+                      : jackpotModalCard.rarity === 'XR'
+                      ? 'radial-gradient(circle at center, rgba(244,63,94,0.4) 0%, rgba(250,204,21,0.3) 40%, transparent 75%)'
+                      : 'radial-gradient(circle at center, rgba(245,158,11,0.3) 0%, rgba(234,179,8,0.2) 35%, transparent 70%)',
+                  }}
+                >
+                  {/* 회전하는 12줄기 썬버스트 빔 */}
+                  <div className="w-[800px] sm:w-[1200px] h-[800px] sm:h-[1200px] opacity-25 bg-[repeating-conic-gradient(from_0deg,rgba(255,255,255,0.4)_0deg_15deg,transparent_15deg_30deg)] animate-spin [animation-duration:20s]" />
+                  {/* 중앙 충격파 펄스 링 */}
+                  <div className="absolute w-72 sm:w-96 h-72 sm:h-96 rounded-full border-2 border-white/40 animate-ping [animation-duration:2s]" />
+                </div>
 
                 <motion.div
-                  initial={{ scale: 0.4, y: 50, rotateX: 20 }}
-                  animate={{ scale: 1, y: 0, rotateX: 0 }}
-                  exit={{ scale: 0.5, y: 40, opacity: 0 }}
-                  transition={{ type: 'spring', damping: 18, stiffness: 220 }}
+                  initial={{ scale: 0.2, y: 100, rotateY: 180, opacity: 0 }}
+                  animate={{ scale: 1, y: 0, rotateY: 0, opacity: 1 }}
+                  exit={{ scale: 0.3, y: 60, opacity: 0 }}
+                  transition={{ type: 'spring', damping: 15, stiffness: 190, mass: 1.1 }}
                   onClick={(e) => e.stopPropagation()}
-                  className="relative z-10 flex flex-col items-center gap-4 max-w-md w-full"
+                  className="relative z-10 flex flex-col items-center gap-3 sm:gap-4 max-w-lg w-full"
                 >
-                  {/* 상단 잭팟 축하 타이틀 */}
+                  {/* 상단 잭팟 축하 배너 */}
                   <div className="text-center flex flex-col items-center gap-1">
                     <motion.div
-                      animate={{ scale: [1, 1.1, 1] }}
+                      animate={{ scale: [1, 1.08, 1] }}
                       transition={{ duration: 1.2, repeat: Infinity }}
-                      className="flex items-center gap-2 px-4 py-1 rounded-full bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 text-white font-black font-mono text-xs sm:text-sm shadow-2xl border border-white/50"
+                      className="flex items-center gap-2 px-5 py-1.5 rounded-full bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 text-white font-black font-mono text-xs sm:text-sm shadow-[0_0_25px_rgba(250,204,21,0.8)] border-2 border-white"
                     >
                       <Sparkles size={16} className="text-yellow-200 animate-spin" />
-                      <span>
+                      <span className="tracking-wider">
                         {jackpotModalCard.rarity === 'MR'
                           ? '🌌 MYTHIC JACKPOT REVELATION!'
                           : jackpotModalCard.rarity === 'LR'
@@ -641,19 +659,33 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                       </span>
                     </motion.div>
 
-                    <h2 className="font-serif font-black text-xl sm:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-200 to-cyan-200 drop-shadow-[0_2px_12px_rgba(250,204,21,0.8)] mt-1">
+                    <h2 className="font-serif font-black text-xl sm:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-200 to-cyan-200 drop-shadow-[0_2px_15px_rgba(250,204,21,0.9)] mt-1">
                       [{jackpotModalCard.rarity}] {jackpotModalCard.name}
                     </h2>
 
                     {jackpotModalCard.isNew && (
-                      <span className="text-xs font-black font-mono px-3 py-0.5 rounded-full bg-emerald-500 text-black shadow-lg animate-bounce mt-0.5">
+                      <span className="text-xs sm:text-sm font-black font-mono px-3.5 py-0.5 rounded-full bg-emerald-400 text-black shadow-[0_0_15px_rgba(52,211,153,0.9)] animate-bounce mt-0.5">
                         🎉 NEW DISCOVERY (신규 획득!)
                       </span>
                     )}
                   </div>
 
-                  {/* 초대형 거대 3D 카드 렌더링 */}
-                  <div className="relative transform-gpu scale-105 sm:scale-115 my-2">
+                  {/* 🌟 1.45배 거대 스케일업 3D 카드 + 후광 글로우 오라 ('두둥' 임팩트) */}
+                  <div className="relative transform-gpu scale-110 sm:scale-135 my-3 sm:my-5">
+                    {/* 카드 뒤 강력한 글로우 링 */}
+                    <div
+                      className="absolute -inset-4 rounded-3xl blur-xl opacity-85 animate-pulse"
+                      style={{
+                        background: jackpotModalCard.rarity === 'MR'
+                          ? 'radial-gradient(circle, rgba(6,182,212,0.9) 0%, rgba(168,85,247,0.7) 100%)'
+                          : jackpotModalCard.rarity === 'LR'
+                          ? 'radial-gradient(circle, rgba(234,179,8,0.9) 0%, rgba(245,158,11,0.7) 100%)'
+                          : jackpotModalCard.rarity === 'UR'
+                          ? 'radial-gradient(circle, rgba(244,63,94,0.95) 0%, rgba(236,72,153,0.7) 100%)'
+                          : 'radial-gradient(circle, rgba(245,158,11,0.9) 0%, rgba(234,179,8,0.7) 100%)',
+                      }}
+                    />
+
                     <CardFlip
                       card={jackpotModalCard}
                       isFlipped={true}
@@ -666,9 +698,9 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                   {/* 하단 닫기 / 컬렉션 추가 버튼 */}
                   <button
                     onClick={() => setJackpotModalCard(null)}
-                    className="mt-2 px-8 py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-pink-500 to-purple-600 hover:from-amber-400 hover:to-purple-500 text-white font-serif font-black text-sm tracking-wider shadow-2xl shadow-pink-950/80 flex items-center gap-2 hover:scale-105 transition-all cursor-pointer border-2 border-white ring-4 ring-amber-400/50"
+                    className="mt-2 sm:mt-4 px-9 py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-pink-500 to-purple-600 hover:from-amber-400 hover:to-purple-500 text-white font-serif font-black text-sm sm:text-base tracking-wider shadow-2xl shadow-pink-950/90 flex items-center gap-2.5 hover:scale-105 transition-all cursor-pointer border-2 border-white ring-4 ring-amber-400/60"
                   >
-                    <Sparkles size={16} className="text-yellow-200" />
+                    <Sparkles size={18} className="text-yellow-200" />
                     <span>카드 획득 확인 (계속하기)</span>
                   </button>
                 </motion.div>

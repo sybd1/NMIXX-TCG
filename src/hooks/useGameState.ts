@@ -172,6 +172,13 @@ export function useGameState() {
     sound.playSecretReveal();
   }, []);
 
+  const addCoins = useCallback((amount: number) => {
+    setState(prev => ({
+      ...prev,
+      coins: prev.coins + amount,
+    }));
+  }, []);
+
   const resetGame = useCallback(() => {
     const freshState = StorageService.clearState();
     setState(freshState);
@@ -189,6 +196,7 @@ export function useGameState() {
     claimSetReward,
     claimAchievement,
     claimXrCard,
+    addCoins,
     toggleSound,
     resetGame,
     dismissFirstVisit,

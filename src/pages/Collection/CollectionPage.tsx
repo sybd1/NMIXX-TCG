@@ -12,6 +12,7 @@ interface CollectionPageProps {
   claimedSetRewards?: string[];
   onClaimSetReward?: (setId: string, coins: number) => void;
   onClaimXrCard?: (cardId: string) => void;
+  onAddCoins?: (amount: number) => void;
 }
 
 type TabType = 'ALL_CARDS' | 'CONCEPT_SETS';
@@ -56,6 +57,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
   claimedSetRewards = [],
   onClaimSetReward,
   onClaimXrCard,
+  onAddCoins,
 }) => {
   const [activeTab, setActiveTab] = useState<TabType>('ALL_CARDS');
   const [selectedPack, setSelectedPack] = useState<string>('ALL');
@@ -883,6 +885,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
         count={selectedCard ? collection[selectedCard.id] || 0 : 0}
         isOpen={!!selectedCard}
         onClose={() => setSelectedCard(null)}
+        onAddCoins={onAddCoins}
       />
     </div>
   );

@@ -32,6 +32,7 @@ export const App: React.FC = () => {
     toggleSound,
     resetGame,
     dismissFirstVisit,
+    addCoins,
   } = useGameState();
 
   const [currentTab, setCurrentTab] = useState<NavTab>('home');
@@ -169,6 +170,7 @@ export const App: React.FC = () => {
             claimedSetRewards={state.claimedSetRewards || []}
             onClaimSetReward={claimSetReward}
             onClaimXrCard={claimXrCard}
+            onAddCoins={addCoins}
           />
         )}
 

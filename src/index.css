@@ -145,75 +145,75 @@
   pointer-events: none;
 }
 
-/* 5. SHATTERED_GLASS (SSR - 0.50%): 크랙 / 유리 파편 굴절 이펙트 */
+/* 5. SHATTERED_GLASS (SSR - 0.50%): 크랙 / 유리 파편 굴절 이펙트 (얼굴 시인성 최적화) */
 .finish-shattered-glass {
   background: 
-    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 0.6) 0%, transparent 50%),
+    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 0.4) 0%, transparent 45%),
     repeating-conic-gradient(
       from calc(var(--pointer-from-center, 0) * 180deg) at var(--pointer-x, 50%) var(--pointer-y, 50%),
-      rgba(255, 182, 193, 0.35) 0deg,
-      rgba(173, 216, 230, 0.35) 30deg,
-      rgba(255, 255, 224, 0.4) 60deg,
-      rgba(221, 160, 221, 0.35) 90deg,
-      rgba(255, 182, 193, 0.35) 120deg
+      rgba(255, 182, 193, 0.22) 0deg,
+      rgba(173, 216, 230, 0.22) 30deg,
+      rgba(255, 255, 224, 0.25) 60deg,
+      rgba(221, 160, 221, 0.22) 90deg,
+      rgba(255, 182, 193, 0.22) 120deg
     );
   mix-blend-mode: color-dodge;
-  opacity: var(--card-opacity, 0.6);
-  filter: contrast(1.3) saturate(1.4);
+  opacity: calc(var(--card-opacity, 0.6) * 0.65);
+  filter: contrast(1.15) saturate(1.2);
   transition: opacity 0.25s ease;
   pointer-events: none;
 }
 
-/* 6. PRISM_GLITTER (UR - 0.30%): 프리즘 글리터 별빛 굴절 */
+/* 6. PRISM_GLITTER (UR - 0.30%): 프리즘 글리터 별빛 굴절 (투명도 35% 하향 & 선명도 보존) */
 .finish-prism-glitter {
   background: 
-    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 0.8) 0%, transparent 40%),
-    radial-gradient(circle at calc(100% - var(--pointer-x, 50%)) calc(100% - var(--pointer-y, 50%)), rgba(244, 114, 182, 0.45) 0%, transparent 50%),
-    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 0px, rgba(255, 255, 255, 0.15) 2px, transparent 2px, transparent 6px),
-    repeating-linear-gradient(-45deg, rgba(238, 242, 255, 0.15) 0px, rgba(238, 242, 255, 0.15) 2px, transparent 2px, transparent 6px);
+    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 0.5) 0%, transparent 35%),
+    radial-gradient(circle at calc(100% - var(--pointer-x, 50%)) calc(100% - var(--pointer-y, 50%)), rgba(244, 114, 182, 0.3) 0%, transparent 45%),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0px, rgba(255, 255, 255, 0.1) 2px, transparent 2px, transparent 6px),
+    repeating-linear-gradient(-45deg, rgba(238, 242, 255, 0.1) 0px, rgba(238, 242, 255, 0.1) 2px, transparent 2px, transparent 6px);
   mix-blend-mode: color-dodge;
-  opacity: var(--card-opacity, 0.65);
-  filter: brightness(1.25) contrast(1.35);
+  opacity: calc(var(--card-opacity, 0.65) * 0.62);
+  filter: brightness(1.1) contrast(1.2);
   transition: opacity 0.25s ease;
   pointer-events: none;
 }
 
-/* 7. TEXTURE_GOLD (LR - 0.15%): 금박 엠보싱 양각 텍스처 포일 */
+/* 7. TEXTURE_GOLD (LR - 0.15%): 금박 엠보싱 양각 텍스처 포일 (인물 투과율 40% 향상) */
 .finish-texture-gold {
   background: 
     linear-gradient(
       calc(135deg + var(--pointer-from-center, 0) * 60deg),
-      rgba(180, 83, 9, 0.45) 0%,
-      rgba(245, 158, 11, 0.75) var(--pointer-x, 40%),
-      rgba(254, 240, 138, 0.9) calc(var(--pointer-x, 40%) + 10%),
-      rgba(217, 119, 6, 0.75) calc(var(--pointer-x, 40%) + 20%),
-      rgba(146, 64, 14, 0.45) 100%
+      rgba(180, 83, 9, 0.3) 0%,
+      rgba(245, 158, 11, 0.5) var(--pointer-x, 40%),
+      rgba(254, 240, 138, 0.6) calc(var(--pointer-x, 40%) + 10%),
+      rgba(217, 119, 6, 0.5) calc(var(--pointer-x, 40%) + 20%),
+      rgba(146, 64, 14, 0.3) 100%
     ),
-    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 0.5) 0%, transparent 50%);
+    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 0.35) 0%, transparent 45%);
   mix-blend-mode: color-dodge;
-  opacity: var(--card-opacity, 0.65);
-  box-shadow: inset 0 0 15px rgba(251, 191, 36, 0.5);
-  filter: brightness(1.1) contrast(1.3);
+  opacity: calc(var(--card-opacity, 0.65) * 0.65);
+  box-shadow: inset 0 0 15px rgba(251, 191, 36, 0.35);
+  filter: brightness(1.05) contrast(1.18);
   transition: opacity 0.25s ease;
   pointer-events: none;
 }
 
-/* 8. COSMIC_GHOST (MR - 0.02%): 코스믹 오로라 최상위 셰이더 (인터랙티브 펄/오로라) */
+/* 8. COSMIC_GHOST (MR - 0.02%): 코스믹 오로라 최상위 셰이더 (빛번짐 억제 & 배경 테두리 집중 렌더링) */
 .finish-cosmic-ghost {
   background: 
-    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 0.95) 0%, rgba(56, 189, 248, 0.6) 25%, transparent 60%),
+    radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255, 255, 255, 0.6) 0%, rgba(56, 189, 248, 0.4) 25%, transparent 55%),
     conic-gradient(
       from calc(var(--pointer-from-center, 0) * 360deg) at var(--pointer-x, 50%) var(--pointer-y, 50%),
-      rgba(236, 72, 153, 0.65) 0deg,
-      rgba(168, 85, 247, 0.65) 72deg,
-      rgba(56, 189, 248, 0.7) 144deg,
-      rgba(250, 204, 21, 0.7) 216deg,
-      rgba(236, 72, 153, 0.65) 288deg,
-      rgba(168, 85, 247, 0.65) 360deg
+      rgba(236, 72, 153, 0.42) 0deg,
+      rgba(168, 85, 247, 0.42) 72deg,
+      rgba(56, 189, 248, 0.45) 144deg,
+      rgba(250, 204, 21, 0.45) 216deg,
+      rgba(236, 72, 153, 0.42) 288deg,
+      rgba(168, 85, 247, 0.42) 360deg
     );
   mix-blend-mode: color-dodge;
-  opacity: var(--card-opacity, 0.75);
-  filter: brightness(1.4) contrast(1.5) saturate(1.7);
+  opacity: calc(var(--card-opacity, 0.75) * 0.6);
+  filter: brightness(1.2) contrast(1.28) saturate(1.4);
   transition: opacity 0.2s ease;
   pointer-events: none;
 }
