@@ -99,9 +99,9 @@ export const ACHIEVEMENTS: Achievement[] = [
     type: 'PACK_SET',
     targetPackId: 'op01',
     title: 'NX1 Fe3O4: FORWARD 카드 모두 수집',
-    description: 'NX-01 Fe3O4: FORWARD 팩 전종 127장을 모두 수집하세요.',
+    description: 'NX-01 Fe3O4: FORWARD 팩 전종 128장을 모두 수집하세요.',
     icon: '🏆',
-    targetValue: 127,
+    targetValue: 128,
     rewardCoins: 50_000,
   },
   {

@@ -149,20 +149,33 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     lg: 'w-64 h-92 text-base',
   }[size];
 
-  // 9단계 Rarity 테두리 및 글로우 스타일 가이드
+  // 9단계 Rarity 테두리 및 대폭 강화된 SSR+ 고등급 프레임 스타일
   const rarityBorders: Record<Card['rarity'], string> = {
-    C: isOwned ? 'border-slate-600/90 hover:border-slate-400 shadow-md' : 'border-slate-800/90',
-    UC: isOwned ? 'border-emerald-400 hover:border-emerald-200 shadow-glow-uc ring-1 ring-emerald-400/40' : 'border-emerald-950/80',
-    R: isOwned ? 'border-sky-400 hover:border-sky-200 shadow-glow-r ring-1 ring-sky-400/60' : 'border-sky-950/80',
-    SR: isOwned ? 'border-purple-400 hover:border-purple-200 shadow-glow-sr ring-1 ring-purple-400/80' : 'border-purple-950/80',
-    SSR: isOwned ? 'border-amber-300 hover:border-yellow-100 shadow-glow-ssr ring-2 ring-amber-400/80' : 'border-amber-950/80',
-    UR: isOwned ? 'border-rose-400 hover:border-red-200 shadow-glow-ur ring-2 ring-rose-500/90 animate-pulse-subtle' : 'border-rose-950/80',
-    LR: isOwned ? 'border-pink-300 hover:border-rose-100 shadow-glow-lr ring-2 ring-pink-400 animate-pulse-fast' : 'border-pink-950/80',
-    MR: isOwned ? 'border-yellow-100 hover:border-white shadow-glow-mr ring-2 ring-amber-300 animate-pulse-fast' : 'border-yellow-950/80',
-    XR: isOwned ? 'border-rose-500 hover:border-amber-300 shadow-glow-xr ring-2 ring-amber-400 animate-pulse-fast' : 'border-rose-900/80 ring-1 ring-rose-500/40',
+    C: isOwned ? 'border-[1.5px] border-slate-600/90 hover:border-slate-400 shadow-md' : 'border-[1.5px] border-slate-800/90',
+    UC: isOwned ? 'border-[1.5px] border-emerald-400 hover:border-emerald-200 shadow-glow-uc ring-1 ring-emerald-400/40' : 'border-[1.5px] border-emerald-950/80',
+    R: isOwned ? 'border-2 border-sky-400 hover:border-sky-200 shadow-glow-r ring-1 ring-sky-400/60' : 'border-2 border-sky-950/80',
+    SR: isOwned ? 'border-2 border-purple-400 hover:border-purple-200 shadow-glow-sr ring-2 ring-purple-400/80' : 'border-2 border-purple-950/80',
+    // 🌟 SSR+ 등급: 3.5px~5px 초강력 림 테두리 + 강력한 앰비언트 글로우 + 링 오프셋
+    SSR: isOwned
+      ? 'border-[3.5px] border-amber-300 hover:border-yellow-100 shadow-[0_0_25px_rgba(245,158,11,0.7)] ring-2 ring-amber-400/90 ring-offset-1 ring-offset-black'
+      : 'border-[2px] border-amber-950/80',
+    UR: isOwned
+      ? 'border-[4px] border-rose-400 hover:border-red-200 shadow-[0_0_30px_rgba(244,63,94,0.85)] ring-2 ring-rose-500 ring-offset-2 ring-offset-black animate-pulse-subtle'
+      : 'border-[2px] border-rose-950/80',
+    LR: isOwned
+      ? 'border-[4px] border-pink-300 hover:border-rose-100 shadow-[0_0_35px_rgba(244,114,182,0.9)] ring-3 ring-pink-400 ring-offset-2 ring-offset-black animate-pulse-fast'
+      : 'border-[2px] border-pink-950/80',
+    MR: isOwned
+      ? 'border-[4.5px] border-amber-200 hover:border-white shadow-[0_0_40px_rgba(250,204,21,0.95)] ring-4 ring-amber-400 ring-offset-2 ring-offset-black animate-pulse-fast'
+      : 'border-[2px] border-yellow-950/80',
+    XR: isOwned
+      ? 'border-[5px] border-rose-500 hover:border-amber-300 shadow-[0_0_50px_rgba(244,63,94,1.0),0_0_25px_rgba(250,204,21,0.9)] ring-4 ring-amber-400 ring-offset-2 ring-offset-black animate-pulse-fast'
+      : 'border-[3px] border-rose-900/80 ring-2 ring-rose-500/40',
   };
 
   const isNmixxGroup = card.member === 'NMIXX';
+  const isLogoCard = card.theme?.includes('심볼') || card.theme?.includes('로고') || card.name.includes('심볼') || card.name.includes('로고');
+  const isSsrPlus = ['SSR', 'UR', 'LR', 'MR', 'XR'].includes(card.rarity);
 
   return (
     <div
@@ -227,13 +240,13 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
 
       {/* 4. 메인 카드 바디 */}
       <div
-        className={`relative w-full h-full rounded-2xl border ${
+        className={`relative w-full h-full rounded-2xl ${
+          rarityBorders[card.rarity]
+        } bg-black flex flex-col justify-between overflow-hidden z-10 shadow-2xl [transform-style:preserve-3d] ${
           isOwned && isHighTier
             ? (card.rarity === 'MR' ? 'embossed-mr' : card.rarity === 'LR' ? 'embossed-lr' : card.rarity === 'UR' ? 'embossed-ur' : card.rarity === 'SSR' ? 'embossed-ssr' : 'embossed-sr')
-            : rarityBorders[card.rarity]
-        } bg-black flex flex-col justify-between overflow-hidden z-10 shadow-2xl [transform-style:preserve-3d] ${
-          isOwned && card.isEmbossed3D ? 'card-embossed-3d' : ''
-        }`}
+            : ''
+        } ${isOwned && card.isEmbossed3D ? 'card-embossed-3d' : ''}`}
       >
         {/* XR 미획득 상태: 신비로운 물음표 미스터리 카드 렌더링 */}
         {isXrMystery ? (
@@ -275,7 +288,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
           <>
             {/* Layer 1: 깊이감 있는 패럴랙스 배경 그라데이션 (-28px) */}
             <div
-              className={`absolute inset-0 bg-gradient-to-b ${card.gradient} transition-transform duration-150 pointer-events-none`}
+              className={`absolute inset-0 bg-gradient-to-b ${card.gradient} transition-transform duration-150 pointer-events-none opacity-80`}
               style={{
                 transform: isOwned && isHighTier
                   ? `translateZ(-28px) scale(1.10) translate(${styleState.rotY * -0.45}px, ${styleState.rotX * 0.45}px)`
@@ -283,37 +296,78 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               }}
             />
 
-            {/* Layer 2: 실제 아이돌/프로듀서 고화질 사진 (3D 캐릭터 팝업 뎁스 +16px) */}
+            {/* Layer 2: 앰비언트 블러 배경 (가로형 이미지 여백 완벽 커버 & 몽환적 백라이트) */}
             {card.image && (
-              <img
-                src={card.image}
-                alt={card.name}
-                loading="lazy"
-                decoding="async"
-                className="absolute inset-0 w-full h-full object-cover object-[center_18%] group-hover:scale-105 transition-all duration-200 pointer-events-none"
+              <div
+                className="absolute inset-0 overflow-hidden pointer-events-none"
                 style={{
                   transform: isOwned && isHighTier
-                    ? `translateZ(16px) scale(1.03) translate(${styleState.rotY * 0.55}px, ${styleState.rotX * -0.55}px)`
+                    ? `translateZ(-15px) scale(1.15) translate(${styleState.rotY * -0.2}px, ${styleState.rotX * 0.2}px)`
                     : undefined,
                 }}
-              />
+              >
+                <img
+                  src={card.image}
+                  alt=""
+                  aria-hidden="true"
+                  className="w-full h-full object-cover scale-150 blur-xl brightness-75 contrast-125 opacity-70"
+                />
+                {/* 앰비언트 비네팅 & 글로우 틴트 */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/60" />
+              </div>
             )}
 
-            {/* Layer 3: 3D 양각 테두리 이너 베벨 광택 림 (+30px) */}
+            {/* Layer 3: 메인 포그라운드 이미지 (100% 크롭 방지 object-contain & 입체 팝업 +16px) */}
+            {card.image && (
+              <div
+                className="absolute inset-0 flex items-center justify-center p-1 pointer-events-none"
+                style={{
+                  transform: isOwned && isHighTier
+                    ? `translateZ(16px) scale(1.02) translate(${styleState.rotY * 0.55}px, ${styleState.rotX * -0.55}px)`
+                    : undefined,
+                }}
+              >
+                <img
+                  src={card.image}
+                  alt={card.name}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-contain object-center drop-shadow-[0_8px_20px_rgba(0,0,0,0.85)] group-hover:scale-105 transition-all duration-200 pointer-events-none"
+                />
+              </div>
+            )}
+
+            {/* Layer 4: SSR+ 전용 프리미엄 메탈릭 코너 림 데코레이션 (+25px) */}
+            {isOwned && isSsrPlus && (
+              <div
+                className="absolute inset-1 rounded-xl border border-amber-300/40 pointer-events-none transition-transform duration-150"
+                style={{
+                  transform: `translateZ(25px)`,
+                  boxShadow: 'inset 0 0 14px rgba(250,204,21,0.25)',
+                }}
+              >
+                <div className="absolute top-1 left-1 w-2 h-2 border-t-2 border-l-2 border-amber-300" />
+                <div className="absolute top-1 right-1 w-2 h-2 border-t-2 border-r-2 border-amber-300" />
+                <div className="absolute bottom-1 left-1 w-2 h-2 border-b-2 border-l-2 border-amber-300" />
+                <div className="absolute bottom-1 right-1 w-2 h-2 border-b-2 border-r-2 border-amber-300" />
+              </div>
+            )}
+
+            {/* Layer 5: 3D 양각 테두리 이너 베벨 광택 림 (+30px) */}
             {isOwned && isHighTier && (
               <div
-                className="absolute inset-0 rounded-2xl border-2 border-white/25 pointer-events-none transition-transform duration-150"
+                className="absolute inset-0 rounded-2xl border-2 border-white/30 pointer-events-none transition-transform duration-150"
                 style={{
                   transform: `translateZ(30px) translate(${styleState.rotY * 0.65}px, ${styleState.rotX * -0.65}px)`,
-                  boxShadow: 'inset 0 0 12px rgba(255,255,255,0.3)',
+                  boxShadow: isSsrPlus ? 'inset 0 0 18px rgba(250,204,21,0.45)' : 'inset 0 0 12px rgba(255,255,255,0.3)',
                 }}
               />
             )}
 
             {/* 상단 얇은 은은한 섀도우 그라데이션 */}
-            <div className="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-black/70 via-black/30 to-transparent pointer-events-none z-10" />
+            <div className="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-black/75 via-black/35 to-transparent pointer-events-none z-10" />
 
-            {/* Layer 4: 상단 미니멀 HUD 헤더 (3D 전면 포그라운드 뎁스 +40px) */}
+            {/* Layer 6: 상단 미니멀 HUD 헤더 (3D 전면 포그라운드 뎁스 +40px) */}
             <div
               className="relative z-20 p-2 flex items-center justify-between pointer-events-none"
               style={{
@@ -322,7 +376,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                   : undefined,
               }}
             >
-              <span className="font-mono text-[8.5px] font-extrabold text-white/90 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded-lg border border-white/15 shadow-sm">
+              <span className="font-mono text-[8.5px] font-extrabold text-white/90 bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded-lg border border-white/20 shadow-sm">
                 NO. #{String(card.collectionNumber).padStart(3, '0')}
               </span>
 
@@ -332,8 +386,8 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                     🏛️ Legacy
                   </span>
                 )}
-                <span className="text-[7.5px] font-mono font-black text-pink-200 bg-black/60 backdrop-blur-sm px-1.5 py-0.5 rounded border border-pink-500/30">
-                  {isNmixxGroup ? '단체' : memberInfo.nameKo}
+                <span className="text-[7.5px] font-mono font-black text-pink-200 bg-black/70 backdrop-blur-sm px-1.5 py-0.5 rounded border border-pink-500/40">
+                  {isLogoCard ? '심볼' : (isNmixxGroup ? '단체' : memberInfo.nameKo)}
                 </span>
                 <span className={`text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded border ${config.badgeBg} shadow-md backdrop-blur-sm`}>
                   {card.rarity}
@@ -344,7 +398,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
             {/* 하단 미니멀 네임태그 (사진 가림 원천 방지 & 초슬림 콤팩트 렌더링) */}
             {showDetails && (
               <div
-                className="relative z-20 mt-auto pt-3 pb-1.5 px-2 bg-gradient-to-t from-black/80 via-black/25 to-transparent flex items-center justify-between pointer-events-none w-full overflow-hidden"
+                className="relative z-20 mt-auto pt-3 pb-1.5 px-2 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex items-center justify-between pointer-events-none w-full overflow-hidden"
                 style={{
                   transform: isOwned && isHighTier
                     ? `translateZ(35px) translate(${styleState.rotY * 0.7}px, ${styleState.rotX * -0.7}px)`
@@ -352,7 +406,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                 }}
               >
                 <span className="font-serif font-black text-white text-[10.5px] sm:text-[11.5px] tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] whitespace-nowrap overflow-hidden text-ellipsis block truncate max-w-[70%] leading-none">
-                  {card.name.replace(/^\[[^\]]+\]\s*/, '') || card.name}
+                  {isLogoCard ? 'Fe3O4: FORWARD 심볼' : (card.name.replace(/^\[[^\]]+\]\s*/, '') || card.name)}
                 </span>
                 <span className="text-[7px] sm:text-[7.5px] font-mono font-bold text-slate-300 uppercase whitespace-nowrap overflow-hidden text-ellipsis drop-shadow leading-none opacity-80 flex-shrink-0">
                   {card.era}

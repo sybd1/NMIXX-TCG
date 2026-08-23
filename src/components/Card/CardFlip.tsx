@@ -91,7 +91,7 @@ export const CardFlip: React.FC<CardFlipProps> = React.memo(({
             </div>
 
             <div className="text-[9.5px] font-serif tracking-wider text-slate-300 font-black text-center">
-              NMIXX 계승되는 의지
+              NMIXX OFFICIAL TCG
             </div>
           </div>
         </div>

@@ -185,7 +185,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     gradient: 'from-pink-600 via-purple-600 to-amber-500',
     glowColor: 'rgba(236, 72, 153, 0.5)',
     themeColor: '#ec4899',
-    totalCards: 127,
+    totalCards: 128,
   },
   {
     id: 'op02',
