@@ -44,11 +44,11 @@ const MEMBERS: { id: string; name: string }[] = [
 ];
 
 const PACK_FILTERS = [
-  { id: 'ALL', name: '전체 팩' },
-  { id: 'op01', code: 'OP-01', name: '1탄 계승되는 의지' },
-  { id: 'op02', code: 'OP-02', name: '2탄 정점결전' },
-  { id: 'op03', code: 'OP-03', name: '3탄 Blue Valentine' },
-  { id: 'op04', code: 'OP-04', name: '4탄 ZERO FRONTIER' },
+  { id: 'ALL', code: 'ALL', name: '전체 팩' },
+  { id: 'op01', code: 'NX-01', name: '1탄 계승되는 의지' },
+  { id: 'op02', code: 'NX-02', name: '2탄 정점결전' },
+  { id: 'op03', code: 'NX-03', name: '3탄 Blue Valentine' },
+  { id: 'op04', code: 'NX-04', name: '4탄 ZERO FRONTIER' },
 ];
 
 export const CollectionPage: React.FC<CollectionPageProps> = ({

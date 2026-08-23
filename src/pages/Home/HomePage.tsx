@@ -89,10 +89,10 @@ export const HomePage: React.FC<HomePageProps> = ({
     );
   }
 
-  // 2. 메인 팩 오픈 화면 (원피스 카드게임 스타일 4대 부스터 팩 셀렉터)
+  // 2. 메인 팩 오픈 화면 (NMIXX 4대 부스터 팩 셀렉터)
   return (
     <div className="flex-1 flex flex-col items-center justify-center px-4 py-6 max-w-4xl mx-auto w-full">
-      {/* Booster Pack Series Selector (OP-01 ~ OP-04) */}
+      {/* Booster Pack Series Selector (NX-01 ~ NX-04) */}
       <div className="w-full max-w-2xl flex flex-wrap items-center justify-center gap-2 mb-3 bg-void-900/90 border border-void-800 p-2 rounded-2xl backdrop-blur-md shadow-lg">
         {BOOSTER_PACKS.map(pack => {
           const isSelected = selectedPack.id === pack.id;

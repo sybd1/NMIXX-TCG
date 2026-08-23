@@ -158,7 +158,7 @@ export const RARITY_CONFIGS: Record<Rarity, RarityConfig> = {
 
 export interface BoosterPackConfig {
   id: string;
-  code: string; // [OP-01], [OP-02], [OP-03], [OP-04]
+  code: string; // [NX-01], [NX-02], [NX-03], [NX-04] (NX - 1 ~ NX - 4)
   name: string;
   subtitle: string;
   description: string;
@@ -171,11 +171,11 @@ export interface BoosterPackConfig {
   totalCards: number;
 }
 
-// 원피스 카드게임(OPTCG) 테마 4대 부스터 팩 시리즈 (총 600종 카드)
+// NMIXX 테마 4대 부스터 팩 시리즈 (총 600종 카드)
 export const BOOSTER_PACKS: BoosterPackConfig[] = [
   {
     id: 'op01',
-    code: 'OP-01',
+    code: 'NX-01',
     name: 'NMIXX 계승되는 의지',
     subtitle: 'ROMANCE DAWN • VOL.01',
     description: 'NMIXX CHANGE UP! 엔써와 함께 새로운 항해의 닻을 올리는 1탄 부스터 팩.',
@@ -189,7 +189,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
   },
   {
     id: 'op02',
-    code: 'OP-02',
+    code: 'NX-02',
     name: 'NMIXX 정점결전',
     subtitle: 'PARAMOUNT WAR • VOL.02',
     description: '올라운더 6인의 한계를 뛰어넘는 최강의 무대! 승리를 향한 결전의 2탄 부스터 팩.',
@@ -203,7 +203,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
   },
   {
     id: 'op03',
-    code: 'OP-03',
+    code: 'NX-03',
     name: 'NMIXX Blue Valentine',
     subtitle: 'BLUE VALENTINE • VOL.03',
     description: '어떤 시련도 뚫고 전진하는 압도적인 퍼포먼스와 카리스마의 3탄 부스터 팩.',
@@ -217,7 +217,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
   },
   {
     id: 'op04',
-    code: 'OP-04',
+    code: 'NX-04',
     name: 'NMIXX ZERO FRONTIER',
     subtitle: 'ZERO FRONTIER • VOL.04',
     description: '새로운 시대를 열어갈 단 하나의 믹스팝 신화! 극상의 비주얼을 담은 4탄 부스터 팩.',

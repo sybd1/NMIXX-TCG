@@ -144,8 +144,8 @@ export const CardModal: React.FC<CardModalProps> = ({
                   <span className="text-slate-300 flex items-center gap-2 font-bold">
                     {card.rarity === 'XR' ? '👑 획득 경로' : '📦 출현 카드팩'}
                   </span>
-                  <span className={`${card.rarity === 'XR' ? 'text-rose-300' : 'text-sky-300'} font-black`}>
-                    [{card.packCode || 'OP-01'}] {card.packName || '1탄 계승되는 의지'}
+                  <span className="text-xs font-mono font-bold text-pink-300">
+                    [{card.packCode || 'NX-01'}] {card.packName || '1탄 계승되는 의지'}
                   </span>
                 </div>
 

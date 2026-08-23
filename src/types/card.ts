@@ -36,7 +36,7 @@ export interface Card {
   symbol: string;
   quote?: string;
   image?: string;
-  packCode?: string; // OP-01, OP-02, OP-03, OP-04
+  packCode?: string; // NX-01, NX-02, NX-03, NX-04 (NX - 1 ~ NX - 4)
   packId?: string; // op01, op02, op03, op04
   packName?: string; // 1탄 계승되는 의지, 2탄 정점결전 등
   setId?: string | null; // 동일 컨셉 6인 세트 ID (예: set_op01_dice)
