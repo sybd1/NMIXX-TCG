@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { GameState, PackHistoryItem } from '../types/game';
 import { Card, RevealedCard } from '../types/card';
 import { StorageService } from '../services/storageService';
@@ -35,14 +35,18 @@ export function useGameState() {
     }
   }, [state]);
 
-  // 2. 로그인 시 해당 계정의 클라우드 데이터 전용 로드 / 로그아웃 시 게스트 초기화
+  // 2. 로그인/로그아웃 시 상태 동기화
+  // hasAuthResolved: 첫 콜백(앱 초기 로드 시 인증 상태 확인)과 이후 진짜 로그아웃을 구분
+  const hasAuthResolvedRef = React.useRef(false);
+
   useEffect(() => {
     const unsubscribe = AuthService.subscribeAuthState(async (user) => {
       if (user?.isCloudSynced && user.id && user.id !== 'guest') {
+        // ✅ 로그인: 해당 계정의 클라우드 데이터로 완전 교체
+        hasAuthResolvedRef.current = true;
         const cloudData = await CloudSyncService.loadUserGameData(user.id);
         if (cloudData) {
-          // 해당 계정의 실제 클라우드 저장 데이터로 완전 동기화
-          setState({
+          const freshState: GameState = {
             coins: cloudData.coins ?? GAME_CONFIG.INITIAL_COINS,
             dust: cloudData.dust ?? 0,
             collection: cloudData.collection || {},
@@ -58,11 +62,23 @@ export function useGameState() {
             soundMuted: false,
             isFirstVisit: false,
             coinReset_v16: true,
-          });
+          };
+          StorageService.saveState(freshState);
+          setState(freshState);
         } else {
-          // 클라우드에 아직 데이터가 없는 신규 계정일 경우 100만원 기본 지급으로 시작
-          setState(StorageService.clearState());
+          // 신규 계정: 게스트 초기 상태로 시작
+          const fresh = StorageService.clearState();
+          setState(fresh);
         }
+      } else {
+        // 🚪 로그아웃: 이전에 실제로 로그인했던 상태에서만 초기화 (앱 첫 로드 시 게스트는 제외)
+        if (hasAuthResolvedRef.current) {
+          console.log('[useGameState] 로그아웃 감지 → 게스트 상태로 완전 초기화');
+          CloudSyncService.forceResetHash();
+          const guestState = StorageService.clearState();
+          setState(guestState);
+        }
+        hasAuthResolvedRef.current = true; // 이후부터 로그아웃 감지 활성화
       }
     });
 
