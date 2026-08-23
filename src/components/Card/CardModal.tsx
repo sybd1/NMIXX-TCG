@@ -37,7 +37,7 @@ export const CardModal: React.FC<CardModalProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 select-none">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 select-text">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}

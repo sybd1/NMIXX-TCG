@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Achievement, AchievementCategory, ACHIEVEMENTS } from '../../data/achievements';
 import { MASTER_CARDS, getCardsByRarity } from '../../data/cards';
@@ -64,7 +64,7 @@ export const AchievementsPage: React.FC<AchievementsPageProps> = ({
   const overallPercentage = Math.round((completedTotalCount / ACHIEVEMENTS.length) * 100);
 
   return (
-    <div className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 py-8 flex flex-col gap-6 select-none">
+    <div className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 py-8 flex flex-col gap-6 select-text">
       {/* 1. Header & Overall Stats Banner */}
       <div className="bg-gradient-to-r from-void-900 via-void-950 to-void-900 border border-amber-500/40 p-6 sm:p-8 rounded-3xl backdrop-blur-xl shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
