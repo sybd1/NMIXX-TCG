@@ -47,41 +47,41 @@ export const BoosterPackThreeView: React.FC<BoosterPackThreeViewProps> = ({
     renderer.toneMappingExposure = 1.15;
     container.appendChild(renderer.domElement);
 
-    // 3. Lighting System (PBR Studio Lights)
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+    // 3. Lighting System (PBR Studio Lights with High Clarity)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.15);
     scene.add(ambientLight);
 
-    // Dynamic Tracking Key Light (Produces moving specular highlight on foil)
-    const keyPointLight = new THREE.PointLight(0xffffff, 28, 15);
+    // Dynamic Tracking Key Light (Produces subtle, elegant specular highlight)
+    const keyPointLight = new THREE.PointLight(0xffffff, 16, 12);
     keyPointLight.position.set(0, 0, 3.5);
     scene.add(keyPointLight);
 
-    // Cyan Left Rim Light
-    const cyanRim = new THREE.DirectionalLight(0x38bdf8, 2.2);
-    cyanRim.position.set(-5, 2, 2);
+    // Subtle Cyan Left Rim Light
+    const cyanRim = new THREE.DirectionalLight(0x38bdf8, 1.4);
+    cyanRim.position.set(-4, 2, 2);
     scene.add(cyanRim);
 
-    // Magenta Right Rim Light
-    const magentaRim = new THREE.DirectionalLight(0xec4899, 2.2);
-    magentaRim.position.set(5, -2, 2);
+    // Subtle Magenta Right Rim Light
+    const magentaRim = new THREE.DirectionalLight(0xec4899, 1.4);
+    magentaRim.position.set(4, -2, 2);
     scene.add(magentaRim);
 
     // 4. Geometry & Textures
-    const geometry = createBoosterPackGeometry(3.2, 4.8, 28);
+    const geometry = createBoosterPackGeometry(3.2, 4.8, 36);
     const normalTexture = generateFoilNormalMap();
 
-    // High-end PBR Metallic Physical Material with Iridescence
+    // High-end PBR Metallic Physical Material with Controlled Iridescence
     const material = new THREE.MeshPhysicalMaterial({
       color: 0xffffff,
-      metalness: 0.88,
-      roughness: 0.18,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.12,
-      iridescence: 1.0,
-      iridescenceIOR: 1.35,
-      reflectivity: 0.95,
+      metalness: 0.72,
+      roughness: 0.28,
+      clearcoat: 0.45,
+      clearcoatRoughness: 0.25,
+      iridescence: 0.40,
+      iridescenceIOR: 1.30,
+      reflectivity: 0.85,
       normalMap: normalTexture,
-      normalScale: new THREE.Vector2(0.85, 0.85),
+      normalScale: new THREE.Vector2(0.55, 0.55),
       side: THREE.DoubleSide,
     });
 

@@ -94,27 +94,18 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
     return () => clearTimeout(timer);
   }, [cards]);
 
-  // 사용자가 팩을 직접 클릭했을 때 팩 뜯기 애니메이션 시작
+  // 사용자가 팩을 직접 클릭했을 때 즉시 팩 찢기 (1단계: Tear Phase) 시작
   const handleStartOpening = () => {
     if (step !== 'PACK_ENTER') return;
 
-    sound.playPackShake();
-    setStep('PACK_SHAKE');
+    sound.playPackTear();
+    setStep('PACK_TEAR');
 
-    setTimeout(() => {
-      sound.playPackGlow();
-      setStep('PACK_GLOW');
-    }, 450);
-
-    setTimeout(() => {
-      sound.playPackTear();
-      setStep('PACK_TEAR');
-    }, 900);
-
+    // 팩 찢김 완료 후 2단계: 카드 나열 및 개봉 화면(CARDS_DEALT)으로 즉시 진입
     setTimeout(() => {
       sound.playCardDeal();
       setStep('CARDS_DEALT');
-    }, 1650);
+    }, 700);
   };
 
   // 키보드 Spacebar / Enter 원터치 단축키 지원
@@ -390,74 +381,21 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
               }`}
             />
 
-            {/* 🌟 팩 찢기 단계 (PACK_TEAR): 팩 상단에서 솟구쳐 나오는 3D 카드 덱 (Ejecting Cards Stack) */}
+            {/* 🌟 팩 찢기 단계 (PACK_TEAR): 찢어질 때 터져나오는 은박/황금빛 스파크 파티클 (Foil Flakes & Sparks) */}
             {step === 'PACK_TEAR' && (
-              <div className="absolute inset-x-0 -top-20 z-40 flex items-center justify-center pointer-events-none [transform-style:preserve-3d]">
-                {/* 5장의 카드가 비스듬히 부채꼴로 솟구쳐 나오는 연출 */}
-                {[
-                  { delay: 0.05, x: -35, y: -130, rot: -10, scale: 0.95 },
-                  { delay: 0.1, x: -18, y: -110, rot: -5, scale: 0.97 },
-                  { delay: 0.15, x: 0, y: -90, rot: 0, scale: 1.0 },
-                  { delay: 0.2, x: 18, y: -70, rot: 5, scale: 1.02 },
-                  { delay: 0.25, x: 35, y: -50, rot: 10, scale: 1.05 },
-                ].map((pos, idx) => {
-                  const cardItem = revealedCards[idx] || revealedCards[0];
-                  return (
-                    <motion.div
-                      key={idx}
-                      initial={{ y: 40, opacity: 0, scale: 0.6, rotate: 0 }}
-                      animate={{
-                        y: pos.y,
-                        x: pos.x,
-                        opacity: 1,
-                        scale: pos.scale,
-                        rotate: pos.rot,
-                      }}
-                      transition={{
-                        duration: 0.55,
-                        delay: pos.delay,
-                        ease: [0.16, 1, 0.3, 1],
-                      }}
-                      className="absolute w-40 sm:w-44 h-56 sm:h-64 rounded-xl border-2 border-white shadow-[0_15px_35px_rgba(0,0,0,0.9)] overflow-hidden bg-black"
-                      style={{
-                        zIndex: 10 + idx,
-                        transformOrigin: 'bottom center',
-                      }}
-                    >
-                      {/* 대표 카드 이미지 & 등급 뱃지 */}
-                      {cardItem && (
-                        <>
-                          <img
-                            src={cardItem.image}
-                            alt=""
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
-                          <div className="absolute top-1.5 left-1.5 px-2 py-0.5 rounded bg-black/80 border border-white/30 text-[9px] font-mono font-black text-amber-300">
-                            {cardItem.rarity}
-                          </div>
-                          <div className="absolute bottom-1.5 inset-x-1.5 text-center font-serif font-black text-[10px] text-white truncate drop-shadow">
-                            {cardItem.name}
-                          </div>
-                        </>
-                      )}
-                    </motion.div>
-                  );
-                })}
-
-                {/* 찢어질 때 터져나오는 은박/황금빛 스파크 파티클 (Foil Flakes & Sparks) */}
-                {[...Array(16)].map((_, i) => (
+              <div className="absolute inset-x-0 -top-10 z-40 flex items-center justify-center pointer-events-none [transform-style:preserve-3d]">
+                {[...Array(18)].map((_, i) => (
                   <div
                     key={i}
                     className="foil-flake rounded-sm"
                     style={{
-                      left: `${20 + (i * 4)}%`,
+                      left: `${15 + (i * 4.2)}%`,
                       top: '10px',
                       width: `${4 + (i % 4) * 2}px`,
                       height: `${4 + (i % 3) * 2}px`,
-                      ['--tw-translate-x' as string]: `${(i - 8) * 18}px`,
-                      ['--tw-translate-y' as string]: `${-40 - (i % 5) * 16}px`,
-                      animationDelay: `${(i % 5) * 0.04}s`,
+                      ['--tw-translate-x' as string]: `${(i - 9) * 22}px`,
+                      ['--tw-translate-y' as string]: `${-50 - (i % 5) * 18}px`,
+                      animationDelay: `${(i % 5) * 0.03}s`,
                     }}
                   />
                 ))}
@@ -685,12 +623,12 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
               return (
                 <motion.div
                   key={card.instanceId}
-                  initial={{ y: 20, opacity: 0, scale: 0.95 }}
-                  animate={{ y: 0, opacity: 1, scale: isJackpotTier && hasFlipped ? 1.06 : 1 }}
+                  initial={{ y: 50, opacity: 0, scale: 0.82, rotate: (index - 2) * 3 }}
+                  animate={{ y: 0, opacity: 1, scale: isJackpotTier && hasFlipped ? 1.06 : 1, rotate: 0 }}
                   transition={{
-                    delay: Math.min(0.15, index * 0.008),
-                    duration: 0.25,
-                    ease: 'easeOut',
+                    delay: Math.min(0.35, index * 0.07),
+                    duration: 0.4,
+                    ease: [0.16, 1, 0.3, 1],
                   }}
                   className={`flex justify-center transform-gpu relative ${
                     isJackpotTier && hasFlipped ? 'z-20' : ''
