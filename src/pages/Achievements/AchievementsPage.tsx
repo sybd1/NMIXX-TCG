@@ -227,34 +227,36 @@ export const AchievementsPage: React.FC<AchievementsPageProps> = ({
         </div>
       </div>
 
-      {/* 2. Category Filters */}
-      <div className="flex flex-wrap items-center gap-2 bg-void-950/80 p-2 rounded-2xl border border-white/10 shadow-lg justify-center sm:justify-start">
-        {[
-          { id: 'ALL', label: '🏆 전체 업적', count: ACHIEVEMENTS.length },
-          { id: 'PACKS', label: '📦 팩 개봉', count: ACHIEVEMENTS.filter(a => a.category === 'PACKS').length },
-          { id: 'PACK_SETS', label: '🏆 팩 전종 수집', count: ACHIEVEMENTS.filter(a => a.category === 'PACK_SETS').length },
-          { id: 'RARITY', label: '⭐ 레어도 정복', count: ACHIEVEMENTS.filter(a => a.category === 'RARITY').length },
-          { id: 'SPENDING', label: '🪙 머니 소비', count: ACHIEVEMENTS.filter(a => a.category === 'SPENDING').length },
-        ].map(cat => {
-          const isActive = selectedCategory === cat.id;
-          return (
-            <button
-              key={cat.id}
-              onClick={() => {
-                sound.playClick();
-                setSelectedCategory(cat.id as AchievementCategory | 'ALL');
-              }}
-              className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                isActive
-                  ? 'bg-gradient-to-r from-pink-600 via-purple-600 to-amber-500 text-white shadow-lg shadow-pink-950/60 scale-105 border border-white/30'
-                  : 'text-slate-400 hover:text-white bg-void-900/90 border border-white/5 hover:bg-void-800'
-              }`}
-            >
-              <span>{cat.label}</span>
-              <span className="text-[10px] opacity-80">({cat.count})</span>
-            </button>
-          );
-        })}
+      {/* 2. Category Filters (화면 정중앙 완벽 배치) */}
+      <div className="flex justify-center w-full">
+        <div className="flex flex-wrap items-center justify-center gap-2 bg-void-950/90 p-2 rounded-2xl border border-white/10 shadow-xl">
+          {[
+            { id: 'ALL', label: '🏆 전체 업적', count: ACHIEVEMENTS.length },
+            { id: 'PACKS', label: '📦 팩 개봉', count: ACHIEVEMENTS.filter(a => a.category === 'PACKS').length },
+            { id: 'PACK_SETS', label: '🏆 팩 전종 수집', count: ACHIEVEMENTS.filter(a => a.category === 'PACK_SETS').length },
+            { id: 'RARITY', label: '⭐ 레어도 정복', count: ACHIEVEMENTS.filter(a => a.category === 'RARITY').length },
+            { id: 'SPENDING', label: '🪙 머니 소비', count: ACHIEVEMENTS.filter(a => a.category === 'SPENDING').length },
+          ].map(cat => {
+            const isActive = selectedCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                onClick={() => {
+                  sound.playClick();
+                  setSelectedCategory(cat.id as AchievementCategory | 'ALL');
+                }}
+                className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  isActive
+                    ? 'bg-gradient-to-r from-pink-600 via-purple-600 to-amber-500 text-white shadow-lg shadow-pink-950/60 scale-105 border border-white/30'
+                    : 'text-slate-400 hover:text-white bg-void-900/90 border border-white/5 hover:bg-void-800'
+                }`}
+              >
+                <span>{cat.label}</span>
+                <span className="text-[10px] opacity-80">({cat.count})</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* 🌟 3. 업적 리스트 (전체 보기 시 카테고리별 실선 구분선 및 헤더 배치) */}
