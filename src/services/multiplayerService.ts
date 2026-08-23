@@ -4,6 +4,7 @@ import {
   getDocs,
   setDoc,
   addDoc,
+  deleteDoc,
   query,
   orderBy,
   limit,
@@ -86,7 +87,7 @@ export class MultiplayerService {
   // ---------------------------------------------------------------------------
   // 🏆 1. 글로벌 리더보드
   // ---------------------------------------------------------------------------
-  public static async fetchLeaderboard(limitCount = 50): Promise<LeaderboardEntry[]> {
+  public static async fetchLeaderboard(limitCount = 50, currentUserId?: string): Promise<LeaderboardEntry[]> {
     if (!isFirebaseConfigured || !db) {
       return this.getMockLeaderboard();
     }
@@ -109,13 +110,20 @@ export class MultiplayerService {
         const data = docSnap.data() as LeaderboardEntry;
         const uid = docSnap.id || data.uid;
 
-        // 🛡️ 게스트 및 과거 테스트 더미 계정 제외
-        if (
+        // 🗑️ 과거 테스트 계정 식별 (GM, 카카오_엔써_..., 중복 구버전 운영자 등)
+        const isOldTest =
           !uid ||
           uid === 'guest' ||
           uid.startsWith('mock_') ||
-          uid.startsWith('user_mock_')
-        ) {
+          uid.startsWith('user_mock_') ||
+          data.displayName === 'GM' ||
+          data.displayName?.startsWith('카카오_엔써_') ||
+          (data.displayName === '운영자' && currentUserId && uid !== currentUserId);
+
+        if (isOldTest) {
+          // Firebase Firestore에서 해당 테스트 계정 영구 삭제
+          deleteDoc(doc(db!, 'nmixx_tcg_leaderboard', uid)).catch(() => {});
+          deleteDoc(doc(db!, 'nmixx_tcg_users', uid)).catch(() => {});
           return;
         }
 

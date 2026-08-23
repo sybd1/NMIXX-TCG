@@ -21,14 +21,12 @@ export const LeaderboardModal: React.FC<LeaderboardModalProps> = ({
   useEffect(() => {
     if (isOpen) {
       setIsLoading(true);
-      MultiplayerService.fetchLeaderboard(50).then((list) => {
-        // 게스트 제외, 실제 연동 계정만 랭킹 표출
-        const validList = list.filter((e) => e.uid && e.uid !== 'guest');
-        setEntries(validList);
+      MultiplayerService.fetchLeaderboard(50, currentUserId).then((list) => {
+        setEntries(list);
         setIsLoading(false);
       });
     }
-  }, [isOpen]);
+  }, [isOpen, currentUserId]);
 
   if (!isOpen) return null;
 
