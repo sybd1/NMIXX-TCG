@@ -322,14 +322,14 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
         ctx.drawImage(img, 0, usableY, width, usableHeight);
       }
 
-      // 4. Subtle Metallic Sheen & Foil Wrinkle Overlay across the whole pack
+      // 4. Subtle Metallic Sheen & Foil Wrinkle Overlay across the whole pack (Ultra-subtle opacity)
       const foilSheen = ctx.createLinearGradient(0, 0, width, height);
-      foilSheen.addColorStop(0, 'rgba(255, 255, 255, 0.08)');
-      foilSheen.addColorStop(0.25, 'rgba(255, 255, 255, 0.14)');
-      foilSheen.addColorStop(0.45, 'rgba(0, 0, 0, 0.06)');
-      foilSheen.addColorStop(0.65, 'rgba(255, 255, 255, 0.12)');
-      foilSheen.addColorStop(0.85, 'rgba(255, 255, 255, 0.06)');
-      foilSheen.addColorStop(1, 'rgba(0, 0, 0, 0.18)');
+      foilSheen.addColorStop(0, 'rgba(255, 255, 255, 0.03)');
+      foilSheen.addColorStop(0.25, 'rgba(255, 255, 255, 0.07)');
+      foilSheen.addColorStop(0.45, 'rgba(0, 0, 0, 0.02)');
+      foilSheen.addColorStop(0.65, 'rgba(255, 255, 255, 0.06)');
+      foilSheen.addColorStop(0.85, 'rgba(255, 255, 255, 0.03)');
+      foilSheen.addColorStop(1, 'rgba(0, 0, 0, 0.06)');
       ctx.fillStyle = foilSheen;
       ctx.fillRect(0, 0, width, height);
 

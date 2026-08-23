@@ -182,7 +182,7 @@ export const BoosterPackThreeView: React.FC<BoosterPackThreeViewProps> = ({
     <div
       ref={mountRef}
       onClick={!disabled ? onClick : undefined}
-      className={`relative w-full h-full flex items-center justify-center cursor-pointer select-none ${className}`}
+      className={`relative w-full h-full flex items-center justify-center cursor-pointer select-none [filter:contrast(1.03)_saturate(1.05)] ${className}`}
     />
   );
 };
