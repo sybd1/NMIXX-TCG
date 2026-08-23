@@ -45,11 +45,11 @@ export const Header: React.FC<HeaderProps> = ({
     setTimeout(() => setShowRewardToast(false), 2000);
   };
   return (
-    <header className="sticky top-0 z-40 w-full h-16 bg-void-950/85 backdrop-blur-xl border-b border-void-800/80 px-4 md:px-8 flex items-center justify-between">
+    <header className="sticky top-0 z-40 w-full h-16 bg-void-950/85 backdrop-blur-xl border-b border-void-800/80 px-4 md:px-8 flex items-center justify-between relative">
       {/* Brand */}
       <div
         onClick={() => onSelectTab('home')}
-        className="flex items-center gap-3 cursor-pointer group"
+        className="flex items-center gap-3 cursor-pointer group z-10"
       >
         <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-pink-500 via-purple-600 to-sky-400 p-[1.5px] flex items-center justify-center shadow-lg shadow-pink-950/50">
           <div className="w-full h-full bg-void-950 rounded-[7px] flex items-center justify-center">
@@ -66,8 +66,8 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* Desktop Navigation Tabs */}
-      <nav className="hidden md:flex items-center gap-1 bg-void-900/90 p-1 rounded-xl border border-void-800">
+      {/* 🌟 Desktop Navigation Tabs (화면 정중앙 완벽 고정) */}
+      <nav className="hidden md:flex items-center gap-1 bg-void-900/90 p-1.5 rounded-2xl border border-void-800/90 absolute left-1/2 -translate-x-1/2 shadow-xl backdrop-blur-md">
         {[
           { id: 'home', label: 'PACK OPEN' },
           { id: 'collection', label: 'COLLECTION' },
@@ -77,10 +77,10 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             key={tab.id}
             onClick={() => onSelectTab(tab.id as NavTab)}
-            className={`px-4 py-1.5 rounded-lg text-xs font-mono font-bold tracking-wider transition-all ${
+            className={`px-4 py-1.5 rounded-xl text-xs font-mono font-bold tracking-wider transition-all cursor-pointer ${
               currentTab === tab.id
-                ? 'bg-pink-600/30 text-pink-200 border border-pink-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                ? 'bg-gradient-to-r from-pink-600/40 via-purple-600/40 to-amber-500/30 text-white border border-pink-400/50 shadow-md shadow-pink-950/50 scale-[1.02]'
+                : 'text-slate-400 hover:text-slate-100 hover:bg-white/5 border border-transparent'
             }`}
           >
             {tab.label}
@@ -89,7 +89,7 @@ export const Header: React.FC<HeaderProps> = ({
       </nav>
 
       {/* Right Currencies & Actions */}
-      <div className="flex items-center gap-2 sm:gap-2.5 relative">
+      <div className="flex items-center gap-2 sm:gap-2.5 relative z-10">
         {/* 👤 소셜 로그인 / 유저 프로필 뱃지 */}
         {user ? (
           (() => {
