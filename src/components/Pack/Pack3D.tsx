@@ -30,32 +30,36 @@ export const Pack3D: React.FC<Pack3DProps> = ({
       />
 
       {/* 실물 TCG 비닐 은박 호일 부스터 팩 본체 */}
-      <div className="relative w-full h-full rounded-2xl border-2 border-white/30 bg-black flex flex-col justify-between overflow-hidden shadow-2xl [transform-style:preserve-3d]">
+      <div className="relative w-full h-full rounded-2xl border border-white/40 bg-black flex flex-col justify-between overflow-hidden shadow-2xl [transform-style:preserve-3d]">
         
-        {/* 1. 최상단 비닐 압착 실링 (Crimped Top Seal) + 행거 홀 (Hanger Hole Punch) */}
-        <div className="relative z-30 w-full bg-gradient-to-b from-slate-800 via-slate-900 to-black/90 border-b border-white/20 px-3 py-1.5 flex flex-col items-center shadow-md">
+        {/* 1. 최상단 비닐 톱니 압착 실링 (Sawtooth Crimped Top Seal) + 행거 홀 + V자형 뜯는 홈 */}
+        <div className="relative z-30 w-full bg-gradient-to-b from-slate-700 via-slate-900 to-black/95 border-b border-white/25 px-3 pt-2.5 pb-2 flex flex-col items-center shadow-lg pack-crimped-top">
           {/* 톱니형 압착 엠보싱 패턴 레이어 */}
-          <div className="absolute inset-0 opacity-30 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.2)_0px,rgba(255,255,255,0.2)_2px,transparent_2px,transparent_6px)] pointer-events-none" />
+          <div className="absolute inset-0 opacity-40 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.3)_0px,rgba(255,255,255,0.3)_2px,transparent_2px,transparent_6px)] pointer-events-none" />
           
+          {/* V자형 뜯는 홈 (Tear Notch Indicators) */}
+          <div className="absolute -left-0.5 top-3 w-2 h-3 bg-black border-r border-white/40 [clip-path:polygon(0%_0%,100%_50%,0%_100%)] shadow-sm" />
+          <div className="absolute -right-0.5 top-3 w-2 h-3 bg-black border-l border-white/40 [clip-path:polygon(100%_0%,0%_50%,100%_100%)] shadow-sm" />
+
           {/* 마트 매대 걸이용 타원형 행거 홀 (Sombrero Hanger Hole) */}
-          <div className="w-8 h-2.5 rounded-full bg-black/95 border border-white/30 shadow-[inset_0_2px_4px_rgba(0,0,0,0.9)] mb-1 z-10 flex items-center justify-center">
-            <div className="w-3 h-0.5 rounded-full bg-white/20" />
+          <div className="w-8 h-2.5 rounded-full bg-black/95 border border-white/40 shadow-[inset_0_2px_4px_rgba(0,0,0,0.9)] mb-1 z-10 flex items-center justify-center">
+            <div className="w-3 h-0.5 rounded-full bg-white/30" />
           </div>
 
           {/* 상단 메타 뱃지 (팩 코드 & 공식 라이선스 마크) */}
           <div className="w-full flex justify-between items-center z-10 text-[8.5px] font-mono font-black tracking-wider">
-            <span className="text-amber-300 bg-black/70 px-1.5 py-0.2 rounded border border-amber-500/40 shadow-sm">
+            <span className="text-amber-300 bg-black/80 px-2 py-0.5 rounded border border-amber-500/50 shadow-sm">
               [{pack.code}]
             </span>
-            <span className="text-slate-300 flex items-center gap-1 bg-black/60 px-1.5 py-0.2 rounded border border-white/20">
-              <span className="text-pink-400">JYP</span>
+            <span className="text-slate-200 flex items-center gap-1.5 bg-black/70 px-2 py-0.5 rounded border border-white/25 shadow-sm">
+              <span className="text-pink-400 font-extrabold">JYP</span>
               <span className="opacity-40">|</span>
-              <span className="text-emerald-400">ALL AGES</span>
+              <span className="text-emerald-400 font-extrabold">ALL AGES</span>
             </span>
           </div>
         </div>
 
-        {/* 2. 중앙 메인 아트워크 & 배경 앰비언트 */}
+        {/* 2. 중앙 메인 아트워크 & 은박 주름/오로라 레이어 */}
         <div className="relative flex-1 w-full overflow-hidden flex flex-col justify-between p-3">
           {/* 팩 공식 커버 이미지 */}
           <img
@@ -65,23 +69,28 @@ export const Pack3D: React.FC<Pack3DProps> = ({
             className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 pointer-events-none"
           />
 
-          {/* 비닐 호일 세로 주름 및 입체 메탈릭 섀도우 */}
+          {/* 실제 포일 비닐 구김/주름 음영 (Foil Wrinkle Creases) */}
+          <div className="absolute inset-0 foil-wrinkle-texture opacity-70 pointer-events-none" />
+
+          {/* 홀로그래픽 오로라 반사광 (Holographic Foil Sheen) */}
+          <div className="absolute inset-0 foil-holo-sheen opacity-60 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+
+          {/* 비닐 호일 입체 명암 그라데이션 */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/85 pointer-events-none" />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.08)_25%,transparent_50%,rgba(255,255,255,0.08)_75%,transparent_100%)] pointer-events-none" />
 
           {/* 인터랙티브 대각선 메탈릭 광택 스위프 (Metallic Shimmer Foil Swipe) */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/25 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
 
           {/* 중앙 상단: 믹스토피아 공식 TCG 로고 엠블렘 워터마크 */}
           <div className="relative z-20 flex justify-center mt-1">
-            <span className="text-[9px] font-mono font-black tracking-widest text-white/90 uppercase bg-black/60 backdrop-blur-sm px-2.5 py-0.5 rounded-full border border-pink-400/40 shadow-sm">
+            <span className="text-[9px] font-mono font-black tracking-widest text-white/95 uppercase bg-black/70 backdrop-blur-md px-3 py-0.5 rounded-full border border-pink-400/50 shadow-md">
               ✨ NMIXX OFFICIAL TRADING CARD GAME
             </span>
           </div>
 
           {/* 중앙 하단: 굵직한 메탈릭 골드/실버 타이틀 밴드 */}
-          <div className="relative z-20 flex flex-col items-center justify-center text-center bg-black/80 backdrop-blur-md py-2 px-3 rounded-2xl border border-white/20 shadow-2xl mt-auto mb-1">
-            <h3 className="font-serif text-[15px] sm:text-[16.5px] font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-pink-200 to-purple-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] whitespace-nowrap truncate max-w-full">
+          <div className="relative z-20 flex flex-col items-center justify-center text-center bg-black/85 backdrop-blur-md py-2.5 px-3.5 rounded-2xl border border-white/25 shadow-2xl mt-auto mb-1">
+            <h3 className="font-serif text-[15.5px] sm:text-[17px] font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-pink-200 to-purple-200 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] whitespace-nowrap truncate max-w-full">
               {pack.name.replace(/^NMIXX\s*/i, '')}
             </h3>
 
@@ -95,7 +104,7 @@ export const Pack3D: React.FC<Pack3DProps> = ({
             </div>
 
             {/* 하단 스펙 정보 바 (TCG 규격 박스) */}
-            <div className="w-full flex items-center justify-between border-t border-white/10 pt-1 mt-1.5 text-[7px] sm:text-[7.5px] font-mono text-slate-300">
+            <div className="w-full flex items-center justify-between border-t border-white/10 pt-1.5 mt-1.5 text-[7px] sm:text-[7.5px] font-mono text-slate-300">
               <span className="text-amber-300 font-bold">전 {pack.totalCards}종 + 특수 레어</span>
               <span className="text-pink-300 font-bold">1팩 5장입</span>
               <span className="text-cyan-300 font-bold">정규 부스터</span>
@@ -103,10 +112,10 @@ export const Pack3D: React.FC<Pack3DProps> = ({
           </div>
         </div>
 
-        {/* 3. 최하단 비닐 압착 실링 (Crimped Bottom Seal) + 라이선스 카피라이트 */}
-        <div className="relative z-30 w-full bg-gradient-to-t from-slate-800 via-slate-900 to-black/90 border-t border-white/20 px-3 py-1.5 flex flex-col shadow-inner">
+        {/* 3. 최하단 비닐 톱니 압착 실링 (Sawtooth Crimped Bottom Seal) + 라이선스 카피라이트 */}
+        <div className="relative z-30 w-full bg-gradient-to-t from-slate-700 via-slate-900 to-black/95 border-t border-white/25 px-3 pt-2 pb-2.5 flex flex-col shadow-inner pack-crimped-bottom">
           {/* 하단 톱니형 압착 엠보싱 패턴 */}
-          <div className="absolute inset-0 opacity-30 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.2)_0px,rgba(255,255,255,0.2)_2px,transparent_2px,transparent_6px)] pointer-events-none" />
+          <div className="absolute inset-0 opacity-40 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.3)_0px,rgba(255,255,255,0.3)_2px,transparent_2px,transparent_6px)] pointer-events-none" />
 
           {/* 가격 및 오픈 가이드 */}
           <div className="w-full flex justify-between items-center z-10 text-[9.5px] font-mono text-slate-200">

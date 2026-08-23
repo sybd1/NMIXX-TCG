@@ -103,17 +103,17 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
     setTimeout(() => {
       sound.playPackGlow();
       setStep('PACK_GLOW');
-    }, 700);
+    }, 450);
 
     setTimeout(() => {
       sound.playPackTear();
       setStep('PACK_TEAR');
-    }, 1300);
+    }, 900);
 
     setTimeout(() => {
       sound.playCardDeal();
       setStep('CARDS_DEALT');
-    }, 1800);
+    }, 1650);
   };
 
   // 키보드 Spacebar / Enter 원터치 단축키 지원
@@ -359,7 +359,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
 
       {/* 2. 팩 개봉 시네마틱 애니메이션 (STEP 1 ~ STEP 5) */}
       {['DIM_BG', 'PACK_ENTER', 'PACK_SHAKE', 'PACK_GLOW', 'PACK_TEAR'].includes(step) && (
-        <div className="relative z-10 flex flex-col items-center justify-center my-auto">
+        <div className="relative z-10 flex flex-col items-center justify-center my-auto select-none">
           <motion.div
             initial={{ scale: 0.7, y: 70, opacity: 0 }}
             animate={
@@ -368,7 +368,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                 : step === 'PACK_GLOW'
                 ? { scale: 1.08, y: -8, opacity: 1 }
                 : step === 'PACK_TEAR'
-                ? { scale: 1.25, opacity: 0 }
+                ? { scale: 1.05, y: 30, opacity: 1 }
                 : { scale: 1, y: 0, opacity: 1 }
             }
             whileHover={step === 'PACK_ENTER' ? { scale: 1.05, y: -6 } : {}}
@@ -378,41 +378,140 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
               duration: step === 'PACK_SHAKE' ? 0.8 : 0.4,
               ease: 'easeInOut',
             }}
-            className={`relative w-64 sm:w-72 h-[410px] sm:h-[430px] rounded-2xl select-none [perspective:1000px] group ${
+            className={`relative w-64 sm:w-72 h-[410px] sm:h-[430px] rounded-2xl [perspective:1200px] group ${
               step === 'PACK_ENTER' ? 'cursor-pointer' : ''
             }`}
           >
             {/* 팩 앰비언트 글로우 오라 */}
             <div
-              className={`absolute -inset-3 rounded-3xl bg-gradient-to-r ${pack.gradient} blur-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-500 animate-pulse`}
+              className={`absolute -inset-4 rounded-3xl bg-gradient-to-r ${pack.gradient} blur-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-500 ${
+                step === 'PACK_GLOW' || step === 'PACK_TEAR' ? 'animate-pulse scale-110 opacity-100' : ''
+              }`}
             />
 
+            {/* 🌟 팩 찢기 단계 (PACK_TEAR): 팩 상단에서 솟구쳐 나오는 3D 카드 덱 (Ejecting Cards Stack) */}
+            {step === 'PACK_TEAR' && (
+              <div className="absolute inset-x-0 -top-20 z-40 flex items-center justify-center pointer-events-none [transform-style:preserve-3d]">
+                {/* 5장의 카드가 비스듬히 부채꼴로 솟구쳐 나오는 연출 */}
+                {[
+                  { delay: 0.05, x: -35, y: -130, rot: -10, scale: 0.95 },
+                  { delay: 0.1, x: -18, y: -110, rot: -5, scale: 0.97 },
+                  { delay: 0.15, x: 0, y: -90, rot: 0, scale: 1.0 },
+                  { delay: 0.2, x: 18, y: -70, rot: 5, scale: 1.02 },
+                  { delay: 0.25, x: 35, y: -50, rot: 10, scale: 1.05 },
+                ].map((pos, idx) => {
+                  const cardItem = revealedCards[idx] || revealedCards[0];
+                  return (
+                    <motion.div
+                      key={idx}
+                      initial={{ y: 40, opacity: 0, scale: 0.6, rotate: 0 }}
+                      animate={{
+                        y: pos.y,
+                        x: pos.x,
+                        opacity: 1,
+                        scale: pos.scale,
+                        rotate: pos.rot,
+                      }}
+                      transition={{
+                        duration: 0.55,
+                        delay: pos.delay,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                      className="absolute w-40 sm:w-44 h-56 sm:h-64 rounded-xl border-2 border-white shadow-[0_15px_35px_rgba(0,0,0,0.9)] overflow-hidden bg-black"
+                      style={{
+                        zIndex: 10 + idx,
+                        transformOrigin: 'bottom center',
+                      }}
+                    >
+                      {/* 대표 카드 이미지 & 등급 뱃지 */}
+                      {cardItem && (
+                        <>
+                          <img
+                            src={cardItem.image}
+                            alt=""
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
+                          <div className="absolute top-1.5 left-1.5 px-2 py-0.5 rounded bg-black/80 border border-white/30 text-[9px] font-mono font-black text-amber-300">
+                            {cardItem.rarity}
+                          </div>
+                          <div className="absolute bottom-1.5 inset-x-1.5 text-center font-serif font-black text-[10px] text-white truncate drop-shadow">
+                            {cardItem.name}
+                          </div>
+                        </>
+                      )}
+                    </motion.div>
+                  );
+                })}
+
+                {/* 찢어질 때 터져나오는 은박/황금빛 스파크 파티클 (Foil Flakes & Sparks) */}
+                {[...Array(16)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="foil-flake rounded-sm"
+                    style={{
+                      left: `${20 + (i * 4)}%`,
+                      top: '10px',
+                      width: `${4 + (i % 4) * 2}px`,
+                      height: `${4 + (i % 3) * 2}px`,
+                      ['--tw-translate-x' as string]: `${(i - 8) * 18}px`,
+                      ['--tw-translate-y' as string]: `${-40 - (i % 5) * 16}px`,
+                      animationDelay: `${(i % 5) * 0.04}s`,
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+
             {/* 실물 TCG 규격 포일 팩 메인 본체 */}
-            <div className="relative w-full h-full rounded-2xl border-2 border-white/30 bg-black flex flex-col justify-between overflow-hidden shadow-2xl [transform-style:preserve-3d]">
-              {/* 1. 최상단 비닐 압착 실링 (Crimped Top Seal) + 행거 홀 (Hanger Hole Punch) */}
-              <div className="relative z-30 w-full bg-gradient-to-b from-slate-800 via-slate-900 to-black/90 border-b border-white/20 px-3 py-1.5 flex flex-col items-center shadow-md">
+            <div className="relative w-full h-full rounded-2xl border border-white/40 bg-black flex flex-col justify-between overflow-hidden shadow-2xl [transform-style:preserve-3d]">
+              
+              {/* 🌟 1. 최상단 비닐 톱니 압착 실링 (Sawtooth Crimped Top Seal) - 찢어질 때 대각선으로 날아감! */}
+              <motion.div
+                animate={
+                  step === 'PACK_TEAR'
+                    ? {
+                        x: 180,
+                        y: -90,
+                        rotate: 35,
+                        opacity: 0,
+                        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+                      }
+                    : { x: 0, y: 0, rotate: 0, opacity: 1 }
+                }
+                className="relative z-30 w-full bg-gradient-to-b from-slate-700 via-slate-900 to-black/95 border-b border-white/25 px-3 pt-2.5 pb-2 flex flex-col items-center shadow-lg pack-crimped-top"
+              >
                 {/* 톱니형 압착 엠보싱 패턴 레이어 */}
-                <div className="absolute inset-0 opacity-30 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.2)_0px,rgba(255,255,255,0.2)_2px,transparent_2px,transparent_6px)] pointer-events-none" />
+                <div className="absolute inset-0 opacity-40 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.3)_0px,rgba(255,255,255,0.3)_2px,transparent_2px,transparent_6px)] pointer-events-none" />
                 
+                {/* V자형 뜯는 홈 (Tear Notch Indicators) */}
+                <div className="absolute -left-0.5 top-3 w-2 h-3 bg-black border-r border-white/40 [clip-path:polygon(0%_0%,100%_50%,0%_100%)] shadow-sm" />
+                <div className="absolute -right-0.5 top-3 w-2 h-3 bg-black border-l border-white/40 [clip-path:polygon(100%_0%,0%_50%,100%_100%)] shadow-sm" />
+
                 {/* 마트 매대 걸이용 타원형 행거 홀 (Sombrero Hanger Hole) */}
-                <div className="w-8 h-2.5 rounded-full bg-black/95 border border-white/30 shadow-[inset_0_2px_4px_rgba(0,0,0,0.9)] mb-1 z-10 flex items-center justify-center">
-                  <div className="w-3 h-0.5 rounded-full bg-white/20" />
+                <div className="w-8 h-2.5 rounded-full bg-black/95 border border-white/40 shadow-[inset_0_2px_4px_rgba(0,0,0,0.9)] mb-1 z-10 flex items-center justify-center">
+                  <div className="w-3 h-0.5 rounded-full bg-white/30" />
                 </div>
 
                 {/* 상단 메타 뱃지 (팩 코드 & 공식 라이선스 마크) */}
                 <div className="w-full flex justify-between items-center z-10 text-[8.5px] font-mono font-black tracking-wider">
-                  <span className="text-amber-300 bg-black/70 px-1.5 py-0.2 rounded border border-amber-500/40 shadow-sm">
+                  <span className="text-amber-300 bg-black/80 px-2 py-0.5 rounded border border-amber-500/50 shadow-sm">
                     [{pack.code}]
                   </span>
-                  <span className="text-slate-300 flex items-center gap-1 bg-black/60 px-1.5 py-0.2 rounded border border-white/20">
-                    <span className="text-pink-400">JYP</span>
+                  <span className="text-slate-200 flex items-center gap-1.5 bg-black/70 px-2 py-0.5 rounded border border-white/25 shadow-sm">
+                    <span className="text-pink-400 font-extrabold">JYP</span>
                     <span className="opacity-40">|</span>
-                    <span className="text-emerald-400">ALL AGES</span>
+                    <span className="text-emerald-400 font-extrabold">ALL AGES</span>
                   </span>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* 2. 중앙 메인 아트워크 & 배경 앰비언트 */}
+              {/* 🌟 찢어진 경계면 은박 안감 (Silver Foil Jagged Inner Lining) */}
+              {step === 'PACK_TEAR' && (
+                <div className="absolute top-0 inset-x-0 h-6 bg-gradient-to-r from-slate-200 via-white to-slate-400 border-b-2 border-white shadow-md z-25 [clip-path:polygon(0%_0%,15%_100%,30%_20%,45%_90%,60%_10%,75%_100%,90%_30%,100%_100%,100%_0%)]" />
+              )}
+
+              {/* 2. 중앙 메인 아트워크 & 은박 주름/오로라 레이어 */}
               <div className="relative flex-1 w-full overflow-hidden flex flex-col justify-between p-3">
                 {/* 팩 커버 고화질 이미지 */}
                 <img
@@ -422,12 +521,17 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 pointer-events-none"
                 />
 
-                {/* 비닐 호일 세로 주름 및 입체 메탈릭 섀도우 */}
+                {/* 실제 포일 비닐 구김/주름 음영 (Foil Wrinkle Creases) */}
+                <div className="absolute inset-0 foil-wrinkle-texture opacity-70 pointer-events-none" />
+
+                {/* 홀로그래픽 오로라 반사광 (Holographic Foil Sheen) */}
+                <div className="absolute inset-0 foil-holo-sheen opacity-60 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+
+                {/* 비닐 호일 입체 명암 그라데이션 */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/85 pointer-events-none" />
-                <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.08)_25%,transparent_50%,rgba(255,255,255,0.08)_75%,transparent_100%)] pointer-events-none" />
 
                 {/* 인터랙티브 대각선 메탈릭 광택 스위프 (Metallic Shimmer Foil Swipe) */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/25 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
 
                 {/* 팩 개봉 시 빛 방출 (PACK_GLOW 단계) */}
                 {step === 'PACK_GLOW' && (
@@ -441,14 +545,14 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
 
                 {/* 중앙 상단: 믹스토피아 공식 TCG 로고 엠블렘 워터마크 */}
                 <div className="relative z-20 flex justify-center mt-1">
-                  <span className="text-[9px] font-mono font-black tracking-widest text-white/90 uppercase bg-black/60 backdrop-blur-sm px-2.5 py-0.5 rounded-full border border-pink-400/40 shadow-sm">
+                  <span className="text-[9px] font-mono font-black tracking-widest text-white/95 uppercase bg-black/70 backdrop-blur-md px-3 py-0.5 rounded-full border border-pink-400/50 shadow-md">
                     ✨ NMIXX OFFICIAL TRADING CARD GAME
                   </span>
                 </div>
 
                 {/* 중앙 하단: 굵직한 메탈릭 골드/실버 타이틀 밴드 */}
-                <div className="relative z-20 flex flex-col items-center justify-center text-center bg-black/80 backdrop-blur-md py-2 px-3 rounded-2xl border border-white/20 shadow-2xl mt-auto mb-1">
-                  <h3 className="font-serif text-[15px] sm:text-[16.5px] font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-pink-200 to-purple-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] whitespace-nowrap truncate max-w-full">
+                <div className="relative z-20 flex flex-col items-center justify-center text-center bg-black/85 backdrop-blur-md py-2.5 px-3.5 rounded-2xl border border-white/25 shadow-2xl mt-auto mb-1">
+                  <h3 className="font-serif text-[15.5px] sm:text-[17px] font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-pink-200 to-purple-200 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] whitespace-nowrap truncate max-w-full">
                     {pack.name.replace(/^NMIXX\s*/i, '')}
                   </h3>
 
@@ -462,7 +566,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                   </div>
 
                   {/* 하단 스펙 정보 바 (TCG 규격 박스) */}
-                  <div className="w-full flex items-center justify-between border-t border-white/10 pt-1 mt-1.5 text-[7px] sm:text-[7.5px] font-mono text-slate-300">
+                  <div className="w-full flex items-center justify-between border-t border-white/10 pt-1.5 mt-1.5 text-[7px] sm:text-[7.5px] font-mono text-slate-300">
                     <span className="text-amber-300 font-bold">전 {pack.totalCards}종 + 특수 레어</span>
                     <span className="text-pink-300 font-bold">1팩 5장입</span>
                     <span className="text-cyan-300 font-bold">정규 부스터</span>
@@ -470,10 +574,10 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                 </div>
               </div>
 
-              {/* 3. 최하단 비닐 압착 실링 (Crimped Bottom Seal) + 라이선스 카피라이트 */}
-              <div className="relative z-30 w-full bg-gradient-to-t from-slate-800 via-slate-900 to-black/90 border-t border-white/20 px-3 py-1.5 flex flex-col shadow-inner">
+              {/* 3. 최하단 비닐 톱니 압착 실링 (Sawtooth Crimped Bottom Seal) + 라이선스 카피라이트 */}
+              <div className="relative z-30 w-full bg-gradient-to-t from-slate-700 via-slate-900 to-black/95 border-t border-white/25 px-3 pt-2 pb-2.5 flex flex-col shadow-inner pack-crimped-bottom">
                 {/* 하단 톱니형 압착 엠보싱 패턴 */}
-                <div className="absolute inset-0 opacity-30 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.2)_0px,rgba(255,255,255,0.2)_2px,transparent_2px,transparent_6px)] pointer-events-none" />
+                <div className="absolute inset-0 opacity-40 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.3)_0px,rgba(255,255,255,0.3)_2px,transparent_2px,transparent_6px)] pointer-events-none" />
 
                 {/* 가격 및 오픈 가이드 */}
                 <div className="w-full flex justify-between items-center z-10 text-[9.5px] font-mono text-slate-200">
