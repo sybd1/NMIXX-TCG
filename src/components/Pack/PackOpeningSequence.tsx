@@ -550,10 +550,14 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                   </span>
                 </div>
 
-                {/* 중앙 하단: 굵직한 메탈릭 골드/실버 타이틀 밴드 */}
-                <div className="relative z-20 flex flex-col items-center justify-center text-center bg-black/85 backdrop-blur-md py-2.5 px-3.5 rounded-2xl border border-white/25 shadow-2xl mt-auto mb-1">
+                {/* 중앙 하단: 굵직한 메탈릭 골드/실버 타이틀 밴드 (2단 표기: NX 01 / Fe3O4: FORWARD) */}
+                <div className="relative z-20 flex flex-col items-center justify-center text-center bg-black/85 backdrop-blur-md py-2 px-3.5 rounded-2xl border border-white/25 shadow-2xl mt-auto mb-1">
+                  <span className="font-mono text-[10px] sm:text-[11px] font-black tracking-widest text-amber-300 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] uppercase mb-0.5">
+                    {pack.code.replace('-', ' ')}
+                  </span>
+
                   <h3 className="font-serif text-[15.5px] sm:text-[17px] font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-pink-200 to-purple-200 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] whitespace-nowrap truncate max-w-full">
-                    {pack.name.replace(/^NMIXX\s*/i, '')}
+                    {pack.name.includes(' - ') ? pack.name.split(' - ')[1] : pack.name}
                   </h3>
 
                   <div className="flex items-center gap-1.5 mt-0.5 max-w-full truncate">

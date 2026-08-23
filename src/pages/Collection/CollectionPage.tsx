@@ -46,10 +46,10 @@ const MEMBERS: { id: string; name: string }[] = [
 
 const PACK_FILTERS = [
   { id: 'ALL', code: 'ALL', name: '전체 팩' },
-  { id: 'op01', code: 'NX-01', name: '1탄 Fe3O4: FORWARD' },
-  { id: 'op02', code: 'NX-02', name: '2탄 2025 NEW ERA' },
-  { id: 'op03', code: 'NX-03', name: '3탄 Blue Valentine' },
-  { id: 'op04', code: 'NX-04', name: '4탄 ZERO FRONTIER' },
+  { id: 'op01', code: 'NX-01', name: 'NX 01 - Fe3O4: FORWARD' },
+  { id: 'op02', code: 'NX-02', name: 'NX 02 - 2025 NEW ERA' },
+  { id: 'op03', code: 'NX-03', name: 'NX 03 - Blue Valentine' },
+  { id: 'op04', code: 'NX-04', name: 'NX 04 - ZERO FRONTIER' },
 ];
 
 export const CollectionPage: React.FC<CollectionPageProps> = ({

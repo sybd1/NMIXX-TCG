@@ -171,12 +171,12 @@ export interface BoosterPackConfig {
   totalCards: number;
 }
 
-// NMIXX 메인 4대 부스터 팩 시리즈 (NX-01 ~ NX-04)
+// NMIXX 메인 4대 부스터 팩 시리즈 (NX 01 ~ NX 04)
 export const BOOSTER_PACKS: BoosterPackConfig[] = [
   {
     id: 'op01',
     code: 'NX-01',
-    name: 'NX1 Fe3O4: FORWARD',
+    name: 'NX 01 - Fe3O4: FORWARD',
     subtitle: 'Fe3O4: FORWARD • VOL.01',
     description: 'NMIXX CHANGE UP! 미지의 필드를 개척하며 한계를 뚫고 나아가는 《Fe3O4: FORWARD》 1탄 정규 부스터 팩.',
     slogan: '새로운 필드를 향해 거침없이 전진하라, Fe3O4: FORWARD!',
@@ -190,7 +190,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
   {
     id: 'op02',
     code: 'NX-02',
-    name: 'NX2 2025 NEW ERA',
+    name: 'NX 02 - 2025 NEW ERA',
     subtitle: '2025 SEASONS GREETINGS • VOL.02',
     description: '새로운 한 해를 여는 2025 시즌스 그리팅 & 3주년 기념 페스티벌! 찬란한 감성을 담은 2탄 정규 부스터 팩.',
     slogan: '새로운 2025년, 엔써와 함께 써 내려갈 찬란한 순간!',
@@ -204,7 +204,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
   {
     id: 'op03',
     code: 'NX-03',
-    name: 'NX3 Blue Valentine',
+    name: 'NX 03 - Blue Valentine',
     subtitle: 'BLUE VALENTINE • VOL.03',
     description: '푸른빛 낭만과 몽환적인 멜로디의 하모니! 6인 스페셜 MR 세트와 다채로운 화보를 담은 3탄 정규 부스터 팩.',
     slogan: '파란빛 감성의 몽환적인 발렌타인 멜로디!',
@@ -218,7 +218,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
   {
     id: 'op04',
     code: 'NX-04',
-    name: 'NX4 ZERO FRONTIER',
+    name: 'NX 04 - ZERO FRONTIER',
     subtitle: 'ZERO FRONTIER • VOL.04',
     description: '경계 너머 미지의 세계를 개척하는 믹스팝 오디세이 & 서머 스페셜! 압도적 카리스마의 4탄 정규 부스터 팩.',
     slogan: '신시대를 여는 믹스팝의 개척자, ZERO FRONTIER!',

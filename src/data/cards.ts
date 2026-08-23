@@ -22,7 +22,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept-MIXXLAB/lilly/f45576d2f84188f7f49d5028fe65d783.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD",
+    "packName": "NX 01 - Fe3O4: FORWARD",
     "setId": "set_mixx_lab",
     "setTitle": "MIXX LAB 세트 카드"
   },
@@ -47,7 +47,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept-MIXXLAB/haewon/20dfe8bae9d3559c732c4f8233db0647.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD",
+    "packName": "NX 01 - Fe3O4: FORWARD",
     "setId": "set_mixx_lab",
     "setTitle": "MIXX LAB 세트 카드"
   },
@@ -72,7 +72,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept-MIXXLAB/sullyoon/0639f8a0ec3bee990511f0659fa2e8e5.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD",
+    "packName": "NX 01 - Fe3O4: FORWARD",
     "setId": "set_mixx_lab",
     "setTitle": "MIXX LAB 세트 카드"
   },
@@ -97,7 +97,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept-MIXXLAB/bae/6e98b292c107b5bd82cda367668f9cc0.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD",
+    "packName": "NX 01 - Fe3O4: FORWARD",
     "setId": "set_mixx_lab",
     "setTitle": "MIXX LAB 세트 카드"
   },
@@ -122,7 +122,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept-MIXXLAB/jiwoo/0d7890c69d7abd02ba66bdb974c5ebc9.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD",
+    "packName": "NX 01 - Fe3O4: FORWARD",
     "setId": "set_mixx_lab",
     "setTitle": "MIXX LAB 세트 카드"
   },
@@ -147,7 +147,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept-MIXXLAB/kyujin/2084ec58a8fb495351a04a8fa92d4995.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD",
+    "packName": "NX 01 - Fe3O4: FORWARD",
     "setId": "set_mixx_lab",
     "setTitle": "MIXX LAB 세트 카드"
   },
@@ -172,7 +172,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/lilly/496e104c51e6176674c22dd5f423d736.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_008",
@@ -195,7 +195,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/lilly/6cf9f5276dee059176a613dd69c3a576.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_009",
@@ -218,7 +218,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/lilly/7475eef11971132c4f658cbe7a9d848d.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_010",
@@ -241,7 +241,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/lilly/8e1079e800c858f86a66e392edf46d63.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_011",
@@ -264,7 +264,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/lilly/99027ad1b043bf3d29e85b2e11920919.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_012",
@@ -287,7 +287,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/lilly/bf5822f61782c2bff57c0ff79665d11f.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_013",
@@ -310,7 +310,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/lilly/d266a413cb0f348dbd161dce9a20f602.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_014",
@@ -333,7 +333,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/lilly/da0ca2cf9fe47713fcf318ef45ced350.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_015",
@@ -356,7 +356,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/lilly/f32e23e6785946b0b71c1660d1d2caba.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_016",
@@ -379,7 +379,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/haewon/0db1a4123dea36c1e71a4250b936043b.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_017",
@@ -402,7 +402,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/haewon/121c97f595b45b6b4836a5c0353bb4e4.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_018",
@@ -425,7 +425,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/haewon/27eb1d7527baf46f56ef77b8ee51cb52.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_019",
@@ -448,7 +448,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/haewon/69f20a5557efd46cd1318fa94af6b049.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_020",
@@ -471,7 +471,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/haewon/a6d54d4a7703d55cc9f95bb3ac3603f3.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_021",
@@ -494,7 +494,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/haewon/b77acf6093670196f2aaa0e020a95778.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_022",
@@ -517,7 +517,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/haewon/cce5890ceee24ac8ba8a778517a485fe.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_023",
@@ -540,7 +540,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/haewon/dd1898187cdb74d70eec047be9f2702a.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_024",
@@ -563,7 +563,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/haewon/e0f89c80a81e3aac47fa2ef5fee9a3bc.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_025",
@@ -586,7 +586,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/haewon/f0c2456b127a7d8506717bc9d5f181a8.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_026",
@@ -609,7 +609,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/sullyoon/0822564f3e9a4805add02f5712ec8a70.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_027",
@@ -632,7 +632,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/sullyoon/0ae0ee8612e213e0897037441a1ac297.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_028",
@@ -655,7 +655,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/sullyoon/379c0695b3ff865652310bdeea737429.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_029",
@@ -678,7 +678,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/sullyoon/62c944d2658d36f022008cf3a3d60a52.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_030",
@@ -701,7 +701,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/sullyoon/82309b6b39771036139abf77bd6838c7.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_031",
@@ -724,7 +724,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/sullyoon/869343cc6d492324efd50902b7bb59e1.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_032",
@@ -747,7 +747,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/sullyoon/950a5e46e1aac0a76792afce061f4058.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_033",
@@ -770,7 +770,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/sullyoon/961149521d48ab276757f5c1647df8bc.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_034",
@@ -793,7 +793,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/sullyoon/a8faa4063ff43fbc4047816e6a3e79d4.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_035",
@@ -816,7 +816,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/sullyoon/dfa4b5ff02b43af6c931b4886603cd0c.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_036",
@@ -839,7 +839,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/bae/07713c23f43e971ff68f1895b5262d72.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_037",
@@ -862,7 +862,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/bae/08f1c0a872a6d21c45a5f716446fe747 (1).jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_038",
@@ -885,7 +885,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/bae/22390100fc91334a715e65992f393acb.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_039",
@@ -908,7 +908,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/bae/59a970f7a5d695a2da03cd429a9b5cb5.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_040",
@@ -931,7 +931,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/bae/6c6389aa1fba51b9804d8787f18e7433.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_041",
@@ -954,7 +954,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/bae/715246ceb25c5877a12fd8c7d210a9f2.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_042",
@@ -977,7 +977,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/bae/78da84fba4145ea2474ff21bd2d0d034.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_043",
@@ -1000,7 +1000,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/bae/7b55f99780da07a529ce1b20ad6f3aef.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_044",
@@ -1023,7 +1023,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/bae/b0ec76e081bc5ab57ce1546986e54a32.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_045",
@@ -1046,7 +1046,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/bae/f3ac785e9e2bb050c6369783e8735a17.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_046",
@@ -1069,7 +1069,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/jiwoo/15274b47e2e096b67c7ad60e2861b0e3.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_047",
@@ -1092,7 +1092,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/jiwoo/42c908439db253a4c401dadc800d1b83.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_048",
@@ -1115,7 +1115,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/jiwoo/5d81b42830720772224e97253d6e087e.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_049",
@@ -1138,7 +1138,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/jiwoo/7b5a68c071e033c71ba84b1694f974bd.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_050",
@@ -1161,7 +1161,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/jiwoo/870db1f22252861f5de6fbaa2cd3e958.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_051",
@@ -1184,7 +1184,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/jiwoo/93b8d10d7e9520d2338e97d21522e82d.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_052",
@@ -1207,7 +1207,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/jiwoo/aa2dd818decc0154c799881de421c96d.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_053",
@@ -1230,7 +1230,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/jiwoo/c2fd492e1d2fc913f8e0de313637d479.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_054",
@@ -1253,7 +1253,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/jiwoo/d2763be7230dec8372b736f06e5cfdf6.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_055",
@@ -1276,7 +1276,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/jiwoo/ef22512a5085600ef6485435a8d8e4a9.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_056",
@@ -1299,7 +1299,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/kyujin/2b0234887e7eb267f7fbdec484e30f22.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_057",
@@ -1322,7 +1322,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/kyujin/2dcdf685e4f334b5fcd320f8a02cd8c2.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_058",
@@ -1345,7 +1345,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/kyujin/3b9a938ba106a05fd86f8d64834600c5.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_059",
@@ -1368,7 +1368,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/kyujin/4ec076b405c5e91d1b94ad3c551df19a.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_060",
@@ -1391,7 +1391,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/kyujin/8e7b963c7de3c089a49d4305ed752d1a.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_061",
@@ -1414,7 +1414,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/kyujin/96b085183b1a9d126e259a83d9be9405.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_062",
@@ -1437,7 +1437,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/kyujin/9a5cbf452c418edcc509338467df60fb.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_063",
@@ -1460,7 +1460,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/kyujin/be0bc0af0bc4aa69ee479dc0b655e23b.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_064",
@@ -1483,7 +1483,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/kyujin/c8365909c60286645c68fc1127f3528e.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_065",
@@ -1506,7 +1506,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/kyujin/df9abd43c29b330a093aa5dea77d4511.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_066",
@@ -1529,7 +1529,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/group-members/25bef079cdfa3ebc0560cc3ce8c26d5f.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_067",
@@ -1552,7 +1552,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/group-members/33cdaf80f38eb6bd6a91153c7b881370.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_068",
@@ -1575,7 +1575,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/group-members/35b5acacc144c356234d7fc5b794ff09.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_069",
@@ -1598,7 +1598,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/group-members/472c1daf81a14dbe1ddf10dd71ff74af.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_070",
@@ -1621,7 +1621,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/group-members/4979a37101eb7205628355d342b9c36e.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_071",
@@ -1644,7 +1644,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/group-members/49b14880c49aca07d037f0e50a4a353f.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_072",
@@ -1667,7 +1667,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/group-members/8ee56797b8ba1ede1e16e20631760f28.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_073",
@@ -1690,7 +1690,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/group-members/98a45464d24955775b5f0620c93fe4e4.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_074",
@@ -1713,7 +1713,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/group-members/a85701f271f2f186349fdaed9c902990.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_075",
@@ -1736,7 +1736,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/group-members/d33f3b12a87c7a3516ff59a4190e87bf.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_076",
@@ -1759,7 +1759,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/group-members/d8e2983e083aa41ee8bc6bb2f2a56d8f.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_077",
@@ -1782,7 +1782,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/group-members/e9d35ba19faba67d5a04326eb07e0977.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_078",
@@ -1805,7 +1805,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/group-members/ee582dd54064d6581fff55b0c157793c.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_079",
@@ -1828,7 +1828,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept1/group-members/f93c0fa4e4de6296beac5970ad1860f4.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_080",
@@ -1851,7 +1851,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/lilly/1f8b0f6aa061e8aa61982ce844f04dd3.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_081",
@@ -1874,7 +1874,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/lilly/4b79376c9ca6536394ab707beef62dd4.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_082",
@@ -1897,7 +1897,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/lilly/7cb1d885fe0295901f060f04c2d6d43d.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_083",
@@ -1920,7 +1920,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/lilly/9283dc3d918f8ea2b4f5610cf459db86.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_084",
@@ -1943,7 +1943,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/lilly/ad138d0e95a5af113967deb8b60f8c76.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_085",
@@ -1966,7 +1966,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/lilly/c1ba621d22f93d60ec5aa00eaf90728a.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_086",
@@ -1989,7 +1989,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/lilly/d728b19e51f481c5faa8dfea3901c00c.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_087",
@@ -2012,7 +2012,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/haewon/0c15cb75855beb55d22bf868a6876c53.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_088",
@@ -2035,7 +2035,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/haewon/1f8583b3f943205910b5b45ff91ae079.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_089",
@@ -2058,7 +2058,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/haewon/39beffcfa702015fd445de522df83a82.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_090",
@@ -2081,7 +2081,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/haewon/470c34e60a2bce32597c4dc9255c504b.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_091",
@@ -2104,7 +2104,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/haewon/8e2d881f05beaa853033b3dd4ff90ae4.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_092",
@@ -2127,7 +2127,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/haewon/c130f20bf3e6af461fe38c92d1133228.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_093",
@@ -2150,7 +2150,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/haewon/d6222fe61db8f9135a400fc45d038d45.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_094",
@@ -2173,7 +2173,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/haewon/f103208d81c2d039b5f5314a38d8161f.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_095",
@@ -2196,7 +2196,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/sullyoon/228aa1f3d73093ea625ac1482dd401b2.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_096",
@@ -2219,7 +2219,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/sullyoon/45fb3155dd42850bbef6f11b6fa53a10.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_097",
@@ -2242,7 +2242,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/sullyoon/5125435ca9f18d40d6bbeb5f593038c8.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_098",
@@ -2265,7 +2265,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/sullyoon/a7ae3d11f2bd3a739dd941794349086f.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_099",
@@ -2288,7 +2288,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/sullyoon/af156d051b95d6ee5fe293a7b3149d15.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_100",
@@ -2311,7 +2311,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/sullyoon/c058aa71422aaa15b51f170eeb2633d0.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_101",
@@ -2334,7 +2334,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/sullyoon/f391de8106137b4ea89b32fb99159023.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_102",
@@ -2357,7 +2357,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/bae/0127eb63ddf646bbb8563e80701af093.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_103",
@@ -2380,7 +2380,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/bae/3fe8a53b4fd90693c8293d47eeb77fdf.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_104",
@@ -2403,7 +2403,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/bae/d6dcc48e6eb89f7991bbd6da58cbe702.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_105",
@@ -2426,7 +2426,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/bae/d822407524b992c75a20e89d75082eee.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_106",
@@ -2449,7 +2449,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/bae/f4eca3f0df7903869d957669d234a25f.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_107",
@@ -2472,7 +2472,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/bae/ffbac2fc3c856dd863d5093147e73a27.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_108",
@@ -2495,7 +2495,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/jiwoo/18cacb747eef6ff5c0d241e89150da9e.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_109",
@@ -2518,7 +2518,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/jiwoo/4f5c7341b72ae2db7cf6c8b992dcd456.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_110",
@@ -2541,7 +2541,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/jiwoo/7befdc187b72ebfd9f1d29aca2b5508f.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_111",
@@ -2564,7 +2564,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/jiwoo/826cf3179e67065d2da276db4a3a16fa.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_112",
@@ -2587,7 +2587,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/jiwoo/8df1d4f6c704e859e66abcf3ba85d7ac.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_113",
@@ -2610,7 +2610,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/jiwoo/b23c6ce234516838e648926f55196d5d.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_114",
@@ -2633,7 +2633,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/kyujin/0d5a3c643f1a9fe856e626d630c3c5bd.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_115",
@@ -2656,7 +2656,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/kyujin/454e2601ba09277b29a8170c51cad1c6.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_116",
@@ -2679,7 +2679,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/kyujin/6062d9e79b2a423105916c9f08cf5ded.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_117",
@@ -2702,7 +2702,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/kyujin/6abb46afab4e24e8f39cee966df1c55f.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_118",
@@ -2725,7 +2725,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/kyujin/9f0c4dce7822cdd102eb29fc22d7052d.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_119",
@@ -2748,7 +2748,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/kyujin/adb45669fb7a9e3e490133d825b230be.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_120",
@@ -2771,7 +2771,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/kyujin/be04687038ab0a7c2793dba54401d976.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_121",
@@ -2794,7 +2794,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/kyujin/f7c246fe61e9473e96066426a53addbb.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_122",
@@ -2817,7 +2817,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/group-members/12c6c9eadb560590e1c685e0f7d1723e.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_123",
@@ -2840,7 +2840,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/group-members/395378c831336df1fa8a6e0aeb1637dc.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_124",
@@ -2863,7 +2863,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/group-members/847e27eb13aa2e4ccdcd55307cdd9732.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_125",
@@ -2886,7 +2886,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/group-members/8ccfc2e4e016676424707da3b925a19b.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_126",
@@ -2909,7 +2909,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/group-members/ca89d9fe38660cddd6df339fd04b4fa8.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_127",
@@ -2932,7 +2932,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/concept2/group-members/ddc41659483f3a6b7effcd439df785ed.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_128",
@@ -2955,7 +2955,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx1-fe3o4-foward/logo.jpg",
     "packCode": "NX-01",
     "packId": "op01",
-    "packName": "NX1 Fe3O4: FORWARD"
+    "packName": "NX 01 - Fe3O4: FORWARD"
   },
   {
     "id": "nmixx_200_001",
@@ -2978,7 +2978,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-2025SesonG/bae/711041fb33fd0003cd07b0e89549a908.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3002,7 +3002,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-2025SesonG/group-members/0117f26edfb694c5c5b0aa0662bf8d7b.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3026,7 +3026,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-2025SesonG/haewon/c1a94ebfa4cc6b568e82ce440c7493ed.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3050,7 +3050,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-2025SesonG/jiwoo/fb7e19dcff8d6591470bbd76be73abae.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3074,7 +3074,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-2025SesonG/kyujin/a88d1422b5a48ad8833c9b0c660333ae.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3098,7 +3098,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-2025SesonG/lilly/6dd5fc2e639920cbca2799d5a43b5b35.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3122,7 +3122,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-2025SesonG/sullyoon/63a8b717851d6ee2748037e34f70b015.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3146,7 +3146,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/bae/862b283e246d3af40e624be29fb73b40.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3170,7 +3170,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/bae/b33d9e116287c907123d1081d5f7d5ae.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3194,7 +3194,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/bae/d2a4f45e55ff63c596ba5effa3c60ddd.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3218,7 +3218,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/bae/f5ca31e81a59730395ee9d9f93a0bebe.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3242,7 +3242,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/group-members/0459621bf89bb08cdcb5c9f9245ebc42.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3266,7 +3266,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/group-members/1abafd54897e69c92891ecdf8d87cb3f.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3290,7 +3290,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/group-members/2741daef8c9c84b64c3dfc08f602974a.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3314,7 +3314,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/group-members/4c9596db5c83e74696f12888b9b55219.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3338,7 +3338,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/group-members/508b121384b47e9961fde97cbb2fea2a.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3362,7 +3362,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/group-members/5f71a927c4261c57925d25e7ebee6940.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3386,7 +3386,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/group-members/90ac8f9111708f2cf7de9e0c889e6363.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3410,7 +3410,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/group-members/9de43bf0fbfc3b4a400e24c26da92e81.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3434,7 +3434,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/group-members/e8c2774b53a69b7ea7d8596e95dea476.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3458,7 +3458,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/haewon/3b8d33bf3a8ff844f9ef357246520df1.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3482,7 +3482,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/haewon/5a0e048416aeab26b1ac455402a8e46a.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3506,7 +3506,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/haewon/5dac2d431da79c1a328c1b8ad6086d28.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3530,7 +3530,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/haewon/65244a248a1380fa21c7b671676ade6e.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3554,7 +3554,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/jiwoo/396a6613a099f2b5b83a5006928898f6.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3578,7 +3578,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/jiwoo/768af89537b91fff9ebb27c8e668731f.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3602,7 +3602,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/jiwoo/7826790627cd24a9bc00eb6467057d76.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3626,7 +3626,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/jiwoo/db84b3fab39ea3757a1b878cf0d1888b.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3650,7 +3650,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/kyujin/d05fc5ccd867b64d193226a4effa71cd.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3674,7 +3674,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/kyujin/d479a653173c4d2b0b5d9c74ee9f33fc.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3698,7 +3698,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/kyujin/f94c81f2cdea3ccc1484ffe9b36e97a4.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3722,7 +3722,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/kyujin/fb0d4ba7d06bd5d9c711bf01d02c1e60.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3746,7 +3746,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/lilly/2275cb8e0cb145c628e1eb9686711015.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3770,7 +3770,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/lilly/8b4e1156a0a7dcdfcaf2b870062fd828.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3794,7 +3794,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/lilly/c4d7a884fc301fdfff7d47d65290da50.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3818,7 +3818,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/lilly/dc1463ecc20c4cc9ec53d86ac25c8037.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3842,7 +3842,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/sullyoon/580d3c2f013982f96568aa6c6f9de4d3.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3866,7 +3866,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/sullyoon/69713e6043f5cdea0c652eeab36b1350.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3890,7 +3890,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/sullyoon/f94f4963e43aec1ed2f4a618e1a7a8fe.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3914,7 +3914,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept1/sullyoon/fafff752da88a0e81d2c1d6ab6a9ef6a.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3938,7 +3938,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/bae/0dcafe29a49a63e191703cbc2be66372.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -3962,7 +3962,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/bae/843d36272409941b6c8e12b311e026fe.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -3987,7 +3987,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/group-members/35b7f21e58789de36640c294351b825d.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4012,7 +4012,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/group-members/4986add22361aa4b348f4f30f50e323e.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4037,7 +4037,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/group-members/9679bf6abc274e3db1dd3a58332e5069.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4062,7 +4062,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/group-members/b11a7c676bfcc5704936dcaf0e37db51.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4087,7 +4087,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/group-members/bbc3c03e1096a7ccf24adda70f86ed74.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4112,7 +4112,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/group-members/c3c1ae78364538190ae70926f233da61.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4137,7 +4137,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/haewon/591fb3b36e25e159956b1d38364c15d1.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -4161,7 +4161,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/haewon/a0a12270b430ca96a970132e003b6ad1.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4186,7 +4186,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/jiwoo/21a80ca59fd460a7a8b913a001438d10.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4211,7 +4211,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/jiwoo/6823cc676268d523810e0022c5433162.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -4235,7 +4235,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/kyujin/04b213da827a0d9a6dfeae037e64db2e.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -4259,7 +4259,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/kyujin/2e4aae49878ab9b548c9b1a2fe93686e.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4284,7 +4284,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/lilly/11bdc0901cad0781a6d0c1abcff92983.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -4308,7 +4308,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/lilly/b2778489bf3526bd154f3b629d428145.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4333,7 +4333,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/sullyoon/16ed70fe6efe52ca3f7ec07ef5d17c2b.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -4357,7 +4357,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept2/sullyoon/514f8362d2c4c319039c8e74436ef303.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2048:1366",
     "isLandscape": true
   },
@@ -4382,7 +4382,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/bae/02b9b35e7b292ca5537bef93eb663af4.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2048:1372",
     "isLandscape": true
   },
@@ -4407,7 +4407,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/bae/24fe5335783e7d3ef9fc0cc18bbbfaae.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -4431,7 +4431,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/bae/6c374fe98a55f0af8345b0687821a095.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2048:1372",
     "isLandscape": true
   },
@@ -4456,7 +4456,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/bae/742c2589795ae4d1b7b68b40e97ce8ee.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2048:1372",
     "isLandscape": true
   },
@@ -4481,7 +4481,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/group-members/001d14dbb890ad133cbd9d07f3a7866c.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2847:1909",
     "isLandscape": true
   },
@@ -4506,7 +4506,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/group-members/01655dd148d7c0915a9eac86bc7d9582.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2949:1977",
     "isLandscape": true
   },
@@ -4531,7 +4531,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/group-members/1fdebf44b6386d80d3adb662430b60d2.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2778:1861",
     "isLandscape": true
   },
@@ -4556,7 +4556,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/group-members/477a1813a6504b55ea261cf21a420255.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2799:1876",
     "isLandscape": true
   },
@@ -4581,7 +4581,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/group-members/5fe2bb2a277e93ac1439cc271e0c194e.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2922:1959",
     "isLandscape": true
   },
@@ -4606,7 +4606,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/group-members/8522b82b38a81782041e6ca113e7ae2c.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2594:1739",
     "isLandscape": true
   },
@@ -4631,7 +4631,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/group-members/88e20df2df86c439fc3adfa2781844c9.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2884:1933",
     "isLandscape": true
   },
@@ -4656,7 +4656,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/group-members/986044fe2bdf78b83173e4284fc7d189.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "3033:2033",
     "isLandscape": true
   },
@@ -4681,7 +4681,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/group-members/9f48ed1d71b6aef7112c9867bb2fad73.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "3188:2137",
     "isLandscape": true
   },
@@ -4706,7 +4706,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/group-members/ade4545e330a3ec11d2ac6597f66c908.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2823:1893",
     "isLandscape": true
   },
@@ -4731,7 +4731,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/group-members/bd74c9b99f08b27dac0d350584f9db5a.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2807:1882",
     "isLandscape": true
   },
@@ -4756,7 +4756,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/group-members/d34212ed293d0c99d411be5a8c076c66.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "3188:2137",
     "isLandscape": true
   },
@@ -4781,7 +4781,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/group-members/d7a18d6dbbdeb16b83a81932832b7cf0.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2689:1803",
     "isLandscape": true
   },
@@ -4806,7 +4806,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/group-members/ec56761cb5a79463ca8f7dcdb243c8ff.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2977:1995",
     "isLandscape": true
   },
@@ -4831,7 +4831,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/haewon/32c10fb129cfd5bd3ddf2853f29150bb.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -4855,7 +4855,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/haewon/8f56eddc12f2aee5d51c19e6473278ba.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -4879,7 +4879,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/haewon/a2d9c63ad7e1369d8c6e801eb0c6c8ef.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2328:1561",
     "isLandscape": true
   },
@@ -4904,7 +4904,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/haewon/da4b30668f32a0ec5f5df54e3a607792.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2692:1804",
     "isLandscape": true
   },
@@ -4929,7 +4929,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/jiwoo/0e33096387cea5ba8d65c9f2dc10f309.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "3188:2137",
     "isLandscape": true
   },
@@ -4954,7 +4954,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/jiwoo/10f3ebe2f9f8a78b6a6756151c90168d.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -4978,7 +4978,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/jiwoo/9015ded5797c301c6ccf9539ca218690.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "3188:2137",
     "isLandscape": true
   },
@@ -5003,7 +5003,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/jiwoo/99c6b48d8b554e2738ac799107f7e617.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "3188:2137",
     "isLandscape": true
   },
@@ -5028,7 +5028,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/kyujin/82c000400cdd4b39a72cdb66e79b71c3.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2048:1372",
     "isLandscape": true
   },
@@ -5053,7 +5053,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/kyujin/b740c27b675889cbea637d0966fa79d2.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2048:1372",
     "isLandscape": true
   },
@@ -5078,7 +5078,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/kyujin/d34e690895de1c4d00060a6f7c14c3c3.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5102,7 +5102,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/kyujin/e9aa06d5417ab0d53fa1bd45ca101a5a.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5126,7 +5126,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/lilly/0e772f9617f7f6a224d51931a305bade.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2048:1372",
     "isLandscape": true
   },
@@ -5151,7 +5151,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/lilly/73e6a1c5969373aa3d21929534a2a4ea.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5175,7 +5175,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/lilly/810dbeb050ec2b8af50b04c30f0500ea.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2048:1374",
     "isLandscape": true
   },
@@ -5200,7 +5200,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/lilly/8aed912bdf8e4d0e3f309b3eb20287f7.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2048:1372",
     "isLandscape": true
   },
@@ -5225,7 +5225,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/sullyoon/7db622e393ef6c440950b7f004c3f0ad.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "3188:2137",
     "isLandscape": true
   },
@@ -5250,7 +5250,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/sullyoon/928f1d83df5f130d00bfc1c8be0db032.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "2695:1806",
     "isLandscape": true
   },
@@ -5275,7 +5275,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/sullyoon/a9175cbd292586982e945b68b39d69f4.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5299,7 +5299,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-3rdg/concept3/sullyoon/bb80cd1e4e0b93529a1323a178cee0a5.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5323,7 +5323,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-calendar/group-members/11월.png",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5347,7 +5347,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-calendar/group-members/12월.png",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5371,7 +5371,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-calendar/group-members/1월.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5395,7 +5395,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-calendar/group-members/2월.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5419,7 +5419,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-calendar/group-members/3월.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5443,7 +5443,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-calendar/group-members/4월.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5467,7 +5467,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-calendar/group-members/5월.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5491,7 +5491,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-calendar/group-members/6월.png",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5515,7 +5515,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-calendar/group-members/7월.png",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5539,7 +5539,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-calendar/group-members/8월.png",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5563,7 +5563,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-calendar/group-members/9월.png",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5587,7 +5587,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-calendar/lilly/10월.png",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5611,7 +5611,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-chronicles/bae/e8e0bb0e324b6cea388e7164d1ddc447.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5635,7 +5635,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-chronicles/group-members/a45a24c4fbfe2316bee017970749f1fd.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "aspectRatio": "3533:2357",
     "isLandscape": true
   },
@@ -5660,7 +5660,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-chronicles/haewon/7c956f26aa1029960066c965d2cd0cf1.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5684,7 +5684,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-chronicles/jiwoo/a0ae9481ff01e125ce1ad48fd3ba58e4.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5708,7 +5708,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-chronicles/kyujin/2e6319e98981480419243416a503e2b5.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5732,7 +5732,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-chronicles/lilly/06e5ec0c45975c5a429bf7863d21eb35.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5756,7 +5756,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx2-2025/concept-chronicles/sullyoon/f26242b0e2340c1b3faaabe95c8c59c7.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX2 2025 NEW ERA",
+    "packName": "NX 02 - 2025 NEW ERA",
     "isLandscape": false
   },
   {
@@ -5780,7 +5780,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept-MR-SET/bae/N004.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -5804,7 +5804,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept-MR-SET/haewon/N002.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -5828,7 +5828,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept-MR-SET/jiwoo/N005.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -5852,7 +5852,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept-MR-SET/kyujin/N006.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -5876,7 +5876,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept-MR-SET/lilly/N001.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -5900,7 +5900,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept-MR-SET/sullyoon/N003.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -5924,7 +5924,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/bae/879e2fd850896c13e888417ac4887eaf.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -5948,7 +5948,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/bae/a2fa5a7124971cd015b0ee8fdb715543.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -5972,7 +5972,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/bae/bb84980d8cd17926b399519814c9f1e6.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -5997,7 +5997,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/group-members/0440ff6abe7a1024b7e32221ae8d575f.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3556:2000",
     "isLandscape": true
   },
@@ -6022,7 +6022,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/group-members/148a76a8c72e7d6b7d0a997097942b31.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6046,7 +6046,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/group-members/535b7fa1f2601fcb03bfad44e5411c54.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6070,7 +6070,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/group-members/64f956d3aa90e853259da5b0d4a47e4d.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6094,7 +6094,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/group-members/796beb37d4602e909ada0120e858f076.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6118,7 +6118,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/group-members/83e0d37efd9f877bf0be9bacf13992ca.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6142,7 +6142,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/group-members/b59cddc61208b23a2e390cd2ef990dfc.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6166,7 +6166,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/group-members/c4e086f37c595bed6fc404a414f4e1d4.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -6191,7 +6191,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/group-members/d77fb9779f2670e54a99ab5cd2f36cfe.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6215,7 +6215,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/group-members/e0dc615764bede60da348902d74608fe.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -6240,7 +6240,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/haewon/dab969292e9a819d77215c510e4c861e.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6264,7 +6264,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/haewon/e54f9a8d984c5a9cfb34816149ddef04.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6288,7 +6288,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/jiwoo/3eea2daf1f31d765decfaf021c97e26e.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6312,7 +6312,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/jiwoo/4b21f8ea617f66e65f34d130184ca12e.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6336,7 +6336,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/jiwoo/886da4b40bb47eb3d94b3da8e32bdebf.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6360,7 +6360,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/jiwoo/e12be8885d0f6b1696f7fc31a01a0487.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -6385,7 +6385,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/kyujin/3b2b96d600decb5cf375104d5f80dfed.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6409,7 +6409,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/kyujin/92c56229c78ee77530d1e4d755fc23ce.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6433,7 +6433,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/kyujin/9fc1a86b96d46f45d94c1af262029912.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6457,7 +6457,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/kyujin/c4b2bea5d0346a1d017086f6fe9eb143.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -6482,7 +6482,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/lilly/3c9060b19fcb6665f944cf083a1060c2.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6506,7 +6506,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/lilly/79b9295d0cbbdd2efc773207adf02f71.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6530,7 +6530,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/lilly/961e00b0a9c0c4ed91607be9849ea87b.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6554,7 +6554,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/sullyoon/07be9508ad62de3e7177e687e09cccca.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6578,7 +6578,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/sullyoon/1c2fa874c4c7b9f74393ff774959eb8a.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6602,7 +6602,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/sullyoon/9425f96fdb5e01cb65e131b4c180e1ff.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6626,7 +6626,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept1/sullyoon/a292372044125c3c4e4b35d655cfbfc0.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6650,7 +6650,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/bae/542d883625f196d0f7224dcb3c498117.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6674,7 +6674,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/bae/99896e594d5d7f3889ccfa44642249df.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -6699,7 +6699,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/group-members/1734a4c9776bba9519152c3c628dd622.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6723,7 +6723,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/group-members/3edd6bc8cd87dbbab32d22ae90add3cc.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6747,7 +6747,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/group-members/510106d0d0e5636c48e8633df29a5f7e.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6771,7 +6771,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/group-members/70e23d4729a89013f00bf8cff269eb8a.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -6796,7 +6796,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/group-members/c8b05472370ecdc5799811ddb3ad9da9.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -6821,7 +6821,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/group-members/e07fd6b647b7240ddd4e02f492854fe4.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6845,7 +6845,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/group-members/e326e17cd60c2ed954f656938f7d7ed4.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -6870,7 +6870,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/haewon/67f993b58527fdbb2b36924197692c72.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -6895,7 +6895,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/haewon/c86ff825c33401a678d36db3b7ece553.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6919,7 +6919,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/haewon/d9b288ae87289f8f712de98a69a63597.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -6944,7 +6944,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/jiwoo/398ec4edfe4ebe70019603d611adba6a.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -6968,7 +6968,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/jiwoo/ce48eab97fa20ae7a4c1fb5182b86714.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -6993,7 +6993,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/kyujin/49037c9c9340117b39d30053c1addb4e.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7017,7 +7017,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/kyujin/c90deabbd1e5894b29478ae671e083b1.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -7042,7 +7042,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/kyujin/ed6c20a34a5d49cff830aabb9e620c06.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7066,7 +7066,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/lilly/75b523476bf6c525c65bec6f1ba243d6.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7090,7 +7090,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/lilly/9ea1eaec923dc64eaa0c29fb1546eb3a.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7114,7 +7114,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/sullyoon/6b6b1fb3eca66d8b0c975cb179b7bc31.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -7139,7 +7139,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept2/sullyoon/e834218b0caad1ce28cb889a2887da4e.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7163,7 +7163,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/bae/2d16773dbec334a94fc319b127d4c1f0.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7187,7 +7187,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/bae/8ad6ba81b86e6284b9648f23bca4984b.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -7212,7 +7212,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/bae/ba5fe986b2b1ff1666c9d6cf30cf5cc0.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7236,7 +7236,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/bae/d214b46d3cc65b349c44a3860e4bf81b.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7260,7 +7260,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/group-members/3b91c6034dc08377632aa2b0529154a1.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -7285,7 +7285,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/group-members/3f262f2f1f721094dabf097344a960db.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3556:2000",
     "isLandscape": true
   },
@@ -7310,7 +7310,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/group-members/50cbb65b504cb5eeb7bf83f11f8c88d0.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -7335,7 +7335,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/group-members/9d7b3b2df914d2ed4b6a5ece31d8db56.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -7360,7 +7360,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/group-members/aa4d02582635bcafa633fa33fa586933.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -7385,7 +7385,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/group-members/d2536c1a856f038354afcfafa7d6b7e5.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -7410,7 +7410,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/group-members/f4a4a542f5c966ba27bdbeb3a52a6431.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -7435,7 +7435,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/haewon/0b1addbcda4a403d50ecb39e3c563b2e.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7459,7 +7459,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/haewon/31db2c7a8a1259aa7f3e158ed5f3afaa.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7483,7 +7483,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/haewon/55f7649115707b2b33c81ed4d3d1ae45.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7507,7 +7507,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/haewon/db751d78fcf46142c9b94493acad79ef.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7531,7 +7531,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/jiwoo/21563178364288933fad61a3285b4e79.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7555,7 +7555,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/jiwoo/5d86939118884072a46628e7f5e137be.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -7580,7 +7580,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/jiwoo/8872fab12266bf7080a36f470c143628.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7604,7 +7604,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/jiwoo/eb33db9bdbaea23b3ea7d2527bb8d6c2.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7628,7 +7628,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/kyujin/16b8fb9ae7f06af5d94d1ed4432ab4bf.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7652,7 +7652,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/kyujin/619d6ccb55175e94080ee1e171031377.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7676,7 +7676,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/kyujin/80050a3931d4aad74749b1ce4bf5519c.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7700,7 +7700,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/kyujin/cc16a7bcdf6dc5d0989a9f4bbb974637.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -7725,7 +7725,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/lilly/27463c2369a16c69de151a55e41837b9.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7749,7 +7749,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/lilly/49e163c0624131eb5f5b68709543743a.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7773,7 +7773,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/lilly/b4e67adf27bd2aba808dfbfed35bd7ec.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -7798,7 +7798,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/lilly/db0263963a17c8c26d32292d0b0fba46.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7822,7 +7822,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/sullyoon/367b9e14d827122ca5fa9ff7e83bfdc7.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "3000:2000",
     "isLandscape": true
   },
@@ -7847,7 +7847,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/sullyoon/5656a1c8f2d836e09c159b3941f8831e.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7871,7 +7871,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/sullyoon/86764fd0c9bf0c7b18a924132663ccf9.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7895,7 +7895,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept3/sullyoon/936a5d56c91d86cb02fe94789991f7d4.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7919,7 +7919,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/bae/bae_000.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7943,7 +7943,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/bae/bae_001.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7967,7 +7967,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/bae/bae_002.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -7991,7 +7991,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/bae/bae_003.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8015,7 +8015,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/bae/bae_004.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8039,7 +8039,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/haewon/c63b5247d10f6eff7f6e147efa8fc86b.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8063,7 +8063,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/haewon/haewon_000.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "7018:4678",
     "isLandscape": true
   },
@@ -8088,7 +8088,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/haewon/haewon_001.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8112,7 +8112,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/haewon/haewon_002.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8136,7 +8136,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/haewon/haewon_003.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8160,7 +8160,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/haewon/haewon_004.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "7018:4678",
     "isLandscape": true
   },
@@ -8185,7 +8185,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/jiwoo/362ec6d10f671e30c46e47c97ba311c7.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8209,7 +8209,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/jiwoo/jiwoo_000.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8233,7 +8233,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/jiwoo/jiwoo_001.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8257,7 +8257,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/jiwoo/jiwoo_002.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8281,7 +8281,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/jiwoo/jiwoo_003.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8305,7 +8305,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/jiwoo/jiwoo_004.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8329,7 +8329,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/kyujin/de50d776879094859bdd1cc924718e92.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8353,7 +8353,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/kyujin/kyujin_000.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8377,7 +8377,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/kyujin/kyujin_001.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8401,7 +8401,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/kyujin/kyujin_002.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8425,7 +8425,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/kyujin/kyujin_003.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8449,7 +8449,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/kyujin/kyujin_004.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8473,7 +8473,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/lilly/lily_000.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8497,7 +8497,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/lilly/lily_001.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8521,7 +8521,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/lilly/lily_002.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8545,7 +8545,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/lilly/lily_003.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8569,7 +8569,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/lilly/lily_004.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8593,7 +8593,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/sullyoon/589fd636e04e5a1f1b65dec1e9172124.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8617,7 +8617,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/sullyoon/sullyoon_000.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "7018:4678",
     "isLandscape": true
   },
@@ -8642,7 +8642,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/sullyoon/sullyoon_001.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8666,7 +8666,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/sullyoon/sullyoon_002.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8690,7 +8690,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/sullyoon/sullyoon_003.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8714,7 +8714,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/concept4/sullyoon/sullyoon_004.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "7018:4678",
     "isLandscape": true
   },
@@ -8739,7 +8739,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/logo.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "aspectRatio": "828:817",
     "isLandscape": true
   },
@@ -8764,7 +8764,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx3-blueV/poster.jpg",
     "packCode": "NX-03",
     "packId": "op03",
-    "packName": "NX3 Blue Valentine",
+    "packName": "NX 03 - Blue Valentine",
     "isLandscape": false
   },
   {
@@ -8788,7 +8788,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-Vac/bae/420145a4e53e0d6990e8a43728e1edfc.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -8812,7 +8812,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-Vac/bae/7d16fe780e52c09a8575f59942bb6d4f.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -8836,7 +8836,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-Vac/group-members/522d983d1336c646bc2e45a19485091a.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -8860,7 +8860,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-Vac/group-members/77038b0df97bc8d69ed7e99c78277837.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -8884,7 +8884,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-Vac/group-members/d6a1a07d01870b90bc88e1c70853e507.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -8908,7 +8908,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-Vac/haewon/842cd415d60ac22604ea93d35c3b20ef.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -8932,7 +8932,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-Vac/haewon/969228024ad04af3068bed63a93866ef.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -8956,7 +8956,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-Vac/jiwoo/462b487de4d0087307e410386fad8bd9.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -8980,7 +8980,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-Vac/jiwoo/df44c20f1ddbab247cd375abe14ac638.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9004,7 +9004,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-Vac/kyujin/7521c9be5f943d32c076ce1a15ca1bb7.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9028,7 +9028,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-Vac/kyujin/b1140ab140101159b7a0f7bc444096b5.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9052,7 +9052,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-Vac/lilly/64ab795b8e0b0fd6c8f0a20218c28020.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9076,7 +9076,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-Vac/lilly/cfd3ed55d14f3bb0e92beb6bae61a330.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9100,7 +9100,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-Vac/sullyoon/71f81bd6c00732014370fd5631f8a48d.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9124,7 +9124,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-Vac/sullyoon/9716af59366d56c8321f708f8388e071.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9148,7 +9148,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/bae/2a93e59e53447343bc0dd2fab9873b99 (2).jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9172,7 +9172,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/bae/92c20ce8758c4c9655ea67226fde0783 (2).jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9196,7 +9196,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/bae/92de94270dcc75add41bfabf23a071cb (1).jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9220,7 +9220,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/bae/c316e44fd67adc760b2efebc0328d91e (1).jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9244,7 +9244,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/bae/dc6ac7f36cce695b4fcf6bb4a662e07c.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9268,7 +9268,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/bae/e081a9478ce3ece19820cd69dcb7f956 (1).jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9292,7 +9292,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/bae/fc7a21ad4347da6a16032b3a107cbc25.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9316,7 +9316,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/group-members/0f8d1e30dad7abcb4a1bda0bc6af523d.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "aspectRatio": "2048:1366",
     "isLandscape": true
   },
@@ -9341,7 +9341,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/group-members/370e78a31a27fa9bef7749b2f0435ee8.webp",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9365,7 +9365,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/group-members/37b701037fc096c8ba6d8a9f65f7e761.webp",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9389,7 +9389,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/group-members/3b09a858b8d16d8045a5877dbdf22577.webp",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9413,7 +9413,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/group-members/7dfa4baf47674f9366b164980cf7cc32.webp",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9437,7 +9437,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/group-members/d2439bc2954f8780cc2acd12a7f441d8.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "aspectRatio": "4096:2730",
     "isLandscape": true
   },
@@ -9462,7 +9462,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/group-members/d2f79e79ab5654fadda67d1d46018142.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "aspectRatio": "720:543",
     "isLandscape": true
   },
@@ -9487,7 +9487,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/haewon/8de131a614b861a51b682541856a076e.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9511,7 +9511,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/haewon/d93a745d64417f07a3d76f18415d6ddd.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9535,7 +9535,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/jiwoo/051815f14b6a8ad966712758c4df9815.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9559,7 +9559,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/jiwoo/5a0a2a7cb5313edd852950675791d87d.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9583,7 +9583,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/jiwoo/800e7e0ae4abf9ea0d04c79d6dad3224.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9607,7 +9607,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/jiwoo/9e42b0e982edfa908add4df5ab42be6b.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9631,7 +9631,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/jiwoo/e219434b897faa5e83c5dfa8561d4604.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9655,7 +9655,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/kyujin/0b24445e47e9d2aa3b9f327429bc7dcf.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9679,7 +9679,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/kyujin/5c97cc6bb42f8b7162e65defa3648629.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9703,7 +9703,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/kyujin/7378d541c895e3db0441e57ba7ac8ef2.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9727,7 +9727,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/kyujin/86288235928c5f0f8d636a5e0d752dd5.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "aspectRatio": "800:534",
     "isLandscape": true
   },
@@ -9752,7 +9752,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/kyujin/8866589632062566e7522a2cd75f5b8a.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9776,7 +9776,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/kyujin/96cdd07a760c05eb3a0b8386cc9ef90b.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9800,7 +9800,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/kyujin/a2a02f30cf91ac6101676d227bea39e0.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9824,7 +9824,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/kyujin/a805deec84d5ad99397a4222032cc413.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9848,7 +9848,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/kyujin/c24ad01122f403e766f6a28ea7939526.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9872,7 +9872,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/kyujin/e07b37d4d74c32d432a652b893c54aa5.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "aspectRatio": "800:532",
     "isLandscape": true
   },
@@ -9897,7 +9897,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/lilly/916cb08b9f1e907f4e0f9e6b5bba31c0.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9921,7 +9921,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/lilly/baee4da5344b68e401ae52a4130471db.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "aspectRatio": "800:604",
     "isLandscape": true
   },
@@ -9946,7 +9946,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/lilly/c0a238c5885c71c5794037cb2ad65b0a.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9970,7 +9970,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/lilly/fc15a8da7c00effb5b5d6747d4f90cba.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -9994,7 +9994,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/sullyoon/0c690e675b47eb78a7a667524a9919db.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10018,7 +10018,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/sullyoon/263bce6be1f6730e3ff31f1648b16de6.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10042,7 +10042,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/sullyoon/28acbb0b46b8411bda5ac5a004aba838.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10066,7 +10066,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/sullyoon/45d3751fae02228a4e7ac39c94481b46.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10090,7 +10090,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/sullyoon/507bda3e2cc8a761d7642b901e5ae0ec.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10114,7 +10114,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/sullyoon/8ea28619f32eff96bd958f8211fc616c.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10138,7 +10138,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/sullyoon/b0bc58fa3ac4d6afa4a3713fa250f0b3.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10162,7 +10162,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/sullyoon/cff5a253d0c7f014cd0a222d6041e72e.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10186,7 +10186,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/sullyoon/d05c9b64697d8422bfa511600e49cffc.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10210,7 +10210,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-conc/sullyoon/e29416b11dac2bd3fa5c9fcd061f6721.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "aspectRatio": "800:534",
     "isLandscape": true
   },
@@ -10235,7 +10235,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept1/bae/b57a80dec91b20ccdbdf2c0289e86984.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10259,7 +10259,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept1/haewon/d25b32df475f2ba747012c8a613e8043.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10283,7 +10283,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept1/jiwoo/fcab922bc80a645bc9720ddccc3e881a.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10307,7 +10307,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept1/kyujin/d488cc9a05d42c8740b0b8692e4c0bff.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10331,7 +10331,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept1/lilly/581194e65ef88c55a8bdf713789cea1f.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10355,7 +10355,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept1/sullyoon/57118367dd26f4fb13df0ad301abf6f5.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10379,7 +10379,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/bae/FANS_1787479631103_7.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10403,7 +10403,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/bae/FANS_1787479631193_8.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10427,7 +10427,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/bae/FANS_1787479728590_4.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10451,7 +10451,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/group-members/FANS_1787479729034_7.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "aspectRatio": "1920:1080",
     "isLandscape": true
   },
@@ -10476,7 +10476,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/group-members/FANS_1787479729204_8.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "aspectRatio": "1920:1080",
     "isLandscape": true
   },
@@ -10501,7 +10501,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/haewon/FANS_1787479630727_3.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10525,7 +10525,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/haewon/FANS_1787479630836_4.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10549,7 +10549,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/haewon/FANS_1787479728424_2.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10573,7 +10573,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/jiwoo/FANS_1787479631294_9.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10597,7 +10597,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/jiwoo/FANS_1787479631477_10.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10621,7 +10621,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/jiwoo/FANS_1787479728727_5.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10645,7 +10645,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/kyujin/FANS_1787479631613_11.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10669,7 +10669,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/kyujin/FANS_1787479631883_12.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10693,7 +10693,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/kyujin/FANS_1787479728837_6.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10717,7 +10717,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/lilly/FANS_1787479630541_1.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10741,7 +10741,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/lilly/FANS_1787479630643_2.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10765,7 +10765,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/lilly/FANS_1787479728320_1.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10789,7 +10789,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/sullyoon/FANS_1787479630920_5.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10813,7 +10813,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/sullyoon/FANS_1787479631001_6.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10837,7 +10837,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/concept2/sullyoon/FANS_1787479728512_3.png",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
@@ -10861,7 +10861,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/nx4-ZeroF/concept-zerof/poster.jpg",
     "packCode": "NX-04",
     "packId": "op04",
-    "packName": "NX4 ZERO FRONTIER",
+    "packName": "NX 04 - ZERO FRONTIER",
     "isLandscape": false
   },
   {
