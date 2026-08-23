@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   /**
-   * Google 계정으로 1초 원클릭 소셜 로그인 / 회원가입
+   * Google 계정으로 원클릭 소셜 로그인 / 회원가입
    */
   public static async loginWithGoogle(customName?: string): Promise<UserAccount> {
     const randomId = SecurityService.generateSecureUID('goog');
@@ -66,7 +66,7 @@ export class AuthService {
   }
 
   /**
-   * Kakao 계정으로 1초 원클릭 소셜 로그인 / 회원가입
+   * Kakao 계정으로 원클릭 소셜 로그인 / 회원가입
    */
   public static async loginWithKakao(customName?: string): Promise<UserAccount> {
     const randomId = SecurityService.generateSecureUID('kakao');

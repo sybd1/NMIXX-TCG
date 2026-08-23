@@ -231,7 +231,7 @@ export const App: React.FC = () => {
         }}
       />
 
-      {/* 5. Google & Kakao 1초 원클릭 간편 소셜 로그인 / 회원가입 모달 */}
+      {/* 5. Google & Kakao 간편 소셜 로그인 / 회원가입 모달 */}
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
