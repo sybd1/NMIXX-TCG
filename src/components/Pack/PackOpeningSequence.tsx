@@ -9,6 +9,7 @@ import { sound } from '../../services/soundService';
 import { Home, X, Zap, Sparkles } from 'lucide-react';
 import { BoosterPackConfig, BOOSTER_PACKS, RARITY_CONFIGS } from '../../config/gameConfig';
 import { MASTER_CARDS } from '../../data/cards';
+import { BoosterPackThreeView } from './BoosterPackThreeView';
 
 interface PackOpeningSequenceProps {
   cards: RevealedCard[];
@@ -464,23 +465,29 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
             )}
 
             {/* 실물 TCG 규격 포일 팩 메인 본체 */}
-            <div className="relative w-full h-full rounded-2xl border border-white/40 bg-black flex flex-col justify-between overflow-hidden shadow-2xl [transform-style:preserve-3d]">
-              
-              {/* 🌟 1. 최상단 비닐 톱니 압착 실링 (Sawtooth Crimped Top Seal) - 찢어질 때 대각선으로 날아감! */}
-              <motion.div
-                animate={
-                  step === 'PACK_TEAR'
-                    ? {
-                        x: 180,
-                        y: -90,
-                        rotate: 35,
-                        opacity: 0,
-                        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-                      }
-                    : { x: 0, y: 0, rotate: 0, opacity: 1 }
-                }
-                className="relative z-30 w-full bg-gradient-to-b from-slate-700 via-slate-900 to-black/95 border-b border-white/25 px-3 pt-2.5 pb-2 flex flex-col items-center shadow-lg pack-crimped-top"
-              >
+            {step === 'PACK_ENTER' ? (
+              <BoosterPackThreeView
+                pack={pack}
+                onClick={handleStartOpening}
+                className="w-full h-full rounded-2xl overflow-hidden drop-shadow-2xl"
+              />
+            ) : (
+              <div className="relative w-full h-full rounded-2xl border border-white/40 bg-black flex flex-col justify-between overflow-hidden shadow-2xl [transform-style:preserve-3d]">
+                {/* 🌟 1. 최상단 비닐 톱니 압착 실링 (Sawtooth Crimped Top Seal) - 찢어질 때 대각선으로 날아감! */}
+                <motion.div
+                  animate={
+                    step === 'PACK_TEAR'
+                      ? {
+                          x: 180,
+                          y: -90,
+                          rotate: 35,
+                          opacity: 0,
+                          transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+                        }
+                      : { x: 0, y: 0, rotate: 0, opacity: 1 }
+                  }
+                  className="relative z-30 w-full bg-gradient-to-b from-slate-700 via-slate-900 to-black/95 border-b border-white/25 px-3 pt-2.5 pb-2 flex flex-col items-center shadow-lg pack-crimped-top"
+                >
                 {/* 톱니형 압착 엠보싱 패턴 레이어 */}
                 <div className="absolute inset-0 opacity-40 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.3)_0px,rgba(255,255,255,0.3)_2px,transparent_2px,transparent_6px)] pointer-events-none" />
                 
@@ -598,6 +605,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                 </div>
               </div>
             </div>
+            )}
           </motion.div>
 
           {/* 터치 안내 가이드 버튼 */}
