@@ -225,18 +225,22 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
       ctx.lineWidth = 4;
       ctx.strokeRect(4, topCrimpHeight, width - 8, height - topCrimpHeight - bottomCrimpHeight);
 
-      // 5. Minimal, Ultra-Clean Top Branding (Authentic TCG Style)
-      ctx.font = '900 42px monospace';
-      ctx.fillStyle = '#f8fafc';
-      ctx.textAlign = 'left';
-      ctx.shadowColor = 'rgba(0,0,0,0.8)';
-      ctx.shadowBlur = 10;
-      ctx.fillText(`[${pack.code}]`, 55, 115);
+      // 5. Minimal, Ultra-Clean Branding (Cleanly below the top crimped seal)
+      const headerY = topCrimpHeight + 52;
 
-      ctx.font = '900 32px sans-serif';
+      ctx.font = '900 38px monospace';
+      ctx.fillStyle = '#fde047';
+      ctx.textAlign = 'left';
+      ctx.shadowColor = 'rgba(0,0,0,0.95)';
+      ctx.shadowBlur = 12;
+      ctx.fillText(`[${pack.code}]`, 55, headerY);
+
+      ctx.font = '900 30px sans-serif';
       ctx.fillStyle = '#f8fafc';
       ctx.textAlign = 'right';
-      ctx.fillText('NMIXX TCG', width - 55, 115);
+      ctx.shadowColor = 'rgba(0,0,0,0.95)';
+      ctx.shadowBlur = 12;
+      ctx.fillText('NMIXX TCG', width - 55, headerY);
 
       // 6. Minimal Copyright on bottom crimp
       ctx.font = 'bold 22px monospace';
