@@ -8,9 +8,20 @@ export interface PatchNote {
 
 export const PATCH_NOTES: PatchNote[] = [
   {
-    version: 'v1.5.7',
+    version: 'v1.6.0',
     date: '2026.08.24',
     isLatest: true,
+    title: 'Firebase 실시간 멀티플레이어 올인원 시스템 대규모 탑재',
+    changes: [
+      '🏆 글로벌 도감 수집 랭킹 (Top 50) 및 [XR] 초월자 명예의 전당 시스템 신설',
+      '📢 고등급(SSR/UR/LR/MR/XR) 카드 획득 시 실시간 글로벌 전광판(Ticker Bar) 자동 중계',
+      '📬 공식 지원금 우편함 및 시크릿 쿠폰 교환소(NMIXX2026, FE3O4_FORWARD 등) 탑재',
+      '🔄 엔써 유저 간 중복 카드 1:1 실시간 교환소(Marketplace) 오픈',
+    ],
+  },
+  {
+    version: 'v1.5.7',
+    date: '2026.08.24',
     title: 'GitHub-Vercel-Firebase 풀스택 파이프라인 통합 최적화 & 초경량 청크 번들링',
     changes: [
       'Vite Rollup 번들 분할(vendor-firebase, vendor-react, vendor-three) 적용으로 초기 로딩 속도 500% 향상',

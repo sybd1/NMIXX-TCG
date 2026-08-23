@@ -40,4 +40,6 @@ export interface GameState {
   isFirstVisit: boolean;
   claimedSetRewards?: string[]; // 이미 머니 보상을 수령한 세트 ID 목록
   claimedAchievements?: string[]; // 이미 보상을 수령한 업적 ID 목록
+  claimedMailIds?: string[]; // 이미 수령한 우편 ID 목록
+  claimedCouponCodes?: string[]; // 이미 사용한 쿠폰 코드 목록
 }

@@ -4,6 +4,7 @@ import { Card, RevealedCard } from '../types/card';
 import { StorageService } from '../services/storageService';
 import { CloudSyncService } from '../services/cloudSyncService';
 import { AuthService } from '../services/authService';
+import { MultiplayerService } from '../services/multiplayerService';
 import { GAME_CONFIG } from '../config/gameConfig';
 import { sound } from '../services/soundService';
 
@@ -95,6 +96,16 @@ export function useGameState() {
 
         // 👑 XR 카드는 어떠한 경우에도 단 1장만 소지 가능
         newCollection[card.id] = isXR ? 1 : existingCount + 1;
+
+        // 📢 고등급 카드(SSR+) 획득 시 실시간 글로벌 전광판 자동 브로드캐스트
+        if (['SSR', 'UR', 'LR', 'MR', 'XR'].includes(card.rarity)) {
+          const currentUser = AuthService.getCurrentUser();
+          MultiplayerService.broadcastHighTierPull(
+            currentUser?.displayName || '익명의 엔써',
+            currentUser?.id || 'guest',
+            card
+          );
+        }
 
         revealed.push({
           ...card,
@@ -227,6 +238,58 @@ export function useGameState() {
     }));
   }, []);
 
+  const claimMail = useCallback((mailId: string, coinsReward: number, dustReward: number = 0) => {
+    setState(prev => {
+      const alreadyClaimed = (prev.claimedMailIds || []).includes(mailId);
+      if (alreadyClaimed) return prev;
+
+      return {
+        ...prev,
+        coins: prev.coins + coinsReward,
+        dust: (prev.dust || 0) + dustReward,
+        claimedMailIds: [...(prev.claimedMailIds || []), mailId],
+      };
+    });
+    sound.playLegendaryReveal();
+  }, []);
+
+  const redeemCouponCode = useCallback((code: string) => {
+    const claimedCoupons = state.claimedCouponCodes || [];
+    const result = MultiplayerService.redeemCoupon(code, claimedCoupons);
+
+    if (result.success && result.reward) {
+      setState(prev => ({
+        ...prev,
+        coins: prev.coins + result.reward!.coinsReward,
+        dust: (prev.dust || 0) + (result.reward!.dustReward || 0),
+        claimedCouponCodes: [...(prev.claimedCouponCodes || []), result.reward!.code],
+      }));
+      sound.playMythicReveal();
+    }
+
+    return result;
+  }, [state.claimedCouponCodes]);
+
+  const applyTradeResult = useCallback((offeredCardId: string, receivedCardId: string) => {
+    setState(prev => {
+      const newCollection = { ...prev.collection };
+      // 제공한 카드 1장 차감
+      if (newCollection[offeredCardId] > 0) {
+        newCollection[offeredCardId] = Math.max(0, newCollection[offeredCardId] - 1);
+      }
+      // 교환받은 카드 1장 추가
+      const isXR = receivedCardId === 'card_xr_transcendent_park_741';
+      const existing = newCollection[receivedCardId] || 0;
+      newCollection[receivedCardId] = isXR ? 1 : existing + 1;
+
+      return {
+        ...prev,
+        collection: newCollection,
+      };
+    });
+    sound.playLegendaryReveal();
+  }, []);
+
   const resetGame = useCallback(() => {
     const freshState = StorageService.clearState();
     setState(freshState);
@@ -244,6 +307,9 @@ export function useGameState() {
     claimSetReward,
     claimAchievement,
     claimXrCard,
+    claimMail,
+    redeemCouponCode,
+    applyTradeResult,
     addCoins,
     toggleSound,
     resetGame,

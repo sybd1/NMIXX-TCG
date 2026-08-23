@@ -1,6 +1,7 @@
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db, isFirebaseConfigured } from '../config/firebase';
 import { UserAccount } from '../types/auth';
+import { MultiplayerService } from './multiplayerService';
 
 export interface CloudGameData {
   collection: Record<string, number>;
@@ -88,6 +89,21 @@ export class CloudSyncService {
           await setDoc(userDocRef, payload, { merge: true });
           this.lastSavedHash = currentHash;
           console.log(`[CloudSync] ✅ Synced game data to cloud for ${user.displayName}`);
+
+          // 🏆 글로벌 리더보드 인덱스 자동 갱신
+          const uniqueCards = Object.values(data.collection).filter(c => c > 0).length;
+          const totalMasterCards = 651;
+          const collectionRate = Math.round((uniqueCards / totalMasterCards) * 1000) / 10;
+          const hasXR = (data.collection['card_xr_transcendent_park_741'] || 0) > 0;
+
+          await MultiplayerService.updateLeaderboardEntry(user, {
+            uniqueCardCount: uniqueCards,
+            collectionRate,
+            totalPacksOpened: data.totalPacksOpened,
+            coins: data.coins,
+            hasXR,
+          });
+
           resolve(true);
         } catch (error) {
           console.warn('[CloudSync] Cloud sync postponed (offline/safe mode):', error);

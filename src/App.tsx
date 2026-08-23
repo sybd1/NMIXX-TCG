@@ -7,12 +7,17 @@ import { GAME_CONFIG, BoosterPackConfig, BOOSTER_PACKS } from './config/gameConf
 import { RngService } from './services/rngService';
 import { sound } from './services/soundService';
 import { AuthService } from './services/authService';
+import { MultiplayerService } from './services/multiplayerService';
 
 import { Header } from './components/Navigation/Header';
+import { GlobalTicker } from './components/Navigation/GlobalTicker';
 import { BottomNav } from './components/Navigation/BottomNav';
 import { PackOpeningSequence } from './components/Pack/PackOpeningSequence';
 import { AuthModal } from './components/Auth/AuthModal';
 import { UserProfileModal } from './components/Auth/UserProfileModal';
+import { LeaderboardModal } from './components/Multiplayer/LeaderboardModal';
+import { MailboxModal } from './components/Multiplayer/MailboxModal';
+import { MarketModal } from './components/Multiplayer/MarketModal';
 
 import { HomePage } from './pages/Home/HomePage';
 import { CollectionPage } from './pages/Collection/CollectionPage';
@@ -30,6 +35,9 @@ export const App: React.FC = () => {
     claimSetReward,
     claimAchievement,
     claimXrCard,
+    claimMail,
+    redeemCouponCode,
+    applyTradeResult,
     toggleSound,
     resetGame,
     dismissFirstVisit,
@@ -40,6 +48,9 @@ export const App: React.FC = () => {
   const [user, setUser] = useState<UserAccount | null>(() => AuthService.getCurrentUser());
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
+  const [isMailboxOpen, setIsMailboxOpen] = useState(false);
+  const [isMarketOpen, setIsMarketOpen] = useState(false);
 
   const [openingState, setOpeningState] = useState<{
     cards: RevealedCard[];
@@ -50,6 +61,11 @@ export const App: React.FC = () => {
 
   // 개봉 중복 호출 방지용 락
   const isOpeningLockRef = useRef(false);
+
+  // 미수령 우편 수 계산
+  const unreadMailCount = MultiplayerService.getMailList(state.claimedMailIds || []).filter(
+    (m) => !m.isClaimed
+  ).length;
 
   // 1팩 개봉 로직 (5장)
   const handleOpenSinglePack = (pack: BoosterPackConfig = BOOSTER_PACKS[0]) => {
@@ -83,7 +99,7 @@ export const App: React.FC = () => {
     for (let i = 0; i < 5; i++) {
       const result = RngService.generatePack(currentPity, pack.id, tempCollection);
       currentPity = result.newPity;
-      result.cards.forEach(c => {
+      result.cards.forEach((c) => {
         tempCollection[c.id] = (tempCollection[c.id] || 0) + 1;
       });
       packResults.push(result);
@@ -113,7 +129,7 @@ export const App: React.FC = () => {
     for (let i = 0; i < 10; i++) {
       const result = RngService.generatePack(currentPity, pack.id, tempCollection);
       currentPity = result.newPity;
-      result.cards.forEach(c => {
+      result.cards.forEach((c) => {
         tempCollection[c.id] = (tempCollection[c.id] || 0) + 1;
       });
       packResults.push(result);
@@ -130,16 +146,12 @@ export const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-[#070210] text-slate-100 flex flex-col justify-between pb-16 md:pb-0 overflow-x-hidden">
-      {/* 🌌 NMIXX MIXXTOPIA 글로벌 앰비언트 우주 배경 (모바일 초경량화 GPU 가속) */}
+      {/* 🌌 NMIXX MIXXTOPIA 글로벌 앰비언트 우주 배경 */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 transform-gpu">
         <div className="absolute inset-0 bg-gradient-to-b from-[#0d041e] via-[#14082e] to-[#04010a]" />
-
-        {/* 몽환적인 3대 오로라 네뷸라 글로우 오라 (블러 최적화로 모바일 발열/렉 방지) */}
         <div className="absolute -top-20 left-1/4 w-72 sm:w-[30rem] h-72 sm:h-[30rem] rounded-full bg-pink-600/20 blur-2xl pointer-events-none" />
         <div className="absolute top-1/3 -right-16 w-64 sm:w-[28rem] h-64 sm:h-[28rem] rounded-full bg-cyan-500/20 blur-2xl pointer-events-none" />
         <div className="absolute -bottom-10 left-1/3 w-80 sm:w-[32rem] h-80 sm:h-[32rem] rounded-full bg-purple-600/20 blur-2xl pointer-events-none" />
-
-        {/* 미세 별빛 입자 효과 */}
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:32px_32px] opacity-15" />
       </div>
 
@@ -157,9 +169,16 @@ export const App: React.FC = () => {
         user={user}
         onOpenAuth={() => setIsAuthModalOpen(true)}
         onOpenProfile={() => setIsProfileModalOpen(true)}
+        onOpenLeaderboard={() => setIsLeaderboardOpen(true)}
+        onOpenMarket={() => setIsMarketOpen(true)}
+        onOpenMailbox={() => setIsMailboxOpen(true)}
+        unreadMailCount={unreadMailCount}
       />
 
-      {/* 2. Main Page View Container */}
+      {/* 📢 2. Real-time Global High-Tier Pull Ticker */}
+      <GlobalTicker />
+
+      {/* 3. Main Page View Container */}
       <main className="relative z-10 flex-1 flex flex-col">
         {currentTab === 'home' && (
           <HomePage
@@ -185,15 +204,10 @@ export const App: React.FC = () => {
         )}
 
         {currentTab === 'achievements' && (
-          <AchievementsPage
-            state={state}
-            onClaimReward={claimAchievement}
-          />
+          <AchievementsPage state={state} onClaimReward={claimAchievement} />
         )}
 
-        {currentTab === 'patch-notes' && (
-          <PatchNotesPage />
-        )}
+        {currentTab === 'patch-notes' && <PatchNotesPage />}
 
         {currentTab === 'settings' && (
           <SettingsPage
@@ -204,7 +218,7 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      {/* 3. Cinematic Pack Opening Sequence Modal */}
+      {/* 4. Cinematic Pack Opening Sequence Modal */}
       {openingState && (
         <PackOpeningSequence
           cards={openingState.cards}
@@ -237,7 +251,7 @@ export const App: React.FC = () => {
         />
       )}
 
-      {/* 4. Mobile Bottom Navigation */}
+      {/* 5. Mobile Bottom Navigation */}
       <BottomNav
         currentTab={currentTab}
         onSelectTab={(tab) => {
@@ -246,14 +260,14 @@ export const App: React.FC = () => {
         }}
       />
 
-      {/* 5. Google & Kakao 간편 소셜 로그인 / 회원가입 모달 */}
+      {/* 6. Google & Kakao 소셜 로그인 모달 */}
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
         onLoginSuccess={(loggedUser) => setUser(loggedUser)}
       />
 
-      {/* 6. 유저 프로필 & 클라우드 동기화 관리 모달 */}
+      {/* 7. 유저 프로필 모달 */}
       {user && (
         <UserProfileModal
           user={user}
@@ -263,6 +277,30 @@ export const App: React.FC = () => {
           onLogout={() => setUser(null)}
         />
       )}
+
+      {/* 🏆 8. 글로벌 리더보드 & 명예의 전당 모달 */}
+      <LeaderboardModal
+        isOpen={isLeaderboardOpen}
+        onClose={() => setIsLeaderboardOpen(false)}
+        currentUserId={user?.id}
+      />
+
+      {/* 🎁 9. 공식 우편함 & 쿠폰 모달 */}
+      <MailboxModal
+        isOpen={isMailboxOpen}
+        onClose={() => setIsMailboxOpen(false)}
+        claimedMailIds={state.claimedMailIds || []}
+        onClaimMail={claimMail}
+        onRedeemCoupon={redeemCouponCode}
+      />
+
+      {/* 🔄 10. 중복 카드 1:1 교환소 모달 */}
+      <MarketModal
+        isOpen={isMarketOpen}
+        onClose={() => setIsMarketOpen(false)}
+        collection={state.collection}
+        onTradeCompleted={applyTradeResult}
+      />
     </div>
   );
 };
