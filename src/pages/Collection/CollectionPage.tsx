@@ -689,8 +689,8 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                   {/* Set Header Bar (와이드 & 줄바꿈 방지) */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-4">
                     <div className="flex items-center gap-2.5 flex-wrap">
-                      <span className="text-[10.5px] font-mono font-black text-sky-300 bg-sky-950/80 px-2.5 py-1 rounded-lg border border-sky-500/30">
-                        📦 {set.packCode} {set.packName ? `• ${set.packName}` : ''}
+                      <span className="text-[11px] font-mono font-black text-sky-300 bg-sky-950/80 px-3 py-1.5 rounded-lg border border-sky-500/30">
+                        📦 {set.packName || set.packCode}
                       </span>
                       <h3 className="text-lg sm:text-xl font-serif font-black text-white ml-1">
                         {set.setTitle}
