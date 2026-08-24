@@ -348,9 +348,13 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
             {isOwned && (
               <div className={`absolute inset-0 rounded-2xl z-10 pointer-events-none ${finishClass}`} />
             )}
-            {isOwned && isSsrPlus && !['SSR', 'UR'].includes(card.rarity) && (
+            {isOwned && isSsrPlus && (
               <div
-                className="card__shine absolute inset-0 rounded-2xl z-12 pointer-events-none"
+                className={`card__shine absolute inset-0 rounded-2xl z-12 pointer-events-none ${
+                  card.rarity === 'XR' ? 'holo-prism-intense'
+                  : ['MR', 'LR'].includes(card.rarity) ? 'holo-prism-intense'
+                  : 'holo'
+                }`}
                 style={{
                   ['--holo-strength' as string]: isXR ? '1.0'
                     : ['MR', 'LR'].includes(card.rarity) ? '0.85'
