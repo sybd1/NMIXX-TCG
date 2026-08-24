@@ -113,11 +113,9 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     const px = clampVal(roundVal((100 / rect.width)  * absX));
     const py = clampVal(roundVal((100 / rect.height) * absY));
 
-    // 🎯 물리 틸트 축 정정:
-    // rotateX (X축 기준 끄덕임) = Y좌표 변화에 반응
-    // rotateY (Y축 기준 갸우뚱) = X좌표 변화에 반응
-    const rotX = roundVal(-((py - 50) / 3.5));
-    const rotY = roundVal(((px - 50) / 3.5));
+    // 🎯 마우스가 있는 위치가 위로 기울어져 올라오도록 반전 (Tilt Towards Cursor)
+    const rotX = roundVal(((py - 50) / 3.5));
+    const rotY = roundVal(-((px - 50) / 3.5));
 
     const bgX = adjust(px, 0, 100, 37, 63);
     const bgY = adjust(py, 0, 100, 33, 67);
