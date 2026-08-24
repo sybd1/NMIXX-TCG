@@ -481,3 +481,128 @@
   pointer-events: none;
 }
 
+/* =========================================================================
+   🌈 HOLOGRAPHIC RAINBOW LAYER (color-dodge) — simeydotme/pokemon-cards-css style
+   GPU 하드웨어 가속 기반 무지개 반사광
+   ========================================================================= */
+
+.holo-rainbow-layer {
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  --pointer-from-center: 0;
+  --holo-strength: 0;
+  --holo-opacity: 0;
+
+  background-image:
+    /* 메인 무지개 스펙트럼: 포인터 위치를 중심으로 유기적 이동 */
+    repeating-linear-gradient(
+      calc(90deg + calc(var(--pointer-from-center) * 120deg)),
+      hsl(0, 100%, 65%) 0%,
+      hsl(30, 100%, 60%) 6%,
+      hsl(60, 100%, 60%) 12%,
+      hsl(120, 100%, 55%) 18%,
+      hsl(180, 100%, 60%) 24%,
+      hsl(220, 100%, 65%) 30%,
+      hsl(260, 100%, 65%) 36%,
+      hsl(300, 100%, 60%) 42%,
+      hsl(330, 100%, 65%) 48%,
+      hsl(360, 100%, 65%) 54%,
+      hsl(0, 100%, 65%) 60%
+    ),
+    /* 보조 코닉: 포인터 중심으로 회전하는 색조 원형 분산 */
+    conic-gradient(
+      from calc(var(--pointer-from-center) * 360deg) at var(--pointer-x) var(--pointer-y),
+      hsla(0,   100%, 65%, 0.35) 0deg,
+      hsla(60,  100%, 60%, 0.35) 60deg,
+      hsla(120, 100%, 55%, 0.35) 120deg,
+      hsla(200, 100%, 65%, 0.35) 180deg,
+      hsla(270, 100%, 65%, 0.35) 240deg,
+      hsla(330, 100%, 65%, 0.35) 300deg,
+      hsla(0,   100%, 65%, 0.35) 360deg
+    );
+
+  background-size: 200% 200%, 100% 100%;
+  background-position:
+    calc(var(--pointer-x) * 1) calc(var(--pointer-y) * 1),
+    center;
+
+  mix-blend-mode: color-dodge;
+  filter:
+    brightness(calc(0.85 + var(--holo-strength) * 0.35))
+    contrast(calc(1.1 + var(--holo-strength) * 0.35))
+    saturate(calc(1.2 + var(--holo-strength) * 1.0));
+
+  opacity: var(--holo-opacity);
+  will-change: background-position, opacity, filter;
+  transition: opacity 0.08s ease-out, background-position 0.04s ease-out;
+}
+
+/* =========================================================================
+   💡 GLARE / SPECULAR LIGHT OVERLAY — 실물 포토카드 포일 광원
+   mix-blend-mode: overlay — 포인터를 따라다니는 하얀 원형 광원
+   ========================================================================= */
+
+.glare-layer {
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  --glare-opacity: 0;
+
+  background: radial-gradient(
+    farthest-corner circle at var(--pointer-x) var(--pointer-y),
+    rgba(255, 255, 255, var(--glare-opacity)) 0%,
+    rgba(255, 255, 255, calc(var(--glare-opacity) * 0.5)) 25%,
+    rgba(200, 220, 255, calc(var(--glare-opacity) * 0.15)) 55%,
+    transparent 75%
+  );
+
+  mix-blend-mode: overlay;
+  filter: blur(0.5px);
+  will-change: background, opacity;
+  transition: opacity 0.08s ease-out;
+}
+
+/* 고등급 카드(SSR+) 전용 — 더 강력한 글리터 스파클 텍스처 오버레이 */
+.holo-rainbow-layer.holo-prism-intense {
+  background-image:
+    repeating-linear-gradient(
+      calc(90deg + calc(var(--pointer-from-center) * 120deg)),
+      hsl(0,   100%, 60%) 0%,
+      hsl(45,  100%, 55%) 4%,
+      hsl(90,  100%, 55%) 8%,
+      hsl(135, 100%, 55%) 12%,
+      hsl(180, 100%, 55%) 16%,
+      hsl(225, 100%, 60%) 20%,
+      hsl(270, 100%, 60%) 24%,
+      hsl(315, 100%, 60%) 28%,
+      hsl(0,   100%, 60%) 32%
+    ),
+    /* 글리터 스파클: 촘촘한 반복 점선 격자 */
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.12) 0px,
+      rgba(255,255,255,0.12) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,0.08) 0px,
+      rgba(255,255,255,0.08) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    conic-gradient(
+      from calc(var(--pointer-from-center) * 360deg) at var(--pointer-x) var(--pointer-y),
+      hsla(0,   100%, 65%, 0.4) 0deg,
+      hsla(90,  100%, 60%, 0.4) 90deg,
+      hsla(180, 100%, 60%, 0.4) 180deg,
+      hsla(270, 100%, 65%, 0.4) 270deg,
+      hsla(0,   100%, 65%, 0.4) 360deg
+    );
+  background-size: 150% 150%, 6px 6px, 6px 6px, 100% 100%;
+  background-position:
+    calc(var(--pointer-x) * 1) calc(var(--pointer-y) * 1),
+    0 0, 0 0, center;
+}
+
+

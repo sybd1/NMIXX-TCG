@@ -216,7 +216,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
         !isOwned && !isXrMystery ? 'opacity-40 hover:opacity-75 filter grayscale-[80%] brightness-[70%] contrast-[90%]' : 'hover:scale-[1.03]'
       } ${isXrMystery ? 'hover:scale-[1.04]' : ''}`}
     >
-      {/* 1. 9-Tier Interactive Foil / Finish Shader Layer */}
+      {/* 1. Finish 쉐이더 레이어 (등급별 포일/텍스처) */}
       {isOwned && (
         <div
           className={`absolute inset-0 rounded-2xl z-30 pointer-events-none transition-opacity duration-300 ${finishClass}`}
@@ -225,6 +225,39 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
             ['--pointer-y' as string]: `${styleState.py}%`,
             ['--pointer-from-center' as string]: styleState.pDist,
             ['--card-opacity' as string]: styleState.opacity,
+          } as React.CSSProperties}
+        />
+      )}
+
+      {/* 🌈 2A. 홀로그램 무지개 반사광 레이어 (color-dodge) — pokemon-cards-css 방식 */}
+      {isOwned && (
+        <div
+          className={`absolute inset-0 rounded-2xl z-31 pointer-events-none holo-rainbow-layer${isSsrPlus ? ' holo-prism-intense' : ''}`}
+          style={{
+            ['--pointer-x' as string]: `${styleState.px}%`,
+            ['--pointer-y' as string]: `${styleState.py}%`,
+            ['--pointer-from-center' as string]: styleState.pDist,
+            // 등급별 강도: 고등급일수록 더 선명하고 넓은 무지개
+            ['--holo-strength' as string]: isXR ? '1.0' : ['MR', 'LR'].includes(card.rarity) ? '0.85' : ['UR', 'SSR'].includes(card.rarity) ? '0.7' : ['SR'].includes(card.rarity) ? '0.5' : ['R', 'UC'].includes(card.rarity) ? '0.28' : '0.0',
+            ['--holo-opacity' as string]: styleState.opacity > 0.8 ? (isXR ? '0.9' : isSsrPlus ? '0.75' : '0.45') : '0.0',
+            opacity: styleState.opacity > 0.8 ? 1 : 0,
+            transition: styleState.opacity > 0.8 ? 'opacity 0.08s ease-out' : 'opacity 0.35s ease-out',
+          } as React.CSSProperties}
+        />
+      )}
+
+      {/* 💡 2B. 포일 광원 글레어 레이어 (overlay) — 실물 포토카드 반사광 */}
+      {isOwned && (
+        <div
+          className="absolute inset-0 rounded-2xl z-32 pointer-events-none glare-layer"
+          style={{
+            ['--pointer-x' as string]: `${styleState.px}%`,
+            ['--pointer-y' as string]: `${styleState.py}%`,
+            ['--glare-opacity' as string]: styleState.opacity > 0.8
+              ? (isSsrPlus ? '0.55' : ['R', 'SR'].includes(card.rarity) ? '0.35' : '0.2')
+              : '0.0',
+            opacity: styleState.opacity > 0.8 ? 1 : 0,
+            transition: styleState.opacity > 0.8 ? 'opacity 0.08s ease-out' : 'opacity 0.4s ease-out',
           } as React.CSSProperties}
         />
       )}
