@@ -308,6 +308,9 @@ export const App: React.FC = () => {
           onLogout={() => {
             setUser(null);
             logoutAndResetState();
+            setCurrentTab('home');
+            setIsProfileModalOpen(false);
+            sound.playClick();
           }}
         />
       )}
