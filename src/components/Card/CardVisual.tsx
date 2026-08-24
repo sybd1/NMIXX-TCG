@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { Card, FinishType } from '../../types/card';
 import { RARITY_CONFIGS, RARITY_TO_FINISH } from '../../config/gameConfig';
 import { sound } from '../../services/soundService';
@@ -70,50 +70,64 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
   const effectiveCount = isXR ? Math.min(1, count) : count;
   const isXrMystery = card.rarity === 'XR' && !isOwned;
 
-  // 3D 틸트 물리 엔진 상태
+  // ─────────────────────────────────────────────────────────────────
+  // simeydotme/pokemon-cards-css 수식 직접 이식
+  // clamp(v, min=0, max=100) / round(v, precision=3) / adjust(v, fromMin, fromMax, toMin, toMax)
+  // ─────────────────────────────────────────────────────────────────
   const cardRef = useRef<HTMLDivElement>(null);
-  const [styleState, setStyleState] = useState({
-    rotX: 0,
-    rotY: 0,
-    px: 50,
-    py: 50,
-    pDist: 0.3,
-    opacity: 0.6,
+  const rafIdRef = useRef<number | null>(null);
+  const [interacting, setInteracting] = React.useState(false);
+  const [springVars, setSpringVars] = React.useState({
+    pointerX:  50,   // --pointer-x  (glare x position, %)
+    pointerY:  50,   // --pointer-y  (glare y position, %)
+    bgX:       50,   // --background-x (constrained background shift)
+    bgY:       50,   // --background-y
+    rotateX:    0,   // --rotate-x  (deg, card tilt)
+    rotateY:    0,   // --rotate-y
+    pFromCenter: 0,  // --pointer-from-center (0–1, distance from card center)
+    opacity:    0,   // --card-opacity (glare/shine layer opacity)
   });
 
-  const lastUpdateRef = useRef<number>(0);
+  const clampVal  = (v: number, min = 0, max = 100) => Math.min(max, Math.max(min, v));
+  const roundVal  = (v: number, p = 3) => parseFloat(v.toFixed(p));
+  // remap value from one range to another (from simeydotme Math.js)
+  const adjust    = (val: number, fromMin: number, fromMax: number, toMin: number, toMax: number) =>
+    toMin + (toMax - toMin) * ((val - fromMin) / (fromMax - fromMin));
 
   const handlePointerMove = useCallback((clientX: number, clientY: number) => {
-    const now = performance.now();
-    if (now - lastUpdateRef.current < 16) return; // 60fps 쓰로틀
-    lastUpdateRef.current = now;
-
     if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
 
-    const w = rect.width;
-    const h = rect.height;
+    const rect  = cardRef.current.getBoundingClientRect();
+    const absX  = clientX - rect.left;
+    const absY  = clientY - rect.top;
 
-    const normX = (x / w) * 2 - 1; // -1 to 1
-    const normY = (y / h) * 2 - 1; // -1 to 1
+    // 0–100 percent within card (clamped) — exact from Card.svelte
+    const px = clampVal(roundVal((100 / rect.width)  * absX));
+    const py = clampVal(roundVal((100 / rect.height) * absY));
 
-    const rotX = -normY * 18; // 최대 18도 회전
-    const rotY = normX * 18;
+    // center: -50 to +50 relative to card center
+    const cx = px - 50;
+    const cy = py - 50;
 
-    const px = Math.min(100, Math.max(0, (x / w) * 100));
-    const py = Math.min(100, Math.max(0, (y / h) * 100));
-    const pDist = Math.sqrt(normX * normX + normY * normY);
+    // rotate: same formula as simeydotme (max ~14 deg at edge)
+    const rotX = roundVal(-(cx / 3.5));
+    const rotY = roundVal( cy / 3.5);
 
-    setStyleState({
-      rotX,
-      rotY,
-      px,
-      py,
-      pDist,
-      opacity: 0.95,
-    });
+    // background-x/y: clamped to 37–63% range (reduces excessive parallax)
+    const bgX = adjust(px, 0, 100, 37, 63);
+    const bgY = adjust(py, 0, 100, 33, 67);
+
+    // pointer-from-center: 0 (center) → 1 (corner) — exact from dynamicStyles
+    const pFromCenter = clampVal(
+      Math.sqrt(cy * cy + cx * cx) / 50, 0, 1
+    );
+
+    if (rafIdRef.current === null) {
+      rafIdRef.current = requestAnimationFrame(() => {
+        setSpringVars({ pointerX: px, pointerY: py, bgX, bgY, rotateX: rotX, rotateY: rotY, pFromCenter, opacity: 1 });
+        rafIdRef.current = null;
+      });
+    }
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -121,28 +135,26 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (e.touches.length > 0) {
-      handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
-    }
+    if (e.touches.length > 0) handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
   };
 
+  const handlePointerEnter = () => setInteracting(true);
+
   const handlePointerLeave = () => {
-    setStyleState({
-      rotX: 0,
-      rotY: 0,
-      px: 50,
-      py: 50,
-      pDist: 0.3,
-      opacity: 0.6,
-    });
+    if (rafIdRef.current !== null) {
+      cancelAnimationFrame(rafIdRef.current);
+      rafIdRef.current = null;
+    }
+    setInteracting(false);
+    // spring-like reset: reset to neutral
+    setSpringVars({ pointerX: 50, pointerY: 50, bgX: 50, bgY: 50, rotateX: 0, rotateY: 0, pFromCenter: 0, opacity: 0 });
   };
 
   const handleClick = () => {
-    if (isOwned && isHighTier) {
-      sound.playNmixxMelody(card.rarity);
-    }
+    if (isOwned && isHighTier) sound.playNmixxMelody(card.rarity);
     if (onClick) onClick();
   };
+
 
   // size prop에 따른 기본 치수
   const defaultSizeClass = className.includes('w-') ? '' : {
@@ -201,66 +213,74 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     <div
       ref={cardRef}
       onClick={handleClick}
+      onMouseEnter={isOwned ? handlePointerEnter : undefined}
       onMouseMove={isOwned ? handleMouseMove : undefined}
       onTouchMove={isOwned ? handleTouchMove : undefined}
       onMouseLeave={handlePointerLeave}
       onTouchEnd={handlePointerLeave}
       style={{
+        // ── simeydotme dynamicStyles ──────────────────────────────────
+        // CSS 변수를 루트 div에 직접 주입 → 자식 레이어 모두 자동 계승
+        ['--pointer-x'          as string]: `${springVars.pointerX}%`,
+        ['--pointer-y'          as string]: `${springVars.pointerY}%`,
+        ['--pointer-from-center'as string]: springVars.pFromCenter,
+        ['--pointer-from-top'   as string]: springVars.pointerY / 100,
+        ['--pointer-from-left'  as string]: springVars.pointerX / 100,
+        ['--background-x'       as string]: `${springVars.bgX}%`,
+        ['--background-y'       as string]: `${springVars.bgY}%`,
+        ['--rotate-x'           as string]: `${springVars.rotateX}deg`,
+        ['--rotate-y'           as string]: `${springVars.rotateY}deg`,
+        ['--card-opacity'       as string]: springVars.opacity,
+        // ── GPU 가속 3D transform ────────────────────────────────────
         transform: isOwned
-          ? `perspective(1000px) rotateX(${styleState.rotX}deg) rotateY(${styleState.rotY}deg) ${styleState.opacity > 0.8 ? 'translateY(-6px)' : ''}`
+          ? `perspective(600px) rotateX(var(--rotate-x)) rotateY(var(--rotate-y)) ${interacting ? 'translateY(-4px) scale(1.02)' : ''}`
           : undefined,
-        transition: styleState.opacity > 0.8 ? 'transform 0.08s ease-out' : 'transform 0.35s ease-out',
+        transition: interacting
+          ? 'transform 0.08s ease-out'
+          : 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
         willChange: isOwned ? 'transform' : undefined,
       } as React.CSSProperties}
       className={`group relative ${defaultSizeClass} ${className} rounded-2xl p-[1.5px] cursor-pointer select-none [transform-style:preserve-3d] transition-all duration-300 ${
         !isOwned && !isXrMystery ? 'opacity-40 hover:opacity-75 filter grayscale-[80%] brightness-[70%] contrast-[90%]' : 'hover:scale-[1.03]'
       } ${isXrMystery ? 'hover:scale-[1.04]' : ''}`}
     >
-      {/* 1. Finish 쉐이더 레이어 (등급별 포일/텍스처) */}
+      {/* 1. Finish 쉐이더 레이어 — CSS 변수는 부모에서 계승 */}
       {isOwned && (
         <div
           className={`absolute inset-0 rounded-2xl z-30 pointer-events-none transition-opacity duration-300 ${finishClass}`}
-          style={{
-            ['--pointer-x' as string]: `${styleState.px}%`,
-            ['--pointer-y' as string]: `${styleState.py}%`,
-            ['--pointer-from-center' as string]: styleState.pDist,
-            ['--card-opacity' as string]: styleState.opacity,
-          } as React.CSSProperties}
         />
       )}
 
-      {/* 🌈 2A. 홀로그램 무지개 반사광 레이어 (color-dodge) — pokemon-cards-css 방식 */}
+      {/* 🌈 2A. card__shine — simeydotme 홀로그램 color-dodge 레이어 */}
       {isOwned && (
         <div
-          className={`absolute inset-0 rounded-2xl z-31 pointer-events-none holo-rainbow-layer${isSsrPlus ? ' holo-prism-intense' : ''}`}
+          className={`card__shine absolute inset-0 rounded-2xl z-31 pointer-events-none${isSsrPlus ? ' holo-prism-intense' : ''}`}
           style={{
-            ['--pointer-x' as string]: `${styleState.px}%`,
-            ['--pointer-y' as string]: `${styleState.py}%`,
-            ['--pointer-from-center' as string]: styleState.pDist,
-            // 등급별 강도: 고등급일수록 더 선명하고 넓은 무지개
-            ['--holo-strength' as string]: isXR ? '1.0' : ['MR', 'LR'].includes(card.rarity) ? '0.85' : ['UR', 'SSR'].includes(card.rarity) ? '0.7' : ['SR'].includes(card.rarity) ? '0.5' : ['R', 'UC'].includes(card.rarity) ? '0.28' : '0.0',
-            ['--holo-opacity' as string]: styleState.opacity > 0.8 ? (isXR ? '0.9' : isSsrPlus ? '0.75' : '0.45') : '0.0',
-            opacity: styleState.opacity > 0.8 ? 1 : 0,
-            transition: styleState.opacity > 0.8 ? 'opacity 0.08s ease-out' : 'opacity 0.35s ease-out',
-          } as React.CSSProperties}
-        />
-      )}
-
-      {/* 💡 2B. 포일 광원 글레어 레이어 (overlay) — 실물 포토카드 반사광 */}
-      {isOwned && (
-        <div
-          className="absolute inset-0 rounded-2xl z-32 pointer-events-none glare-layer"
-          style={{
-            ['--pointer-x' as string]: `${styleState.px}%`,
-            ['--pointer-y' as string]: `${styleState.py}%`,
-            ['--glare-opacity' as string]: styleState.opacity > 0.8
-              ? (isSsrPlus ? '0.55' : ['R', 'SR'].includes(card.rarity) ? '0.35' : '0.2')
+            // 등급별 강도 (--holo-strength: C=0 → XR=1.0)
+            ['--holo-strength' as string]: isXR ? '1.0'
+              : ['MR', 'LR'].includes(card.rarity) ? '0.85'
+              : ['UR', 'SSR'].includes(card.rarity) ? '0.7'
+              : card.rarity === 'SR' ? '0.5'
+              : ['R', 'UC'].includes(card.rarity) ? '0.28'
               : '0.0',
-            opacity: styleState.opacity > 0.8 ? 1 : 0,
-            transition: styleState.opacity > 0.8 ? 'opacity 0.08s ease-out' : 'opacity 0.4s ease-out',
           } as React.CSSProperties}
         />
       )}
+
+      {/* 💡 2B. card__glare — simeydotme overlay 광원 레이어 */}
+      {isOwned && (
+        <div
+          className="card__glare absolute inset-0 rounded-2xl z-32 pointer-events-none"
+          style={{
+            // 등급별 글레어 최대 강도
+            ['--glare-max' as string]: isSsrPlus ? '0.60'
+              : ['R', 'SR'].includes(card.rarity) ? '0.38'
+              : '0.22',
+          } as React.CSSProperties}
+        />
+      )}
+
+
 
       {/* 2. SR, SSR, UR, LR, MR, XR 고등급 전용 금빛 라이브 파티클 오버레이 */}
       {isOwned && isHighTier && (
@@ -344,7 +364,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               className={`absolute inset-0 bg-gradient-to-b ${card.gradient} transition-transform duration-150 pointer-events-none opacity-85`}
               style={{
                 transform: isOwned && isHighTier
-                  ? `translateZ(-28px) scale(1.10) translate(${styleState.rotY * -0.45}px, ${styleState.rotX * 0.45}px)`
+                  ? `translateZ(-28px) scale(1.10) translate(${springVars.rotateY * -0.45}px, ${springVars.rotateX * 0.45}px)`
                   : undefined,
               }}
             />
@@ -355,7 +375,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                 className="absolute inset-0 overflow-hidden pointer-events-none"
                 style={{
                   transform: isOwned && isHighTier
-                    ? `translateZ(-15px) scale(1.15) translate(${styleState.rotY * -0.2}px, ${styleState.rotX * 0.2}px)`
+                    ? `translateZ(-15px) scale(1.15) translate(${springVars.rotateY * -0.2}px, ${springVars.rotateX * 0.2}px)`
                     : undefined,
                 }}
               >
@@ -376,7 +396,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                 className="absolute inset-0 flex items-center justify-center p-2.5 pt-8 pb-10 pointer-events-none"
                 style={{
                   transform: isOwned && isHighTier
-                    ? `translateZ(16px) scale(1.02) translate(${styleState.rotY * 0.55}px, ${styleState.rotX * -0.55}px)`
+                    ? `translateZ(16px) scale(1.02) translate(${springVars.rotateY * 0.55}px, ${springVars.rotateX * -0.55}px)`
                     : undefined,
                 }}
               >
@@ -399,7 +419,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               className={`absolute inset-[6px] rounded-xl border ${currentInnerFrame.border} ${currentInnerFrame.glow} pointer-events-none transition-all duration-200 z-15`}
               style={{
                 transform: isOwned && isHighTier
-                  ? `translateZ(25px) translate(${styleState.rotY * 0.5}px, ${styleState.rotX * -0.5}px)`
+                  ? `translateZ(25px) translate(${springVars.rotateY * 0.5}px, ${springVars.rotateX * -0.5}px)`
                   : undefined,
               }}
             >
@@ -425,7 +445,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               <div
                 className="absolute inset-0 rounded-2xl border-2 border-white/30 pointer-events-none transition-transform duration-150"
                 style={{
-                  transform: `translateZ(30px) translate(${styleState.rotY * 0.65}px, ${styleState.rotX * -0.65}px)`,
+                  transform: `translateZ(30px) translate(${springVars.rotateY * 0.65}px, ${springVars.rotateX * -0.65}px)`,
                   boxShadow: isSsrPlus ? 'inset 0 0 18px rgba(250,204,21,0.45)' : 'inset 0 0 12px rgba(255,255,255,0.3)',
                 }}
               />
@@ -436,7 +456,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               className="relative z-20 w-full p-2 flex items-center justify-between pointer-events-none bg-black/40 backdrop-blur-md border-b border-white/10"
               style={{
                 transform: isOwned && isHighTier
-                  ? `translateZ(40px) translate(${styleState.rotY * 0.8}px, ${styleState.rotX * -0.8}px)`
+                  ? `translateZ(40px) translate(${springVars.rotateY * 0.8}px, ${springVars.rotateX * -0.8}px)`
                   : undefined,
               }}
             >
@@ -465,7 +485,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                 className="relative z-20 mt-auto w-full p-2 bg-black/65 backdrop-blur-md border-t border-white/15 flex flex-col gap-0.5 pointer-events-none"
                 style={{
                   transform: isOwned && isHighTier
-                    ? `translateZ(35px) translate(${styleState.rotY * 0.7}px, ${styleState.rotX * -0.7}px)`
+                    ? `translateZ(35px) translate(${springVars.rotateY * 0.7}px, ${springVars.rotateX * -0.7}px)`
                     : undefined,
                 }}
               >
