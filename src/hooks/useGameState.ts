@@ -34,13 +34,16 @@ export function useGameState() {
         dust: state.dust,
         pityCounter: state.pityCount,
         totalPacksOpened: state.openedPacksTotal,
-        unlockedAchievements: state.claimedAchievements,
+        unlockedAchievements: state.claimedAchievements || [],
+        claimedSetRewards: state.claimedSetRewards || [],
+        claimedMailIds: state.claimedMailIds || [],
+        claimedCouponCodes: state.claimedCouponCodes || [],
         hasClaimedMmuEasterEgg: state.hasClaimedMmuEasterEgg,
       });
     }
   }, [state]);
 
-  // 2. 로그인/로그아웃 시 계정별 스토리지 즉각 전환
+  // 2. 로그인/로그아웃 시 계정별 스토리지 및 Firestore 즉각 전환
   useEffect(() => {
     const unsubscribe = AuthService.subscribeAuthState(async (user) => {
       if (user?.isCloudSynced && user.id && user.id !== 'guest') {
@@ -49,7 +52,7 @@ export function useGameState() {
         const cloudData = await CloudSyncService.loadUserGameData(user.id);
         
         if (cloudData) {
-          // 기존 클라우드 세이브 데이터 복원
+          // 기존 Firestore 클라우드 세이브 데이터 100% 온전히 복원
           const userState: GameState = {
             coins: cloudData.coins ?? GAME_CONFIG.INITIAL_COINS,
             dust: cloudData.dust ?? 0,
@@ -58,9 +61,9 @@ export function useGameState() {
             openedPacksTotal: cloudData.totalPacksOpened ?? 0,
             coinsSpentTotal: 0,
             claimedAchievements: cloudData.unlockedAchievements || [],
-            claimedSetRewards: [],
-            claimedMailIds: [],
-            claimedCouponCodes: [],
+            claimedSetRewards: cloudData.claimedSetRewards || [],
+            claimedMailIds: cloudData.claimedMailIds || [],
+            claimedCouponCodes: cloudData.claimedCouponCodes || [],
             lastDailyBonus: null,
             packHistory: [],
             soundMuted: false,
@@ -71,13 +74,25 @@ export function useGameState() {
           StorageService.saveState(userState, user.id);
           setState(userState);
         } else {
-          // 신규 가입 유저: 해당 유저 전용 스토리지 확인 또는 클린 초기 상태 생성
-          const initialUserState = StorageService.loadState(user.id);
-          StorageService.saveState(initialUserState, user.id);
-          setState(initialUserState);
+          // 신규 가입 유저: 클린 기본 데이터로 Firestore 초기 세이브 생성 및 적용
+          const freshState = StorageService.loadState(user.id);
+          await CloudSyncService.saveUserGameData(user, {
+            collection: freshState.collection,
+            coins: freshState.coins,
+            dust: freshState.dust,
+            pityCounter: freshState.pityCount,
+            totalPacksOpened: freshState.openedPacksTotal,
+            unlockedAchievements: freshState.claimedAchievements,
+            claimedSetRewards: freshState.claimedSetRewards,
+            claimedMailIds: freshState.claimedMailIds,
+            claimedCouponCodes: freshState.claimedCouponCodes,
+            hasClaimedMmuEasterEgg: freshState.hasClaimedMmuEasterEgg,
+          });
+          StorageService.saveState(freshState, user.id);
+          setState(freshState);
         }
       } else {
-        // 🚪 [2] 로그아웃: 게스트 전용 스토리지로 즉각 전환
+        // 🚪 [2] 로그아웃: 게스트 클린 초기 상태로 즉각 전환 (이전 유저 데이터 완전 소거)
         activeUserIdRef.current = null;
         CloudSyncService.forceResetHash();
         const guestState = StorageService.loadState('guest');

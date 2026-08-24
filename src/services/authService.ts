@@ -22,6 +22,18 @@ const AUTH_STORAGE_KEY = 'nmixx_tcg_auth_session_v1';
 
 export class AuthService {
   private static currentUser: UserAccount | null = null;
+  private static authListeners: ((user: UserAccount | null) => void)[] = [];
+
+  private static notifyAuthChange(user: UserAccount | null): void {
+    this.currentUser = user;
+    this.authListeners.forEach((cb) => {
+      try {
+        cb(user);
+      } catch (err) {
+        console.warn('[Auth] Listener callback error:', err);
+      }
+    });
+  }
 
   /**
    * 닉네임 중복 검사 (본인 닉네임 제외)
@@ -285,6 +297,7 @@ export class AuthService {
     } catch (e) {
       console.warn('Failed to persist auth session:', e);
     }
+    this.notifyAuthChange(user);
   }
 
   /**
@@ -317,22 +330,21 @@ export class AuthService {
     }
 
     const newDisplayName = updates.displayName ? updates.displayName.trim() : this.currentUser.displayName;
+    const isNameChanging = newDisplayName !== this.currentUser.displayName;
 
-    // 닉네임이 변경된 경우 중복 검사
-    if (newDisplayName !== this.currentUser.displayName) {
+    if (isNameChanging) {
       const isAvailable = await this.isNicknameAvailable(newDisplayName, this.currentUser.id);
       if (!isAvailable) {
-        return {
-          success: false,
-          message: `이미 다른 엔써가 사용 중인 닉네임입니다. 다른 닉네임을 입력해 주세요.`,
-        };
+        return { success: false, message: '이미 사용 중인 닉네임입니다.' };
       }
     }
 
     const updatedAccount: UserAccount = {
       ...this.currentUser,
-      ...updates,
       displayName: newDisplayName,
+      avatarMemberId: updates.avatarMemberId || this.currentUser.avatarMemberId,
+      ...(updates.avatarUrl ? { avatarUrl: updates.avatarUrl } : {}),
+      lastLoginAt: Date.now(),
     };
 
     await this.saveSession(updatedAccount);
@@ -384,7 +396,11 @@ export class AuthService {
     }
 
     this.currentUser = null;
-    localStorage.removeItem(AUTH_STORAGE_KEY);
+    try {
+      localStorage.removeItem(AUTH_STORAGE_KEY);
+    } catch (e) {}
+
+    this.notifyAuthChange(null);
   }
 
   /**
@@ -401,8 +417,16 @@ export class AuthService {
    * 실시간 Auth 상태 리스너 연동
    */
   public static subscribeAuthState(callback: (user: UserAccount | null) => void): () => void {
+    this.authListeners.push(callback);
+
+    // 즉시 현재 상태 1회 통지
+    const current = this.getCurrentUser();
+    callback(current);
+
+    // Firebase Auth 상태 변화 감지 리스너
+    let unsubFirebase = () => {};
     if (isFirebaseConfigured && auth) {
-      return onAuthStateChanged(auth, async (fbUser) => {
+      unsubFirebase = onAuthStateChanged(auth, async (fbUser) => {
         if (fbUser) {
           const account = AuthService.getCurrentUser();
           if (!account || !account.id.includes(fbUser.uid)) {
@@ -419,19 +443,24 @@ export class AuthService {
               securityHash: '',
             };
             await AuthService.saveSession(newAccount);
-            callback(newAccount);
-            return;
           }
-          callback(account);
         } else {
-          const localAccount = AuthService.getCurrentUser();
-          callback(localAccount);
+          // Firebase 로그아웃 감지 시 세션 확인
+          const currentSession = AuthService.loadSession();
+          if (!currentSession || currentSession.provider === 'google') {
+            this.currentUser = null;
+            try {
+              localStorage.removeItem(AUTH_STORAGE_KEY);
+            } catch (e) {}
+            this.notifyAuthChange(null);
+          }
         }
       });
     }
 
-    const current = AuthService.getCurrentUser();
-    callback(current);
-    return () => {};
+    return () => {
+      this.authListeners = this.authListeners.filter((cb) => cb !== callback);
+      unsubFirebase();
+    };
   }
 }
