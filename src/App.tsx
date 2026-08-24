@@ -419,6 +419,7 @@ export const App: React.FC = () => {
         isOpen={isMailboxOpen}
         onClose={() => setIsMailboxOpen(false)}
         claimedMailIds={state.claimedMailIds || []}
+        lastMailClaimDate={state.lastMailClaimDate}
         onClaimMail={claimMail}
         onRedeemCoupon={redeemCouponCode}
       />

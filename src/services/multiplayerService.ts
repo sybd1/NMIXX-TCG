@@ -31,7 +31,6 @@ const DEFAULT_GLOBAL_MAILS: MailItem[] = [
     content: '엔믹스 TCG 정식 글로벌 서버 연동을 축하합니다! 모든 엔써(NSWER) 여러분께 특별 지원금 1,000,000 코인(100만원)을 지급합니다. - 운영자 드림',
     sender: '운영자',
     coinsReward: 1000000,
-    dustReward: 5000,
     isClaimed: false,
     createdAt: Date.now() - 3600000 * 2,
   },
@@ -41,7 +40,6 @@ const DEFAULT_GLOBAL_MAILS: MailItem[] = [
     content: '신규 카드팩 출시를 기념하여 무료 카드팩을 개봉할 수 있는 보너스 50,000 코인을 드립니다! - 운영자 드림',
     sender: '운영자',
     coinsReward: 50000,
-    dustReward: 100,
     isClaimed: false,
     createdAt: Date.now() - 3600000 * 12,
   },
@@ -61,13 +59,11 @@ const VALID_COUPONS: Record<string, CouponDefinition> = {
   NMIXX2026: {
     code: 'NMIXX2026',
     coinsReward: 30000,
-    dustReward: 300,
     description: '2026 NMIXX 공식 웰컴 쿠폰',
   },
   FE3O4_FORWARD: {
     code: 'FE3O4_FORWARD',
     coinsReward: 20000,
-    dustReward: 200,
     description: 'Fe3O4: FORWARD 컴백 기념 쿠폰',
   },
   WELCOME_NSWER: {
@@ -78,13 +74,11 @@ const VALID_COUPONS: Record<string, CouponDefinition> = {
   PARK_XR_GOD: {
     code: 'PARK_XR_GOD',
     coinsReward: 50000,
-    dustReward: 1000,
     description: '초월자 박진영의 축복 쿠폰',
   },
   SECRET_NSWER_100M: {
     code: 'SECRET_NSWER_100M',
     coinsReward: 100000000,
-    dustReward: 0,
     description: '평생 엔써의 맹세 (1억 N COIN 특별 보급금)',
   },
 };

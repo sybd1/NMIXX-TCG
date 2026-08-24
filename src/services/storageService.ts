@@ -37,11 +37,12 @@ export const getAllCardsCollection = (): Record<string, number> => {
  */
 export const createGuestInitialState = (): GameState => {
   return {
-    coins: 1_000_000, // 게스트 기본 머니 100만원
+    coins: 1_000_000,
     dust: 0,
-    collection: {}, // 게스트 기본 컬렉션 0장 (클린 상태)
+    collection: {},
     pityCount: 0,
     lastDailyBonus: null,
+    lastMailClaimDate: null,
     packHistory: [],
     openedPacksTotal: 0,
     coinsSpentTotal: 0,

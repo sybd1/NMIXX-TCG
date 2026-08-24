@@ -67,6 +67,7 @@ export function useGameState() {
             claimedMailIds: cloudData.claimedMailIds || [],
             claimedCouponCodes: cloudData.claimedCouponCodes || [],
             lastDailyBonus: null,
+            lastMailClaimDate: (cloudData as any).lastMailClaimDate || null,
             packHistory: [],
             soundMuted: false,
             isFirstVisit: false,
@@ -388,7 +389,12 @@ export function useGameState() {
     }));
   }, []);
 
-  const claimMail = useCallback((mailId: string, coinsReward: number, dustReward: number = 0) => {
+  const claimMail = useCallback((mailId: string, coinsReward: number) => {
+    // KST(UTC+9) 기준 오늘 날짜 문자열 생성
+    const kstToday = new Date(Date.now() + 9 * 60 * 60 * 1000)
+      .toISOString()
+      .slice(0, 10);
+
     setState(prev => {
       const alreadyClaimed = (prev.claimedMailIds || []).includes(mailId);
       if (alreadyClaimed) return prev;
@@ -396,8 +402,8 @@ export function useGameState() {
       return {
         ...prev,
         coins: prev.coins + coinsReward,
-        dust: (prev.dust || 0) + dustReward,
         claimedMailIds: [...(prev.claimedMailIds || []), mailId],
+        lastMailClaimDate: kstToday,
       };
     });
     sound.playLegendaryReveal();
@@ -412,7 +418,6 @@ export function useGameState() {
       setState(prev => ({
         ...prev,
         coins: prev.coins + result.reward!.coinsReward,
-        dust: (prev.dust || 0) + (result.reward!.dustReward || 0),
         claimedCouponCodes: [...(prev.claimedCouponCodes || []), result.reward!.code],
       }));
 

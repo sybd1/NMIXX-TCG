@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { MultiplayerService } from '../../services/multiplayerService';
 import { sound } from '../../services/soundService';
 import { Mail, Gift, Ticket, X, Check, Sparkles, Crown } from 'lucide-react';
 
+/** KST(UTC+9) 기준 오늘 날짜 문자열 (YYYY-MM-DD) */
+const getKstToday = (): string =>
+  new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
+
 interface MailboxModalProps {
   isOpen: boolean;
   onClose: () => void;
   claimedMailIds?: string[];
-  onClaimMail: (mailId: string, coins: number, dust: number) => void;
+  lastMailClaimDate?: string | null;
+  onClaimMail: (mailId: string, coins: number) => void;
   onRedeemCoupon: (code: string) => { success: boolean; message: string; isSecret?: boolean };
 }
 
@@ -17,6 +22,7 @@ export const MailboxModal: React.FC<MailboxModalProps> = ({
   isOpen,
   onClose,
   claimedMailIds = [],
+  lastMailClaimDate,
   onClaimMail,
   onRedeemCoupon,
 }) => {
@@ -28,71 +34,60 @@ export const MailboxModal: React.FC<MailboxModalProps> = ({
     isSecret?: boolean;
   } | null>(null);
   const [showSecretCelebration, setShowSecretCelebration] = useState(false);
+  // 🛡️ 연타 방지: 수령 중 플래그
+  const isClaimingRef = useRef(false);
 
   if (!isOpen) return null;
+
+  const kstToday = getKstToday();
+  // 이미 오늘(KST) 일일 우편을 수령했는지 확인
+  const hasClaimedTodayMail = lastMailClaimDate === kstToday;
 
   const mailList = MultiplayerService.getMailList(claimedMailIds);
   const unreadCount = mailList.filter((m) => !m.isClaimed).length;
 
   const triggerConfetti = (isSecret = false) => {
     if (isSecret) {
-      // 🌟 초대형 3단계 골드 & 레인보우 폭죽 발사!
       const end = Date.now() + 3.0 * 1000;
       const colors = ['#f59e0b', '#ec4899', '#a855f7', '#38bdf8', '#fbbf24', '#ffffff'];
-
       (function frame() {
-        confetti({
-          particleCount: 8,
-          angle: 60,
-          spread: 75,
-          origin: { x: 0, y: 0.7 },
-          colors,
-          zIndex: 9999,
-        });
-        confetti({
-          particleCount: 8,
-          angle: 120,
-          spread: 75,
-          origin: { x: 1, y: 0.7 },
-          colors,
-          zIndex: 9999,
-        });
-
-        if (Date.now() < end) {
-          requestAnimationFrame(frame);
-        }
+        confetti({ particleCount: 8, angle: 60, spread: 75, origin: { x: 0, y: 0.7 }, colors, zIndex: 9999 });
+        confetti({ particleCount: 8, angle: 120, spread: 75, origin: { x: 1, y: 0.7 }, colors, zIndex: 9999 });
+        if (Date.now() < end) requestAnimationFrame(frame);
       })();
     } else {
-      confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 },
-        zIndex: 9999,
-      });
+      confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 }, zIndex: 9999 });
     }
   };
 
+  const handleClaimSingle = (mailId: string, coinsReward: number) => {
+    if (isClaimingRef.current) return;
+    isClaimingRef.current = true;
+    sound.playLegendaryReveal();
+    onClaimMail(mailId, coinsReward);
+    triggerConfetti(false);
+    setTimeout(() => { isClaimingRef.current = false; }, 800);
+  };
+
   const handleClaimAll = () => {
+    if (isClaimingRef.current) return;
+    isClaimingRef.current = true;
     sound.playLegendaryReveal();
     triggerConfetti(false);
     mailList.forEach((mail) => {
-      if (!mail.isClaimed) {
-        onClaimMail(mail.id, mail.coinsReward, mail.dustReward || 0);
-      }
+      if (!mail.isClaimed) onClaimMail(mail.id, mail.coinsReward);
     });
+    setTimeout(() => { isClaimingRef.current = false; }, 800);
   };
 
   const handleCouponSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!couponInput.trim()) return;
-
     const result = onRedeemCoupon(couponInput.trim());
     setCouponFeedback(result);
     if (result.success) {
       triggerConfetti(!!result.isSecret);
-      if (result.isSecret) {
-        setShowSecretCelebration(true);
-      }
+      if (result.isSecret) setShowSecretCelebration(true);
       setCouponInput('');
     }
   };
@@ -184,8 +179,16 @@ export const MailboxModal: React.FC<MailboxModalProps> = ({
               )}
             </div>
 
+            {/* 🕛 KST 자정 일일 리셋 안내 */}
+            <div className="flex items-center justify-center gap-1.5 py-1 px-3 rounded-xl bg-void-950/60 border border-white/5">
+              <span className="text-[11px] font-mono text-slate-500">🕛 매일 자정(KST 00:00) 재수령 가능 · 오늘 수령 여부:</span>
+              <span className={`text-[11px] font-mono font-black ${hasClaimedTodayMail ? 'text-emerald-400' : 'text-amber-400'}`}>
+                {hasClaimedTodayMail ? '✓ 완료' : '미수령'}
+              </span>
+            </div>
+
             {/* 우편 목록 */}
-            <div className="flex-1 overflow-y-auto pr-1 flex flex-col gap-2.5 min-h-[260px]">
+            <div className="flex-1 overflow-y-auto pr-1 flex flex-col gap-2.5 min-h-[220px]">
               {mailList.map((mail) => (
                 <div
                   key={mail.id}
@@ -197,11 +200,7 @@ export const MailboxModal: React.FC<MailboxModalProps> = ({
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex flex-col gap-0.5">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-xs font-bold text-slate-100 font-serif">
-                          {mail.title}
-                        </span>
-                      </div>
+                      <span className="text-xs font-bold text-slate-100 font-serif">{mail.title}</span>
                       <span className="text-[11px] font-mono text-slate-400">
                         보낸 사람: <span className="text-pink-300 font-bold">{mail.sender}</span>
                       </span>
@@ -215,10 +214,7 @@ export const MailboxModal: React.FC<MailboxModalProps> = ({
                       </span>
                     ) : (
                       <button
-                        onClick={() => {
-                          sound.playLegendaryReveal();
-                          onClaimMail(mail.id, mail.coinsReward, mail.dustReward || 0);
-                        }}
+                        onClick={() => handleClaimSingle(mail.id, mail.coinsReward)}
                         className="px-3 py-1.5 rounded-xl bg-pink-500 hover:bg-pink-400 text-white font-mono text-xs font-black shadow-md shadow-pink-500/30 hover:scale-105 transition-all cursor-pointer flex-shrink-0 flex items-center gap-1"
                       >
                         <Gift size={13} />
@@ -231,17 +227,12 @@ export const MailboxModal: React.FC<MailboxModalProps> = ({
                     {mail.content}
                   </p>
 
-                  {/* 동봉된 보상 배지 */}
+                  {/* 동봉 보상 배지 (코인만) */}
                   <div className="flex items-center gap-2">
                     <span className="text-[11px] font-mono text-slate-400">동봉 보상:</span>
                     <span className="px-2 py-0.5 rounded-lg bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-mono font-black flex items-center gap-1">
                       🪙 {mail.coinsReward.toLocaleString()} COIN
                     </span>
-                    {mail.dustReward && (
-                      <span className="px-2 py-0.5 rounded-lg bg-purple-500/20 border border-purple-400/40 text-purple-300 text-xs font-mono font-bold flex items-center gap-1">
-                        ✨ {mail.dustReward} DUST
-                      </span>
-                    )}
                   </div>
                 </div>
               ))}

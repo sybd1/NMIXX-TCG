@@ -32,16 +32,17 @@ export interface GameState {
   dust: number;
   collection: Record<string, number>; // cardId -> count
   pityCount: number; // Current packs without Legendary+
-  lastDailyBonus: string | null; // YYYY-MM-DD
+  lastDailyBonus: string | null; // YYYY-MM-DD (KST)
+  lastMailClaimDate: string | null; // YYYY-MM-DD (KST) - 우편 일일 1회 수령 날짜
   packHistory: PackHistoryItem[];
   openedPacksTotal: number;
-  coinsSpentTotal?: number; // 누적 소비 골드/코인
+  coinsSpentTotal?: number;
   soundMuted: boolean;
   isFirstVisit: boolean;
-  claimedSetRewards?: string[]; // 이미 머니 보상을 수령한 세트 ID 목록
-  claimedAchievements?: string[]; // 이미 보상을 수령한 업적 ID 목록
-  claimedMailIds?: string[]; // 이미 수령한 우편 ID 목록
-  claimedCouponCodes?: string[]; // 이미 사용한 쿠폰 코드 목록
-  coinReset_v16?: boolean; // v1.6.0 전 유저 100만원 초기화 적용 플래그
-  hasClaimedMmuEasterEgg?: boolean; // MMU 우주선 50만 N COIN 이스터에그 수령 여부 (계정당 1회)
+  claimedSetRewards?: string[];
+  claimedAchievements?: string[];
+  claimedMailIds?: string[];
+  claimedCouponCodes?: string[];
+  coinReset_v16?: boolean;
+  hasClaimedMmuEasterEgg?: boolean;
 }
