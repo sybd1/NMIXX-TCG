@@ -6,6 +6,7 @@ import {
 } from 'firebase/auth';
 import {
   setDoc,
+  getDoc,
   getDocs,
   collection,
   query,
@@ -33,6 +34,35 @@ export class AuthService {
         console.warn('[Auth] Listener callback error:', err);
       }
     });
+  }
+
+  /**
+   * 🛡️ Firestore에서 기존 유저의 커스텀 닉네임 및 아바타 프로필 조회
+   */
+  public static async fetchExistingProfile(uid: string): Promise<{
+    displayName: string;
+    avatarMemberId?: string;
+    avatarUrl?: string;
+  } | null> {
+    if (!isFirebaseConfigured || !db || !uid) return null;
+    try {
+      const userDocRef = doc(db, 'nmixx_tcg_users', uid);
+      const snapshot = await getDoc(userDocRef);
+      if (snapshot.exists()) {
+        const data = snapshot.data();
+        if (data && (data.displayName || data.nickname)) {
+          return {
+            displayName: data.displayName || data.nickname,
+            avatarMemberId: data.avatarMemberId || 'SULLYOON',
+            avatarUrl: data.avatarUrl,
+          };
+        }
+      }
+      return null;
+    } catch (e) {
+      console.warn('[Auth] Failed to fetch existing user profile:', e);
+      return null;
+    }
   }
 
   /**
@@ -83,17 +113,30 @@ export class AuthService {
 
         const uid = `goog_${fbUser.uid}`;
         const email = fbUser.email || `${fbUser.uid.substring(0, 8)}@gmail.com`;
-        let displayName = customName?.trim() || fbUser.displayName || `엔써_${fbUser.uid.substring(0, 5)}`;
         const avatarUrl = fbUser.photoURL || '/cards/card_003.jpg';
         
-        // 👑 공식 운영자 계정 닉네임: '운영자' 단독 세팅
-        if (displayName.toLowerCase().includes('chip sofa') || email.toLowerCase().includes('chip') || customName?.includes('chip') || displayName.includes('운영자')) {
-          displayName = '운영자';
+        // 🛡️ 기존 Firestore 계정 프로필 우선 조회 (커스텀 닉네임 보존)
+        const existingProfile = await this.fetchExistingProfile(uid);
+
+        let displayName = '';
+        let avatarMemberId = 'SULLYOON';
+
+        if (existingProfile && existingProfile.displayName) {
+          displayName = existingProfile.displayName;
+          avatarMemberId = existingProfile.avatarMemberId || 'SULLYOON';
         } else {
-          // 닉네임 중복 시 고유 해시 부착
-          const available = await this.isNicknameAvailable(displayName, uid);
-          if (!available && !customName) {
-            displayName = `${displayName}_${fbUser.uid.substring(0, 4)}`;
+          // 신규 유저일 때만 이름 생성
+          displayName = customName?.trim() || fbUser.displayName || `엔써_${fbUser.uid.substring(0, 5)}`;
+          
+          // 👑 공식 운영자 계정 닉네임: '운영자' 단독 세팅
+          if (displayName.toLowerCase().includes('chip sofa') || email.toLowerCase().includes('chip') || customName?.includes('chip') || displayName.includes('운영자')) {
+            displayName = '운영자';
+          } else {
+            // 닉네임 중복 시 고유 해시 부착
+            const available = await this.isNicknameAvailable(displayName, uid);
+            if (!available && !customName) {
+              displayName = `${displayName}_${fbUser.uid.substring(0, 4)}`;
+            }
           }
         }
 
@@ -102,8 +145,8 @@ export class AuthService {
           provider: 'google',
           email,
           displayName,
-          avatarUrl,
-          avatarMemberId: 'SULLYOON',
+          avatarUrl: existingProfile?.avatarUrl || avatarUrl,
+          avatarMemberId,
           createdAt: Date.now(),
           lastLoginAt: Date.now(),
           isCloudSynced: true,
@@ -118,6 +161,7 @@ export class AuthService {
             const userDocRef = doc(db, 'nmixx_tcg_users', uid);
             await setDoc(userDocRef, {
               displayName: account.displayName,
+              nickname: account.displayName,
               email: account.email,
               avatarUrl: account.avatarUrl,
               avatarMemberId: account.avatarMemberId,
@@ -157,13 +201,25 @@ export class AuthService {
                 const kakaoAccount = res.kakao_account;
                 const kakaoId = res.id ? String(res.id) : SecurityService.generateSecureUID('kakao');
                 const uid = `kakao_${kakaoId}`;
-                let nickname = customName?.trim() || kakaoAccount?.profile?.nickname || `카카오_엔써_${kakaoId.substring(0, 4)}`;
                 const profileImg = kakaoAccount?.profile?.profile_image_url || '/cards/card_002.jpg';
                 const email = kakaoAccount?.email || `kakao_${kakaoId}@kakao.com`;
 
-                const available = await AuthService.isNicknameAvailable(nickname, uid);
-                if (!available && !customName) {
-                  nickname = `${nickname}_${kakaoId.substring(0, 3)}`;
+                // 🛡️ 기존 Firestore 계정 프로필 우선 조회 (커스텀 닉네임 보존)
+                const existingProfile = await this.fetchExistingProfile(uid);
+
+                let nickname = '';
+                let avatarMemberId = 'HAEWON';
+
+                if (existingProfile && existingProfile.displayName) {
+                  nickname = existingProfile.displayName;
+                  avatarMemberId = existingProfile.avatarMemberId || 'HAEWON';
+                } else {
+                  nickname = customName?.trim() || kakaoAccount?.profile?.nickname || `카카오_엔써_${kakaoId.substring(0, 4)}`;
+
+                  const available = await AuthService.isNicknameAvailable(nickname, uid);
+                  if (!available && !customName) {
+                    nickname = `${nickname}_${kakaoId.substring(0, 3)}`;
+                  }
                 }
 
                 const account: UserAccount = {
@@ -171,8 +227,8 @@ export class AuthService {
                   provider: 'kakao',
                   email,
                   displayName: nickname,
-                  avatarUrl: profileImg,
-                  avatarMemberId: 'HAEWON',
+                  avatarUrl: existingProfile?.avatarUrl || profileImg,
+                  avatarMemberId,
                   createdAt: Date.now(),
                   lastLoginAt: Date.now(),
                   isCloudSynced: true,
@@ -187,6 +243,7 @@ export class AuthService {
                     const userDocRef = doc(db, 'nmixx_tcg_users', uid);
                     await setDoc(userDocRef, {
                       displayName: account.displayName,
+                      nickname: account.displayName,
                       email: account.email,
                       avatarUrl: account.avatarUrl,
                       avatarMemberId: account.avatarMemberId,
@@ -428,15 +485,19 @@ export class AuthService {
     if (isFirebaseConfigured && auth) {
       unsubFirebase = onAuthStateChanged(auth, async (fbUser) => {
         if (fbUser) {
+          const uid = `goog_${fbUser.uid}`;
           const account = AuthService.getCurrentUser();
           if (!account || !account.id.includes(fbUser.uid)) {
+            // 🛡️ Firestore에서 기존 커스텀 닉네임 우선 조회
+            const existing = await AuthService.fetchExistingProfile(uid);
+
             const newAccount: UserAccount = {
-              id: `goog_${fbUser.uid}`,
+              id: uid,
               provider: 'google',
               email: fbUser.email || `nswer_${fbUser.uid.substring(0, 6)}@gmail.com`,
-              displayName: fbUser.displayName || `엔써_${fbUser.uid.substring(0, 5)}`,
-              avatarUrl: fbUser.photoURL || '/cards/card_003.jpg',
-              avatarMemberId: 'SULLYOON',
+              displayName: existing?.displayName || fbUser.displayName || `엔써_${fbUser.uid.substring(0, 5)}`,
+              avatarUrl: existing?.avatarUrl || fbUser.photoURL || '/cards/card_003.jpg',
+              avatarMemberId: existing?.avatarMemberId || 'SULLYOON',
               createdAt: Date.now(),
               lastLoginAt: Date.now(),
               isCloudSynced: true,
