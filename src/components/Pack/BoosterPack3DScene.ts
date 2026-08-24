@@ -376,6 +376,22 @@ export function createPackColorTexture(pack: BoosterPackConfig): Promise<THREE.C
     };
 
     img.onerror = () => {
+      // Fallback: If root leading slash failed in relative baseUrl, try relative path
+      if (pack.image.startsWith('/')) {
+        const fallbackImg = new Image();
+        fallbackImg.crossOrigin = 'anonymous';
+        fallbackImg.onload = () => {
+          img.onload?.(new Event('load'));
+        };
+        fallbackImg.onerror = () => {
+          console.warn(`[BoosterPack3D] Failed to load pack image: ${pack.image}`);
+          const texture = new THREE.CanvasTexture(canvas);
+          resolve(texture);
+        };
+        fallbackImg.src = pack.image.slice(1);
+        return;
+      }
+      console.warn(`[BoosterPack3D] Failed to load pack image: ${pack.image}`);
       const texture = new THREE.CanvasTexture(canvas);
       resolve(texture);
     };

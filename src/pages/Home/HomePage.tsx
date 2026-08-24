@@ -47,19 +47,19 @@ export const HomePage: React.FC<HomePageProps> = ({
   const canAffordTen = coins >= GAME_CONFIG.PACK_COST_TEN;
   const pityProgress = Math.min(100, (pityCount / GAME_CONFIG.PITY_THRESHOLD) * 100);
 
-  // 휠 스크롤 쿨다운 제어
+  // 휠 스크롤 즉각 반응 (60ms 쿨다운으로 실시간 고속 스크롤)
   const lastScrollTime = useRef<number>(0);
   const handleWheel = (e: React.WheelEvent) => {
     const now = Date.now();
-    if (now - lastScrollTime.current < 250) return;
+    if (now - lastScrollTime.current < 70) return;
 
-    if (e.deltaY > 20 || e.deltaX > 20) {
+    if (e.deltaY > 15 || e.deltaX > 15) {
       if (selectedIndex < BOOSTER_PACKS.length - 1) {
         setSelectedIndex(prev => prev + 1);
         sound.playClick();
         lastScrollTime.current = now;
       }
-    } else if (e.deltaY < -20 || e.deltaX < -20) {
+    } else if (e.deltaY < -15 || e.deltaX < -15) {
       if (selectedIndex > 0) {
         setSelectedIndex(prev => prev - 1);
         sound.playClick();
@@ -82,7 +82,7 @@ export const HomePage: React.FC<HomePageProps> = ({
     }
   };
 
-  // 키보드 좌우 방향키로도 팩 전환 지원
+  // 키보드 좌우 방향키 지원
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') handlePrev();
@@ -136,40 +136,16 @@ export const HomePage: React.FC<HomePageProps> = ({
     );
   }
 
-  // 2. 메인 팩 오픈 화면 (3D CoverFlow 스크롤 캐러셀 + 하단 연동 타이포그래피)
+  // 2. 메인 팩 오픈 화면
   return (
     <div
       onWheel={handleWheel}
-      className="flex-1 flex flex-col items-center justify-between px-3 sm:px-4 py-3 sm:py-5 max-w-4xl mx-auto w-full select-none overflow-hidden"
+      className="flex-1 flex flex-col items-center justify-between px-3 sm:px-4 py-2 sm:py-4 max-w-4xl mx-auto w-full select-none overflow-hidden"
     >
       {/* ── [상단 영역: 3D 커버플로우 카드팩 스크롤러] ── */}
       <div className="w-full flex flex-col items-center relative my-auto">
-        {/* 상단 팩 인디케이터 바 */}
-        <div className="flex items-center gap-1.5 sm:gap-2 mb-2 z-20">
-          {BOOSTER_PACKS.map((pack, idx) => {
-            const isCurrent = idx === selectedIndex;
-            return (
-              <button
-                key={pack.id}
-                onClick={() => {
-                  setSelectedIndex(idx);
-                  sound.playClick();
-                }}
-                className={`px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-extrabold transition-all cursor-pointer flex items-center gap-1 ${
-                  isCurrent
-                    ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-lg border border-pink-400/60 scale-105'
-                    : 'bg-void-900/80 text-slate-400 hover:text-slate-200 border border-white/10 hover:border-white/20'
-                }`}
-              >
-                <span>{pack.code}</span>
-                {isCurrent && <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse" />}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* 3D 커버플로우 인터랙티브 뷰 (스크롤/드래그 지원) */}
-        <div className="relative w-full h-[280px] sm:h-[330px] flex items-center justify-center overflow-visible perspective-[1200px]">
+        {/* 3D 커버플로우 뷰 (상단 뱃지 삭제로 깔끔하고 넓어진 팩 비주얼) */}
+        <div className="relative w-full h-[290px] sm:h-[340px] flex items-center justify-center overflow-visible perspective-[1200px]">
           {/* 좌측 이전 버튼 */}
           <button
             disabled={selectedIndex === 0}
@@ -179,7 +155,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             }`}
             title="이전 팩 (Scroll Up / ←)"
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={22} />
           </button>
 
           {/* 우측 다음 버튼 */}
@@ -191,13 +167,13 @@ export const HomePage: React.FC<HomePageProps> = ({
             }`}
             title="다음 팩 (Scroll Down / →)"
           >
-            <ChevronRight size={20} />
+            <ChevronRight size={22} />
           </button>
 
           {/* 팩 뒷편 반응형 테마 오라 글로우 */}
           <div
             key={`glow-${selectedPack.id}`}
-            className={`absolute w-72 sm:w-88 h-72 sm:h-88 rounded-full bg-gradient-to-r ${selectedPack.gradient} blur-3xl opacity-50 pointer-events-none -z-10 transition-all duration-700`}
+            className={`absolute w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-gradient-to-r ${selectedPack.gradient} blur-3xl opacity-55 pointer-events-none -z-10 transition-all duration-500`}
           />
 
           {/* 5대 부스터 팩 3D 스택 렌더링 */}
@@ -220,19 +196,20 @@ export const HomePage: React.FC<HomePageProps> = ({
                   }}
                   initial={false}
                   animate={{
-                    x: offset * (typeof window !== 'undefined' && window.innerWidth < 640 ? 120 : 180),
-                    scale: isCenter ? 1 : 0.8,
-                    rotateY: offset * -25,
-                    opacity: isCenter ? 1 : 0.45,
+                    x: offset * (typeof window !== 'undefined' && window.innerWidth < 640 ? 125 : 190),
+                    scale: isCenter ? 1 : 0.78,
+                    rotateY: offset * -26,
+                    opacity: isCenter ? 1 : 0.4,
                     zIndex: isCenter ? 30 : 20 - Math.abs(offset),
                   }}
                   transition={{
                     type: 'spring',
-                    stiffness: 280,
-                    damping: 26,
+                    stiffness: 420,
+                    damping: 32,
+                    mass: 0.8,
                   }}
                   className={`absolute flex items-center justify-center ${
-                    isCenter ? 'cursor-pointer' : 'cursor-pointer hover:opacity-75'
+                    isCenter ? 'cursor-pointer' : 'cursor-pointer hover:opacity-70'
                   }`}
                   style={{ transformStyle: 'preserve-3d' }}
                 >
@@ -250,68 +227,50 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
         </div>
 
-        <div className="text-[10px] font-mono text-slate-400 mt-1 flex items-center gap-1.5 opacity-75">
-          <span>🖱️ 마우스 휠 스크롤 또는 좌우 버튼으로 팩 전환</span>
+        <div className="text-[10px] font-mono text-slate-400/80 mt-0.5 flex items-center gap-1.5">
+          <span>🖱️ 마우스 휠 스크롤로 팩 전환</span>
         </div>
       </div>
 
-      {/* ── [중간 영역: 카드팩 설명 타이포그래피 & 수집률 대시보드] ── */}
+      {/* ── [중간 영역: 중앙 대형 타이포그래피 & 깔끔한 하단 설명글 (박스 뱃지 삭제)] ── */}
       <AnimatePresence mode="wait">
         <motion.div
           key={selectedPack.id}
-          initial={{ opacity: 0, y: 15, scale: 0.98 }}
+          initial={{ opacity: 0, y: 10, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -15, scale: 0.98 }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
-          className="w-full max-w-xl bg-void-950/90 border border-white/10 p-3.5 sm:p-4 rounded-2xl shadow-2xl backdrop-blur-xl my-2 flex flex-col gap-2"
+          exit={{ opacity: 0, y: -10, scale: 0.98 }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
+          className="w-full max-w-xl flex flex-col items-center text-center my-1.5 sm:my-2 px-2"
         >
-          {/* 타이틀 & 팩 코드 */}
-          <div className="flex items-center justify-between border-b border-white/10 pb-2">
-            <div className="flex items-center gap-2 overflow-hidden">
-              <span className="px-2 py-0.5 rounded-lg bg-pink-500/20 text-pink-300 border border-pink-500/40 font-mono text-[10px] sm:text-xs font-black">
-                {selectedPack.code}
-              </span>
-              <h2 className="font-serif font-black text-sm sm:text-base text-white truncate tracking-tight">
-                {selectedPack.name}
-              </h2>
-            </div>
+          {/* 팩 이름 대형 중앙 타이포그래피 (뱃지 박스 없이 시원하고 웅장하게) */}
+          <h2 className="font-serif font-black text-xl sm:text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-amber-200 tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+            {selectedPack.name}
+          </h2>
 
-            <div className="flex items-center gap-1.5 flex-shrink-0">
-              <span className="text-[10px] font-mono font-bold text-slate-400">
-                수집률
-              </span>
-              <span className="text-amber-300 font-mono font-black text-xs bg-amber-950/80 px-2 py-0.5 rounded-md border border-amber-500/40">
-                {currentStats.percentage}%
-              </span>
-            </div>
-          </div>
-
-          {/* 슬로건 & 설명 타이포그래피 */}
-          <div className="flex flex-col gap-1 text-left">
-            <p className="text-xs sm:text-sm font-serif italic text-amber-200 font-bold leading-tight">
-              "{selectedPack.slogan}"
-            </p>
-            <p className="text-[10.5px] sm:text-xs font-sans text-slate-300 leading-snug">
-              {selectedPack.description}
-            </p>
-          </div>
+          {/* 슬로건 및 설명글 (작고 깔끔하게 중앙 정렬) */}
+          <p className="font-serif italic text-xs sm:text-[13px] text-pink-300 font-bold mt-1 max-w-md drop-shadow">
+            "{selectedPack.slogan}"
+          </p>
+          <p className="font-sans text-[11px] sm:text-xs text-slate-300/90 max-w-lg mt-0.5 leading-snug">
+            {selectedPack.description}
+          </p>
 
           {/* 수집 진척도 게이지 바 */}
-          <div className="flex flex-col gap-1 pt-1">
+          <div className="w-full max-w-sm mt-2 flex flex-col gap-1">
             <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
               <span className="flex items-center gap-1">
                 <Trophy size={11} className="text-amber-400" />
-                보유 현황
+                수집률 <strong className="text-amber-300 font-black">{currentStats.percentage}%</strong>
               </span>
-              <span className="font-bold text-slate-200">
-                <strong className="text-pink-300">{currentStats.owned}</strong> / {currentStats.total}장
+              <span>
+                <strong className="text-pink-300 font-bold">{currentStats.owned}</strong> / {currentStats.total}장
               </span>
             </div>
             <div className="w-full h-1.5 bg-black/80 rounded-full overflow-hidden border border-white/10">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${currentStats.percentage}%` }}
-                transition={{ duration: 0.6, ease: 'easeOut' }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
                 className="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-amber-400"
               />
             </div>
@@ -319,84 +278,84 @@ export const HomePage: React.FC<HomePageProps> = ({
         </motion.div>
       </AnimatePresence>
 
-      {/* ── [최하단 영역: 1팩 / 5팩 / 10팩 개봉 버튼 (점진적 화려한 뱃지)] ── */}
+      {/* ── [최하단 영역: 1팩 / 5팩 / 10팩 개봉 버튼 (칸띄움/줄바꿈 방지 및 정돈된 뱃지)] ── */}
       <div className="w-full max-w-xl flex flex-col gap-2 mt-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5">
-          {/* 1 Pack: 3,800 N COIN (클래식 네온 사이버 뱃지) */}
+        <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
+          {/* 1 Pack: 3,800 N COIN */}
           <button
             disabled={!canAffordSingle}
             onClick={() => onOpenSingle(selectedPack)}
-            className={`relative py-3 px-3 rounded-2xl font-serif font-black text-xs sm:text-sm flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer ${
+            className={`relative py-2.5 sm:py-3 px-1.5 sm:px-2.5 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer whitespace-nowrap ${
               canAffordSingle
                 ? 'bg-gradient-to-br from-slate-900 via-indigo-950 to-blue-900 text-cyan-200 border border-cyan-400/50 shadow-lg shadow-cyan-950/40 hover:scale-[1.03] hover:border-cyan-300 active:scale-95'
                 : 'bg-void-900 text-slate-600 border border-white/5 cursor-not-allowed opacity-60'
             }`}
           >
-            <div className="flex items-center gap-1 text-cyan-300 font-mono text-[9px] uppercase tracking-wider font-extrabold">
-              <Sparkles size={11} />
-              <span>[ 5 CARDS ]</span>
+            <div className="flex items-center gap-0.5 text-cyan-300 font-mono text-[8.5px] sm:text-[9.5px] uppercase tracking-tight font-extrabold">
+              <Sparkles size={10} />
+              <span>5 CARDS</span>
             </div>
-            <span className="font-bold text-white text-xs sm:text-sm tracking-wide">
+            <span className="font-serif font-black text-white text-xs sm:text-sm tracking-tight leading-tight">
               1팩 개봉
             </span>
-            <span className="font-mono text-[10.5px] font-black text-cyan-300">
+            <span className="font-mono text-[10px] sm:text-xs font-black text-cyan-300 leading-none">
               3,800 N
             </span>
           </button>
 
-          {/* 5 Packs: 17,100 N COIN (화려한 로열 마젠타 & 10% DISCOUNT 뱃지) */}
+          {/* 5 Packs: 17,100 N COIN */}
           <button
             disabled={!canAffordFive}
             onClick={() => onOpenFive(selectedPack)}
-            className={`relative py-3 px-3 rounded-2xl font-serif font-black text-xs sm:text-sm flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer ${
+            className={`relative py-2.5 sm:py-3 px-1.5 sm:px-2.5 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer whitespace-nowrap ${
               canAffordFive
                 ? 'bg-gradient-to-br from-purple-950 via-fuchsia-950 to-pink-900 text-pink-200 border border-pink-400/60 shadow-xl shadow-fuchsia-950/60 hover:scale-[1.03] hover:border-pink-300 active:scale-95 ring-1 ring-pink-500/30'
                 : 'bg-void-900 text-slate-600 border border-white/5 cursor-not-allowed opacity-60'
             }`}
           >
-            <div className="flex items-center gap-1 text-pink-300 font-mono text-[9px] uppercase tracking-wider font-extrabold">
-              <Zap size={11} className="text-pink-400" />
-              <span>[ 25 CARDS • 10% OFF ]</span>
+            <div className="flex items-center gap-0.5 text-pink-300 font-mono text-[8.5px] sm:text-[9.5px] uppercase tracking-tight font-extrabold">
+              <Zap size={10} className="text-pink-400" />
+              <span>25 CARDS • 10% OFF</span>
             </div>
-            <span className="font-bold text-white text-xs sm:text-sm tracking-wide">
-              5팩 연속 개봉
+            <span className="font-serif font-black text-white text-xs sm:text-sm tracking-tight leading-tight">
+              5팩 연속
             </span>
-            <span className="font-mono text-[10.5px] font-black text-pink-300">
+            <span className="font-mono text-[10px] sm:text-xs font-black text-pink-300 leading-none">
               17,100 N
             </span>
           </button>
 
-          {/* 10 Packs: 34,200 N COIN (극상의 골드 앰버 & 선셋 크림슨 & MAX LUCK 뱃지) */}
+          {/* 10 Packs: 34,200 N COIN */}
           <button
             disabled={!canAffordTen}
             onClick={() => onOpenTen(selectedPack)}
-            className={`relative py-3 px-3 rounded-2xl font-serif font-black text-xs sm:text-sm flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer ${
+            className={`relative py-2.5 sm:py-3 px-1.5 sm:px-2.5 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer whitespace-nowrap ${
               canAffordTen
                 ? 'bg-gradient-to-br from-amber-600 via-rose-600 to-amber-500 text-yellow-100 border-2 border-yellow-300 shadow-2xl shadow-amber-950/80 hover:scale-[1.04] hover:border-white active:scale-95 ring-2 ring-yellow-400/60 animate-pulse'
                 : 'bg-void-900 text-slate-600 border border-white/5 cursor-not-allowed opacity-60'
             }`}
           >
-            <div className="flex items-center gap-1 text-amber-200 font-mono text-[9.5px] uppercase tracking-wider font-black">
-              <Flame size={12} className="text-yellow-300 animate-bounce" />
-              <span>[ 50 CARDS • MAX LUCK 🔥 ]</span>
+            <div className="flex items-center gap-0.5 text-amber-200 font-mono text-[8.5px] sm:text-[9.5px] uppercase tracking-tight font-black">
+              <Flame size={11} className="text-yellow-300 animate-bounce" />
+              <span>50 CARDS • MAX LUCK 🔥</span>
             </div>
-            <span className="font-black text-white text-xs sm:text-sm tracking-wider drop-shadow-md">
-              10팩 대량 개봉
+            <span className="font-serif font-black text-white text-xs sm:text-sm tracking-tight leading-tight drop-shadow">
+              10팩 대량
             </span>
-            <span className="font-mono text-[11px] font-black text-yellow-200 drop-shadow">
+            <span className="font-mono text-[10.5px] sm:text-xs font-black text-yellow-200 leading-none drop-shadow">
               34,200 N
             </span>
           </button>
         </div>
 
         {/* Pity Progress Bar */}
-        <div className="w-full bg-void-900/90 border border-void-800 px-3.5 py-2 rounded-xl flex items-center justify-between text-[11px] font-mono">
+        <div className="w-full bg-void-900/90 border border-void-800 px-3 py-1.5 rounded-xl flex items-center justify-between text-[10.5px] font-mono">
           <span className="text-slate-300 font-bold flex items-center gap-1.5">
-            <ShieldAlert size={13} className="text-amber-400" />
+            <ShieldAlert size={12} className="text-amber-400" />
             천장 보장 (50팩 시 SSR+ 확정)
           </span>
           <div className="flex items-center gap-2">
-            <div className="w-20 sm:w-28 h-2 bg-void-950 rounded-full overflow-hidden border border-white/10">
+            <div className="w-20 sm:w-28 h-1.5 bg-void-950 rounded-full overflow-hidden border border-white/10">
               <div
                 className="h-full bg-gradient-to-r from-pink-500 to-amber-400"
                 style={{ width: `${pityProgress}%` }}
