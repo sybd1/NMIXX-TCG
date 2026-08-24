@@ -546,7 +546,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                   <span>
                     총 <strong className="text-pink-300 font-bold">{totalFilteredCount}</strong>장 중{' '}
                     <strong className="text-amber-300">{totalFilteredCount > 0 ? startIndex + 1 : 0}</strong> -{' '}
-                    <strong className="text-amber-300">{Math.min(startIndex + ITEMS_PER_PAGE, totalFilteredCount)}</strong>번째 카드 (초고속 24장 뷰)
+                    <strong className="text-amber-300">{Math.min(startIndex + ITEMS_PER_PAGE, totalFilteredCount)}</strong>번째 카드
                   </span>
                   <span>
                     페이지 <strong className="text-white font-bold">{validPage}</strong> / {totalPages}
