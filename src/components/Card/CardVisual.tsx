@@ -283,8 +283,9 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
         ['--member-glow'        as string]: memberTheme.glowColor,
         // ── GPU 하드웨어 가속 3D 틸트: 루트에만 적용 (마우스 있는 곳이 들려 올라옴) ──
         transform: isOwned
-          ? `perspective(800px) rotateX(var(--rotate-x)) rotateY(var(--rotate-y)) ${interacting ? 'translateY(-3px)' : ''}`
+          ? `perspective(600px) rotateX(var(--rotate-x)) rotateY(var(--rotate-y)) ${interacting ? 'translateY(-5px) translateZ(10px)' : ''}`
           : undefined,
+        transformStyle: 'preserve-3d',
         transition: interacting
           ? 'transform 0.08s ease-out'
           : 'transform 0.55s cubic-bezier(0.23, 1, 0.32, 1)',
@@ -307,6 +308,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
           메인 카드 바디 — simeydotme 수준의 5단계 멀티 레이어 아키텍처
           ══════════════════════════════════════════════════════════════ */}
       <div
+        style={{ transformStyle: 'preserve-3d' }}
         className={`relative w-full h-full rounded-2xl ${
           rarityBorders[card.rarity]
         } bg-black flex flex-col justify-between overflow-hidden z-10 shadow-2xl`}
@@ -369,7 +371,10 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
             {/* ── [Layer 4: Character Artwork Layer] (z-20) ── */}
             {/* 🎯 스마트 크롭된 600x840 px 고화질 이미지를 카드에 꽉 채우고, 얼굴이 color-dodge로 타지 않도록 선명하게 보호! */}
             {card.image && (
-              <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+              <div 
+                style={{ transform: 'translateZ(20px) scale(0.95)', transformStyle: 'preserve-3d' }}
+                className="absolute inset-0 pointer-events-none z-20 overflow-hidden"
+              >
                 <img
                   src={card.image}
                   alt={card.name}
@@ -397,12 +402,18 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
 
             {/* ── [Layer 4-B: SSR 전용 3D 이너 림 액자 프레임 (레퍼런스 스타일)] ── */}
             {card.rarity === 'SSR' && isOwned && (
-              <div className="absolute inset-[12px] rounded-xl border-2 border-white/45 shadow-[inset_0_0_15px_rgba(255,255,255,0.4),0_0_15px_rgba(0,0,0,0.6)] pointer-events-none z-21" />
+              <div 
+                style={{ transform: 'translateZ(30px)' }}
+                className="absolute inset-[12px] rounded-xl border-2 border-white/45 shadow-[inset_0_0_15px_rgba(255,255,255,0.4),0_0_15px_rgba(0,0,0,0.6)] pointer-events-none z-21" 
+              />
             )}
 
             {/* ── [Layer 4-C: MR 전용 인물 위 교차 격자 광선 투과 레이어] ── */}
             {isOwned && card.rarity === 'MR' && (
-              <div className="absolute inset-0 rounded-2xl z-22 pointer-events-none finish-mr-radiant-nmixx opacity-45 mix-blend-color-dodge" />
+              <div 
+                style={{ transform: 'translateZ(22px)' }}
+                className="absolute inset-0 rounded-2xl z-22 pointer-events-none finish-mr-radiant-nmixx opacity-45 mix-blend-color-dodge" 
+              />
             )}
 
             {/* ── [Layer 5: Glare, Lighting & HUD UI Layer] (z-25 ~ z-30) ── */}
@@ -414,6 +425,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                   ['--glare-max' as string]: isSsrPlus ? '0.45'
                     : ['R', 'SR'].includes(card.rarity) ? '0.28'
                     : '0.18',
+                  transform: 'translateZ(35px)',
                 } as React.CSSProperties}
               />
             )}
@@ -438,10 +450,16 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
             )}
 
             {/* 5C. 1px 섬세한 이너 프레임 라인 */}
-            <div className="absolute inset-[6px] rounded-xl border border-white/10 pointer-events-none z-27" />
+            <div 
+              style={{ transform: 'translateZ(38px)' }}
+              className="absolute inset-[6px] rounded-xl border border-white/10 pointer-events-none z-27" 
+            />
 
             {/* 5D. 상단 레퍼런스 디자인: NMIXX 시그니처 로고 (상단 좌측) */}
-            <div className="relative z-30 w-full p-2.5 pt-2 flex items-center justify-between pointer-events-none">
+            <div 
+              style={{ transform: 'translateZ(45px)' }}
+              className="relative z-30 w-full p-2.5 pt-2 flex items-center justify-between pointer-events-none"
+            >
               <span className="font-sans font-black text-[11px] sm:text-[13px] tracking-widest text-white/95 drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] uppercase">
                 NMIXX
               </span>
@@ -450,7 +468,10 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
 
             {/* 5E. 하단 레퍼런스 디자인 정보 바 (하단 좌: 멤버명+NMIXX / 하단 우: 등급+시리얼) */}
             {showDetails && (
-              <div className="relative z-30 mt-auto w-full px-3 py-2.5 bg-gradient-to-t from-black/95 via-black/80 to-transparent flex items-end justify-between pointer-events-none">
+              <div 
+                style={{ transform: 'translateZ(45px)' }}
+                className="relative z-30 mt-auto w-full px-3 py-2.5 bg-gradient-to-t from-black/95 via-black/80 to-transparent flex items-end justify-between pointer-events-none"
+              >
                 {/* 하단 좌측: 멤버 이름 (Bold Large) + NMIXX 서브텍스트 */}
                 <div className="flex flex-col leading-tight overflow-hidden max-w-[65%]">
                   <span className="font-sans font-black text-[13px] sm:text-[15px] text-white tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] truncate">
