@@ -131,37 +131,66 @@ export const BoosterPackThreeView: React.FC<BoosterPackThreeViewProps> = ({
     container.addEventListener('mousemove', handleMouseMove);
     container.addEventListener('mouseleave', handleMouseLeave);
 
-    // 6. Animation Render Loop
+    // 6. Animation Render Loop with Smart Viewport & Visibility Power Saving
     let animationId: number;
     let clock = new THREE.Clock();
+    let isVisible = true;
 
     const animate = () => {
-      animationId = requestAnimationFrame(animate);
-      const elapsedTime = clock.getElapsedTime();
+      if (!isDisposed && isVisible) {
+        animationId = requestAnimationFrame(animate);
+        const elapsedTime = clock.getElapsedTime();
 
-      // Smooth interpolation for mouse movement
-      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.08;
-      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.08;
+        // Smooth interpolation for mouse movement
+        mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.08;
+        mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.08;
 
-      // Realistic 3D Pouch Tilt
-      packGroup.rotation.y = mouseRef.current.x * 0.30;
-      packGroup.rotation.x = -mouseRef.current.y * 0.22;
+        // Realistic 3D Pouch Tilt
+        packGroup.rotation.y = mouseRef.current.x * 0.30;
+        packGroup.rotation.x = -mouseRef.current.y * 0.22;
 
-      // Very subtle organic floating
-      packGroup.position.y = Math.sin(elapsedTime * 1.8) * 0.04;
+        // Very subtle organic floating
+        packGroup.position.y = Math.sin(elapsedTime * 1.8) * 0.04;
 
-      // Subtle key light tracking without overexposing center
-      keyPointLight.position.x = mouseRef.current.x * 3.0;
-      keyPointLight.position.y = mouseRef.current.y * 3.0 + 2.0;
+        // Subtle key light tracking without overexposing center
+        keyPointLight.position.x = mouseRef.current.x * 3.0;
+        keyPointLight.position.y = mouseRef.current.y * 3.0 + 2.0;
 
-      renderer.render(scene, camera);
+        renderer.render(scene, camera);
+      }
     };
+
+    // 🌿 절전 가드: 화면에 3D 팩이 보일 때만 렌더링 (화면 밖/백그라운드 탭 시 GPU 점유 0% 절전)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const wasVisible = isVisible;
+          isVisible = entry.isIntersecting && document.visibilityState === 'visible';
+          if (isVisible && !wasVisible && !isDisposed) {
+            animate();
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(container);
+
+    const handleVisibilityChange = () => {
+      const wasVisible = isVisible;
+      isVisible = document.visibilityState === 'visible';
+      if (isVisible && !wasVisible && !isDisposed) {
+        animate();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     animate();
 
     // 7. Cleanup
     return () => {
       isDisposed = true;
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       cancelAnimationFrame(animationId);
       container.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener('mouseleave', handleMouseLeave);
