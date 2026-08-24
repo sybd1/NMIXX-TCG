@@ -59,18 +59,24 @@ export const createGuestInitialState = (): GameState => {
 export const DEFAULT_INITIAL_STATE: GameState = createGuestInitialState();
 
 export class StorageService {
-  private static getStorageKey(userId?: string | null): string {
+  private static getStorageKey(userId?: string | null): string | null {
     if (userId && userId !== 'guest') {
       return `nmixx_tcg_user_${userId}`;
     }
-    return 'nmixx_tcg_guest';
+    return null; // 게스트는 영구 저장 키 없음
   }
 
   public static loadState(userId?: string | null): GameState {
+    // 👤 게스트(비로그인): 새로고침이나 재접속 시 데이터 영구 저장 없이 무조건 클린 초기 상태 반환
+    if (!userId || userId === 'guest') {
+      return createGuestInitialState();
+    }
+
     try {
       const key = this.getStorageKey(userId);
+      if (!key) return createGuestInitialState();
+
       const data = typeof window !== 'undefined' ? localStorage.getItem(key) : null;
-      
       if (!data) {
         const fresh = createGuestInitialState();
         this.saveState(fresh, userId);
@@ -93,26 +99,35 @@ export class StorageService {
 
       return parsed;
     } catch (e) {
-      console.warn('Failed to load state, returning fresh default:', e);
+      console.warn('Failed to load user state, returning fresh default:', e);
       return createGuestInitialState();
     }
   }
 
   public static saveState(state: GameState, userId?: string | null): void {
+    // 🚫 게스트(비로그인) 데이터는 로컬스토리지에 일절 저장하지 않음
+    if (!userId || userId === 'guest') {
+      return;
+    }
+
     try {
       if (typeof window === 'undefined') return;
       const key = this.getStorageKey(userId);
-      localStorage.setItem(key, JSON.stringify(state));
+      if (key) {
+        localStorage.setItem(key, JSON.stringify(state));
+      }
     } catch (e) {
-      console.warn('Failed to save state to localStorage:', e);
+      console.warn('Failed to save user state to localStorage:', e);
     }
   }
 
   public static clearState(userId?: string | null): GameState {
     try {
-      const fresh = createGuestInitialState();
-      this.saveState(fresh, userId);
-      return fresh;
+      const key = this.getStorageKey(userId);
+      if (key && typeof window !== 'undefined') {
+        localStorage.removeItem(key);
+      }
+      return createGuestInitialState();
     } catch (e) {
       console.warn('Failed to clear state:', e);
       return createGuestInitialState();
