@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   base: './',
   build: {
-    chunkSizeWarningLimit: 800,
+    chunkSizeWarningLimit: 1600,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -14,6 +14,7 @@ export default defineConfig({
           'vendor-three': ['three'],
           'vendor-icons': ['lucide-react'],
           'vendor-firebase': ['firebase/app', 'firebase/auth', 'firebase/firestore'],
+          'vendor-confetti': ['canvas-confetti'],
         }
       }
     }
