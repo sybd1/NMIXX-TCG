@@ -670,7 +670,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
               const memberCards = set.cardIds
                 .map(id => MASTER_CARDS.find(c => c.id === id))
                 .filter((c): c is Card => !!c);
-              const r = set.rewardCard.rarity;
+              const r = set.rewardCard?.rarity || 'SR';
               const isClaimed = claimedSetRewards.includes(set.setId);
 
               if (memberCards.length === 0) return null;
@@ -751,9 +751,8 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                     })}
                   </div>
 
-                  {/* Reward Banner (대형 보상 세트 카드 및 머니 보상 인스펙터 바) */}
                   <div
-                    onClick={() => isCompleted && setSelectedCard(set.rewardCard)}
+                    onClick={() => isCompleted && set.rewardCard && setSelectedCard(set.rewardCard)}
                     className={`p-4 sm:p-5 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all ${
                       isCompleted
                         ? 'bg-amber-500/20 border-amber-400/60 hover:bg-amber-500/30 cursor-pointer shadow-lg'
@@ -767,23 +766,27 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                       <div className="flex flex-col gap-0.5">
                         <div className="flex items-center gap-2">
                           <span className="text-sm sm:text-base font-serif font-black text-amber-200">
-                            {set.rewardCard.name}
+                            {set.rewardCard ? set.rewardCard.name : `${set.setTitle} 수집 보상`}
                           </span>
                           <span className="text-xs font-mono font-black text-amber-300 bg-black/70 px-2 py-0.5 rounded-lg border border-amber-500/30">
                             🪙 +{set.rewardCoins.toLocaleString()} N COIN 지급
                           </span>
                         </div>
                         <span className="text-xs font-mono text-slate-400">
-                          {isCompleted ? '👉 터치하여 전설의 풀아트 세트 카드를 감상하세요!' : '6명의 멤버 카드를 모두 수집하면 게임 머니와 전설의 세트 카드가 해금됩니다.'}
+                          {isCompleted 
+                            ? (set.rewardCard ? '👉 터치하여 전설의 풀아트 세트 카드를 감상하세요!' : '🎉 세트 완성 보상 코인이 지급되었습니다!') 
+                            : (set.rewardCard ? '6명의 멤버 카드를 모두 수집하면 게임 머니와 전설의 세트 카드가 해금됩니다.' : '6명의 멤버 카드를 모두 수집하면 게임 머니가 지급됩니다.')}
                         </span>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2 self-end sm:self-auto font-mono text-xs">
-                      <span className="text-amber-300 font-black bg-black/60 px-3 py-1.5 rounded-xl border border-amber-500/30 whitespace-nowrap">
-                        ✨ SPECIAL FULL-ART
-                      </span>
-                    </div>
+                    {set.rewardCard && (
+                      <div className="flex items-center gap-2 self-end sm:self-auto font-mono text-xs">
+                        <span className="text-amber-300 font-black bg-black/60 px-3 py-1.5 rounded-xl border border-amber-500/30 whitespace-nowrap">
+                          ✨ SPECIAL FULL-ART
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
               );

@@ -66,5 +66,5 @@ export interface ConceptSetCard {
   rewardCoins: number; // 세트 완성 시 지급되는 게임머니 (예: UR 5천만, R 10만 등)
   cardIds: string[]; // 6명의 멤버 카드 ID 목록 (LILY, HAEWON, SULLYOON, BAE, JIWOO, KYUJIN)
   members: NmixxMember[];
-  rewardCard: Card;
+  rewardCard?: Card;
 }

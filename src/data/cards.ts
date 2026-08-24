@@ -12775,31 +12775,6 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       'nmixx_300_004'
     ],
     members: ['LILY', 'HAEWON', 'SULLYOON', 'BAE', 'JIWOO', 'KYUJIN'],
-    rewardCard: {
-      id: 'reward_set_forward_harmony',
-      name: "[보상] Spinnin' On It Concept Photo 세트 보상 카드",
-      member: 'NMIXX',
-      category: 'LEADER',
-      rarity: 'MR',
-      finishType: 'COSMIC_GHOST',
-      collectionNumber: 906,
-      cost: 8,
-      power: 13500,
-      description: "Spinnin' On It Concept Photo 6인 멤버 전원 수집 완료 기념 스페셜 MR 보상 카드입니다.",
-      dustValue: 5000,
-      craftCost: null,
-      theme: '엔믹스 단체',
-      era: 'Blue Valentine',
-      gradient: 'from-blue-600 via-indigo-800 to-cyan-400',
-      symbol: '✨',
-      quote: "Spinnin' On It, 새로운 차원의 경계를 넘어서!",
-      image: '/card-pack-image/crop-image/nx3-blueV/concept1/group-members/148a76a8c72e7d6b7d0a997097942b31.jpg',
-      packCode: 'NX-03',
-      packId: 'op03',
-      packName: 'NX 03 - Blue Valentine',
-      setId: 'set_forward_harmony',
-      setTitle: "Spinnin' On It Concept Photo 세트 카드"
-    },
     rewardCoins: 50000000
   }
 ];
