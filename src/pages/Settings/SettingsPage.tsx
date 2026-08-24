@@ -3,20 +3,48 @@ import { GameState } from '../../types/game';
 import { RARITY_CONFIGS, FINISH_CONFIGS } from '../../config/gameConfig';
 import { MASTER_CARDS } from '../../data/cards';
 import { Rarity } from '../../types/card';
-import { Info, Volume2, VolumeX, RotateCcw, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { Info, Volume2, VolumeX, RotateCcw, ShieldCheck, AlertTriangle, Ticket } from 'lucide-react';
+import confetti from 'canvas-confetti';
 
 interface SettingsPageProps {
   state: GameState;
   onToggleSound: () => void;
   onResetGame: () => void;
+  onRedeemCoupon?: (code: string) => { success: boolean; message: string; isSecret?: boolean };
 }
 
 export const SettingsPage: React.FC<SettingsPageProps> = ({
   state,
   onToggleSound,
   onResetGame,
+  onRedeemCoupon,
 }) => {
   const [showConfirmReset, setShowConfirmReset] = useState(false);
+  const [couponCode, setCouponCode] = useState('');
+  const [couponMsg, setCouponMsg] = useState<{ success: boolean; text: string } | null>(null);
+
+  const handleCouponSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!couponCode.trim() || !onRedeemCoupon) return;
+
+    const res = onRedeemCoupon(couponCode.trim());
+    setCouponMsg({ success: res.success, text: res.message });
+
+    if (res.success) {
+      if (res.isSecret) {
+        confetti({
+          particleCount: 150,
+          spread: 90,
+          origin: { y: 0.6 },
+          colors: ['#f59e0b', '#ec4899', '#a855f7', '#38bdf8', '#fbbf24', '#ffffff'],
+          zIndex: 9999,
+        });
+      } else {
+        confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 }, zIndex: 9999 });
+      }
+      setCouponCode('');
+    }
+  };
 
   const totalCollectedCards = Object.values(state.collection).reduce((sum, c) => sum + c, 0);
   const uniqueCollectedCards = Object.keys(state.collection).filter(id => (state.collection[id] || 0) > 0).length;
@@ -188,6 +216,48 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
                 확인 및 초기화
               </button>
             </div>
+          </div>
+        )}
+      </div>
+
+      {/* 🎫 공식 및 시크릿 쿠폰 교환소 */}
+      <div className="bg-void-900/80 border border-purple-500/40 p-6 rounded-3xl flex flex-col gap-4 shadow-xl">
+        <div className="flex flex-col gap-1 border-b border-white/10 pb-3">
+          <span className="font-serif font-bold text-slate-100 text-sm flex items-center gap-2">
+            <Ticket size={16} className="text-pink-400" />
+            엔써 공식 및 시크릿 쿠폰 교환소
+          </span>
+          <span className="text-xs text-slate-400 font-mono">
+            공식 프로모션 코드 및 엔써 전용 시크릿 문구를 입력하여 특별 지원금을 수령하세요.
+          </span>
+        </div>
+
+        <form onSubmit={handleCouponSubmit} className="flex flex-col sm:flex-row gap-2">
+          <input
+            type="text"
+            placeholder="쿠폰 코드 또는 시크릿 서약 문구를 입력하세요"
+            value={couponCode}
+            onChange={(e) => setCouponCode(e.target.value)}
+            className="flex-1 px-4 py-3 rounded-2xl bg-black/60 border border-purple-500/30 text-white font-mono text-sm focus:outline-none focus:border-pink-400 focus:ring-1 focus:ring-pink-400 transition-all placeholder:text-slate-600"
+          />
+          <button
+            type="submit"
+            className="px-6 py-3 rounded-2xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-mono text-sm font-black shadow-lg shadow-pink-950/60 hover:scale-105 transition-all cursor-pointer flex-shrink-0"
+          >
+            쿠폰 등록
+          </button>
+        </form>
+
+        {couponMsg && (
+          <div
+            className={`p-3.5 rounded-2xl border text-xs font-sans flex items-center gap-2 ${
+              couponMsg.success
+                ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-200'
+                : 'bg-rose-500/20 border-rose-500/40 text-rose-200'
+            }`}
+          >
+            <span>{couponMsg.success ? '🎉' : '⚠️'}</span>
+            <span>{couponMsg.text}</span>
           </div>
         )}
       </div>

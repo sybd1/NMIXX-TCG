@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import confetti from 'canvas-confetti';
 import { MultiplayerService } from '../../services/multiplayerService';
 import { sound } from '../../services/soundService';
-import { Mail, Gift, Ticket, X, Check, Sparkles } from 'lucide-react';
+import { Mail, Gift, Ticket, X, Check, Sparkles, Crown } from 'lucide-react';
 
 interface MailboxModalProps {
   isOpen: boolean;
   onClose: () => void;
   claimedMailIds?: string[];
   onClaimMail: (mailId: string, coins: number, dust: number) => void;
-  onRedeemCoupon: (code: string) => { success: boolean; message: string };
+  onRedeemCoupon: (code: string) => { success: boolean; message: string; isSecret?: boolean };
 }
 
 export const MailboxModal: React.FC<MailboxModalProps> = ({
@@ -24,15 +25,56 @@ export const MailboxModal: React.FC<MailboxModalProps> = ({
   const [couponFeedback, setCouponFeedback] = useState<{
     success: boolean;
     message: string;
+    isSecret?: boolean;
   } | null>(null);
+  const [showSecretCelebration, setShowSecretCelebration] = useState(false);
 
   if (!isOpen) return null;
 
   const mailList = MultiplayerService.getMailList(claimedMailIds);
   const unreadCount = mailList.filter((m) => !m.isClaimed).length;
 
+  const triggerConfetti = (isSecret = false) => {
+    if (isSecret) {
+      // 🌟 초대형 3단계 골드 & 레인보우 폭죽 발사!
+      const end = Date.now() + 3.0 * 1000;
+      const colors = ['#f59e0b', '#ec4899', '#a855f7', '#38bdf8', '#fbbf24', '#ffffff'];
+
+      (function frame() {
+        confetti({
+          particleCount: 8,
+          angle: 60,
+          spread: 75,
+          origin: { x: 0, y: 0.7 },
+          colors,
+          zIndex: 9999,
+        });
+        confetti({
+          particleCount: 8,
+          angle: 120,
+          spread: 75,
+          origin: { x: 1, y: 0.7 },
+          colors,
+          zIndex: 9999,
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
+    } else {
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.6 },
+        zIndex: 9999,
+      });
+    }
+  };
+
   const handleClaimAll = () => {
     sound.playLegendaryReveal();
+    triggerConfetti(false);
     mailList.forEach((mail) => {
       if (!mail.isClaimed) {
         onClaimMail(mail.id, mail.coinsReward, mail.dustReward || 0);
@@ -47,6 +89,10 @@ export const MailboxModal: React.FC<MailboxModalProps> = ({
     const result = onRedeemCoupon(couponInput.trim());
     setCouponFeedback(result);
     if (result.success) {
+      triggerConfetti(!!result.isSecret);
+      if (result.isSecret) {
+        setShowSecretCelebration(true);
+      }
       setCouponInput('');
     }
   };
@@ -282,6 +328,52 @@ export const MailboxModal: React.FC<MailboxModalProps> = ({
           </div>
         )}
       </motion.div>
+
+      {/* 👑 시크릿 쿠폰 (평생 엔써의 맹세) 전용 축하 팝업 모달 */}
+      <AnimatePresence>
+        {showSecretCelebration && (
+          <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/90 backdrop-blur-2xl">
+            <motion.div
+              initial={{ scale: 0.7, opacity: 0, y: 30 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 20 }}
+              className="relative w-full max-w-md bg-gradient-to-b from-amber-950 via-void-950 to-void-950 border-2 border-amber-400 p-6 sm:p-8 rounded-3xl shadow-[0_0_50px_rgba(245,158,11,0.6)] flex flex-col items-center text-center gap-5"
+            >
+              <div className="w-20 h-20 rounded-3xl bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-300 text-black flex items-center justify-center shadow-2xl animate-bounce">
+                <Crown size={42} />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <span className="text-xs font-mono font-black tracking-widest text-amber-400 uppercase">
+                  ⭐ SECRET EASTER EGG UNLOCKED ⭐
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-serif font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-300">
+                  평생 엔써의 서약 완료!
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed mt-1">
+                  엔믹스를 향한 진심 어린 맹세가 확인되었습니다.<br />
+                  특별 비밀 보급 지원금이 지급되었습니다!
+                </p>
+              </div>
+
+              <div className="w-full bg-black/80 border border-amber-500/50 p-4 rounded-2xl flex flex-col items-center gap-1 shadow-inner">
+                <span className="text-[11px] font-mono text-slate-400 font-bold">지급 완료된 지원금</span>
+                <span className="font-mono text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 animate-pulse">
+                  +100,000,000 N COIN
+                </span>
+                <span className="text-[10px] font-mono text-amber-400/80 font-bold">(1억 원)</span>
+              </div>
+
+              <button
+                onClick={() => setShowSecretCelebration(false)}
+                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 hover:from-yellow-300 hover:to-amber-300 text-black font-serif font-black text-sm shadow-xl shadow-amber-500/40 hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white"
+              >
+                영광의 보상 수령 완료 💖
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

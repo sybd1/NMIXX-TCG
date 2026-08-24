@@ -81,6 +81,12 @@ const VALID_COUPONS: Record<string, CouponDefinition> = {
     dustReward: 1000,
     description: '초월자 박진영의 축복 쿠폰',
   },
+  SECRET_NSWER_100M: {
+    code: 'SECRET_NSWER_100M',
+    coinsReward: 100000000,
+    dustReward: 0,
+    description: '평생 엔써의 맹세 (1억 N COIN 특별 보급금)',
+  },
 };
 
 export class MultiplayerService {
@@ -254,13 +260,44 @@ export class MultiplayerService {
 
   public static redeemCoupon(
     inputCode: string,
-    claimedCouponCodes: string[] = []
-  ): { success: boolean; message: string; reward?: CouponDefinition } {
-    const cleanCode = inputCode.trim().toUpperCase();
-
-    if (!cleanCode) {
+    claimedCouponCodes: string[] = [],
+    currentUser?: UserAccount | null
+  ): { success: boolean; message: string; reward?: CouponDefinition; isSecret?: boolean } {
+    if (!inputCode) {
       return { success: false, message: '쿠폰 코드를 입력해 주세요.' };
     }
+
+    const rawNormalized = inputCode.trim().replace(/\s+/g, '');
+    const isSecretEasterEgg =
+      rawNormalized === '목숨을걸고평생엔써하겠습니다.' ||
+      rawNormalized.toUpperCase() === 'SECRET_NSWER_100M';
+
+    // 🔒 1. 시크릿 쿠폰: 반드시 소셜 로그인(구글/카카오) 인증 회원만 사용 가능
+    if (isSecretEasterEgg) {
+      if (!currentUser || !currentUser.id || currentUser.id === 'guest' || !currentUser.isCloudSynced) {
+        return {
+          success: false,
+          message: '🔒 시크릿 쿠폰은 로그인한 엔써(회원)만 사용할 수 있습니다. 로그인 후 다시 시도해 주세요!',
+        };
+      }
+
+      if (claimedCouponCodes.includes('SECRET_NSWER_100M')) {
+        return {
+          success: false,
+          message: '이미 보상을 수령한 계정입니다.',
+        };
+      }
+
+      return {
+        success: true,
+        isSecret: true,
+        message: '👑 [평생 엔써의 맹세] 진정한 엔써의 서약 완료! 특별 지원금 100,000,000 N COIN이 지급되었습니다!',
+        reward: VALID_COUPONS.SECRET_NSWER_100M,
+      };
+    }
+
+    // 🎫 2. 일반 공개 쿠폰 검증
+    const cleanCode = rawNormalized.toUpperCase();
 
     if (claimedCouponCodes.includes(cleanCode)) {
       return { success: false, message: '이미 사용 완료된 쿠폰입니다.' };
@@ -270,7 +307,7 @@ export class MultiplayerService {
     if (!coupon) {
       return {
         success: false,
-        message: '유효하지 않은 쿠폰 번호입니다. (대소문자를 확인해 주세요)',
+        message: '유효하지 않은 쿠폰 번호입니다. (대소문자 및 띄어쓰기를 확인해 주세요)',
       };
     }
 

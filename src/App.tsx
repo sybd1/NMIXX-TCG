@@ -334,6 +334,7 @@ export const App: React.FC = () => {
             state={state}
             onToggleSound={toggleSound}
             onResetGame={resetGame}
+            onRedeemCoupon={redeemCouponCode}
           />
         )}
 

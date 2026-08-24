@@ -397,8 +397,9 @@ export function useGameState() {
   }, []);
 
   const redeemCouponCode = useCallback((code: string) => {
+    const currentUser = AuthService.getCurrentUser();
     const claimedCoupons = state.claimedCouponCodes || [];
-    const result = MultiplayerService.redeemCoupon(code, claimedCoupons);
+    const result = MultiplayerService.redeemCoupon(code, claimedCoupons, currentUser);
 
     if (result.success && result.reward) {
       setState(prev => ({
@@ -407,7 +408,12 @@ export function useGameState() {
         dust: (prev.dust || 0) + (result.reward!.dustReward || 0),
         claimedCouponCodes: [...(prev.claimedCouponCodes || []), result.reward!.code],
       }));
-      sound.playMythicReveal();
+
+      if (result.isSecret) {
+        sound.playVictoryFanfare();
+      } else {
+        sound.playMythicReveal();
+      }
     }
 
     return result;
