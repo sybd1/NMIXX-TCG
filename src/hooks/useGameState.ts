@@ -189,6 +189,77 @@ export function useGameState() {
     return revealed;
   }, [state.collection, state.pityCount]);
 
+  // 원자적 카드팩 개봉 트랜잭션: 재화 차감 + 인벤토리 갱신 + 천장 반영을 단 1회의 트랜잭션으로 커밋
+  const commitPackOpening = useCallback((cost: number, packResults: { cards: Card[]; newPity: number }[]) => {
+    if (state.coins < cost) return { success: false, revealed: [] };
+
+    const revealed: RevealedCard[] = [];
+    const newCollection = { ...state.collection };
+    const historyItems: PackHistoryItem[] = [];
+    let finalPity = state.pityCount;
+
+    packResults.forEach((pack, pIdx) => {
+      finalPity = pack.newPity;
+      let highestRarity = pack.cards[0].rarity;
+
+      pack.cards.forEach((card, cIdx) => {
+        const isXR = card.rarity === 'XR' || card.id === 'card_xr_transcendent_park_741';
+        const existingCount = newCollection[card.id] || 0;
+        const isNew = existingCount === 0;
+
+        newCollection[card.id] = isXR ? 1 : existingCount + 1;
+
+        if (['SSR', 'UR', 'LR', 'MR', 'XR'].includes(card.rarity)) {
+          const currentUser = AuthService.getCurrentUser();
+          MultiplayerService.broadcastHighTierPull(
+            currentUser?.displayName || '익명의 엔써',
+            currentUser?.id || 'guest',
+            card
+          );
+        }
+
+        revealed.push({
+          ...card,
+          instanceId: `${card.id}_${Date.now()}_${pIdx}_${cIdx}`,
+          isNew,
+          duplicateCount: newCollection[card.id],
+          isFlipped: false,
+        });
+
+        highestRarity = card.rarity;
+      });
+
+      const hasMR = pack.cards.some(c => c.rarity === 'MR');
+      const hasLR = pack.cards.some(c => c.rarity === 'LR');
+      const hasUR = pack.cards.some(c => c.rarity === 'UR');
+      const hasSSR = pack.cards.some(c => c.rarity === 'SSR');
+
+      historyItems.push({
+        id: `pack_${Date.now()}_${pIdx}`,
+        timestamp: Date.now() + pIdx,
+        packName: `${GAME_CONFIG.PACK_INFO.name} (${pIdx + 1}/${packResults.length})`,
+        cards: pack.cards,
+        highestRarity,
+        hasMR,
+        hasLR,
+        hasUR,
+        hasSSR,
+      });
+    });
+
+    setState(prev => ({
+      ...prev,
+      coins: prev.coins - cost,
+      coinsSpentTotal: (prev.coinsSpentTotal || 0) + cost,
+      collection: newCollection,
+      pityCount: finalPity,
+      openedPacksTotal: prev.openedPacksTotal + packResults.length,
+      packHistory: [...historyItems.reverse(), ...prev.packHistory].slice(0, 50),
+    }));
+
+    return { success: true, revealed };
+  }, [state.coins, state.collection, state.pityCount]);
+
   // 단일 팩 헬퍼
   const addPackResult = useCallback((cards: Card[], newPity: number) => {
     return addMultiplePacksResult([{ cards, newPity }]);
@@ -381,6 +452,7 @@ export function useGameState() {
     spendCoins,
     addPackResult,
     addMultiplePacksResult,
+    commitPackOpening,
     canClaimDailyBonus,
     claimDailyBonus,
     claimMmuEasterEgg,

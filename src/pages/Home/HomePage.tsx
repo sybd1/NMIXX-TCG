@@ -293,7 +293,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             transition={{ duration: 3.6, repeat: Infinity, delay: 0.0, ease: 'easeInOut' }}
             whileHover={canAffordSingle ? { scale: 1.03 } : {}}
             whileTap={canAffordSingle ? { scale: 0.95 } : {}}
-            className={`relative py-2.5 sm:py-3 px-1.5 sm:px-2.5 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer whitespace-nowrap border ${
+            className={`relative min-h-[58px] py-2.5 sm:py-3 px-1.5 sm:px-2.5 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer whitespace-nowrap border touch-manipulation active:scale-95 ${
               canAffordSingle
                 ? 'bg-gradient-to-br from-slate-900 via-indigo-950 to-blue-900 text-cyan-200 shadow-lg shadow-cyan-950/40'
                 : 'bg-void-900 text-slate-600 border-white/5 cursor-not-allowed opacity-60'
@@ -334,7 +334,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             transition={{ duration: 3.6, repeat: Infinity, delay: 1.2, ease: 'easeInOut' }}
             whileHover={canAffordFive ? { scale: 1.03 } : {}}
             whileTap={canAffordFive ? { scale: 0.95 } : {}}
-            className={`relative py-2.5 sm:py-3 px-1.5 sm:px-2.5 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer whitespace-nowrap border ${
+            className={`relative min-h-[58px] py-2.5 sm:py-3 px-1.5 sm:px-2.5 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer whitespace-nowrap border touch-manipulation active:scale-95 ${
               canAffordFive
                 ? 'bg-gradient-to-br from-purple-950 via-fuchsia-950 to-pink-900 text-pink-200 shadow-xl shadow-fuchsia-950/60 ring-1 ring-pink-500/30'
                 : 'bg-void-900 text-slate-600 border-white/5 cursor-not-allowed opacity-60'
@@ -375,7 +375,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             transition={{ duration: 3.6, repeat: Infinity, delay: 2.4, ease: 'easeInOut' }}
             whileHover={canAffordTen ? { scale: 1.04 } : {}}
             whileTap={canAffordTen ? { scale: 0.95 } : {}}
-            className={`relative py-2.5 sm:py-3 px-1.5 sm:px-2.5 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer whitespace-nowrap border-2 ${
+            className={`relative min-h-[58px] py-2.5 sm:py-3 px-1.5 sm:px-2.5 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer whitespace-nowrap border-2 touch-manipulation active:scale-95 ${
               canAffordTen
                 ? 'bg-gradient-to-br from-amber-600 via-rose-600 to-amber-500 text-yellow-100 shadow-2xl shadow-amber-950/80 ring-2 ring-yellow-400/50'
                 : 'bg-void-900 text-slate-600 border-white/5 cursor-not-allowed opacity-60'

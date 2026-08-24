@@ -31,9 +31,7 @@ import { SettingsPage } from './pages/Settings/SettingsPage';
 export const App: React.FC = () => {
   const {
     state,
-    spendCoins,
-    addPackResult,
-    addMultiplePacksResult,
+    commitPackOpening,
     claimMmuEasterEgg,
     claimSetReward,
     claimAchievement,
@@ -61,10 +59,44 @@ export const App: React.FC = () => {
     pack: BoosterPackConfig;
     packCount: number;
     cost: number;
+    packResults: { cards: Card[]; newPity: number }[];
   } | null>(null);
 
   // 개봉 중복 호출 방지용 락
   const isOpeningLockRef = useRef(false);
+
+  // 📱 모바일 브라우저 뒤로가기 (History API & popstate) 라우팅 연동
+  useEffect(() => {
+    // 초기 히스토리 상태 설정
+    window.history.replaceState({ app: 'nmixx_tcg', tab: 'home' }, '');
+
+    const handlePopState = () => {
+      // 1순위: 카드팩 개봉 중이면 팩 개봉 화면 종료
+      if (openingState) {
+        setOpeningState(null);
+        isOpeningLockRef.current = false;
+        return;
+      }
+
+      // 2순위: 열린 모달이 있으면 해당 모달 닫기
+      if (isAuthModalOpen || isProfileModalOpen || isLeaderboardOpen || isMailboxOpen || isMarketOpen) {
+        setIsAuthModalOpen(false);
+        setIsProfileModalOpen(false);
+        setIsLeaderboardOpen(false);
+        setIsMailboxOpen(false);
+        setIsMarketOpen(false);
+        return;
+      }
+
+      // 3순위: 서브 탭(컬렉션, 업적, 설정 등)에 있으면 메인 홈으로 복귀
+      if (currentTab !== 'home') {
+        setCurrentTab('home');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [openingState, isAuthModalOpen, isProfileModalOpen, isLeaderboardOpen, isMailboxOpen, isMarketOpen, currentTab]);
 
   // ⌨️ 글로벌 고속 ESC 키 핸들러: 카드팩 개봉 중, 탭 화면, 모달 등 어디서나 ESC를 누르면 0ms 즉시 메인 팩오픈 화면으로 복귀
   useEffect(() => {
@@ -96,27 +128,45 @@ export const App: React.FC = () => {
     (m) => !m.isClaimed
   ).length;
 
-  // 1팩 개봉 로직 (5장)
+  // 1팩 개봉 로직 (5장) - 트랜잭션 분리
   const handleOpenSinglePack = (pack: BoosterPackConfig = BOOSTER_PACKS[0]) => {
     if (isOpeningLockRef.current) return;
-    if (!spendCoins(GAME_CONFIG.PACK_COST_SINGLE)) return;
+    if (state.coins < GAME_CONFIG.PACK_COST_SINGLE) return;
 
     isOpeningLockRef.current = true;
     sound.playClick();
+
     const result = RngService.generatePack(state.pityCount, pack.id, state.collection);
-    const revealed = addPackResult(result.cards, result.newPity);
+    const tempCollection = { ...state.collection };
+    const revealed: RevealedCard[] = result.cards.map((c, idx) => {
+      const existing = tempCollection[c.id] || 0;
+      tempCollection[c.id] = (c.rarity === 'XR' || c.id === 'card_xr_transcendent_park_741') ? 1 : existing + 1;
+      return {
+        ...c,
+        instanceId: `${c.id}_${Date.now()}_0_${idx}`,
+        isNew: existing === 0,
+        duplicateCount: tempCollection[c.id],
+        isFlipped: false,
+      };
+    });
+
+    try {
+      window.history.pushState({ screen: 'pack-opening' }, '');
+    } catch (e) {}
+
     setOpeningState({
       cards: revealed,
       pack,
       packCount: 1,
       cost: GAME_CONFIG.PACK_COST_SINGLE,
+      packResults: [result],
     });
   };
 
-  // 5팩 개봉 로직 (25장)
+  // 5팩 개봉 로직 (25장) - 트랜잭션 분리
   const handleOpenFivePacks = (pack: BoosterPackConfig = BOOSTER_PACKS[0]) => {
     if (isOpeningLockRef.current) return;
-    if (!spendCoins(GAME_CONFIG.PACK_COST_FIVE)) return;
+    if (state.coins < GAME_CONFIG.PACK_COST_FIVE) return;
 
     isOpeningLockRef.current = true;
     sound.playClick();
@@ -124,29 +174,42 @@ export const App: React.FC = () => {
     let currentPity = state.pityCount;
     const tempCollection = { ...state.collection };
     const packResults: { cards: Card[]; newPity: number }[] = [];
+    const allRevealedCards: RevealedCard[] = [];
 
     for (let i = 0; i < 5; i++) {
       const result = RngService.generatePack(currentPity, pack.id, tempCollection);
       currentPity = result.newPity;
-      result.cards.forEach((c) => {
-        tempCollection[c.id] = (tempCollection[c.id] || 0) + 1;
+      result.cards.forEach((c, idx) => {
+        const existing = tempCollection[c.id] || 0;
+        tempCollection[c.id] = (c.rarity === 'XR' || c.id === 'card_xr_transcendent_park_741') ? 1 : existing + 1;
+        allRevealedCards.push({
+          ...c,
+          instanceId: `${c.id}_${Date.now()}_${i}_${idx}`,
+          isNew: existing === 0,
+          duplicateCount: tempCollection[c.id],
+          isFlipped: false,
+        });
       });
       packResults.push(result);
     }
 
-    const allRevealedCards = addMultiplePacksResult(packResults);
+    try {
+      window.history.pushState({ screen: 'pack-opening' }, '');
+    } catch (e) {}
+
     setOpeningState({
       cards: allRevealedCards,
       pack,
       packCount: 5,
       cost: GAME_CONFIG.PACK_COST_FIVE,
+      packResults,
     });
   };
 
-  // 10팩 개봉 로직 (50장)
+  // 10팩 개봉 로직 (50장) - 트랜잭션 분리
   const handleOpenTenPacks = (pack: BoosterPackConfig = BOOSTER_PACKS[0]) => {
     if (isOpeningLockRef.current) return;
-    if (!spendCoins(GAME_CONFIG.PACK_COST_TEN)) return;
+    if (state.coins < GAME_CONFIG.PACK_COST_TEN) return;
 
     isOpeningLockRef.current = true;
     sound.playClick();
@@ -154,23 +217,54 @@ export const App: React.FC = () => {
     let currentPity = state.pityCount;
     const tempCollection = { ...state.collection };
     const packResults: { cards: Card[]; newPity: number }[] = [];
+    const allRevealedCards: RevealedCard[] = [];
 
     for (let i = 0; i < 10; i++) {
       const result = RngService.generatePack(currentPity, pack.id, tempCollection);
       currentPity = result.newPity;
-      result.cards.forEach((c) => {
-        tempCollection[c.id] = (tempCollection[c.id] || 0) + 1;
+      result.cards.forEach((c, idx) => {
+        const existing = tempCollection[c.id] || 0;
+        tempCollection[c.id] = (c.rarity === 'XR' || c.id === 'card_xr_transcendent_park_741') ? 1 : existing + 1;
+        allRevealedCards.push({
+          ...c,
+          instanceId: `${c.id}_${Date.now()}_${i}_${idx}`,
+          isNew: existing === 0,
+          duplicateCount: tempCollection[c.id],
+          isFlipped: false,
+        });
       });
       packResults.push(result);
     }
 
-    const allRevealedCards = addMultiplePacksResult(packResults);
+    try {
+      window.history.pushState({ screen: 'pack-opening' }, '');
+    } catch (e) {}
+
     setOpeningState({
       cards: allRevealedCards,
       pack,
       packCount: 10,
       cost: GAME_CONFIG.PACK_COST_TEN,
+      packResults,
     });
+  };
+
+  const handleSelectTab = (tab: NavTab) => {
+    sound.playClick();
+    if (tab !== currentTab) {
+      try {
+        window.history.pushState({ tab }, '');
+      } catch (e) {}
+      setCurrentTab(tab);
+    }
+  };
+
+  const handleOpenModalWithHistory = (openFn: () => void, modalName: string) => {
+    sound.playClick();
+    try {
+      window.history.pushState({ modal: modalName }, '');
+    } catch (e) {}
+    openFn();
   };
 
   return (
@@ -189,16 +283,13 @@ export const App: React.FC = () => {
         soundMuted={state.soundMuted}
         onToggleSound={toggleSound}
         currentTab={currentTab}
-        onSelectTab={(tab) => {
-          sound.playClick();
-          setCurrentTab(tab);
-        }}
+        onSelectTab={handleSelectTab}
         user={user}
-        onOpenAuth={() => setIsAuthModalOpen(true)}
-        onOpenProfile={() => setIsProfileModalOpen(true)}
-        onOpenLeaderboard={() => setIsLeaderboardOpen(true)}
-        onOpenMarket={() => setIsMarketOpen(true)}
-        onOpenMailbox={() => setIsMailboxOpen(true)}
+        onOpenAuth={() => handleOpenModalWithHistory(() => setIsAuthModalOpen(true), 'auth')}
+        onOpenProfile={() => handleOpenModalWithHistory(() => setIsProfileModalOpen(true), 'profile')}
+        onOpenLeaderboard={() => handleOpenModalWithHistory(() => setIsLeaderboardOpen(true), 'leaderboard')}
+        onOpenMarket={() => handleOpenModalWithHistory(() => setIsMarketOpen(true), 'market')}
+        onOpenMailbox={() => handleOpenModalWithHistory(() => setIsMailboxOpen(true), 'mailbox')}
         unreadMailCount={unreadMailCount}
       />
 
@@ -259,6 +350,9 @@ export const App: React.FC = () => {
           coins={state.coins}
           pityCount={state.pityCount}
           collection={state.collection}
+          onCommitOpening={() => {
+            commitPackOpening(openingState.cost, openingState.packResults);
+          }}
           onFinish={() => {
             isOpeningLockRef.current = false;
             setOpeningState(null);
@@ -285,10 +379,7 @@ export const App: React.FC = () => {
       {/* 5. Mobile Bottom Navigation */}
       <BottomNav
         currentTab={currentTab}
-        onSelectTab={(tab) => {
-          sound.playClick();
-          setCurrentTab(tab);
-        }}
+        onSelectTab={handleSelectTab}
       />
 
       {/* 6. Google & Kakao 소셜 로그인 모달 */}
