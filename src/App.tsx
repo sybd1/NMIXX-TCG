@@ -9,6 +9,7 @@ import { sound } from './services/soundService';
 import { AuthService } from './services/authService';
 import { MultiplayerService } from './services/multiplayerService';
 
+import { CosmicBackground } from './components/Background/CosmicBackground';
 import { Header } from './components/Navigation/Header';
 import { GlobalTicker } from './components/Navigation/GlobalTicker';
 import { BottomNav } from './components/Navigation/BottomNav';
@@ -32,7 +33,7 @@ export const App: React.FC = () => {
     spendCoins,
     addPackResult,
     addMultiplePacksResult,
-    claimMysteryBox,
+    claimMmuEasterEgg,
     claimSetReward,
     claimAchievement,
     claimXrCard,
@@ -148,21 +149,17 @@ export const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-[#070210] text-slate-100 flex flex-col justify-between pb-16 md:pb-0 overflow-x-hidden">
-      {/* 🌌 NMIXX MIXXTOPIA 글로벌 앰비언트 우주 배경 */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 transform-gpu">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0d041e] via-[#14082e] to-[#04010a]" />
-        <div className="absolute -top-20 left-1/4 w-72 sm:w-[30rem] h-72 sm:h-[30rem] rounded-full bg-pink-600/20 blur-2xl pointer-events-none" />
-        <div className="absolute top-1/3 -right-16 w-64 sm:w-[28rem] h-64 sm:h-[28rem] rounded-full bg-cyan-500/20 blur-2xl pointer-events-none" />
-        <div className="absolute -bottom-10 left-1/3 w-80 sm:w-[32rem] h-80 sm:h-[32rem] rounded-full bg-purple-600/20 blur-2xl pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:32px_32px] opacity-15" />
-      </div>
+      {/* 🌌 NMIXX MIXXTOPIA 코스믹 우주 배경 & 우측 하단 MMU 우주선 (50만 N COIN 이스터에그) */}
+      <CosmicBackground
+        hasClaimedEasterEgg={!!state.hasClaimedMmuEasterEgg}
+        onClaimEasterEgg={claimMmuEasterEgg}
+      />
 
       {/* 1. Header Navigation */}
       <Header
         coins={state.coins}
         soundMuted={state.soundMuted}
         onToggleSound={toggleSound}
-        onClaimMysteryBox={claimMysteryBox}
         currentTab={currentTab}
         onSelectTab={(tab) => {
           sound.playClick();

@@ -43,4 +43,5 @@ export interface GameState {
   claimedMailIds?: string[]; // 이미 수령한 우편 ID 목록
   claimedCouponCodes?: string[]; // 이미 사용한 쿠폰 코드 목록
   coinReset_v16?: boolean; // v1.6.0 전 유저 100만원 초기화 적용 플래그
+  hasClaimedMmuEasterEgg?: boolean; // MMU 우주선 50만 N COIN 이스터에그 수령 여부 (계정당 1회)
 }

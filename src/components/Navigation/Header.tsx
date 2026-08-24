@@ -1,5 +1,5 @@
 import React from 'react';
-import { Volume2, VolumeX, Gift, User, Mail } from 'lucide-react';
+import { Volume2, VolumeX, User, Mail } from 'lucide-react';
 import { NavTab } from '../../types/game';
 import { UserAccount } from '../../types/auth';
 
@@ -18,7 +18,6 @@ interface HeaderProps {
   onToggleSound: () => void;
   canClaimDaily?: boolean;
   onClaimDaily?: () => void;
-  onClaimMysteryBox: () => void;
   currentTab: NavTab;
   onSelectTab: (tab: NavTab) => void;
   user?: UserAccount | null;
@@ -34,7 +33,6 @@ export const Header: React.FC<HeaderProps> = ({
   coins,
   soundMuted,
   onToggleSound,
-  onClaimMysteryBox,
   currentTab,
   onSelectTab,
   user,
@@ -43,13 +41,6 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenMailbox,
   unreadMailCount = 0,
 }) => {
-  const [showRewardToast, setShowRewardToast] = React.useState(false);
-
-  const handleMysteryClick = () => {
-    onClaimMysteryBox();
-    setShowRewardToast(true);
-    setTimeout(() => setShowRewardToast(false), 2000);
-  };
 
   const userFav = user ? (MEMBER_BADGES[user.avatarMemberId || 'SULLYOON'] || MEMBER_BADGES.SULLYOON) : null;
 
@@ -124,24 +115,6 @@ export const Header: React.FC<HeaderProps> = ({
                 </span>
               )}
             </button>
-          </div>
-
-          {/* 🎁 ??? 미스터리 박스 버튼 */}
-          <div className="relative">
-            <button
-              onClick={handleMysteryClick}
-              className="flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-full bg-gradient-to-r from-pink-600 via-purple-600 to-amber-400 hover:from-pink-500 hover:to-amber-300 text-white font-mono font-black text-[11px] shadow-lg shadow-pink-950/60 hover:scale-105 transition-all active:scale-95 cursor-pointer border border-white/20"
-              title="미스터리 박스 (+10,000 N COIN)"
-            >
-              <Gift size={12} className="text-yellow-300 animate-bounce" />
-              <span className="tracking-wider font-black">???</span>
-            </button>
-
-            {showRewardToast && (
-              <div className="absolute -bottom-8 right-0 bg-amber-500 text-black font-mono font-black text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded-full shadow-2xl animate-pulse z-50 border border-yellow-200 pointer-events-none whitespace-nowrap">
-                🎉 +10,000 N COIN!
-              </div>
-            )}
           </div>
 
           {/* 🪙 Coins Balance Display */}

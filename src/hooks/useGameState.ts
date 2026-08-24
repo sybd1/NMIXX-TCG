@@ -214,6 +214,21 @@ export function useGameState() {
     return true;
   }, [state.lastDailyBonus]);
 
+  const claimMmuEasterEgg = useCallback(() => {
+    if (state.hasClaimedMmuEasterEgg) {
+      return { success: false, amount: 0 };
+    }
+
+    setState(prev => ({
+      ...prev,
+      coins: prev.coins + 500000,
+      hasClaimedMmuEasterEgg: true,
+    }));
+
+    sound.playSecretReveal();
+    return { success: true, amount: 500000 };
+  }, [state.hasClaimedMmuEasterEgg]);
+
   const claimMysteryBox = useCallback(() => {
     setState(prev => ({
       ...prev,
@@ -341,6 +356,7 @@ export function useGameState() {
     addMultiplePacksResult,
     canClaimDailyBonus,
     claimDailyBonus,
+    claimMmuEasterEgg,
     claimMysteryBox,
     claimSetReward,
     claimAchievement,
