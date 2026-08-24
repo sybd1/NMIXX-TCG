@@ -666,10 +666,14 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
           <div className="flex flex-col gap-8 w-full">
             {CONCEPT_SETS.map((set, sIdx) => {
               const ownedInSet = set.cardIds.filter(id => (collection[id] || 0) > 0).length;
-              const isCompleted = ownedInSet === set.cardIds.length;
-              const memberCards = set.cardIds.map(id => MASTER_CARDS.find(c => c.id === id)!);
+              const isCompleted = set.cardIds.length > 0 && ownedInSet === set.cardIds.length;
+              const memberCards = set.cardIds
+                .map(id => MASTER_CARDS.find(c => c.id === id))
+                .filter((c): c is Card => !!c);
               const r = set.rewardCard.rarity;
               const isClaimed = claimedSetRewards.includes(set.setId);
+
+              if (memberCards.length === 0) return null;
 
               const badgeColors: Record<Rarity, string> = {
                 UR: 'from-red-950 via-rose-900 to-red-950 text-rose-100 border-red-400 ring-1 ring-red-400/50',

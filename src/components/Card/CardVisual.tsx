@@ -371,6 +371,17 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                   alt={card.name}
                   loading="lazy"
                   decoding="async"
+                  onError={(e) => {
+                    // Fallback to relative path if leading slash failed
+                    const target = e.currentTarget;
+                    const imgUrl = card.image || '';
+                    if (imgUrl.startsWith('/') && !target.dataset.triedRelative) {
+                      target.dataset.triedRelative = 'true';
+                      target.src = imgUrl.slice(1);
+                    } else {
+                      target.style.display = 'none';
+                    }
+                  }}
                   className={`w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-200 pointer-events-none ${
                     card.rarity === 'UR'
                       ? 'filter brightness-[1.04] saturate-[1.22] contrast-[1.05] drop-shadow-[0_4px_12px_rgba(253,164,175,0.35)]'
