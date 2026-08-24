@@ -10,6 +10,7 @@ import { AuthService } from './services/authService';
 import { MultiplayerService } from './services/multiplayerService';
 
 import { CosmicBackground } from './components/Background/CosmicBackground';
+import { FlyingMmuShip } from './components/EasterEgg/FlyingMmuShip';
 import { Header } from './components/Navigation/Header';
 import { GlobalTicker } from './components/Navigation/GlobalTicker';
 import { BottomNav } from './components/Navigation/BottomNav';
@@ -33,7 +34,6 @@ export const App: React.FC = () => {
     spendCoins,
     addPackResult,
     addMultiplePacksResult,
-    claimMmuEasterEgg,
     claimSetReward,
     claimAchievement,
     claimXrCard,
@@ -149,11 +149,13 @@ export const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-[#070210] text-slate-100 flex flex-col justify-between pb-16 md:pb-0 overflow-x-hidden">
-      {/* 🌌 NMIXX MIXXTOPIA 코스믹 우주 배경 & 우측 하단 MMU 우주선 (50만 N COIN 이스터에그) */}
-      <CosmicBackground
-        hasClaimedEasterEgg={!!state.hasClaimedMmuEasterEgg}
-        onClaimEasterEgg={claimMmuEasterEgg}
-      />
+      {/* 🌌 NMIXX MIXXTOPIA 코스믹 심우주 배경 */}
+      <CosmicBackground />
+
+      {/* 🛸 팩오픈 화면 첫 입장 시 2초간 슝 날아가는 MMU 우주선 이스터에그 (클릭 시 50만 N COIN) */}
+      {currentTab === 'home' && (
+        <FlyingMmuShip onClaimCoins={addCoins} />
+      )}
 
       {/* 1. Header Navigation */}
       <Header
