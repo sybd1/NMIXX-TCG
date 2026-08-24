@@ -2971,7 +2971,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "새로운 2025년을 맞이하여 팬들에게 전하는 배이의 눈부신 미소와 따뜻한 메시지.",
     "dustValue": 5000,
     "craftCost": null,
-    "theme": "배이 (2025 NEW ERA)",
+    "theme": "배이 (2025.ver)",
     "era": "2025 Season's Greetings",
     "gradient": "from-amber-400 to-orange-600",
     "symbol": "🐥",
@@ -2979,7 +2979,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-2025SesonG/bae/711041fb33fd0003cd07b0e89549a908.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -2995,7 +2995,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "새로운 2025년을 맞이하여 팬들에게 전하는 엔믹스의 눈부신 미소와 따뜻한 메시지.",
     "dustValue": 5000,
     "craftCost": null,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "2025 Season's Greetings",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -3003,7 +3003,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-2025SesonG/group-members/0117f26edfb694c5c5b0aa0662bf8d7b.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3019,7 +3019,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "새로운 2025년을 맞이하여 팬들에게 전하는 해원의 눈부신 미소와 따뜻한 메시지.",
     "dustValue": 5000,
     "craftCost": null,
-    "theme": "해원 (2025 NEW ERA)",
+    "theme": "해원 (2025.ver)",
     "era": "2025 Season's Greetings",
     "gradient": "from-sky-500 to-blue-600",
     "symbol": "🌊",
@@ -3027,7 +3027,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-2025SesonG/haewon/c1a94ebfa4cc6b568e82ce440c7493ed.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3043,7 +3043,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "새로운 2025년을 맞이하여 팬들에게 전하는 지우의 눈부신 미소와 따뜻한 메시지.",
     "dustValue": 2500,
     "craftCost": null,
-    "theme": "지우 (2025 NEW ERA)",
+    "theme": "지우 (2025.ver)",
     "era": "2025 Season's Greetings",
     "gradient": "from-emerald-400 to-teal-600",
     "symbol": "🐶",
@@ -3051,7 +3051,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-2025SesonG/jiwoo/fb7e19dcff8d6591470bbd76be73abae.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3067,7 +3067,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "새로운 2025년을 맞이하여 팬들에게 전하는 규진의 눈부신 미소와 따뜻한 메시지.",
     "dustValue": 2500,
     "craftCost": null,
-    "theme": "규진 (2025 NEW ERA)",
+    "theme": "규진 (2025.ver)",
     "era": "2025 Season's Greetings",
     "gradient": "from-indigo-400 to-violet-600",
     "symbol": "🐱",
@@ -3075,7 +3075,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-2025SesonG/kyujin/a88d1422b5a48ad8833c9b0c660333ae.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3091,7 +3091,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "새로운 2025년을 맞이하여 팬들에게 전하는 릴리의 눈부신 미소와 따뜻한 메시지.",
     "dustValue": 2500,
     "craftCost": null,
-    "theme": "릴리 (2025 NEW ERA)",
+    "theme": "릴리 (2025.ver)",
     "era": "2025 Season's Greetings",
     "gradient": "from-pink-500 to-rose-600",
     "symbol": "🌸",
@@ -3099,7 +3099,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-2025SesonG/lilly/6dd5fc2e639920cbca2799d5a43b5b35.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3115,7 +3115,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "새로운 2025년을 맞이하여 팬들에게 전하는 설윤의 눈부신 미소와 따뜻한 메시지.",
     "dustValue": 1200,
     "craftCost": null,
-    "theme": "설윤 (2025 NEW ERA)",
+    "theme": "설윤 (2025.ver)",
     "era": "2025 Season's Greetings",
     "gradient": "from-purple-500 to-pink-600",
     "symbol": "🦌",
@@ -3123,7 +3123,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-2025SesonG/sullyoon/63a8b717851d6ee2748037e34f70b015.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3139,7 +3139,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 배이의 순간.",
     "dustValue": 1200,
     "craftCost": null,
-    "theme": "배이 (2025 NEW ERA)",
+    "theme": "배이 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-amber-400 to-orange-600",
     "symbol": "🐥",
@@ -3147,7 +3147,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/bae/862b283e246d3af40e624be29fb73b40.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3163,7 +3163,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 배이의 순간.",
     "dustValue": 1200,
     "craftCost": null,
-    "theme": "배이 (2025 NEW ERA)",
+    "theme": "배이 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-amber-400 to-orange-600",
     "symbol": "🐥",
@@ -3171,7 +3171,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/bae/b33d9e116287c907123d1081d5f7d5ae.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3187,7 +3187,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 배이의 순간.",
     "dustValue": 1200,
     "craftCost": null,
-    "theme": "배이 (2025 NEW ERA)",
+    "theme": "배이 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-amber-400 to-orange-600",
     "symbol": "🐥",
@@ -3195,7 +3195,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/bae/d2a4f45e55ff63c596ba5effa3c60ddd.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3211,7 +3211,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 배이의 순간.",
     "dustValue": 1200,
     "craftCost": null,
-    "theme": "배이 (2025 NEW ERA)",
+    "theme": "배이 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-amber-400 to-orange-600",
     "symbol": "🐥",
@@ -3219,7 +3219,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/bae/f5ca31e81a59730395ee9d9f93a0bebe.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3235,7 +3235,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 1200,
     "craftCost": null,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -3243,7 +3243,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/group-members/0459621bf89bb08cdcb5c9f9245ebc42.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3259,7 +3259,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 1200,
     "craftCost": null,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -3267,7 +3267,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/group-members/1abafd54897e69c92891ecdf8d87cb3f.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3283,7 +3283,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 1200,
     "craftCost": null,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -3291,7 +3291,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/group-members/2741daef8c9c84b64c3dfc08f602974a.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3307,7 +3307,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -3315,7 +3315,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/group-members/4c9596db5c83e74696f12888b9b55219.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3331,7 +3331,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -3339,7 +3339,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/group-members/508b121384b47e9961fde97cbb2fea2a.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3355,7 +3355,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -3363,7 +3363,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/group-members/5f71a927c4261c57925d25e7ebee6940.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3379,7 +3379,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -3387,7 +3387,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/group-members/90ac8f9111708f2cf7de9e0c889e6363.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3403,7 +3403,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -3411,7 +3411,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/group-members/9de43bf0fbfc3b4a400e24c26da92e81.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3427,7 +3427,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -3435,7 +3435,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/group-members/e8c2774b53a69b7ea7d8596e95dea476.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3451,7 +3451,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 해원의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "해원 (2025 NEW ERA)",
+    "theme": "해원 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-sky-500 to-blue-600",
     "symbol": "🌊",
@@ -3459,7 +3459,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/haewon/3b8d33bf3a8ff844f9ef357246520df1.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3475,7 +3475,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 해원의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "해원 (2025 NEW ERA)",
+    "theme": "해원 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-sky-500 to-blue-600",
     "symbol": "🌊",
@@ -3483,7 +3483,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/haewon/5a0e048416aeab26b1ac455402a8e46a.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3499,7 +3499,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 해원의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "해원 (2025 NEW ERA)",
+    "theme": "해원 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-sky-500 to-blue-600",
     "symbol": "🌊",
@@ -3507,7 +3507,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/haewon/5dac2d431da79c1a328c1b8ad6086d28.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3523,7 +3523,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 해원의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "해원 (2025 NEW ERA)",
+    "theme": "해원 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-sky-500 to-blue-600",
     "symbol": "🌊",
@@ -3531,7 +3531,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/haewon/65244a248a1380fa21c7b671676ade6e.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3547,7 +3547,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 지우의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "지우 (2025 NEW ERA)",
+    "theme": "지우 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-emerald-400 to-teal-600",
     "symbol": "🐶",
@@ -3555,7 +3555,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/jiwoo/396a6613a099f2b5b83a5006928898f6.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3571,7 +3571,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 지우의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "지우 (2025 NEW ERA)",
+    "theme": "지우 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-emerald-400 to-teal-600",
     "symbol": "🐶",
@@ -3579,7 +3579,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/jiwoo/768af89537b91fff9ebb27c8e668731f.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3595,7 +3595,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 지우의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "지우 (2025 NEW ERA)",
+    "theme": "지우 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-emerald-400 to-teal-600",
     "symbol": "🐶",
@@ -3603,7 +3603,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/jiwoo/7826790627cd24a9bc00eb6467057d76.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3619,7 +3619,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 지우의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "지우 (2025 NEW ERA)",
+    "theme": "지우 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-emerald-400 to-teal-600",
     "symbol": "🐶",
@@ -3627,7 +3627,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/jiwoo/db84b3fab39ea3757a1b878cf0d1888b.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3643,7 +3643,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 규진의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "규진 (2025 NEW ERA)",
+    "theme": "규진 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-indigo-400 to-violet-600",
     "symbol": "🐱",
@@ -3651,7 +3651,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/kyujin/d05fc5ccd867b64d193226a4effa71cd.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3667,7 +3667,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 규진의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "규진 (2025 NEW ERA)",
+    "theme": "규진 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-indigo-400 to-violet-600",
     "symbol": "🐱",
@@ -3675,7 +3675,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/kyujin/d479a653173c4d2b0b5d9c74ee9f33fc.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3691,7 +3691,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 규진의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "규진 (2025 NEW ERA)",
+    "theme": "규진 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-indigo-400 to-violet-600",
     "symbol": "🐱",
@@ -3699,7 +3699,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/kyujin/f94c81f2cdea3ccc1484ffe9b36e97a4.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3715,7 +3715,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 규진의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "규진 (2025 NEW ERA)",
+    "theme": "규진 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-indigo-400 to-violet-600",
     "symbol": "🐱",
@@ -3723,7 +3723,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/kyujin/fb0d4ba7d06bd5d9c711bf01d02c1e60.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3739,7 +3739,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 릴리의 순간.",
     "dustValue": 500,
     "craftCost": null,
-    "theme": "릴리 (2025 NEW ERA)",
+    "theme": "릴리 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-500 to-rose-600",
     "symbol": "🌸",
@@ -3747,7 +3747,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/lilly/2275cb8e0cb145c628e1eb9686711015.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3763,7 +3763,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 릴리의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "릴리 (2025 NEW ERA)",
+    "theme": "릴리 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-500 to-rose-600",
     "symbol": "🌸",
@@ -3771,7 +3771,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/lilly/8b4e1156a0a7dcdfcaf2b870062fd828.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3787,7 +3787,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 릴리의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "릴리 (2025 NEW ERA)",
+    "theme": "릴리 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-500 to-rose-600",
     "symbol": "🌸",
@@ -3795,7 +3795,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/lilly/c4d7a884fc301fdfff7d47d65290da50.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3811,7 +3811,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 릴리의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "릴리 (2025 NEW ERA)",
+    "theme": "릴리 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-500 to-rose-600",
     "symbol": "🌸",
@@ -3819,7 +3819,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/lilly/dc1463ecc20c4cc9ec53d86ac25c8037.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3835,7 +3835,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 설윤의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "설윤 (2025 NEW ERA)",
+    "theme": "설윤 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-purple-500 to-pink-600",
     "symbol": "🦌",
@@ -3843,7 +3843,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/sullyoon/580d3c2f013982f96568aa6c6f9de4d3.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3859,7 +3859,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 설윤의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "설윤 (2025 NEW ERA)",
+    "theme": "설윤 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-purple-500 to-pink-600",
     "symbol": "🦌",
@@ -3867,7 +3867,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/sullyoon/69713e6043f5cdea0c652eeab36b1350.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3883,7 +3883,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 설윤의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "설윤 (2025 NEW ERA)",
+    "theme": "설윤 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-purple-500 to-pink-600",
     "symbol": "🦌",
@@ -3891,7 +3891,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/sullyoon/f94f4963e43aec1ed2f4a618e1a7a8fe.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3907,7 +3907,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 설윤의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "설윤 (2025 NEW ERA)",
+    "theme": "설윤 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-purple-500 to-pink-600",
     "symbol": "🦌",
@@ -3915,7 +3915,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept1/sullyoon/fafff752da88a0e81d2c1d6ab6a9ef6a.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3931,7 +3931,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 배이의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "배이 (2025 NEW ERA)",
+    "theme": "배이 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-amber-400 to-orange-600",
     "symbol": "🐥",
@@ -3939,7 +3939,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/bae/0dcafe29a49a63e191703cbc2be66372.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -3955,7 +3955,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 배이의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "배이 (2025 NEW ERA)",
+    "theme": "배이 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-amber-400 to-orange-600",
     "symbol": "🐥",
@@ -3963,7 +3963,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/bae/843d36272409941b6c8e12b311e026fe.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -3980,7 +3980,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -3988,7 +3988,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/group-members/35b7f21e58789de36640c294351b825d.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4005,7 +4005,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4013,7 +4013,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/group-members/4986add22361aa4b348f4f30f50e323e.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4030,7 +4030,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4038,7 +4038,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/group-members/9679bf6abc274e3db1dd3a58332e5069.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4055,7 +4055,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4063,7 +4063,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/group-members/b11a7c676bfcc5704936dcaf0e37db51.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4080,7 +4080,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4088,7 +4088,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/group-members/bbc3c03e1096a7ccf24adda70f86ed74.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4105,7 +4105,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4113,7 +4113,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/group-members/c3c1ae78364538190ae70926f233da61.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4130,7 +4130,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 해원의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "해원 (2025 NEW ERA)",
+    "theme": "해원 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-sky-500 to-blue-600",
     "symbol": "🌊",
@@ -4138,7 +4138,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/haewon/591fb3b36e25e159956b1d38364c15d1.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -4154,7 +4154,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 해원의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "해원 (2025 NEW ERA)",
+    "theme": "해원 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-sky-500 to-blue-600",
     "symbol": "🌊",
@@ -4162,7 +4162,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/haewon/a0a12270b430ca96a970132e003b6ad1.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4179,7 +4179,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 지우의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "지우 (2025 NEW ERA)",
+    "theme": "지우 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-emerald-400 to-teal-600",
     "symbol": "🐶",
@@ -4187,7 +4187,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/jiwoo/21a80ca59fd460a7a8b913a001438d10.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4204,7 +4204,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 지우의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "지우 (2025 NEW ERA)",
+    "theme": "지우 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-emerald-400 to-teal-600",
     "symbol": "🐶",
@@ -4212,7 +4212,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/jiwoo/6823cc676268d523810e0022c5433162.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -4228,7 +4228,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 규진의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "규진 (2025 NEW ERA)",
+    "theme": "규진 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-indigo-400 to-violet-600",
     "symbol": "🐱",
@@ -4236,7 +4236,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/kyujin/04b213da827a0d9a6dfeae037e64db2e.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -4252,7 +4252,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 규진의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "규진 (2025 NEW ERA)",
+    "theme": "규진 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-indigo-400 to-violet-600",
     "symbol": "🐱",
@@ -4260,7 +4260,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/kyujin/2e4aae49878ab9b548c9b1a2fe93686e.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4277,7 +4277,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 릴리의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "릴리 (2025 NEW ERA)",
+    "theme": "릴리 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-500 to-rose-600",
     "symbol": "🌸",
@@ -4285,7 +4285,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/lilly/11bdc0901cad0781a6d0c1abcff92983.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -4301,7 +4301,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 릴리의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "릴리 (2025 NEW ERA)",
+    "theme": "릴리 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-500 to-rose-600",
     "symbol": "🌸",
@@ -4309,7 +4309,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/lilly/b2778489bf3526bd154f3b629d428145.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "4096:2732",
     "isLandscape": true
   },
@@ -4326,7 +4326,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 설윤의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "설윤 (2025 NEW ERA)",
+    "theme": "설윤 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-purple-500 to-pink-600",
     "symbol": "🦌",
@@ -4334,7 +4334,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/sullyoon/16ed70fe6efe52ca3f7ec07ef5d17c2b.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -4350,7 +4350,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 설윤의 순간.",
     "dustValue": 150,
     "craftCost": 600,
-    "theme": "설윤 (2025 NEW ERA)",
+    "theme": "설윤 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-purple-500 to-pink-600",
     "symbol": "🦌",
@@ -4358,7 +4358,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/sullyoon/514f8362d2c4c319039c8e74436ef303.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2048:1366",
     "isLandscape": true
   },
@@ -4375,7 +4375,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 배이의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "배이 (2025 NEW ERA)",
+    "theme": "배이 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-amber-400 to-orange-600",
     "symbol": "🐥",
@@ -4383,7 +4383,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/bae/02b9b35e7b292ca5537bef93eb663af4.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2048:1372",
     "isLandscape": true
   },
@@ -4400,7 +4400,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 배이의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "배이 (2025 NEW ERA)",
+    "theme": "배이 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-amber-400 to-orange-600",
     "symbol": "🐥",
@@ -4408,7 +4408,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/bae/24fe5335783e7d3ef9fc0cc18bbbfaae.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -4424,7 +4424,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 배이의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "배이 (2025 NEW ERA)",
+    "theme": "배이 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-amber-400 to-orange-600",
     "symbol": "🐥",
@@ -4432,7 +4432,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/bae/6c374fe98a55f0af8345b0687821a095.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2048:1372",
     "isLandscape": true
   },
@@ -4449,7 +4449,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 배이의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "배이 (2025 NEW ERA)",
+    "theme": "배이 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-amber-400 to-orange-600",
     "symbol": "🐥",
@@ -4457,7 +4457,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/bae/742c2589795ae4d1b7b68b40e97ce8ee.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2048:1372",
     "isLandscape": true
   },
@@ -4474,7 +4474,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4482,7 +4482,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/group-members/001d14dbb890ad133cbd9d07f3a7866c.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2847:1909",
     "isLandscape": true
   },
@@ -4499,7 +4499,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4507,7 +4507,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/group-members/01655dd148d7c0915a9eac86bc7d9582.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2949:1977",
     "isLandscape": true
   },
@@ -4524,7 +4524,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4532,7 +4532,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/group-members/1fdebf44b6386d80d3adb662430b60d2.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2778:1861",
     "isLandscape": true
   },
@@ -4549,7 +4549,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4557,7 +4557,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/group-members/477a1813a6504b55ea261cf21a420255.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2799:1876",
     "isLandscape": true
   },
@@ -4574,7 +4574,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4582,7 +4582,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/group-members/5fe2bb2a277e93ac1439cc271e0c194e.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2922:1959",
     "isLandscape": true
   },
@@ -4599,7 +4599,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4607,7 +4607,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/group-members/8522b82b38a81782041e6ca113e7ae2c.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2594:1739",
     "isLandscape": true
   },
@@ -4624,7 +4624,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4632,7 +4632,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/group-members/88e20df2df86c439fc3adfa2781844c9.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2884:1933",
     "isLandscape": true
   },
@@ -4649,7 +4649,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4657,7 +4657,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/group-members/986044fe2bdf78b83173e4284fc7d189.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "3033:2033",
     "isLandscape": true
   },
@@ -4674,7 +4674,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4682,7 +4682,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/group-members/9f48ed1d71b6aef7112c9867bb2fad73.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "3188:2137",
     "isLandscape": true
   },
@@ -4699,7 +4699,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4707,7 +4707,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/group-members/ade4545e330a3ec11d2ac6597f66c908.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2823:1893",
     "isLandscape": true
   },
@@ -4724,7 +4724,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4732,7 +4732,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/group-members/bd74c9b99f08b27dac0d350584f9db5a.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2807:1882",
     "isLandscape": true
   },
@@ -4749,7 +4749,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4757,7 +4757,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/group-members/d34212ed293d0c99d411be5a8c076c66.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "3188:2137",
     "isLandscape": true
   },
@@ -4774,7 +4774,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4782,7 +4782,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/group-members/d7a18d6dbbdeb16b83a81932832b7cf0.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2689:1803",
     "isLandscape": true
   },
@@ -4799,7 +4799,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 엔믹스의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -4807,7 +4807,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/group-members/ec56761cb5a79463ca8f7dcdb243c8ff.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2977:1995",
     "isLandscape": true
   },
@@ -4824,7 +4824,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 해원의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "해원 (2025 NEW ERA)",
+    "theme": "해원 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-sky-500 to-blue-600",
     "symbol": "🌊",
@@ -4832,7 +4832,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/haewon/32c10fb129cfd5bd3ddf2853f29150bb.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -4848,7 +4848,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 해원의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "해원 (2025 NEW ERA)",
+    "theme": "해원 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-sky-500 to-blue-600",
     "symbol": "🌊",
@@ -4856,7 +4856,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/haewon/8f56eddc12f2aee5d51c19e6473278ba.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -4872,7 +4872,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 해원의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "해원 (2025 NEW ERA)",
+    "theme": "해원 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-sky-500 to-blue-600",
     "symbol": "🌊",
@@ -4880,7 +4880,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/haewon/a2d9c63ad7e1369d8c6e801eb0c6c8ef.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2328:1561",
     "isLandscape": true
   },
@@ -4897,7 +4897,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 해원의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "해원 (2025 NEW ERA)",
+    "theme": "해원 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-sky-500 to-blue-600",
     "symbol": "🌊",
@@ -4905,7 +4905,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/haewon/da4b30668f32a0ec5f5df54e3a607792.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2692:1804",
     "isLandscape": true
   },
@@ -4922,7 +4922,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 지우의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "지우 (2025 NEW ERA)",
+    "theme": "지우 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-emerald-400 to-teal-600",
     "symbol": "🐶",
@@ -4930,7 +4930,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/jiwoo/0e33096387cea5ba8d65c9f2dc10f309.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "3188:2137",
     "isLandscape": true
   },
@@ -4947,7 +4947,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 지우의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "지우 (2025 NEW ERA)",
+    "theme": "지우 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-emerald-400 to-teal-600",
     "symbol": "🐶",
@@ -4955,7 +4955,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/jiwoo/10f3ebe2f9f8a78b6a6756151c90168d.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -4971,7 +4971,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 지우의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "지우 (2025 NEW ERA)",
+    "theme": "지우 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-emerald-400 to-teal-600",
     "symbol": "🐶",
@@ -4979,7 +4979,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/jiwoo/9015ded5797c301c6ccf9539ca218690.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "3188:2137",
     "isLandscape": true
   },
@@ -4996,7 +4996,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 지우의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "지우 (2025 NEW ERA)",
+    "theme": "지우 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-emerald-400 to-teal-600",
     "symbol": "🐶",
@@ -5004,7 +5004,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/jiwoo/99c6b48d8b554e2738ac799107f7e617.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "3188:2137",
     "isLandscape": true
   },
@@ -5021,7 +5021,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 규진의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "규진 (2025 NEW ERA)",
+    "theme": "규진 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-indigo-400 to-violet-600",
     "symbol": "🐱",
@@ -5029,7 +5029,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/kyujin/82c000400cdd4b39a72cdb66e79b71c3.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2048:1372",
     "isLandscape": true
   },
@@ -5046,7 +5046,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 규진의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "규진 (2025 NEW ERA)",
+    "theme": "규진 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-indigo-400 to-violet-600",
     "symbol": "🐱",
@@ -5054,7 +5054,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/kyujin/b740c27b675889cbea637d0966fa79d2.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2048:1372",
     "isLandscape": true
   },
@@ -5071,7 +5071,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 규진의 순간.",
     "dustValue": 50,
     "craftCost": 250,
-    "theme": "규진 (2025 NEW ERA)",
+    "theme": "규진 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-indigo-400 to-violet-600",
     "symbol": "🐱",
@@ -5079,7 +5079,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/kyujin/d34e690895de1c4d00060a6f7c14c3c3.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5095,7 +5095,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 규진의 순간.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "규진 (2025 NEW ERA)",
+    "theme": "규진 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-indigo-400 to-violet-600",
     "symbol": "🐱",
@@ -5103,7 +5103,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/kyujin/e9aa06d5417ab0d53fa1bd45ca101a5a.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5119,7 +5119,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 릴리의 순간.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "릴리 (2025 NEW ERA)",
+    "theme": "릴리 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-500 to-rose-600",
     "symbol": "🌸",
@@ -5127,7 +5127,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/lilly/0e772f9617f7f6a224d51931a305bade.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2048:1372",
     "isLandscape": true
   },
@@ -5144,7 +5144,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 릴리의 순간.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "릴리 (2025 NEW ERA)",
+    "theme": "릴리 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-500 to-rose-600",
     "symbol": "🌸",
@@ -5152,7 +5152,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/lilly/73e6a1c5969373aa3d21929534a2a4ea.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5168,7 +5168,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 릴리의 순간.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "릴리 (2025 NEW ERA)",
+    "theme": "릴리 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-500 to-rose-600",
     "symbol": "🌸",
@@ -5176,7 +5176,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/lilly/810dbeb050ec2b8af50b04c30f0500ea.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2048:1374",
     "isLandscape": true
   },
@@ -5193,7 +5193,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 릴리의 순간.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "릴리 (2025 NEW ERA)",
+    "theme": "릴리 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-pink-500 to-rose-600",
     "symbol": "🌸",
@@ -5201,7 +5201,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/lilly/8aed912bdf8e4d0e3f309b3eb20287f7.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2048:1372",
     "isLandscape": true
   },
@@ -5218,7 +5218,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 설윤의 순간.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "설윤 (2025 NEW ERA)",
+    "theme": "설윤 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-purple-500 to-pink-600",
     "symbol": "🦌",
@@ -5226,7 +5226,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/sullyoon/7db622e393ef6c440950b7f004c3f0ad.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "3188:2137",
     "isLandscape": true
   },
@@ -5243,7 +5243,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 설윤의 순간.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "설윤 (2025 NEW ERA)",
+    "theme": "설윤 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-purple-500 to-pink-600",
     "symbol": "🦌",
@@ -5251,7 +5251,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/sullyoon/928f1d83df5f130d00bfc1c8be0db032.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "2695:1806",
     "isLandscape": true
   },
@@ -5268,7 +5268,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 설윤의 순간.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "설윤 (2025 NEW ERA)",
+    "theme": "설윤 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-purple-500 to-pink-600",
     "symbol": "🦌",
@@ -5276,7 +5276,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/sullyoon/a9175cbd292586982e945b68b39d69f4.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5292,7 +5292,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "데뷔 3주년을 기념하는 특별한 파티 무대 위에서 찬란하게 빛나는 설윤의 순간.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "설윤 (2025 NEW ERA)",
+    "theme": "설윤 (2025.ver)",
     "era": "3rd Anniversary Festival",
     "gradient": "from-purple-500 to-pink-600",
     "symbol": "🦌",
@@ -5300,7 +5300,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept3/sullyoon/bb80cd1e4e0b93529a1323a178cee0a5.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5316,7 +5316,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "열두 달 매일을 함께하는 엔믹스의 사계절 감성 화보 컬렉션.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "2025 Calendar Edition",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -5324,7 +5324,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-calendar/group-members/11월.png",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5340,7 +5340,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "열두 달 매일을 함께하는 엔믹스의 사계절 감성 화보 컬렉션.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "2025 Calendar Edition",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -5348,7 +5348,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-calendar/group-members/12월.png",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5364,7 +5364,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "열두 달 매일을 함께하는 엔믹스의 사계절 감성 화보 컬렉션.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "2025 Calendar Edition",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -5372,7 +5372,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-calendar/group-members/1월.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5388,7 +5388,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "열두 달 매일을 함께하는 엔믹스의 사계절 감성 화보 컬렉션.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "2025 Calendar Edition",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -5396,7 +5396,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-calendar/group-members/2월.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5412,7 +5412,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "열두 달 매일을 함께하는 엔믹스의 사계절 감성 화보 컬렉션.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "2025 Calendar Edition",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -5420,7 +5420,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-calendar/group-members/3월.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5436,7 +5436,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "열두 달 매일을 함께하는 엔믹스의 사계절 감성 화보 컬렉션.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "2025 Calendar Edition",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -5444,7 +5444,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-calendar/group-members/4월.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5460,7 +5460,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "열두 달 매일을 함께하는 엔믹스의 사계절 감성 화보 컬렉션.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "2025 Calendar Edition",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -5468,7 +5468,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-calendar/group-members/5월.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5484,7 +5484,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "열두 달 매일을 함께하는 엔믹스의 사계절 감성 화보 컬렉션.",
     "dustValue": 15,
     "craftCost": 100,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "2025 Calendar Edition",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -5492,7 +5492,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-calendar/group-members/6월.png",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5508,7 +5508,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "열두 달 매일을 함께하는 엔믹스의 사계절 감성 화보 컬렉션.",
     "dustValue": 5,
     "craftCost": 50,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "2025 Calendar Edition",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -5516,7 +5516,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-calendar/group-members/7월.png",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5532,7 +5532,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "열두 달 매일을 함께하는 엔믹스의 사계절 감성 화보 컬렉션.",
     "dustValue": 5,
     "craftCost": 50,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "2025 Calendar Edition",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -5540,7 +5540,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-calendar/group-members/8월.png",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5556,7 +5556,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "열두 달 매일을 함께하는 엔믹스의 사계절 감성 화보 컬렉션.",
     "dustValue": 5,
     "craftCost": 50,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "2025 Calendar Edition",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -5564,7 +5564,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-calendar/group-members/9월.png",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5580,7 +5580,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "열두 달 매일을 함께하는 릴리의 사계절 감성 화보 컬렉션.",
     "dustValue": 5,
     "craftCost": 50,
-    "theme": "릴리 (2025 NEW ERA)",
+    "theme": "릴리 (2025.ver)",
     "era": "2025 Calendar Edition",
     "gradient": "from-pink-500 to-rose-600",
     "symbol": "🌸",
@@ -5588,7 +5588,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-calendar/lilly/10월.png",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5604,7 +5604,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "무한한 믹스토피아를 향해 걸어온 배이의 소중한 여정과 성장 기록.",
     "dustValue": 1200,
     "craftCost": null,
-    "theme": "배이 (2025 NEW ERA)",
+    "theme": "배이 (2025.ver)",
     "era": "NMIXX Chronicles",
     "gradient": "from-amber-400 to-orange-600",
     "symbol": "🐥",
@@ -5612,7 +5612,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-chronicles/bae/e8e0bb0e324b6cea388e7164d1ddc447.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5628,7 +5628,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "무한한 믹스토피아를 향해 걸어온 엔믹스의 소중한 여정과 성장 기록.",
     "dustValue": 1200,
     "craftCost": null,
-    "theme": "엔믹스 (2025 NEW ERA)",
+    "theme": "엔믹스 (2025.ver)",
     "era": "NMIXX Chronicles",
     "gradient": "from-pink-600 via-purple-600 to-amber-500",
     "symbol": "✨",
@@ -5636,7 +5636,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-chronicles/group-members/a45a24c4fbfe2316bee017970749f1fd.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "aspectRatio": "3533:2357",
     "isLandscape": true
   },
@@ -5653,7 +5653,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "무한한 믹스토피아를 향해 걸어온 해원의 소중한 여정과 성장 기록.",
     "dustValue": 1200,
     "craftCost": null,
-    "theme": "해원 (2025 NEW ERA)",
+    "theme": "해원 (2025.ver)",
     "era": "NMIXX Chronicles",
     "gradient": "from-sky-500 to-blue-600",
     "symbol": "🌊",
@@ -5661,7 +5661,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-chronicles/haewon/7c956f26aa1029960066c965d2cd0cf1.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5677,7 +5677,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "무한한 믹스토피아를 향해 걸어온 지우의 소중한 여정과 성장 기록.",
     "dustValue": 1200,
     "craftCost": null,
-    "theme": "지우 (2025 NEW ERA)",
+    "theme": "지우 (2025.ver)",
     "era": "NMIXX Chronicles",
     "gradient": "from-emerald-400 to-teal-600",
     "symbol": "🐶",
@@ -5685,7 +5685,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-chronicles/jiwoo/a0ae9481ff01e125ce1ad48fd3ba58e4.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5701,7 +5701,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "무한한 믹스토피아를 향해 걸어온 규진의 소중한 여정과 성장 기록.",
     "dustValue": 1200,
     "craftCost": null,
-    "theme": "규진 (2025 NEW ERA)",
+    "theme": "규진 (2025.ver)",
     "era": "NMIXX Chronicles",
     "gradient": "from-indigo-400 to-violet-600",
     "symbol": "🐱",
@@ -5709,7 +5709,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-chronicles/kyujin/2e6319e98981480419243416a503e2b5.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5725,7 +5725,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "무한한 믹스토피아를 향해 걸어온 릴리의 소중한 여정과 성장 기록.",
     "dustValue": 1200,
     "craftCost": null,
-    "theme": "릴리 (2025 NEW ERA)",
+    "theme": "릴리 (2025.ver)",
     "era": "NMIXX Chronicles",
     "gradient": "from-pink-500 to-rose-600",
     "symbol": "🌸",
@@ -5733,7 +5733,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-chronicles/lilly/06e5ec0c45975c5a429bf7863d21eb35.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {
@@ -5749,7 +5749,7 @@ export const MASTER_CARDS: Card[] = [
     "description": "무한한 믹스토피아를 향해 걸어온 설윤의 소중한 여정과 성장 기록.",
     "dustValue": 1200,
     "craftCost": null,
-    "theme": "설윤 (2025 NEW ERA)",
+    "theme": "설윤 (2025.ver)",
     "era": "NMIXX Chronicles",
     "gradient": "from-purple-500 to-pink-600",
     "symbol": "🦌",
@@ -5757,7 +5757,7 @@ export const MASTER_CARDS: Card[] = [
     "image": "/card-pack-image/crop-image/nx2-2025/concept-chronicles/sullyoon/f26242b0e2340c1b3faaabe95c8c59c7.jpg",
     "packCode": "NX-02",
     "packId": "op02",
-    "packName": "NX 02 - 2025 NEW ERA",
+    "packName": "NX 02 - 2025.ver",
     "isLandscape": false
   },
   {

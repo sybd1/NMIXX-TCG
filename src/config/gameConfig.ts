@@ -190,7 +190,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
   {
     id: 'op02',
     code: 'NX-02',
-    name: 'NX 02 - 2025 NEW ERA',
+    name: 'NX 02 - 2025.ver',
     subtitle: '2025 SEASONS GREETINGS • VOL.02',
     description: '새로운 한 해를 여는 2025 시즌스 그리팅 & 3주년 기념 페스티벌! 찬란한 감성을 담은 2탄 정규 부스터 팩.',
     slogan: '새로운 2025년, 엔써와 함께 써 내려갈 찬란한 순간!',
