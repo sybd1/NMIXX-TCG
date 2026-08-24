@@ -444,9 +444,7 @@ export class AuthService {
 
     if (typeof window !== 'undefined' && (window as any).Kakao?.Auth?.getAccessToken()) {
       try {
-        (window as any).Kakao.Auth.logout(() => {
-          console.log('Kakao logged out');
-        });
+        (window as any).Kakao.Auth.logout(() => {});
       } catch (err) {
         console.warn('Kakao logout error:', err);
       }

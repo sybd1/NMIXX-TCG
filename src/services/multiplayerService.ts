@@ -416,39 +416,6 @@ export class MultiplayerService {
   }
 
   private static getMockTradeListings(): CardTradeListing[] {
-    return [
-      {
-        id: 'trade_mock_1',
-        sellerUid: 'seller_1',
-        sellerName: '엔써_릴리팬',
-        sellerAvatar: '/cards/card_001.jpg',
-        offeredCardId: 'nmixx_001',
-        offeredCardName: '릴리 - MIXX LAB',
-        offeredRarity: 'UR',
-        offeredImage: '/cards/card_001.jpg',
-        offeredMember: 'LILY',
-        wantedCardId: 'nmixx_003',
-        wantedCardName: '설윤 - MIXX LAB',
-        wantedRarity: 'UR',
-        status: 'OPEN',
-        createdAt: Date.now() - 3600000,
-      },
-      {
-        id: 'trade_mock_2',
-        sellerUid: 'seller_2',
-        sellerName: '배이홀릭',
-        sellerAvatar: '/cards/card_004.jpg',
-        offeredCardId: 'nmixx_004',
-        offeredCardName: '배이 - MIXX LAB',
-        offeredRarity: 'SSR',
-        offeredImage: '/cards/card_004.jpg',
-        offeredMember: 'BAE',
-        wantedCardId: 'nmixx_005',
-        wantedCardName: '지우 - MIXX LAB',
-        wantedRarity: 'SSR',
-        status: 'OPEN',
-        createdAt: Date.now() - 7200000,
-      },
-    ];
+    return [];
   }
 }

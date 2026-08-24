@@ -38,9 +38,7 @@ export class CloudSyncService {
       const snapshot = await getDoc(userDocRef);
 
       if (snapshot.exists()) {
-        const data = snapshot.data() as CloudGameData;
-        console.log(`[CloudSync] ☁️ Loaded cloud data for user: ${uid}`);
-        return data;
+        return snapshot.data() as CloudGameData;
       }
       return null;
     } catch (error) {
@@ -97,7 +95,6 @@ export class CloudSyncService {
 
       await setDoc(userDocRef, payload, { merge: true });
       this.lastSavedHash = currentHash;
-      console.log(`[CloudSync] ✅ Immediately synced game data to Firestore for ${user.displayName}`);
 
       // 🏆 글로벌 리더보드 인덱스 자동 갱신
       const uniqueCards = Object.values(data.collection).filter(c => c > 0).length;
