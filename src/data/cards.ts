@@ -12662,23 +12662,23 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
   },
   {
     setId: 'set_2025_new_era',
-    setTitle: '2025 NEW ERA 연대기 세트',
+    setTitle: '2025 3기 엔써 세트 카드',
     era: '2025 NEW ERA',
     packCode: 'NX-02',
     packId: 'op02',
     packName: 'NX 02 - 2025.ver',
     cardIds: [
-      'nmixx_200_114',
-      'nmixx_200_111',
-      'nmixx_200_007',
-      'nmixx_200_008',
-      'nmixx_200_112',
-      'nmixx_200_113'
+      'nmixx_200_055',
+      'nmixx_200_049',
+      'nmixx_200_057',
+      'nmixx_200_041',
+      'nmixx_200_051',
+      'nmixx_200_054'
     ],
     members: ['LILY', 'HAEWON', 'SULLYOON', 'BAE', 'JIWOO', 'KYUJIN'],
     rewardCard: {
       id: 'reward_set_2025_new_era',
-      name: '[보상] 2025 NEW ERA 연대기 세트 카드',
+      name: '[보상] 2025 3기 엔써 세트 보상 카드',
       member: 'NMIXX',
       category: 'LEADER',
       rarity: 'UR',
@@ -12694,12 +12694,12 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       gradient: 'from-amber-500 via-rose-600 to-purple-600',
       symbol: '👑',
       quote: '새로운 2025년, 엔믹스의 새로운 시대가 열린다!',
-      image: '/card-pack-image/nx2-2025/concept-2025SesonG/group-members/0117f26edfb694c5c5b0aa0662bf8d7b.jpg',
+      image: '/card-pack-image/crop-image/nx2-2025/concept-3rdg/concept2/group-members/9679bf6abc274e3db1dd3a58332e5069.jpg',
       packCode: 'NX-02',
       packId: 'op02',
       packName: 'NX 02 - 2025.ver',
       setId: 'set_2025_new_era',
-      setTitle: '2025 NEW ERA 연대기 세트'
+      setTitle: '2025 3기 엔써 세트 카드'
     },
     rewardCoins: 1000000
   },
