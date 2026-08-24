@@ -59,24 +59,19 @@ export const createGuestInitialState = (): GameState => {
 export const DEFAULT_INITIAL_STATE: GameState = createGuestInitialState();
 
 export class StorageService {
-  private static getStorageKey(userId?: string | null): string | null {
+  private static getStorageKey(userId?: string | null): string {
     if (userId && userId !== 'guest') {
       return `nmixx_tcg_user_${userId}`;
     }
-    return null; // 게스트는 영구 저장 키 없음
+    return 'nmixx_tcg_guest';
   }
 
   public static loadState(userId?: string | null): GameState {
-    // 👤 게스트(비로그인): 새로고침이나 재접속 시 데이터 영구 저장 없이 무조건 클린 초기 상태 반환
-    if (!userId || userId === 'guest') {
-      return createGuestInitialState();
-    }
-
     try {
       const key = this.getStorageKey(userId);
-      if (!key) return createGuestInitialState();
-
       const data = typeof window !== 'undefined' ? localStorage.getItem(key) : null;
+      
+      // 저장된 데이터가 전혀 없는 '순수 최초 접속자'에게만 초기 기본 데이터 생성 및 1회 저장
       if (!data) {
         const fresh = createGuestInitialState();
         this.saveState(fresh, userId);
@@ -84,12 +79,6 @@ export class StorageService {
       }
 
       const parsed: GameState = JSON.parse(data);
-
-      // 과거 99,999,999 개발자 머니나 잔존 데이터가 있을 경우 100만원으로 초기화
-      if (!parsed.coinReset_v16 || parsed.coins > 10_000_000) {
-        parsed.coins = 1_000_000;
-        parsed.coinReset_v16 = true;
-      }
 
       // XR 박진영 카드는 최대 1장 제한
       const xrCardId = 'card_xr_transcendent_park_741';
@@ -99,32 +88,25 @@ export class StorageService {
 
       return parsed;
     } catch (e) {
-      console.warn('Failed to load user state, returning fresh default:', e);
+      console.warn('Failed to load state, returning fresh default:', e);
       return createGuestInitialState();
     }
   }
 
   public static saveState(state: GameState, userId?: string | null): void {
-    // 🚫 게스트(비로그인) 데이터는 로컬스토리지에 일절 저장하지 않음
-    if (!userId || userId === 'guest') {
-      return;
-    }
-
     try {
       if (typeof window === 'undefined') return;
       const key = this.getStorageKey(userId);
-      if (key) {
-        localStorage.setItem(key, JSON.stringify(state));
-      }
+      localStorage.setItem(key, JSON.stringify(state));
     } catch (e) {
-      console.warn('Failed to save user state to localStorage:', e);
+      console.warn('Failed to save state to localStorage:', e);
     }
   }
 
   public static clearState(userId?: string | null): GameState {
     try {
       const key = this.getStorageKey(userId);
-      if (key && typeof window !== 'undefined') {
+      if (typeof window !== 'undefined') {
         localStorage.removeItem(key);
       }
       return createGuestInitialState();

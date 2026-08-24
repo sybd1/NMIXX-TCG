@@ -11,21 +11,21 @@ import { sound } from '../services/soundService';
 export function useGameState() {
   const currentUser = AuthService.getCurrentUser();
   const [state, setState] = useState<GameState>(() => {
-    const loaded = StorageService.loadState(currentUser?.id);
-    if (loaded.coins < GAME_CONFIG.INITIAL_COINS) {
-      loaded.coins = GAME_CONFIG.INITIAL_COINS;
-    }
-    return loaded;
+    return StorageService.loadState(currentUser?.id);
   });
 
-  // 현재 활성화된 유저 ID 추적 Ref
+  // Firestore 로딩 중 로컬 빈 상태가 DB를 덮어쓰지 않도록 보호하는 동기화 가드 Ref
+  const isSyncingRef = React.useRef(true);
   const activeUserIdRef = React.useRef<string | null>(currentUser?.id || null);
 
-  // 1. 상태가 바뀔 때마다 해당 유저 전용 스토리지 및 클라우드(Firestore)에 자동 동기화
+  // 1. 상태가 바뀔 때마다 해당 유저 전용 스토리지 및 클라우드(Firestore)에 즉각 자동 동기화
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     StorageService.saveState(state, user?.id);
     sound.setMuted(state.soundMuted);
+
+    // 🛡️ Firestore 로딩 중이거나 게스트일 때는 클라우드 덮어쓰기 엄격 차단
+    if (isSyncingRef.current) return;
 
     if (user?.isCloudSynced && user.id && user.id !== 'guest') {
       CloudSyncService.saveUserGameData(user, {
@@ -43,18 +43,20 @@ export function useGameState() {
     }
   }, [state]);
 
-  // 2. 로그인/로그아웃 시 계정별 스토리지 및 Firestore 즉각 전환
+  // 2. 로그인/로그아웃 시 계정별 스토리지 및 Firestore 즉각 전환 (원자적 읽기/복원)
   useEffect(() => {
     const unsubscribe = AuthService.subscribeAuthState(async (user) => {
+      isSyncingRef.current = true;
+
       if (user?.isCloudSynced && user.id && user.id !== 'guest') {
         // ✅ [1] 구글/카카오 계정 로그인:
         activeUserIdRef.current = user.id;
         const cloudData = await CloudSyncService.loadUserGameData(user.id);
         
         if (cloudData) {
-          // 기존 Firestore 클라우드 세이브 데이터 100% 온전히 복원
+          // 기존 Firestore 클라우드 세이브 데이터 100% 온전히 복원 (초기화 절대 금지)
           const userState: GameState = {
-            coins: cloudData.coins ?? GAME_CONFIG.INITIAL_COINS,
+            coins: cloudData.coins ?? 1_000_000,
             dust: cloudData.dust ?? 0,
             collection: cloudData.collection || {},
             pityCount: cloudData.pityCounter ?? 0,
@@ -74,7 +76,7 @@ export function useGameState() {
           StorageService.saveState(userState, user.id);
           setState(userState);
         } else {
-          // 신규 가입 유저: 클린 기본 데이터로 Firestore 초기 세이브 생성 및 적용
+          // 신규 가입 유저(Firestore 문서 부재 시): 신규 100만원 기본 데이터 1회 생성 및 즉시 Firestore 저장
           const freshState = StorageService.loadState(user.id);
           await CloudSyncService.saveUserGameData(user, {
             collection: freshState.collection,
@@ -92,12 +94,17 @@ export function useGameState() {
           setState(freshState);
         }
       } else {
-        // 🚪 [2] 로그아웃: 게스트 클린 초기 상태로 즉각 전환 (이전 유저 데이터 완전 소거)
+        // 🚪 [2] 로그아웃: DB는 건드리지 않고, 브라우저 로컬 상태만 게스트 저장 상태로 안전 전환
         activeUserIdRef.current = null;
         CloudSyncService.forceResetHash();
         const guestState = StorageService.loadState('guest');
         setState(guestState);
       }
+
+      // 상태 반영 완료 후 클라우드 동기화 가드 안전 해제
+      setTimeout(() => {
+        isSyncingRef.current = false;
+      }, 50);
     });
 
     return () => unsubscribe();
