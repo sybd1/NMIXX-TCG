@@ -131,7 +131,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               onClick={handleMysteryClick}
               className="flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-full bg-gradient-to-r from-pink-600 via-purple-600 to-amber-400 hover:from-pink-500 hover:to-amber-300 text-white font-mono font-black text-[11px] shadow-lg shadow-pink-950/60 hover:scale-105 transition-all active:scale-95 cursor-pointer border border-white/20"
-              title="미스터리 박스 (+10,000 COIN)"
+              title="미스터리 박스 (+10,000 N COIN)"
             >
               <Gift size={12} className="text-yellow-300 animate-bounce" />
               <span className="tracking-wider font-black">???</span>
@@ -139,16 +139,19 @@ export const Header: React.FC<HeaderProps> = ({
 
             {showRewardToast && (
               <div className="absolute -bottom-8 right-0 bg-amber-500 text-black font-mono font-black text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded-full shadow-2xl animate-pulse z-50 border border-yellow-200 pointer-events-none whitespace-nowrap">
-                🎉 +10,000 COIN!
+                🎉 +10,000 N COIN!
               </div>
             )}
           </div>
 
           {/* 🪙 Coins Balance Display */}
-          <div className="flex items-center gap-1 bg-void-900 border border-amber-500/30 px-2 sm:px-2.5 py-1 rounded-xl">
+          <div className="flex items-center gap-1.5 bg-void-900 border border-amber-500/30 px-2.5 py-1 rounded-xl shadow-inner">
             <span className="text-amber-400 text-xs">🪙</span>
-            <span className="font-mono text-[11px] sm:text-xs font-bold text-amber-300">
+            <span className="font-mono text-[11px] sm:text-xs font-black text-amber-300">
               {coins.toLocaleString()}
+            </span>
+            <span className="font-mono text-[9.5px] font-extrabold text-amber-400/90 tracking-tight">
+              N COIN
             </span>
           </div>
 

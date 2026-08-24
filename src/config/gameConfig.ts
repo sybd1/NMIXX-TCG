@@ -255,10 +255,10 @@ export const GAME_CONFIG = {
   INITIAL_DUST: 0,
   DAILY_BONUS_COINS: 10_000, // 매일 출석 보너스 1만원 코인
   
-  // 1팩, 5팩, 10팩 가격 설정
-  PACK_COST_SINGLE: 100,      // 1팩 (5장)
-  PACK_COST_FIVE: 480,        // 5팩 (25장 - 할인 적용)
-  PACK_COST_TEN: 900,         // 10팩 (50장 - 10% 할인)
+  // 1팩, 5팩, 10팩 가격 설정 (N COIN)
+  PACK_COST_SINGLE: 3800,      // 1팩 (5장: 3,800 N COIN)
+  PACK_COST_FIVE: 17100,       // 5팩 (25장: 17,100 N COIN - 10% 할인)
+  PACK_COST_TEN: 34200,        // 10팩 (50장: 34,200 N COIN - 10% 할인)
   CARDS_PER_PACK: 5,
   
   PITY_THRESHOLD: 50, // 50팩 미등장 시 SSR 이상 보장

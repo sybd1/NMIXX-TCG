@@ -714,7 +714,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                         isClaimed ? (
                           <span className="flex items-center gap-1.5 text-xs sm:text-sm font-mono font-bold text-emerald-400 bg-emerald-950/80 px-4 py-1.5 rounded-full border border-emerald-500/40 whitespace-nowrap shadow-lg">
                             <CheckCircle2 size={16} className="text-emerald-400" />
-                            <span>+{set.rewardCoins.toLocaleString()} COIN 수령 완료</span>
+                            <span>+{set.rewardCoins.toLocaleString()} N COIN 수령 완료</span>
                           </span>
                         ) : (
                           <button
@@ -727,13 +727,13 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                             className="flex items-center gap-2 text-xs sm:text-sm font-mono font-black text-black bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 hover:from-yellow-300 hover:to-amber-300 px-5 py-2 rounded-full shadow-2xl shadow-amber-500/50 animate-bounce hover:scale-105 transition-all cursor-pointer border border-white"
                           >
                             <Sparkles size={16} className="text-black" />
-                            <span>🎁 +{set.rewardCoins.toLocaleString()} 머니 받기!</span>
+                            <span>🎁 +{set.rewardCoins.toLocaleString()} N COIN 받기!</span>
                           </button>
                         )
                       ) : (
                         <span className="flex items-center gap-1.5 text-xs sm:text-sm font-mono font-bold text-slate-300 bg-void-950 px-3.5 py-1.5 rounded-full border border-white/10 whitespace-nowrap">
                           <Lock size={14} className="text-slate-400" /> 수집 현황: <strong className="text-pink-400">{ownedInSet}</strong> / {set.cardIds.length}
-                          <span className="text-amber-300 ml-1 font-extrabold">(완성 시 +{set.rewardCoins.toLocaleString()} COIN)</span>
+                          <span className="text-amber-300 ml-1 font-extrabold">(완성 시 +{set.rewardCoins.toLocaleString()} N COIN)</span>
                         </span>
                       )}
                     </div>
@@ -785,7 +785,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                             {r}
                           </span>
                           <span className="text-xs font-mono font-black text-amber-300 bg-black/70 px-2 py-0.5 rounded-lg border border-amber-500/30">
-                            🪙 +{set.rewardCoins.toLocaleString()} COIN 지급
+                            🪙 +{set.rewardCoins.toLocaleString()} N COIN 지급
                           </span>
                         </div>
                         <span className="text-xs font-mono text-slate-400">

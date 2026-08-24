@@ -334,7 +334,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
         <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-500/15 border border-amber-400/40 text-amber-300 font-mono text-xs sm:text-sm font-black shadow-inner">
           <span className="text-amber-400 text-sm">🪙</span>
           <span className="tracking-tight text-white">{coins.toLocaleString()}</span>
-          <span className="text-[10px] text-amber-300 font-extrabold">COIN</span>
+          <span className="text-[10px] text-amber-300 font-extrabold">N COIN</span>
         </div>
 
         <div className="flex items-center gap-2">
@@ -611,36 +611,36 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                   }`}
                 >
                   <Sparkles size={16} className="text-yellow-300" />
-                  <span>🔁 {packCount}팩 다시 열기 ({cost} COIN / Space)</span>
+                  <span>🔁 {packCount}팩 다시 열기 ({cost.toLocaleString()} N / Space)</span>
                 </button>
 
                 {packCount !== 1 && (
                   <button
-                    disabled={coins < 100}
+                    disabled={coins < 3800}
                     onClick={() => (onOpenPackCount ? onOpenPackCount(1) : onOpenAnother())}
                     className="px-3.5 py-2 rounded-xl bg-void-800 hover:bg-void-700 text-slate-200 border border-white/15 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer"
                   >
-                    1팩 (100)
+                    1팩 (3,800 N)
                   </button>
                 )}
 
                 {packCount !== 5 && (
                   <button
-                    disabled={coins < 480}
+                    disabled={coins < 17100}
                     onClick={() => (onOpenPackCount ? onOpenPackCount(5) : onOpenAnother())}
                     className="px-3.5 py-2 rounded-xl bg-void-800 hover:bg-void-700 text-purple-200 border border-purple-500/30 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer"
                   >
-                    5팩 (480)
+                    5팩 (17,100 N)
                   </button>
                 )}
 
                 {packCount !== 10 && (
                   <button
-                    disabled={coins < 900}
+                    disabled={coins < 34200}
                     onClick={() => (onOpenPackCount ? onOpenPackCount(10) : onOpenAnother())}
                     className="px-3.5 py-2 rounded-xl bg-void-800 hover:bg-void-700 text-amber-200 border border-amber-500/30 text-xs font-mono font-bold transition-all hover:scale-105 cursor-pointer"
                   >
-                    10팩 (900)
+                    10팩 (34,200 N)
                   </button>
                 )}
 
