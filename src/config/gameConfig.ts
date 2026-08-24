@@ -171,7 +171,7 @@ export interface BoosterPackConfig {
   totalCards: number;
 }
 
-// NMIXX 메인 4대 부스터 팩 시리즈 (NX 01 ~ NX 04)
+// NMIXX 메인 5대 정규 부스터 팩 시리즈 (NX 01 ~ NX 05)
 export const BOOSTER_PACKS: BoosterPackConfig[] = [
   {
     id: 'op01',
@@ -185,7 +185,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     gradient: 'from-pink-600 via-purple-600 to-amber-500',
     glowColor: 'rgba(236, 72, 153, 0.5)',
     themeColor: '#ec4899',
-    totalCards: 128,
+    totalCards: 134,
   },
   {
     id: 'op02',
@@ -199,7 +199,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     gradient: 'from-amber-500 via-rose-600 to-purple-600',
     glowColor: 'rgba(245, 158, 11, 0.5)',
     themeColor: '#f59e0b',
-    totalCards: 115,
+    totalCards: 119,
   },
   {
     id: 'op03',
@@ -213,7 +213,7 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     gradient: 'from-blue-600 via-indigo-800 to-cyan-400',
     glowColor: 'rgba(59, 130, 246, 0.6)',
     themeColor: '#3b82f6',
-    totalCards: 124,
+    totalCards: 126,
   },
   {
     id: 'op04',
@@ -227,55 +227,26 @@ export const BOOSTER_PACKS: BoosterPackConfig[] = [
     gradient: 'from-fuchsia-600 via-purple-800 to-rose-400',
     glowColor: 'rgba(168, 85, 247, 0.6)',
     themeColor: '#a855f7',
-    totalCards: 87,
+    totalCards: 89,
+  },
+  {
+    id: 'op05',
+    code: 'NX-05',
+    name: 'NX 05 - Heavy Serenade',
+    subtitle: 'HEAVY SERENADE • VOL.05',
+    description: '압도적인 무게감과 메탈릭 사운드의 정점! 묵직한 하모니와 4주년 기념 스페셜 화보를 담은 5탄 정규 부스터 팩.',
+    slogan: '마음을 울리는 묵직한 믹스팝의 세레나데, Heavy Serenade!',
+    image: '/card-pack-image/nx5-HeavyS/concept-heavys/poster.jpg',
+    objectPosition: 'center center',
+    gradient: 'from-slate-700 via-zinc-900 to-amber-500',
+    glowColor: 'rgba(250, 204, 21, 0.6)',
+    themeColor: '#eab308',
+    totalCards: 69,
   },
 ];
 
-// 보관용 레거시 팩 (archive/legacy-packs-11-13 브랜치 보관)
-export const RESERVED_LEGACY_PACKS: BoosterPackConfig[] = [
-  {
-    id: 'pack-nx-11',
-    code: 'NX-11',
-    name: 'NX-11 정점결전',
-    subtitle: 'PARAMOUNT WAR • VOL.11',
-    description: '올라운더 6인의 한계를 뛰어넘는 최강의 무대! 승리를 향한 결전의 레거시 부스터 팩.',
-    slogan: '정점을 향한 타오르는 열정!',
-    image: '/pack_cover_2.jpg',
-    objectPosition: 'center 20%',
-    gradient: 'from-blue-600 via-indigo-700 to-cyan-400',
-    glowColor: 'rgba(59, 130, 246, 0.5)',
-    themeColor: '#3b82f6',
-    totalCards: 486,
-  },
-  {
-    id: 'pack-nx-12',
-    code: 'NX-12',
-    name: 'NX-12 대항해시대',
-    subtitle: 'GREAT VOYAGE • VOL.12',
-    description: '거친 파도를 헤치고 전진하는 압도적인 항해와 모험의 클래식 부스터 팩.',
-    slogan: '새로운 바다를 향한 당당한 출항!',
-    image: '/pack_blueval.jpg',
-    objectPosition: 'center center',
-    gradient: 'from-cyan-600 via-teal-700 to-emerald-400',
-    glowColor: 'rgba(20, 184, 166, 0.5)',
-    themeColor: '#14b8a6',
-    totalCards: 160,
-  },
-  {
-    id: 'pack-nx-13',
-    code: 'NX-13',
-    name: 'NX-13 신세계 개척',
-    subtitle: 'NEW WORLD • VOL.13',
-    description: '새로운 시대를 열어갈 단 하나의 믹스팝 신화! 극상의 비주얼을 담은 클래식 부스터 팩.',
-    slogan: '신세계를 개척하는 찬란한 빛!',
-    image: '/pack_zerop.jpg',
-    objectPosition: 'center center',
-    gradient: 'from-purple-600 via-violet-800 to-pink-500',
-    glowColor: 'rgba(168, 85, 247, 0.6)',
-    themeColor: '#a855f7',
-    totalCards: 160,
-  },
-];
+// 보관용 레거시 팩 (src/config/backup_packs_nx06_future.ts에 안전하게 보관됨)
+export { BACKUP_FUTURE_PACKS as RESERVED_LEGACY_PACKS } from './backup_packs_nx06_future';
 
 export const GAME_CONFIG = {
   // 게임 타이틀을 'NMIXX TCG'로 설정
