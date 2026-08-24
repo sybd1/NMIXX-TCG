@@ -109,11 +109,11 @@ export const CosmicBackground: React.FC<CosmicBackgroundProps> = ({
             onClick={handleShipClick}
             className="relative cursor-pointer filter drop-shadow-[0_25px_45px_rgba(0,0,0,0.95)]"
           >
-            {/* 🌟 Giant Original MMU.png */}
+            {/* 🌟 Giant Authentic MMU-N.png */}
             <img
-              src="/card-pack-image/MMU.png"
+              src="/card-pack-image/MMU-N.png"
               alt="MMU - NMIXX Lore Spaceship"
-              className="w-[480px] sm:w-[720px] md:w-[980px] lg:w-[1240px] xl:w-[1400px] h-auto object-contain transition-all duration-500 group-hover:brightness-110"
+              className="w-[480px] sm:w-[720px] md:w-[980px] lg:w-[1240px] xl:w-[1450px] h-auto object-contain transition-all duration-500 group-hover:brightness-110"
               draggable={false}
             />
 
