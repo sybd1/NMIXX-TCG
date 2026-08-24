@@ -374,6 +374,131 @@
   pointer-events: none;
 }
 
+/* =========================================================================
+   8-TIER SPECIFIC STYLES AND SPECIAL FRAME SHADERS
+   ========================================================================= */
+
+/* 1. Common (C): Minimal white polaroid look */
+.card-tier-c {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+.card-tier-c .card-inner-frame {
+  margin: 10px 10px 48px 10px !important;
+  background: #111111 !important;
+  border-radius: 12px !important;
+}
+
+/* 2. Uncommon (UC): Brushed Silver Metal */
+.card-tier-uc {
+  background: linear-gradient(135deg, #a1a1aa 0%, #e4e4e7 25%, #71717a 50%, #e4e4e7 75%, #a1a1aa 100%) !important;
+  border: 2px solid #d4d4d8 !important;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2) !important;
+}
+.card-tier-uc::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 3px);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 2;
+}
+
+/* 3. Ultra Rare (UR): Pastel Dream Prism */
+.card-tier-ur {
+  background: linear-gradient(135deg, #fecdd3 0%, #fef08a 35%, #d8b4fe 70%, #a5f3fc 100%) !important;
+  border: 2.5px solid #fbcfe8 !important;
+  box-shadow: 0 0 20px rgba(216, 180, 254, 0.4) !important;
+}
+.card-tier-ur::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.25) 0px, rgba(255, 255, 255, 0.25) 2px, transparent 2px, transparent 12px);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 2;
+}
+
+/* 4. Super Rare (SR): Holo Rainbow Spiral/Radial */
+.card-tier-sr {
+  background: radial-gradient(circle at 50% 50%, #ff007f, #aa00ff, #00d5ff, #00ff66, #ffff00, #ff7f00, #ff007f) !important;
+  background-size: 200% 200% !important;
+  animation: shine 8s ease infinite !important;
+  border: 2.5px solid #e0f2fe !important;
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.5) !important;
+}
+.card-tier-sr .text-overlay-glass {
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(4px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 5. Super Special Rare (SSR): 3D Bevel Crystal Frame */
+.card-tier-ssr {
+  background: linear-gradient(135deg, #1e1b4b 0%, #311042 50%, #1e1b4b 100%) !important;
+  border: 3px solid transparent !important;
+  border-image: linear-gradient(135deg, #d97706, #fbbf24, #f59e0b, #fbbf24) 1 !important;
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.5) !important;
+}
+.card-tier-ssr .card-inner-frame {
+  margin: 12px !important;
+  border: 2px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.4), 0 0 15px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* 6. Rare (R): Cybernetic Plating & Dark Neon */
+.card-tier-r {
+  background: #0f172a !important;
+  border: 2px solid #38bdf8 !important;
+  clip-path: polygon(8% 0%, 92% 0%, 100% 6%, 100% 94%, 92% 100%, 8% 100%, 0% 94%, 0% 6%) !important;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.6), 0 0 10px rgba(236, 72, 153, 0.4) !important;
+}
+
+/* 7. Legend Rare (LR): Antique Royal Gold Vintage */
+.card-tier-lr {
+  background: linear-gradient(135deg, #78350f 0%, #451a03 50%, #78350f 100%) !important;
+  border: 4px double #d97706 !important;
+  box-shadow: 0 0 35px rgba(217, 119, 6, 0.7) !important;
+}
+.card-tier-lr::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(217, 119, 6, 0.4);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* 8. Master Rare (MR): Golden Mech Armor & Cross Beams */
+.card-tier-mr {
+  background: #172554 !important;
+  border: 3.5px solid #fbbf24 !important;
+  clip-path: polygon(12% 0%, 88% 0%, 100% 9%, 100% 91%, 88% 100%, 12% 100%, 0% 91%, 0% 9%) !important;
+  box-shadow: 0 0 35px rgba(251, 191, 36, 0.8), 0 0 20px rgba(56, 189, 248, 0.5) !important;
+}
+.card-tier-mr::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    repeating-linear-gradient(45deg, rgba(56, 189, 248, 0.15) 0px, rgba(56, 189, 248, 0.15) 2px, transparent 2px, transparent 15px),
+    repeating-linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0px, rgba(236, 72, 153, 0.15) 2px, transparent 2px, transparent 15px);
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: screen;
+}
+
+@keyframes shine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .shadow-glow-xr {
   box-shadow: 0 0 25px rgba(225, 29, 72, 0.6), 0 0 12px rgba(234, 179, 8, 0.45), inset 0 0 10px rgba(244, 63, 94, 0.25);
 }
