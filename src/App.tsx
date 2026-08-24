@@ -34,6 +34,7 @@ export const App: React.FC = () => {
     spendCoins,
     addPackResult,
     addMultiplePacksResult,
+    claimMmuEasterEgg,
     claimSetReward,
     claimAchievement,
     claimXrCard,
@@ -177,9 +178,9 @@ export const App: React.FC = () => {
       {/* 🌌 NMIXX MIXXTOPIA 코스믹 심우주 배경 */}
       <CosmicBackground />
 
-      {/* 🛸 팩오픈 화면 첫 입장 시 2초간 슝 날아가는 MMU 우주선 이스터에그 (클릭 시 50만 N COIN) */}
+      {/* 🛸 팩오픈 화면 첫 입장 시 2.5초간 중앙을 날아가는 MMU 우주선 이스터에그 (계정당 1회 50만 N COIN) */}
       {currentTab === 'home' && (
-        <FlyingMmuShip onClaimCoins={addCoins} />
+        <FlyingMmuShip onClaimEasterEgg={claimMmuEasterEgg} />
       )}
 
       {/* 1. Header Navigation */}

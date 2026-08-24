@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
-import { sound } from '../../services/soundService';
 
 interface FlyingMmuShipProps {
-  onClaimCoins: (amount: number) => void;
+  onClaimEasterEgg: () => { success: boolean; amount: number };
 }
 
-export const FlyingMmuShip: React.FC<FlyingMmuShipProps> = ({ onClaimCoins }) => {
+export const FlyingMmuShip: React.FC<FlyingMmuShipProps> = ({ onClaimEasterEgg }) => {
   const [isStarted, setIsStarted] = useState(false);
   const [hasFlown, setHasFlown] = useState(false);
   const [isHit, setIsHit] = useState(false);
-  const [showSimpleToast, setShowSimpleToast] = useState(false);
+  const [claimResult, setClaimResult] = useState<{ success: boolean; amount: number } | null>(null);
 
   useEffect(() => {
     // 1. 접속 후 3초 뒤에 비행 시작
@@ -35,17 +34,16 @@ export const FlyingMmuShip: React.FC<FlyingMmuShipProps> = ({ onClaimCoins }) =>
     if (isHit || hasFlown || !isStarted) return;
 
     setIsHit(true);
-    sound.playSecretReveal();
-    onClaimCoins(500000);
-    setShowSimpleToast(true);
+    const result = onClaimEasterEgg();
+    setClaimResult(result);
 
     setTimeout(() => {
-      setShowSimpleToast(false);
+      setClaimResult(null);
       setHasFlown(true);
     }, 2800);
   };
 
-  if (hasFlown && !showSimpleToast) return null;
+  if (hasFlown && !claimResult) return null;
 
   return (
     <>
@@ -104,22 +102,39 @@ export const FlyingMmuShip: React.FC<FlyingMmuShipProps> = ({ onClaimCoins }) =>
 
       {/* 🎉 심플한 이스터에그 획득 팝업 뱃지 */}
       <AnimatePresence>
-        {showSimpleToast && (
+        {claimResult && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
             <motion.div
               initial={{ scale: 0.6, opacity: 0, y: 15 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.8, opacity: 0, y: -15 }}
               transition={{ type: 'spring', stiffness: 380, damping: 24 }}
-              className="bg-black/95 border-2 border-amber-400 px-7 py-4 rounded-2xl shadow-2xl shadow-amber-500/40 backdrop-blur-2xl text-center flex flex-col items-center gap-1.5 pointer-events-auto"
+              className={`bg-black/95 border-2 px-7 py-4 rounded-2xl shadow-2xl backdrop-blur-2xl text-center flex flex-col items-center gap-1.5 pointer-events-auto ${
+                claimResult.success
+                  ? 'border-amber-400 shadow-amber-500/40'
+                  : 'border-cyan-400/60 shadow-cyan-950/60'
+              }`}
             >
-              <div className="flex items-center gap-1.5 text-amber-300 font-mono font-black text-xs uppercase tracking-widest">
-                <Sparkles size={14} className="text-yellow-300 animate-spin" />
-                <span>이스터에그</span>
-              </div>
-              <span className="font-mono font-black text-lg sm:text-2xl text-white drop-shadow-[0_2px_8px_rgba(245,158,11,0.6)]">
-                500,000 N COIN 획득.
-              </span>
+              {claimResult.success ? (
+                <>
+                  <div className="flex items-center gap-1.5 text-amber-300 font-mono font-black text-xs uppercase tracking-widest">
+                    <Sparkles size={14} className="text-yellow-300 animate-spin" />
+                    <span>이스터에그</span>
+                  </div>
+                  <span className="font-mono font-black text-lg sm:text-2xl text-white drop-shadow-[0_2px_8px_rgba(245,158,11,0.6)]">
+                    500,000 N COIN 획득.
+                  </span>
+                </>
+              ) : (
+                <>
+                  <div className="flex items-center gap-1.5 text-cyan-300 font-mono font-black text-xs uppercase tracking-widest">
+                    <span>🛸 MMU 탐사선 조우</span>
+                  </div>
+                  <span className="font-mono font-bold text-sm sm:text-base text-slate-300">
+                    이미 보급 수령이 완료된 계정입니다.
+                  </span>
+                </>
+              )}
             </motion.div>
           </div>
         )}
