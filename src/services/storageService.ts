@@ -1,8 +1,6 @@
 import { GameState } from '../types/game';
 import { MASTER_CARDS } from '../data/cards';
 
-const STORAGE_KEY = 'nmixx_tcg_gamestate_v2';
-
 /**
  * 💻 로컬 서버(개발 환경) 여부 확인 함수
  * - localhost, 127.0.0.1, 로컬 IP 또는 DEV 모드에서만 true 반환
@@ -61,12 +59,21 @@ export const createGuestInitialState = (): GameState => {
 export const DEFAULT_INITIAL_STATE: GameState = createGuestInitialState();
 
 export class StorageService {
-  public static loadState(): GameState {
+  private static getStorageKey(userId?: string | null): string {
+    if (userId && userId !== 'guest') {
+      return `nmixx_tcg_user_${userId}`;
+    }
+    return 'nmixx_tcg_guest';
+  }
+
+  public static loadState(userId?: string | null): GameState {
     try {
-      const data = localStorage.getItem(STORAGE_KEY);
+      const key = this.getStorageKey(userId);
+      const data = typeof window !== 'undefined' ? localStorage.getItem(key) : null;
+      
       if (!data) {
         const fresh = createGuestInitialState();
-        this.saveState(fresh);
+        this.saveState(fresh, userId);
         return fresh;
       }
 
@@ -86,25 +93,25 @@ export class StorageService {
 
       return parsed;
     } catch (e) {
-      console.warn('Failed to load state, returning guest default:', e);
+      console.warn('Failed to load state, returning fresh default:', e);
       return createGuestInitialState();
     }
   }
 
-  public static saveState(state: GameState): void {
+  public static saveState(state: GameState, userId?: string | null): void {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      if (typeof window === 'undefined') return;
+      const key = this.getStorageKey(userId);
+      localStorage.setItem(key, JSON.stringify(state));
     } catch (e) {
       console.warn('Failed to save state to localStorage:', e);
     }
   }
 
-  public static clearState(): GameState {
+  public static clearState(userId?: string | null): GameState {
     try {
       const fresh = createGuestInitialState();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(fresh));
-      // 구버전 스토리지 키 정리
-      localStorage.removeItem('void_archive_gamestate_v1');
+      this.saveState(fresh, userId);
       return fresh;
     } catch (e) {
       console.warn('Failed to clear state:', e);

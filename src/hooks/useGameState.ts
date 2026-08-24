@@ -9,22 +9,26 @@ import { GAME_CONFIG } from '../config/gameConfig';
 import { sound } from '../services/soundService';
 
 export function useGameState() {
+  const currentUser = AuthService.getCurrentUser();
   const [state, setState] = useState<GameState>(() => {
-    const loaded = StorageService.loadState();
+    const loaded = StorageService.loadState(currentUser?.id);
     if (loaded.coins < GAME_CONFIG.INITIAL_COINS) {
       loaded.coins = GAME_CONFIG.INITIAL_COINS;
     }
     return loaded;
   });
 
-  // 1. 상태가 바뀔 때마다 localStorage 및 클라우드(Firestore)에 자동 동기화
+  // 현재 활성화된 유저 ID 추적 Ref
+  const activeUserIdRef = React.useRef<string | null>(currentUser?.id || null);
+
+  // 1. 상태가 바뀔 때마다 해당 유저 전용 스토리지 및 클라우드(Firestore)에 자동 동기화
   useEffect(() => {
-    StorageService.saveState(state);
+    const user = AuthService.getCurrentUser();
+    StorageService.saveState(state, user?.id);
     sound.setMuted(state.soundMuted);
 
-    const currentUser = AuthService.getCurrentUser();
-    if (currentUser?.isCloudSynced && currentUser.id && currentUser.id !== 'guest') {
-      CloudSyncService.saveUserGameData(currentUser, {
+    if (user?.isCloudSynced && user.id && user.id !== 'guest') {
+      CloudSyncService.saveUserGameData(user, {
         collection: state.collection,
         coins: state.coins,
         dust: state.dust,
@@ -36,18 +40,17 @@ export function useGameState() {
     }
   }, [state]);
 
-  // 2. 로그인/로그아웃 시 상태 동기화
-  // hasAuthResolved: 첫 콜백(앱 초기 로드 시 인증 상태 확인)과 이후 진짜 로그아웃을 구분
-  const hasAuthResolvedRef = React.useRef(false);
-
+  // 2. 로그인/로그아웃 시 계정별 스토리지 즉각 전환
   useEffect(() => {
     const unsubscribe = AuthService.subscribeAuthState(async (user) => {
       if (user?.isCloudSynced && user.id && user.id !== 'guest') {
-        // ✅ 로그인: 해당 계정의 클라우드 데이터로 완전 교체
-        hasAuthResolvedRef.current = true;
+        // ✅ [1] 구글/카카오 계정 로그인:
+        activeUserIdRef.current = user.id;
         const cloudData = await CloudSyncService.loadUserGameData(user.id);
+        
         if (cloudData) {
-          const freshState: GameState = {
+          // 기존 클라우드 세이브 데이터 복원
+          const userState: GameState = {
             coins: cloudData.coins ?? GAME_CONFIG.INITIAL_COINS,
             dust: cloudData.dust ?? 0,
             collection: cloudData.collection || {},
@@ -65,22 +68,20 @@ export function useGameState() {
             coinReset_v16: true,
             hasClaimedMmuEasterEgg: cloudData.hasClaimedMmuEasterEgg || false,
           };
-          StorageService.saveState(freshState);
-          setState(freshState);
+          StorageService.saveState(userState, user.id);
+          setState(userState);
         } else {
-          // 신규 계정: 클린 게스트 초기 상태로 시작
-          const fresh = StorageService.clearState();
-          setState(fresh);
+          // 신규 가입 유저: 해당 유저 전용 스토리지 확인 또는 클린 초기 상태 생성
+          const initialUserState = StorageService.loadState(user.id);
+          StorageService.saveState(initialUserState, user.id);
+          setState(initialUserState);
         }
       } else {
-        // 🚪 로그아웃: 이전에 실제로 로그인했던 상태에서만 초기화 (앱 첫 로드 시 게스트는 제외)
-        if (hasAuthResolvedRef.current) {
-          console.log('[useGameState] 로그아웃 감지 → 게스트 상태로 완전 초기화');
-          CloudSyncService.forceResetHash();
-          const guestState = StorageService.clearState();
-          setState(guestState);
-        }
-        hasAuthResolvedRef.current = true; // 이후부터 로그아웃 감지 활성화
+        // 🚪 [2] 로그아웃: 게스트 전용 스토리지로 즉각 전환
+        activeUserIdRef.current = null;
+        CloudSyncService.forceResetHash();
+        const guestState = StorageService.loadState('guest');
+        setState(guestState);
       }
     });
 
@@ -347,15 +348,16 @@ export function useGameState() {
   }, []);
 
   const resetGame = useCallback(() => {
+    const user = AuthService.getCurrentUser();
     CloudSyncService.forceResetHash();
-    const freshState = StorageService.clearState();
+    const freshState = StorageService.clearState(user?.id);
     setState(freshState);
   }, []);
 
   const logoutAndResetState = useCallback(() => {
     CloudSyncService.forceResetHash();
-    const freshState = StorageService.clearState();
-    setState(freshState);
+    const guestState = StorageService.loadState('guest');
+    setState(guestState);
   }, []);
 
   return {
