@@ -66,6 +66,10 @@ export function useGameState() {
             delete cleanCollection['nmixx_400_087'];
             needsUpdate = true;
           }
+          if (cleanCollection['nmixx_300_014']) {
+            delete cleanCollection['nmixx_300_014'];
+            needsUpdate = true;
+          }
           const userState: GameState = {
             coins: cloudData.coins ?? 1_000_000,
             dust: cloudData.dust ?? 0,
@@ -108,6 +112,7 @@ export function useGameState() {
           if (freshState.collection) {
             if (freshState.collection['nmixx_200_110']) delete freshState.collection['nmixx_200_110'];
             if (freshState.collection['nmixx_400_087']) delete freshState.collection['nmixx_400_087'];
+            if (freshState.collection['nmixx_300_014']) delete freshState.collection['nmixx_300_014'];
           }
           await CloudSyncService.saveUserGameData(user, {
             collection: freshState.collection,
@@ -137,6 +142,10 @@ export function useGameState() {
           }
           if (guestState.collection['nmixx_400_087']) {
             delete guestState.collection['nmixx_400_087'];
+            guestNeedsSave = true;
+          }
+          if (guestState.collection['nmixx_300_014']) {
+            delete guestState.collection['nmixx_300_014'];
             guestNeedsSave = true;
           }
           if (guestNeedsSave) {
