@@ -32,6 +32,7 @@ export function useGameState() {
         pityCounter: state.pityCount,
         totalPacksOpened: state.openedPacksTotal,
         unlockedAchievements: state.claimedAchievements,
+        hasClaimedMmuEasterEgg: state.hasClaimedMmuEasterEgg,
       });
     }
   }, [state]);
@@ -71,6 +72,7 @@ export function useGameState() {
             soundMuted: false,
             isFirstVisit: false,
             coinReset_v16: true,
+            hasClaimedMmuEasterEgg: cloudData.hasClaimedMmuEasterEgg || false,
           };
           StorageService.saveState(freshState);
           setState(freshState);
@@ -215,15 +217,30 @@ export function useGameState() {
   }, [state.lastDailyBonus]);
 
   const claimMmuEasterEgg = useCallback(() => {
-    if (state.hasClaimedMmuEasterEgg) {
+    const currentUser = AuthService.getCurrentUser();
+    const userKey = currentUser?.id || 'guest';
+    const storageKey = `nmixx_mmu_claimed_${userKey}`;
+    const alreadyClaimedLocal = typeof window !== 'undefined' && localStorage.getItem(storageKey) === 'true';
+
+    if (state.hasClaimedMmuEasterEgg || alreadyClaimedLocal) {
       return { success: false, amount: 0 };
     }
 
-    setState(prev => ({
-      ...prev,
-      coins: prev.coins + 500000,
-      hasClaimedMmuEasterEgg: true,
-    }));
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(storageKey, 'true');
+      } catch (e) {}
+    }
+
+    setState(prev => {
+      const nextState = {
+        ...prev,
+        coins: prev.coins + 500000,
+        hasClaimedMmuEasterEgg: true,
+      };
+      StorageService.saveState(nextState);
+      return nextState;
+    });
 
     sound.playSecretReveal();
     return { success: true, amount: 500000 };

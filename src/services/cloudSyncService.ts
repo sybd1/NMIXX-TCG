@@ -10,6 +10,7 @@ export interface CloudGameData {
   pityCounter: number;
   totalPacksOpened: number;
   unlockedAchievements?: string[];
+  hasClaimedMmuEasterEgg?: boolean;
   lastSavedAt?: any;
   userEmail?: string;
   displayName?: string;
@@ -58,13 +59,14 @@ export class CloudSyncService {
       pityCounter: number;
       totalPacksOpened: number;
       unlockedAchievements?: string[];
+      hasClaimedMmuEasterEgg?: boolean;
     }
   ): Promise<boolean> {
     const firestore = db;
     if (!isFirebaseConfigured || !firestore || !user?.id) return false;
 
     // 변경점이 없는 중복 쓰기 원천 차단 (닉네임/아바타 변경 시 즉시 동기화 포함)
-    const currentHash = `${user.displayName}_${user.avatarMemberId}_${Object.keys(data.collection).length}_${data.coins}_${data.pityCounter}_${data.totalPacksOpened}_${(data.unlockedAchievements || []).length}`;
+    const currentHash = `${user.displayName}_${user.avatarMemberId}_${Object.keys(data.collection).length}_${data.coins}_${data.pityCounter}_${data.totalPacksOpened}_${(data.unlockedAchievements || []).length}_${data.hasClaimedMmuEasterEgg ? '1' : '0'}`;
     if (currentHash === this.lastSavedHash) {
       return true;
     }
@@ -84,6 +86,7 @@ export class CloudSyncService {
             pityCounter: data.pityCounter,
             totalPacksOpened: data.totalPacksOpened,
             unlockedAchievements: data.unlockedAchievements || [],
+            hasClaimedMmuEasterEgg: data.hasClaimedMmuEasterEgg || false,
             lastSavedAt: serverTimestamp(),
             userEmail: user.email,
             displayName: user.displayName,

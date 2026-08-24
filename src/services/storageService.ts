@@ -55,6 +55,7 @@ export const createGuestInitialState = (): GameState => {
     claimedMailIds: [],
     claimedCouponCodes: [],
     coinReset_v16: true,
+    hasClaimedMmuEasterEgg: false,
   };
 };
 
