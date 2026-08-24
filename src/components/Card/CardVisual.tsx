@@ -82,7 +82,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
   const isXrMystery = card.rarity === 'XR' && !isOwned;
 
   // ─────────────────────────────────────────────────────────────────
-  // simeydotme/pokemon-cards-css 수식 직접 이식 (순수 GPU 틸트)
+  // 올바른 물리 기반 3D 틸트 (X/Y 축 완벽 연동)
   // ─────────────────────────────────────────────────────────────────
   const cardRef = useRef<HTMLDivElement>(null);
   const rafIdRef = useRef<number | null>(null);
@@ -113,15 +113,17 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     const px = clampVal(roundVal((100 / rect.width)  * absX));
     const py = clampVal(roundVal((100 / rect.height) * absY));
 
-    const cx = px - 50;
-    const cy = py - 50;
-
-    const rotX = roundVal(-(cx / 3.5));
-    const rotY = roundVal( cy / 3.5);
+    // 🎯 물리 틸트 축 정정:
+    // rotateX (X축 기준 끄덕임) = Y좌표 변화에 반응
+    // rotateY (Y축 기준 갸우뚱) = X좌표 변화에 반응
+    const rotX = roundVal(-((py - 50) / 3.5));
+    const rotY = roundVal(((px - 50) / 3.5));
 
     const bgX = adjust(px, 0, 100, 37, 63);
     const bgY = adjust(py, 0, 100, 33, 67);
 
+    const cx = px - 50;
+    const cy = py - 50;
     const pFromCenter = clampVal(Math.sqrt(cy * cy + cx * cx) / 50, 0, 1);
 
     if (rafIdRef.current === null) {
@@ -162,7 +164,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     lg: 'w-64 h-92 text-base',
   }[size];
 
-  // 9단계 Rarity 외곽 테두리 (미니멀하고 단단한 실물 포토카드 림)
+  // 9단계 Rarity 외곽 테두리 (MR은 묵직한 티타늄 메탈 두께감 프레임)
   const rarityBorders: Record<Card['rarity'], string> = {
     C:   isOwned ? 'border border-slate-600/80 shadow-md' : 'border border-slate-800',
     UC:  isOwned ? 'border-[1.5px] border-emerald-400/90 shadow-[0_0_12px_rgba(52,211,153,0.35)]' : 'border border-emerald-950/80',
@@ -171,11 +173,12 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     SSR: isOwned ? 'border-2 border-amber-300 shadow-[0_0_22px_rgba(250,204,21,0.65)] ring-1 ring-amber-400/40' : 'border border-amber-950/80',
     UR:  isOwned ? 'border-2 border-rose-300 shadow-[0_0_25px_rgba(253,164,175,0.75)] ring-1 ring-rose-400/50' : 'border border-rose-950/80',
     LR:  isOwned ? 'border-[2.5px] border-yellow-200 shadow-[0_0_30px_rgba(254,240,138,0.85)] ring-1 ring-amber-300/60' : 'border border-pink-950/80',
-    MR:  isOwned ? 'border-[2.5px] border-cyan-200 shadow-[0_0_35px_rgba(165,243,252,0.9)] ring-1 ring-cyan-300/70' : 'border border-yellow-950/80',
+    // 🌟 MR: 묵직하고 두꺼운 최고급 티타늄 메탈 프레임
+    MR:  isOwned ? 'border-[3.5px] border-slate-200 shadow-[0_0_35px_rgba(56,189,248,0.5),inset_0_0_15px_rgba(0,0,0,0.95),0_15px_35px_rgba(0,0,0,0.95)] ring-2 ring-white/60 ring-offset-2 ring-offset-black' : 'border border-yellow-950/80',
     XR:  isOwned ? 'border-[3px] border-rose-500 shadow-[0_0_40px_rgba(244,63,94,0.95),0_0_20px_rgba(250,204,21,0.8)] ring-2 ring-amber-400/80' : 'border border-rose-900/80',
   };
 
-  // 9단계 Rarity 텍스트 타이포그래피 스타일 (박스 없이 깔끔한 텍스트 렌더링)
+  // 9단계 Rarity 텍스트 타이포그래피 스타일
   const rarityTextStyles: Record<Card['rarity'], string> = {
     C:   'text-slate-400 font-bold',
     UC:  'text-emerald-300 font-black drop-shadow-[0_0_6px_rgba(52,211,153,0.8)]',
@@ -192,6 +195,9 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
   const serialCode = card.packCode
     ? `${card.packCode.replace('-', '')}-${String(card.collectionNumber).padStart(3, '0')}`
     : `NX1-${String(card.collectionNumber).padStart(3, '0')}`;
+
+  // 인물 위에 덮지 않고 배경에만 적용하는 등급 판별 (R, SR)
+  const isBackgroundOnlyShader = ['R', 'SR'].includes(card.rarity);
 
   return (
     <div
@@ -228,21 +234,15 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
       } ${isXrMystery ? 'hover:scale-[1.04]' : ''}`}
     >
       {/* ══════════════════════════════════════════════════════════════
-          1. 등급(Rarity)별 인터랙티브 후가공 셰이더 레이어
-          - R: 배경 고반사 글리터
-          - SR: 채도 -10% + X축 수평 무지개
-          - SSR: 굴절 완화 소프트 오로라
-          - UR: 대각선 파스텔 톤 블렌딩
-          - LR: 샴페인 골드 메탈릭 + 십자가(+) 빔
-          - MR: 래디언트 크리스크로스 + NMIXX 워터마크
-          - XR: 초월 딥 코스믹 오로라
+          1. 전면 표면 후가공 셰이더 (SSR, UR, LR, MR, XR 등)
+          - R, SR은 인물을 보호하기 위해 배경 영역에만 별도 렌더링
           ══════════════════════════════════════════════════════════════ */}
-      {isOwned && (
+      {isOwned && !isBackgroundOnlyShader && (
         <div className={`absolute inset-0 rounded-2xl z-30 pointer-events-none ${finishClass}`} />
       )}
 
-      {/* 🌈 2A. card__shine: color-dodge 홀로그램 반사광 (SSR+ 전용) */}
-      {isOwned && isSsrPlus && (
+      {/* 🌈 2A. card__shine: color-dodge 홀로그램 반사광 (UR+ 전용) */}
+      {isOwned && isSsrPlus && card.rarity !== 'SSR' && (
         <div
           className="card__shine absolute inset-0 rounded-2xl z-31 pointer-events-none"
           style={{
@@ -253,13 +253,13 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
         />
       )}
 
-      {/* 💡 2B. card__glare: overlay 실물 포토카드 원형 반사광 */}
-      {isOwned && (
+      {/* 💡 2B. card__glare: overlay 실물 포토카드 원형 반사광 (SSR 제외) */}
+      {isOwned && card.rarity !== 'SSR' && (
         <div
           className="card__glare absolute inset-0 rounded-2xl z-32 pointer-events-none"
           style={{
             ['--glare-max' as string]: isSsrPlus ? '0.45'
-              : ['R', 'SR'].includes(card.rarity) ? '0.30'
+              : ['R', 'SR'].includes(card.rarity) ? '0.28'
               : '0.18',
           } as React.CSSProperties}
         />
@@ -334,9 +334,12 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               className={`absolute inset-0 bg-gradient-to-b ${card.gradient} pointer-events-none opacity-85`}
             />
 
-            {/* ── R (Rare) 전용: 인물 뒷배경 고반사 글리터 확장 레이어 ── */}
-            {card.rarity === 'R' && isOwned && (
+            {/* ── R (Rare) / SR (Super Rare) 전용: 인물 뒷배경에만 적용되는 홀로그램/글리터 레이어 ── */}
+            {isOwned && card.rarity === 'R' && (
               <div className="absolute inset-0 pointer-events-none finish-rare-glitter opacity-90 z-5" />
+            )}
+            {isOwned && card.rarity === 'SR' && (
+              <div className="absolute inset-0 pointer-events-none finish-sr-horizontal opacity-90 z-5" />
             )}
 
             {/* ── 앰비언트 블러 배경 이미지 ── */}
