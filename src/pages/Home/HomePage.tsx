@@ -47,42 +47,36 @@ export const HomePage: React.FC<HomePageProps> = ({
   const canAffordTen = coins >= GAME_CONFIG.PACK_COST_TEN;
   const pityProgress = Math.min(100, (pityCount / GAME_CONFIG.PITY_THRESHOLD) * 100);
 
-  // 휠 스크롤 즉각 반응 (60ms 쿨다운으로 실시간 고속 스크롤)
+  const totalPacks = BOOSTER_PACKS.length;
+
+  // 휠 스크롤 즉각 반응 (원형 무한 360도 루프)
   const lastScrollTime = useRef<number>(0);
   const handleWheel = (e: React.WheelEvent) => {
     const now = Date.now();
     if (now - lastScrollTime.current < 70) return;
 
     if (e.deltaY > 15 || e.deltaX > 15) {
-      if (selectedIndex < BOOSTER_PACKS.length - 1) {
-        setSelectedIndex(prev => prev + 1);
-        sound.playClick();
-        lastScrollTime.current = now;
-      }
+      setSelectedIndex(prev => (prev + 1) % totalPacks);
+      sound.playClick();
+      lastScrollTime.current = now;
     } else if (e.deltaY < -15 || e.deltaX < -15) {
-      if (selectedIndex > 0) {
-        setSelectedIndex(prev => prev - 1);
-        sound.playClick();
-        lastScrollTime.current = now;
-      }
+      setSelectedIndex(prev => (prev - 1 + totalPacks) % totalPacks);
+      sound.playClick();
+      lastScrollTime.current = now;
     }
   };
 
   const handlePrev = () => {
-    if (selectedIndex > 0) {
-      setSelectedIndex(prev => prev - 1);
-      sound.playClick();
-    }
+    setSelectedIndex(prev => (prev - 1 + totalPacks) % totalPacks);
+    sound.playClick();
   };
 
   const handleNext = () => {
-    if (selectedIndex < BOOSTER_PACKS.length - 1) {
-      setSelectedIndex(prev => prev + 1);
-      sound.playClick();
-    }
+    setSelectedIndex(prev => (prev + 1) % totalPacks);
+    sound.playClick();
   };
 
-  // 키보드 좌우 방향키 지원
+  // 키보드 좌우 방향키 지원 (무한 루프)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') handlePrev();
@@ -142,29 +136,23 @@ export const HomePage: React.FC<HomePageProps> = ({
       onWheel={handleWheel}
       className="flex-1 flex flex-col items-center justify-between px-3 sm:px-4 pt-4 sm:pt-6 pb-2 sm:pb-3 max-w-4xl mx-auto w-full select-none overflow-hidden"
     >
-      {/* ── [상단 영역: 3D 커버플로우 카드팩 스크롤러 (상단 패딩 확보로 호버 시 잘림 완벽 방지)] ── */}
+      {/* ── [상단 영역: 3D 커버플로우 카드팩 스크롤러 (원형 무한 360 루프)] ── */}
       <div className="w-full flex flex-col items-center relative my-auto pt-2 sm:pt-3">
         {/* 3D 커버플로우 뷰 */}
         <div className="relative w-full h-[310px] sm:h-[360px] flex items-center justify-center overflow-visible perspective-[1200px]">
-          {/* 좌측 이전 버튼 */}
+          {/* 좌측 이전 버튼 (무한 루프) */}
           <button
-            disabled={selectedIndex === 0}
             onClick={handlePrev}
-            className={`absolute left-0 sm:left-4 z-40 p-2 sm:p-2.5 rounded-full bg-black/60 border border-white/20 text-white backdrop-blur-md shadow-xl transition-all cursor-pointer ${
-              selectedIndex === 0 ? 'opacity-20 cursor-not-allowed' : 'hover:scale-110 hover:bg-black/90 active:scale-95'
-            }`}
+            className="absolute left-0 sm:left-4 z-40 p-2 sm:p-2.5 rounded-full bg-black/60 border border-white/20 text-white backdrop-blur-md shadow-xl transition-all cursor-pointer hover:scale-110 hover:bg-black/90 active:scale-95"
             title="이전 팩 (Scroll Up / ←)"
           >
             <ChevronLeft size={22} />
           </button>
 
-          {/* 우측 다음 버튼 */}
+          {/* 우측 다음 버튼 (무한 루프) */}
           <button
-            disabled={selectedIndex === BOOSTER_PACKS.length - 1}
             onClick={handleNext}
-            className={`absolute right-0 sm:right-4 z-40 p-2 sm:p-2.5 rounded-full bg-black/60 border border-white/20 text-white backdrop-blur-md shadow-xl transition-all cursor-pointer ${
-              selectedIndex === BOOSTER_PACKS.length - 1 ? 'opacity-20 cursor-not-allowed' : 'hover:scale-110 hover:bg-black/90 active:scale-95'
-            }`}
+            className="absolute right-0 sm:right-4 z-40 p-2 sm:p-2.5 rounded-full bg-black/60 border border-white/20 text-white backdrop-blur-md shadow-xl transition-all cursor-pointer hover:scale-110 hover:bg-black/90 active:scale-95"
             title="다음 팩 (Scroll Down / →)"
           >
             <ChevronRight size={22} />
@@ -176,14 +164,15 @@ export const HomePage: React.FC<HomePageProps> = ({
             className={`absolute w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-gradient-to-r ${selectedPack.gradient} blur-3xl opacity-55 pointer-events-none -z-10 transition-all duration-500`}
           />
 
-          {/* 5대 부스터 팩 3D 스택 렌더링 */}
+          {/* 5대 부스터 팩 3D 스택 렌더링 (원형 최단거리 루프) */}
           <div className="relative w-full h-full flex items-center justify-center">
             {BOOSTER_PACKS.map((pack, idx) => {
-              const offset = idx - selectedIndex;
-              const isCenter = offset === 0;
-              const isVisible = Math.abs(offset) <= 2;
+              // 원형 모듈로 최단 거리 계산 (-2, -1, 0, 1, 2)
+              let offset = (idx - selectedIndex) % totalPacks;
+              if (offset > totalPacks / 2) offset -= totalPacks;
+              if (offset < -totalPacks / 2) offset += totalPacks;
 
-              if (!isVisible) return null;
+              const isCenter = offset === 0;
 
               return (
                 <motion.div
@@ -228,7 +217,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
 
         <div className="text-[10px] font-mono text-slate-400/80 mt-1 flex items-center gap-1.5">
-          <span>🖱️ 마우스 휠 스크롤로 팩 전환</span>
+          <span>🖱️ 마우스 휠 스크롤로 팩 무한 순환 전환</span>
         </div>
       </div>
 

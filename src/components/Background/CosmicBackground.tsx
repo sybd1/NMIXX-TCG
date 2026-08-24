@@ -52,8 +52,8 @@ export const CosmicBackground: React.FC<CosmicBackgroundProps> = ({
         <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_0.6px,transparent_0.6px)] [background-size:80px_80px] opacity-20" />
       </div>
 
-      {/* 🛸 2. Giant Floating MMU Spaceship situated at the very bottom background (Behind UI, obscuring nothing) */}
-      <div className="fixed -bottom-28 sm:-bottom-44 md:-bottom-56 lg:-bottom-64 -right-10 sm:-right-20 md:-right-28 z-0 pointer-events-auto select-none">
+      {/* 🛸 2. Giant Floating MMU Spaceship situated in Background Layer (Completely behind all cards and UI) */}
+      <div className="fixed -bottom-6 sm:-bottom-12 md:-bottom-16 -right-6 sm:-right-12 md:-right-20 z-0 pointer-events-auto select-none">
         <div className="relative group">
           {/* Tooltip on already claimed */}
           <AnimatePresence>
@@ -62,7 +62,7 @@ export const CosmicBackground: React.FC<CosmicBackgroundProps> = ({
                 initial={{ opacity: 0, y: 15, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 15, scale: 0.9 }}
-                className="absolute top-16 left-16 sm:left-32 bg-void-950/95 border border-cyan-400/60 px-4 py-2.5 rounded-2xl shadow-2xl backdrop-blur-xl text-xs font-mono text-cyan-200 whitespace-nowrap z-50 flex items-center gap-2"
+                className="absolute top-12 left-12 sm:left-24 bg-void-950/95 border border-cyan-400/60 px-4 py-2.5 rounded-2xl shadow-2xl backdrop-blur-xl text-xs font-mono text-cyan-200 whitespace-nowrap z-50 flex items-center gap-2"
               >
                 <CheckCircle2 size={15} className="text-emerald-400" />
                 <span>MMU 탐사선이 MIXXTOPIA를 향해 순항 중입니다! ✨</span>
@@ -113,7 +113,7 @@ export const CosmicBackground: React.FC<CosmicBackgroundProps> = ({
             <img
               src="/card-pack-image/MMU-N.png"
               alt="MMU - NMIXX Lore Spaceship"
-              className="w-[460px] sm:w-[680px] md:w-[920px] lg:w-[1150px] xl:w-[1300px] h-auto object-contain transition-all duration-500 group-hover:brightness-110 opacity-90 group-hover:opacity-100"
+              className="w-[480px] sm:w-[720px] md:w-[980px] lg:w-[1220px] xl:w-[1380px] h-auto object-contain transition-all duration-500 group-hover:brightness-110 opacity-85 group-hover:opacity-100"
               draggable={false}
             />
 
