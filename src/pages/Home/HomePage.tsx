@@ -270,14 +270,33 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* ── [최하단 영역: 1팩 / 5팩 / 10팩 개봉 버튼 (칸띄움/줄바꿈 방지 및 정돈된 뱃지)] ── */}
       <div className="w-full max-w-xl flex flex-col gap-2 mt-auto">
         <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
-          {/* 1 Pack: 3,800 N COIN */}
-          <button
+          {/* 1 Pack: 3,800 N COIN (1단계: 사이언 네온 순차 발광 - 0.0s 딜레이) */}
+          <motion.button
             disabled={!canAffordSingle}
             onClick={() => onOpenSingle(selectedPack)}
-            className={`relative py-2.5 sm:py-3 px-1.5 sm:px-2.5 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer whitespace-nowrap ${
+            animate={
               canAffordSingle
-                ? 'bg-gradient-to-br from-slate-900 via-indigo-950 to-blue-900 text-cyan-200 border border-cyan-400/50 shadow-lg shadow-cyan-950/40 hover:scale-[1.03] hover:border-cyan-300 active:scale-95'
-                : 'bg-void-900 text-slate-600 border border-white/5 cursor-not-allowed opacity-60'
+                ? {
+                    boxShadow: [
+                      '0 0 0px rgba(6,182,212,0)',
+                      '0 0 22px rgba(6,182,212,0.75)',
+                      '0 0 0px rgba(6,182,212,0)',
+                    ],
+                    borderColor: [
+                      'rgba(6,182,212,0.3)',
+                      'rgba(103,232,249,0.9)',
+                      'rgba(6,182,212,0.3)',
+                    ],
+                  }
+                : {}
+            }
+            transition={{ duration: 3.6, repeat: Infinity, delay: 0.0, ease: 'easeInOut' }}
+            whileHover={canAffordSingle ? { scale: 1.03 } : {}}
+            whileTap={canAffordSingle ? { scale: 0.95 } : {}}
+            className={`relative py-2.5 sm:py-3 px-1.5 sm:px-2.5 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer whitespace-nowrap border ${
+              canAffordSingle
+                ? 'bg-gradient-to-br from-slate-900 via-indigo-950 to-blue-900 text-cyan-200 shadow-lg shadow-cyan-950/40'
+                : 'bg-void-900 text-slate-600 border-white/5 cursor-not-allowed opacity-60'
             }`}
           >
             <div className="flex items-center gap-0.5 text-cyan-300 font-mono text-[8.5px] sm:text-[9.5px] uppercase tracking-tight font-extrabold">
@@ -290,16 +309,35 @@ export const HomePage: React.FC<HomePageProps> = ({
             <span className="font-mono text-[10px] sm:text-xs font-black text-cyan-300 leading-none">
               3,800 N
             </span>
-          </button>
+          </motion.button>
 
-          {/* 5 Packs: 17,100 N COIN */}
-          <button
+          {/* 5 Packs: 17,100 N COIN (2단계: 로열 마젠타 순차 발광 - 1.2s 딜레이) */}
+          <motion.button
             disabled={!canAffordFive}
             onClick={() => onOpenFive(selectedPack)}
-            className={`relative py-2.5 sm:py-3 px-1.5 sm:px-2.5 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer whitespace-nowrap ${
+            animate={
               canAffordFive
-                ? 'bg-gradient-to-br from-purple-950 via-fuchsia-950 to-pink-900 text-pink-200 border border-pink-400/60 shadow-xl shadow-fuchsia-950/60 hover:scale-[1.03] hover:border-pink-300 active:scale-95 ring-1 ring-pink-500/30'
-                : 'bg-void-900 text-slate-600 border border-white/5 cursor-not-allowed opacity-60'
+                ? {
+                    boxShadow: [
+                      '0 0 0px rgba(236,72,153,0)',
+                      '0 0 24px rgba(236,72,153,0.85)',
+                      '0 0 0px rgba(236,72,153,0)',
+                    ],
+                    borderColor: [
+                      'rgba(236,72,153,0.3)',
+                      'rgba(244,114,182,0.95)',
+                      'rgba(236,72,153,0.3)',
+                    ],
+                  }
+                : {}
+            }
+            transition={{ duration: 3.6, repeat: Infinity, delay: 1.2, ease: 'easeInOut' }}
+            whileHover={canAffordFive ? { scale: 1.03 } : {}}
+            whileTap={canAffordFive ? { scale: 0.95 } : {}}
+            className={`relative py-2.5 sm:py-3 px-1.5 sm:px-2.5 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer whitespace-nowrap border ${
+              canAffordFive
+                ? 'bg-gradient-to-br from-purple-950 via-fuchsia-950 to-pink-900 text-pink-200 shadow-xl shadow-fuchsia-950/60 ring-1 ring-pink-500/30'
+                : 'bg-void-900 text-slate-600 border-white/5 cursor-not-allowed opacity-60'
             }`}
           >
             <div className="flex items-center gap-0.5 text-pink-300 font-mono text-[8.5px] sm:text-[9.5px] uppercase tracking-tight font-extrabold">
@@ -312,16 +350,35 @@ export const HomePage: React.FC<HomePageProps> = ({
             <span className="font-mono text-[10px] sm:text-xs font-black text-pink-300 leading-none">
               17,100 N
             </span>
-          </button>
+          </motion.button>
 
-          {/* 10 Packs: 34,200 N COIN */}
-          <button
+          {/* 10 Packs: 34,200 N COIN (3단계: 골드 앰버 순차 발광 - 2.4s 딜레이) */}
+          <motion.button
             disabled={!canAffordTen}
             onClick={() => onOpenTen(selectedPack)}
-            className={`relative py-2.5 sm:py-3 px-1.5 sm:px-2.5 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer whitespace-nowrap ${
+            animate={
               canAffordTen
-                ? 'bg-gradient-to-br from-amber-600 via-rose-600 to-amber-500 text-yellow-100 border-2 border-yellow-300 shadow-2xl shadow-amber-950/80 hover:scale-[1.04] hover:border-white active:scale-95 ring-2 ring-yellow-400/60 animate-pulse'
-                : 'bg-void-900 text-slate-600 border border-white/5 cursor-not-allowed opacity-60'
+                ? {
+                    boxShadow: [
+                      '0 0 0px rgba(245,158,11,0)',
+                      '0 0 28px rgba(245,158,11,0.95)',
+                      '0 0 0px rgba(245,158,11,0)',
+                    ],
+                    borderColor: [
+                      'rgba(251,191,36,0.5)',
+                      'rgba(254,240,138,1.0)',
+                      'rgba(251,191,36,0.5)',
+                    ],
+                  }
+                : {}
+            }
+            transition={{ duration: 3.6, repeat: Infinity, delay: 2.4, ease: 'easeInOut' }}
+            whileHover={canAffordTen ? { scale: 1.04 } : {}}
+            whileTap={canAffordTen ? { scale: 0.95 } : {}}
+            className={`relative py-2.5 sm:py-3 px-1.5 sm:px-2.5 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all overflow-hidden cursor-pointer whitespace-nowrap border-2 ${
+              canAffordTen
+                ? 'bg-gradient-to-br from-amber-600 via-rose-600 to-amber-500 text-yellow-100 shadow-2xl shadow-amber-950/80 ring-2 ring-yellow-400/50'
+                : 'bg-void-900 text-slate-600 border-white/5 cursor-not-allowed opacity-60'
             }`}
           >
             <div className="flex items-center gap-0.5 text-amber-200 font-mono text-[8.5px] sm:text-[9.5px] uppercase tracking-tight font-black">
@@ -334,7 +391,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <span className="font-mono text-[10.5px] sm:text-xs font-black text-yellow-200 leading-none drop-shadow">
               34,200 N
             </span>
-          </button>
+          </motion.button>
         </div>
 
         {/* Pity Progress Bar */}

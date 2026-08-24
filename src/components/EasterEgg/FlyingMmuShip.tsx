@@ -8,22 +8,31 @@ interface FlyingMmuShipProps {
 }
 
 export const FlyingMmuShip: React.FC<FlyingMmuShipProps> = ({ onClaimCoins }) => {
+  const [isStarted, setIsStarted] = useState(false);
   const [hasFlown, setHasFlown] = useState(false);
   const [isHit, setIsHit] = useState(false);
   const [showSimpleToast, setShowSimpleToast] = useState(false);
 
   useEffect(() => {
-    // 2.3초 후 화면 밖으로 완전히 벗어나면 소멸 (다시 등장하지 않음)
-    const timer = setTimeout(() => {
-      setHasFlown(true);
-    }, 2400);
+    // 1. 접속 후 3초 뒤에 비행 시작
+    const startTimer = setTimeout(() => {
+      setIsStarted(true);
+    }, 3000);
 
-    return () => clearTimeout(timer);
+    // 2. 비행 시작(3초) + 비행 시간(2.5초) + 여유(0.5초) = 6초 후 완전 소멸
+    const endTimer = setTimeout(() => {
+      setHasFlown(true);
+    }, 6000);
+
+    return () => {
+      clearTimeout(startTimer);
+      clearTimeout(endTimer);
+    };
   }, []);
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (isHit || hasFlown) return;
+    if (isHit || hasFlown || !isStarted) return;
 
     setIsHit(true);
     sound.playSecretReveal();
@@ -40,14 +49,14 @@ export const FlyingMmuShip: React.FC<FlyingMmuShipProps> = ({ onClaimCoins }) =>
 
   return (
     <>
-      {/* 🛸 2초 빠르기로 우측에서 좌측으로 날아가는 MMU 우주선 */}
-      {!hasFlown && (
+      {/* 🛸 접속 3초 후 2.5초 빠르기로 화면을 횡단하는 4배 거대 MMU 우주선 */}
+      {!hasFlown && isStarted && (
         <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden select-none">
           <motion.div
             initial={{
-              x: '115vw',
-              y: '32vh',
-              scale: 0.88,
+              x: '125vw',
+              y: '28vh',
+              scale: 0.9,
               rotate: -3,
               opacity: 0.95,
             }}
@@ -55,36 +64,37 @@ export const FlyingMmuShip: React.FC<FlyingMmuShipProps> = ({ onClaimCoins }) =>
               isHit
                 ? {
                     x: '-40vw',
-                    y: '18vh',
+                    y: '10vh',
                     scale: 1.15,
                     rotate: -15,
                     opacity: 0,
                     transition: { duration: 0.5, ease: 'easeIn' },
                   }
                 : {
-                    x: '-140vw',
+                    x: '-165vw',
                     y: '48vh',
-                    scale: 0.96,
+                    scale: 1.0,
                     rotate: 3,
                     opacity: 1,
-                    transition: { duration: 2.1, ease: 'linear' },
+                    transition: { duration: 2.5, ease: 'linear' },
                   }
             }
             onClick={handleClick}
-            className="absolute cursor-pointer pointer-events-auto filter drop-shadow-[0_12px_28px_rgba(6,182,212,0.65)] group"
+            className="absolute cursor-pointer pointer-events-auto filter drop-shadow-[0_20px_45px_rgba(6,182,212,0.7)] group"
           >
-            {/* 엔진 플라즈마 분사광 */}
-            <div className="absolute top-1/2 -right-8 w-28 h-10 -translate-y-1/2 bg-gradient-to-r from-transparent via-cyan-400 to-pink-500 blur-md rounded-full pointer-events-none opacity-85" />
+            {/* 거대 엔진 플라즈마 분사광 */}
+            <div className="absolute top-1/2 -right-16 w-64 h-24 -translate-y-1/2 bg-gradient-to-r from-transparent via-cyan-400 to-pink-500 blur-xl rounded-full pointer-events-none opacity-90" />
 
+            {/* 4배 거대 MMU 우주선 이미지 */}
             <img
               src="/card-pack-image/MMU-N.png"
-              alt="Flying MMU Spaceship"
-              className="w-56 sm:w-72 md:w-88 h-auto object-contain transition-transform hover:scale-105"
+              alt="Giant Flying MMU Spaceship"
+              className="w-[650px] sm:w-[950px] md:w-[1300px] lg:w-[1700px] xl:w-[2100px] h-auto object-contain transition-transform hover:scale-[1.02]"
               draggable={false}
             />
 
             {/* 타겟 링 오라 */}
-            <div className="absolute inset-0 rounded-full border-2 border-cyan-400/30 border-dashed animate-spin opacity-35 pointer-events-none" />
+            <div className="absolute inset-0 rounded-full border-4 border-cyan-400/30 border-dashed animate-spin opacity-35 pointer-events-none" />
           </motion.div>
         </div>
       )}
