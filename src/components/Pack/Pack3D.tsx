@@ -18,7 +18,7 @@ export const Pack3D: React.FC<Pack3DProps> = ({
 }) => {
   return (
     <motion.div
-      whileHover={!disabled && !isOpening ? { scale: 1.05, y: -6 } : {}}
+      whileHover={!disabled && !isOpening ? { scale: 1.03, y: -2 } : {}}
       whileTap={!disabled && !isOpening ? { scale: 0.97 } : {}}
       onClick={!disabled ? onClick : undefined}
       className={`relative w-72 sm:w-80 h-[460px] sm:h-[490px] cursor-pointer select-none flex items-center justify-center group ${

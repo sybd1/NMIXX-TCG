@@ -140,12 +140,12 @@ export const HomePage: React.FC<HomePageProps> = ({
   return (
     <div
       onWheel={handleWheel}
-      className="flex-1 flex flex-col items-center justify-between px-3 sm:px-4 py-2 sm:py-4 max-w-4xl mx-auto w-full select-none overflow-hidden"
+      className="flex-1 flex flex-col items-center justify-between px-3 sm:px-4 pt-4 sm:pt-6 pb-2 sm:pb-3 max-w-4xl mx-auto w-full select-none overflow-hidden"
     >
-      {/* ── [상단 영역: 3D 커버플로우 카드팩 스크롤러] ── */}
-      <div className="w-full flex flex-col items-center relative my-auto">
-        {/* 3D 커버플로우 뷰 (상단 뱃지 삭제로 깔끔하고 넓어진 팩 비주얼) */}
-        <div className="relative w-full h-[290px] sm:h-[340px] flex items-center justify-center overflow-visible perspective-[1200px]">
+      {/* ── [상단 영역: 3D 커버플로우 카드팩 스크롤러 (상단 패딩 확보로 호버 시 잘림 완벽 방지)] ── */}
+      <div className="w-full flex flex-col items-center relative my-auto pt-2 sm:pt-3">
+        {/* 3D 커버플로우 뷰 */}
+        <div className="relative w-full h-[310px] sm:h-[360px] flex items-center justify-center overflow-visible perspective-[1200px]">
           {/* 좌측 이전 버튼 */}
           <button
             disabled={selectedIndex === 0}
@@ -227,46 +227,46 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
         </div>
 
-        <div className="text-[10px] font-mono text-slate-400/80 mt-0.5 flex items-center gap-1.5">
+        <div className="text-[10px] font-mono text-slate-400/80 mt-1 flex items-center gap-1.5">
           <span>🖱️ 마우스 휠 스크롤로 팩 전환</span>
         </div>
       </div>
 
-      {/* ── [중간 영역: 중앙 대형 타이포그래피 & 깔끔한 하단 설명글 (박스 뱃지 삭제)] ── */}
+      {/* ── [중간 영역: 중앙 타이포그래피 (8% 축소) & 수집률 (5% 확대)] ── */}
       <AnimatePresence mode="wait">
         <motion.div
           key={selectedPack.id}
-          initial={{ opacity: 0, y: 10, scale: 0.98 }}
+          initial={{ opacity: 0, y: 8, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -10, scale: 0.98 }}
+          exit={{ opacity: 0, y: -8, scale: 0.98 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="w-full max-w-xl flex flex-col items-center text-center my-1.5 sm:my-2 px-2"
+          className="w-full max-w-xl flex flex-col items-center text-center mt-2 sm:mt-3 mb-1 px-2"
         >
-          {/* 팩 이름 대형 중앙 타이포그래피 (뱃지 박스 없이 시원하고 웅장하게) */}
-          <h2 className="font-serif font-black text-xl sm:text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-amber-200 tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+          {/* 팩 이름 대형 중앙 타이포그래피 (약 8% 축소하여 정갈하고 세련되게) */}
+          <h2 className="font-serif font-black text-lg sm:text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-amber-200 tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
             {selectedPack.name}
           </h2>
 
-          {/* 슬로건 및 설명글 (작고 깔끔하게 중앙 정렬) */}
-          <p className="font-serif italic text-xs sm:text-[13px] text-pink-300 font-bold mt-1 max-w-md drop-shadow">
+          {/* 슬로건 및 설명글 (약 8% 축소) */}
+          <p className="font-serif italic text-[11px] sm:text-xs text-pink-300 font-bold mt-0.5 max-w-md drop-shadow">
             "{selectedPack.slogan}"
           </p>
-          <p className="font-sans text-[11px] sm:text-xs text-slate-300/90 max-w-lg mt-0.5 leading-snug">
+          <p className="font-sans text-[10px] sm:text-[11px] text-slate-300/85 max-w-lg mt-0.5 leading-snug">
             {selectedPack.description}
           </p>
 
-          {/* 수집 진척도 게이지 바 */}
-          <div className="w-full max-w-sm mt-2 flex flex-col gap-1">
-            <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
-              <span className="flex items-center gap-1">
-                <Trophy size={11} className="text-amber-400" />
-                수집률 <strong className="text-amber-300 font-black">{currentStats.percentage}%</strong>
+          {/* 수집 진척도 게이지 바 (약 5% 확대하여 가독성 강화) */}
+          <div className="w-full max-w-md mt-2 flex flex-col gap-1">
+            <div className="flex items-center justify-between text-[11px] font-mono text-slate-300">
+              <span className="flex items-center gap-1 font-semibold">
+                <Trophy size={12} className="text-amber-400" />
+                수집률 <strong className="text-amber-300 font-black text-xs sm:text-sm">{currentStats.percentage}%</strong>
               </span>
-              <span>
+              <span className="font-mono text-xs">
                 <strong className="text-pink-300 font-bold">{currentStats.owned}</strong> / {currentStats.total}장
               </span>
             </div>
-            <div className="w-full h-1.5 bg-black/80 rounded-full overflow-hidden border border-white/10">
+            <div className="w-full h-2 bg-black/80 rounded-full overflow-hidden border border-white/10">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${currentStats.percentage}%` }}
