@@ -17,7 +17,7 @@ export const CosmicBackground: React.FC<CosmicBackgroundProps> = ({
 
   const handleShipClick = () => {
     setIsBoosting(true);
-    setTimeout(() => setIsBoosting(false), 1200);
+    setTimeout(() => setIsBoosting(false), 1400);
 
     if (!hasClaimedEasterEgg) {
       const res = onClaimEasterEgg();
@@ -32,96 +32,102 @@ export const CosmicBackground: React.FC<CosmicBackgroundProps> = ({
 
   return (
     <>
-      {/* 🌌 1. NMIXX MIXXTOPIA Deep Cosmic Space Background */}
+      {/* 🌌 1. MMU Spaceship Cohesive Deep Cosmic Space Background */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 transform-gpu select-none">
-        {/* Deep Void Cosmic Gradient Base */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#06010d] via-[#0d041e] via-60% to-[#030108]" />
+        {/* Deep Cosmic Void Base (#04020a ~ #0b061a) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#05010a] via-[#090417] via-55% to-[#020006]" />
 
-        {/* Dynamic Galactic Nebulae (Pink, Purple, Cyan, Deep Violet) */}
-        <div className="absolute -top-32 left-1/4 w-96 sm:w-[36rem] h-96 sm:h-[36rem] rounded-full bg-gradient-to-br from-pink-600/15 via-purple-600/10 to-transparent blur-3xl pointer-events-none animate-pulse duration-[8000ms]" />
-        <div className="absolute top-1/4 -right-20 w-80 sm:w-[32rem] h-80 sm:h-[32rem] rounded-full bg-gradient-to-bl from-cyan-500/15 via-blue-700/10 to-transparent blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-20 left-1/3 w-[30rem] sm:w-[42rem] h-[30rem] sm:h-[42rem] rounded-full bg-gradient-to-tr from-purple-800/20 via-pink-700/10 to-transparent blur-3xl pointer-events-none" />
+        {/* MMU Hull Reflection & Ambient Cosmic Nebulae */}
+        {/* 1) Top-Left Violet Aurora */}
+        <div className="absolute -top-40 -left-20 w-[32rem] sm:w-[48rem] h-[32rem] sm:h-[48rem] rounded-full bg-gradient-to-br from-purple-700/20 via-pink-600/10 to-transparent blur-3xl pointer-events-none animate-pulse duration-[10000ms]" />
         
-        {/* Subtle Cybernetic Cosmic Grid & Star Dust */}
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff_0.75px,transparent_0.75px)] [background-size:28px_28px] opacity-20" />
-        <div className="absolute inset-0 bg-[radial-gradient(#ec4899_0.5px,transparent_0.5px)] [background-size:64px_64px] opacity-15" />
+        {/* 2) Center Celestial Cyan Rift (Matching MMU Turbine Core) */}
+        <div className="absolute top-1/3 left-1/4 w-[28rem] sm:w-[40rem] h-[28rem] sm:h-[40rem] rounded-full bg-gradient-to-tr from-cyan-600/12 via-sky-500/8 to-transparent blur-3xl pointer-events-none" />
+
+        {/* 3) Bottom-Right Massive Engine Energy Backlight */}
+        <div className="absolute -bottom-32 -right-32 w-[36rem] sm:w-[60rem] h-[36rem] sm:h-[60rem] rounded-full bg-gradient-to-tl from-cyan-500/20 via-fuchsia-600/15 to-transparent blur-3xl pointer-events-none" />
+
+        {/* Cosmic Star Dust & Cyber Space Grids */}
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff_0.8px,transparent_0.8px)] [background-size:32px_32px] opacity-25" />
+        <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_0.6px,transparent_0.6px)] [background-size:80px_80px] opacity-20" />
       </div>
 
-      {/* 🛸 2. MMU Spaceship Floating in Bottom-Right Corner */}
-      <div className="fixed bottom-14 sm:bottom-6 right-2 sm:right-6 z-30 pointer-events-auto">
+      {/* 🛸 2. Giant Floating MMU Spaceship filling bottom-right corner */}
+      <div className="fixed -bottom-10 sm:-bottom-20 md:-bottom-28 -right-12 sm:-right-24 md:-right-36 z-20 pointer-events-auto select-none">
         <div className="relative group">
           {/* Tooltip on already claimed */}
           <AnimatePresence>
             {showAlreadyClaimedTooltip && (
               <motion.div
-                initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                initial={{ opacity: 0, y: 15, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                className="absolute -top-14 right-0 sm:right-4 bg-void-950/95 border border-pink-500/50 px-3.5 py-2 rounded-xl shadow-2xl backdrop-blur-md text-[11px] font-mono text-slate-200 whitespace-nowrap z-50 flex items-center gap-1.5"
+                exit={{ opacity: 0, y: 15, scale: 0.9 }}
+                className="absolute top-12 left-12 sm:left-24 bg-void-950/95 border border-cyan-400/60 px-4 py-2.5 rounded-2xl shadow-2xl backdrop-blur-xl text-xs font-mono text-cyan-200 whitespace-nowrap z-50 flex items-center gap-2"
               >
-                <CheckCircle2 size={13} className="text-emerald-400" />
+                <CheckCircle2 size={15} className="text-emerald-400" />
                 <span>MMU 탐사선이 MIXXTOPIA를 향해 순항 중입니다! ✨</span>
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Spaceship Ambient Glow Aura */}
+          {/* Massive Engine Plasma Aura Behind Ship */}
           <div
-            className={`absolute -inset-4 rounded-full bg-gradient-to-r from-cyan-500/25 via-pink-500/25 to-purple-600/25 blur-2xl transition-opacity duration-500 pointer-events-none ${
-              isBoosting ? 'opacity-100 scale-125' : 'opacity-40 group-hover:opacity-80'
+            className={`absolute inset-10 rounded-full bg-gradient-to-r from-cyan-400/30 via-pink-500/25 to-purple-600/30 blur-3xl transition-all duration-700 pointer-events-none ${
+              isBoosting ? 'opacity-100 scale-125' : 'opacity-45 group-hover:opacity-85'
             }`}
           />
 
-          {/* Engine Propulsion Flare Glow */}
+          {/* Engine Core Thruster Glow */}
           <div
-            className={`absolute bottom-6 left-6 w-16 h-16 rounded-full bg-cyan-400 blur-xl pointer-events-none transition-all duration-300 ${
-              isBoosting ? 'opacity-100 scale-150' : 'opacity-40 group-hover:opacity-75'
+            className={`absolute bottom-1/4 left-1/4 w-32 sm:w-48 h-32 sm:h-48 rounded-full bg-cyan-300 blur-2xl pointer-events-none transition-all duration-500 ${
+              isBoosting ? 'opacity-100 scale-150' : 'opacity-50 group-hover:opacity-90'
             }`}
           />
 
-          {/* MMU Floating Spaceship Animated Container */}
+          {/* Floating MMU Animation Container */}
           <motion.div
             animate={
               isBoosting
                 ? {
-                    y: [-4, -20, -4],
-                    x: [0, 8, 0],
-                    scale: [1, 1.08, 1],
-                    rotate: [0, -3, 0],
+                    y: [-8, -32, -8],
+                    x: [0, 16, 0],
+                    scale: [1, 1.05, 1],
+                    rotate: [0, -2, 0],
                   }
                 : {
-                    y: [-4, 6, -4],
-                    rotate: [0, 1.5, 0],
+                    y: [-12, 16, -12],
+                    rotate: [-0.6, 1.0, -0.6],
                   }
             }
             transition={
               isBoosting
-                ? { duration: 1.2, ease: 'easeInOut' }
-                : { duration: 4.5, repeat: Infinity, ease: 'easeInOut' }
+                ? { duration: 1.4, ease: 'easeInOut' }
+                : { duration: 6.5, repeat: Infinity, ease: 'easeInOut' }
             }
-            whileHover={{ scale: 1.06, rotate: -2 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.03, rotate: -1 }}
+            whileTap={{ scale: 0.97 }}
             onClick={handleShipClick}
-            className="relative cursor-pointer select-none filter drop-shadow-[0_15px_25px_rgba(0,0,0,0.85)]"
+            className="relative cursor-pointer filter drop-shadow-[0_25px_45px_rgba(0,0,0,0.95)]"
           >
+            {/* 🌟 Giant Original MMU.png */}
             <img
-              src="/card-pack-image/mmu_clean.png"
-              alt="MMU Spaceship - NMIXX Lore"
-              className="w-48 sm:w-64 md:w-80 h-auto object-contain transition-all duration-300 group-hover:brightness-110"
+              src="/card-pack-image/MMU.png"
+              alt="MMU - NMIXX Lore Spaceship"
+              className="w-[480px] sm:w-[720px] md:w-[980px] lg:w-[1240px] xl:w-[1400px] h-auto object-contain transition-all duration-500 group-hover:brightness-110"
               draggable={false}
             />
 
-            {/* Lore Indicator Badge on Hover */}
-            <div className="absolute bottom-1 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black/70 border border-white/10 backdrop-blur-md px-2 py-0.5 rounded-full text-[9px] font-mono text-cyan-300 flex items-center gap-1">
-              <Compass size={10} className="animate-spin" />
-              <span>MMU • MIXXTOPIA VESSEL</span>
+            {/* Lore Indicator Badge */}
+            <div className="absolute top-1/3 left-16 sm:left-32 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/80 border border-cyan-400/50 backdrop-blur-md px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono text-cyan-300 flex items-center gap-1.5 shadow-xl pointer-events-none">
+              <Compass size={13} className="animate-spin text-cyan-400" />
+              <span className="font-extrabold tracking-wider">MMU • MIXXTOPIA FLAGSHIP</span>
             </div>
 
-            {/* Unclaimed Easter Egg Secret Twinkle Badge */}
+            {/* Secret Easter Egg Indicator */}
             {!hasClaimedEasterEgg && (
-              <div className="absolute -top-1 left-8 sm:left-12 bg-gradient-to-r from-pink-500 via-purple-600 to-amber-400 text-white font-mono font-black text-[9px] px-2 py-0.5 rounded-full shadow-lg border border-yellow-300 animate-bounce flex items-center gap-1">
-                <Sparkles size={10} className="text-yellow-200 animate-spin" />
-                <span>SECRET DISCOVERY</span>
+              <div className="absolute top-1/4 left-20 sm:left-40 bg-gradient-to-r from-pink-500 via-purple-600 to-amber-400 text-white font-mono font-black text-[10px] sm:text-xs px-3 py-1 rounded-full shadow-2xl border border-yellow-300 animate-bounce flex items-center gap-1.5 z-40 pointer-events-none">
+                <Sparkles size={12} className="text-yellow-200 animate-spin" />
+                <span>SECRET EASTER EGG (CLICK!)</span>
               </div>
             )}
           </motion.div>
@@ -131,19 +137,19 @@ export const CosmicBackground: React.FC<CosmicBackgroundProps> = ({
       {/* 🎁 3. MMU Easter Egg Reward Celebration Modal */}
       <AnimatePresence>
         {showRewardModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-2xl">
             <motion.div
               initial={{ scale: 0.8, opacity: 0, y: 30 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.8, opacity: 0, y: 30 }}
-              className="w-full max-w-md bg-gradient-to-b from-void-900 via-void-950 to-black border-2 border-amber-400/80 rounded-3xl p-6 shadow-2xl shadow-pink-950/80 text-center flex flex-col items-center gap-4 relative overflow-hidden"
+              className="w-full max-w-md bg-gradient-to-b from-void-900 via-void-950 to-black border-2 border-amber-400/90 rounded-3xl p-6 shadow-2xl shadow-pink-950/90 text-center flex flex-col items-center gap-4 relative overflow-hidden"
             >
               {/* Radiant Particle Aura Background */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.25)_0%,transparent_70%)] pointer-events-none animate-pulse" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.3)_0%,transparent_70%)] pointer-events-none animate-pulse" />
 
-              <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-pink-500 via-purple-600 to-amber-400 p-[2px] shadow-2xl shadow-amber-500/40">
+              <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-pink-500 via-purple-600 to-amber-400 p-[2px] shadow-2xl shadow-amber-500/50">
                 <div className="w-full h-full bg-void-950 rounded-[14px] flex items-center justify-center">
-                  <Rocket size={36} className="text-amber-300 animate-bounce" />
+                  <Rocket size={38} className="text-amber-300 animate-bounce" />
                 </div>
               </div>
 
@@ -162,12 +168,12 @@ export const CosmicBackground: React.FC<CosmicBackgroundProps> = ({
               </div>
 
               {/* Reward Box */}
-              <div className="w-full bg-amber-500/10 border border-amber-400/40 rounded-2xl p-4 flex flex-col items-center gap-1 shadow-inner">
+              <div className="w-full bg-amber-500/15 border border-amber-400/50 rounded-2xl p-4 flex flex-col items-center gap-1 shadow-inner">
                 <span className="text-[11px] font-mono text-amber-300 font-extrabold flex items-center gap-1">
-                  <Zap size={13} className="text-yellow-300" />
+                  <Zap size={14} className="text-yellow-300" />
                   특별 탐사 지원금 획득
                 </span>
-                <span className="font-mono font-black text-3xl sm:text-4xl text-amber-300 drop-shadow-[0_2px_12px_rgba(245,158,11,0.8)]">
+                <span className="font-mono font-black text-3xl sm:text-4xl text-amber-300 drop-shadow-[0_2px_14px_rgba(245,158,11,0.9)]">
                   +500,000 <span className="text-lg sm:text-xl font-bold">N COIN</span>
                 </span>
                 <span className="text-[10px] font-mono text-slate-400 mt-1">
