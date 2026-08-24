@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { GameState, PackHistoryItem } from '../types/game';
 import { Card, RevealedCard } from '../types/card';
-import { StorageService } from '../services/storageService';
+import { StorageService, isLocalServer } from '../services/storageService';
+import { MASTER_CARDS } from '../data/cards';
 import { CloudSyncService } from '../services/cloudSyncService';
 import { AuthService } from '../services/authService';
 import { MultiplayerService } from '../services/multiplayerService';
@@ -46,10 +47,18 @@ export function useGameState() {
         hasAuthResolvedRef.current = true;
         const cloudData = await CloudSyncService.loadUserGameData(user.id);
         if (cloudData) {
+          const loadedCollection = cloudData.collection || {};
+          if (isLocalServer()) {
+            for (const card of MASTER_CARDS) {
+              if (!loadedCollection[card.id] || loadedCollection[card.id] < 1) {
+                loadedCollection[card.id] = 1;
+              }
+            }
+          }
           const freshState: GameState = {
             coins: cloudData.coins ?? GAME_CONFIG.INITIAL_COINS,
             dust: cloudData.dust ?? 0,
-            collection: cloudData.collection || {},
+            collection: loadedCollection,
             pityCount: cloudData.pityCounter ?? 0,
             openedPacksTotal: cloudData.totalPacksOpened ?? 0,
             coinsSpentTotal: 0,
