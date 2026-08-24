@@ -194,9 +194,6 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     ? `${card.packCode.replace('-', '')}-${String(card.collectionNumber).padStart(3, '0')}`
     : `NX1-${String(card.collectionNumber).padStart(3, '0')}`;
 
-  // 인물 위에 덮지 않고 배경에만 적용하는 등급 판별 (R, SR)
-  const isBackgroundOnlyShader = ['R', 'SR'].includes(card.rarity);
-
   return (
     <div
       ref={cardRef}
@@ -218,7 +215,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
         ['--rotate-x'           as string]: `${springVars.rotateX}deg`,
         ['--rotate-y'           as string]: `${springVars.rotateY}deg`,
         ['--card-opacity'       as string]: springVars.opacity,
-        // ── GPU 하드웨어 가속 3D 틸트: 루트에만 적용 (단일 평면 일체화) ──
+        // ── GPU 하드웨어 가속 3D 틸트: 루트에만 적용 (마우스 있는 곳이 들려 올라옴) ──
         transform: isOwned
           ? `perspective(800px) rotateX(var(--rotate-x)) rotateY(var(--rotate-y)) ${interacting ? 'translateY(-3px)' : ''}`
           : undefined,
@@ -231,60 +228,9 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
         !isOwned && !isXrMystery ? 'opacity-40 hover:opacity-75 filter grayscale-[80%] brightness-[70%] contrast-[90%]' : 'hover:scale-[1.03]'
       } ${isXrMystery ? 'hover:scale-[1.04]' : ''}`}
     >
-      {/* ══════════════════════════════════════════════════════════════
-          1. 전면 표면 후가공 셰이더 (SSR, UR, LR, MR, XR 등)
-          - R, SR은 인물을 보호하기 위해 배경 영역에만 별도 렌더링
-          ══════════════════════════════════════════════════════════════ */}
-      {isOwned && !isBackgroundOnlyShader && (
-        <div className={`absolute inset-0 rounded-2xl z-30 pointer-events-none ${finishClass}`} />
-      )}
-
-      {/* 🌈 2A. card__shine: color-dodge 홀로그램 반사광 (UR+ 전용) */}
-      {isOwned && isSsrPlus && card.rarity !== 'SSR' && (
-        <div
-          className="card__shine absolute inset-0 rounded-2xl z-31 pointer-events-none"
-          style={{
-            ['--holo-strength' as string]: isXR ? '1.0'
-              : ['MR', 'LR'].includes(card.rarity) ? '0.85'
-              : '0.65',
-          } as React.CSSProperties}
-        />
-      )}
-
-      {/* 💡 2B. card__glare: overlay 실물 포토카드 원형 반사광 (SSR 제외) */}
-      {isOwned && card.rarity !== 'SSR' && (
-        <div
-          className="card__glare absolute inset-0 rounded-2xl z-32 pointer-events-none"
-          style={{
-            ['--glare-max' as string]: isSsrPlus ? '0.45'
-              : ['R', 'SR'].includes(card.rarity) ? '0.28'
-              : '0.18',
-          } as React.CSSProperties}
-        />
-      )}
-
-      {/* 🌟 2C. SSR+ 고등급 전용 라이브 골드 파티클 */}
-      {isOwned && isSsrPlus && (
-        <div className="absolute inset-0 rounded-2xl z-25 pointer-events-none overflow-hidden">
-          {GOLD_PARTICLES.map((gp, i) => (
-            <div
-              key={i}
-              className="gold-particle"
-              style={{
-                left: gp.left,
-                width: `${gp.size}px`,
-                height: `${gp.size}px`,
-                animationDelay: gp.delay,
-                animationDuration: gp.duration,
-              }}
-            />
-          ))}
-        </div>
-      )}
-
       {/* 🔒 미보유 카드 잠금 오버레이 */}
       {!isOwned && !isXrMystery && (
-        <div className="absolute inset-0 z-35 rounded-2xl flex items-center justify-center pointer-events-none bg-black/40 backdrop-blur-[1px]">
+        <div className="absolute inset-0 z-50 rounded-2xl flex items-center justify-center pointer-events-none bg-black/50 backdrop-blur-[1px]">
           <span className="text-xs font-mono font-black text-slate-300 drop-shadow flex items-center gap-1">
             🔒 LOCKED
           </span>
@@ -292,7 +238,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
       )}
 
       {/* ══════════════════════════════════════════════════════════════
-          메인 카드 바디 — 조잡한 박스 없이 깔끔한 단일 평면 타이포그래피
+          메인 카드 바디 — simeydotme 수준의 5단계 멀티 레이어 아키텍처
           ══════════════════════════════════════════════════════════════ */}
       <div
         className={`relative w-full h-full rounded-2xl ${
@@ -327,22 +273,12 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
           </div>
         ) : (
           <>
-            {/* ── 배경 그라디언트 ── */}
+            {/* ── [Layer 1: Base Background Layer] (z-0) ── */}
             <div
-              className={`absolute inset-0 bg-gradient-to-b ${card.gradient} pointer-events-none opacity-85`}
+              className={`absolute inset-0 bg-gradient-to-b ${card.gradient} pointer-events-none opacity-85 z-0`}
             />
-
-            {/* ── R (Rare) / SR (Super Rare) 전용: 인물 뒷배경에만 적용되는 홀로그램/글리터 레이어 ── */}
-            {isOwned && card.rarity === 'R' && (
-              <div className="absolute inset-0 pointer-events-none finish-rare-glitter opacity-90 z-5" />
-            )}
-            {isOwned && card.rarity === 'SR' && (
-              <div className="absolute inset-0 pointer-events-none finish-sr-horizontal opacity-90 z-5" />
-            )}
-
-            {/* ── 앰비언트 블러 배경 이미지 ── */}
             {card.image && (
-              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <div className="absolute inset-0 overflow-hidden pointer-events-none z-1">
                 <img
                   src={card.image}
                   alt=""
@@ -353,9 +289,28 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               </div>
             )}
 
-            {/* ── 메인 포그라운드 인물 이미지 (선명한 100% 원본 비율) ── */}
+            {/* ── [Layer 2: Foil & Holo Shine Layer] (z-10) ── */}
+            {isOwned && (
+              <div className={`absolute inset-0 rounded-2xl z-10 pointer-events-none ${finishClass}`} />
+            )}
+            {isOwned && isSsrPlus && card.rarity !== 'SSR' && (
+              <div
+                className="card__shine absolute inset-0 rounded-2xl z-12 pointer-events-none"
+                style={{
+                  ['--holo-strength' as string]: isXR ? '1.0'
+                    : ['MR', 'LR'].includes(card.rarity) ? '0.85'
+                    : '0.65',
+                } as React.CSSProperties}
+              />
+            )}
+
+            {/* ── [Layer 3: Real Noise & Grain Texture Overlay] (z-15) ── */}
+            <div className="card__noise absolute inset-0 rounded-2xl z-15 pointer-events-none" />
+
+            {/* ── [Layer 4: Character Artwork Layer] (z-20) ── */}
+            {/* 🎯 홀로그램 레이어 상위에 위치하여, 인물 얼굴이 color-dodge 빛으로 인해 허옇게 날아가지 않고 선명하게 유지! */}
             {card.image && (
-              <div className="absolute inset-0 flex items-center justify-center p-3 pt-7 pb-11 pointer-events-none z-10">
+              <div className="absolute inset-0 flex items-center justify-center p-3 pt-7 pb-11 pointer-events-none z-20">
                 <div className="relative max-w-full max-h-full flex items-center justify-center">
                   <img
                     src={card.image}
@@ -368,11 +323,43 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               </div>
             )}
 
-            {/* ── 섬세한 1px 단일 이너 프레임 라인 (조잡한 코너 박스 제거) ── */}
-            <div className="absolute inset-[6px] rounded-xl border border-white/10 pointer-events-none z-15" />
+            {/* ── [Layer 5: Glare, Lighting & HUD UI Layer] (z-25 ~ z-30) ── */}
+            {/* 5A. 원형 실물 포토카드 코팅 표면 반사광 (Glare) */}
+            {isOwned && card.rarity !== 'SSR' && (
+              <div
+                className="card__glare absolute inset-0 rounded-2xl z-25 pointer-events-none"
+                style={{
+                  ['--glare-max' as string]: isSsrPlus ? '0.45'
+                    : ['R', 'SR'].includes(card.rarity) ? '0.28'
+                    : '0.18',
+                } as React.CSSProperties}
+              />
+            )}
 
-            {/* ── 상단 깔끔한 플랫 타이포그래피 (네모칸 박스 UI 완전 배제) ── */}
-            <div className="relative z-20 w-full p-2.5 flex items-center justify-between pointer-events-none">
+            {/* 5B. SSR+ 고등급 라이브 골드 파티클 */}
+            {isOwned && isSsrPlus && (
+              <div className="absolute inset-0 rounded-2xl z-26 pointer-events-none overflow-hidden">
+                {GOLD_PARTICLES.map((gp, i) => (
+                  <div
+                    key={i}
+                    className="gold-particle"
+                    style={{
+                      left: gp.left,
+                      width: `${gp.size}px`,
+                      height: `${gp.size}px`,
+                      animationDelay: gp.delay,
+                      animationDuration: gp.duration,
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+
+            {/* 5C. 1px 섬세한 이너 프레임 라인 */}
+            <div className="absolute inset-[6px] rounded-xl border border-white/10 pointer-events-none z-27" />
+
+            {/* 5D. 상단 미니멀 타이포그래피 HUD */}
+            <div className="relative z-30 w-full p-2.5 flex items-center justify-between pointer-events-none">
               <div className="flex items-center gap-1.5 overflow-hidden">
                 <span className="font-mono text-[8.5px] sm:text-[9px] font-bold text-slate-300 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] tracking-tight">
                   {serialCode}
@@ -383,16 +370,14 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                 </span>
               </div>
 
-              {/* 등급 텍스트: 박스 없이 또렷한 시그니처 타이포그래피 */}
               <span className={`text-[9.5px] sm:text-[10.5px] tracking-widest uppercase ${rarityTextStyles[card.rarity]}`}>
                 {card.rarity}
               </span>
             </div>
 
-            {/* ── 하단 플랫 정보 타이포그래피 (불투명 박스 UI 완전 배제) ── */}
+            {/* 5E. 하단 플랫 정보 패널 */}
             {showDetails && (
-              <div className="relative z-20 mt-auto w-full p-2.5 pt-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col gap-0.5 pointer-events-none">
-                {/* 1열: 카드 타이틀 & 에라 */}
+              <div className="relative z-30 mt-auto w-full p-2.5 pt-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col gap-0.5 pointer-events-none">
                 <div className="flex items-center justify-between w-full overflow-hidden">
                   <span className="font-serif font-black text-white text-[10.5px] sm:text-[12px] tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] truncate max-w-[75%] leading-tight">
                     {isLogoCard ? 'Fe3O4: FORWARD 심볼' : (card.name.replace(/^\[[^\]]+\]\s*/, '') || card.name)}
@@ -402,12 +387,10 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                   </span>
                 </div>
 
-                {/* 2열: 카드 설명글 / 인용구 */}
                 <p className="text-[7.5px] sm:text-[8px] font-sans text-slate-300/85 leading-tight truncate italic drop-shadow-sm">
                   {card.quote ? `"${card.quote}"` : card.description}
                 </p>
 
-                {/* 3열: 하단 메타 라인 (일련번호 • 팩 • 피니시) */}
                 <div className="flex items-center justify-between text-[6.5px] sm:text-[7px] font-mono text-slate-400 pt-0.5 border-t border-white/10 mt-0.5 leading-none">
                   <span className="tracking-tight text-amber-300/80 font-bold">{serialCode}</span>
                   <span className="truncate max-w-[100px] text-slate-400">{card.packName || 'NMIXX TCG'}</span>
@@ -416,14 +399,13 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               </div>
             )}
 
-            {/* ── 수량 텍스트 표시 (보유 수량 2장 이상일 때) ── */}
+            {/* 5F. 수량 및 NEW 인디케이터 (z-40) */}
             {effectiveCount > 1 && (
               <div className="absolute bottom-8 right-2 z-40 bg-black/85 text-amber-300 border border-amber-400/60 font-mono text-[9px] sm:text-[9.5px] font-black px-1.5 py-0.2 rounded-md shadow-md pointer-events-none">
                 x{effectiveCount}
               </div>
             )}
 
-            {/* ── NEW 획득 표시 ── */}
             {isNew && (
               <div className="absolute top-2 left-2 z-40 bg-emerald-500/90 text-white font-black text-[8px] px-1.5 py-0.2 rounded-full shadow-md animate-pulse pointer-events-none">
                 NEW

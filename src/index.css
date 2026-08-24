@@ -80,6 +80,17 @@
 }
 
 /* =========================================================================
+   실물 포토카드 노이즈 & 질감 텍스처 (SVG fractalNoise)
+   ========================================================================= */
+.card__noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.75'/%3E%3C/svg%3E");
+  background-size: 100px 100px;
+  mix-blend-mode: overlay;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+/* =========================================================================
    8-TIER INTERACTIVE FOIL & FINISH SHADER SYSTEM (전면 정밀 개편)
    ========================================================================= */
 
