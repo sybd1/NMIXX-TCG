@@ -56,10 +56,16 @@ export function useGameState() {
         
         if (cloudData) {
           // 기존 Firestore 클라우드 세이브 데이터 100% 온전히 복원 (초기화 절대 금지)
+          const cleanCollection = { ...(cloudData.collection || {}) };
+          let needsUpdate = false;
+          if (cleanCollection['nmixx_200_110']) {
+            delete cleanCollection['nmixx_200_110'];
+            needsUpdate = true;
+          }
           const userState: GameState = {
             coins: cloudData.coins ?? 1_000_000,
             dust: cloudData.dust ?? 0,
-            collection: cloudData.collection || {},
+            collection: cleanCollection,
             pityCount: cloudData.pityCounter ?? 0,
             openedPacksTotal: cloudData.totalPacksOpened ?? 0,
             coinsSpentTotal: 0,
@@ -77,9 +83,27 @@ export function useGameState() {
           };
           StorageService.saveState(userState, user.id);
           setState(userState);
+
+          if (needsUpdate) {
+            CloudSyncService.saveUserGameData(user, {
+              collection: cleanCollection,
+              coins: userState.coins,
+              dust: userState.dust,
+              pityCounter: userState.pityCount,
+              totalPacksOpened: userState.openedPacksTotal,
+              unlockedAchievements: userState.claimedAchievements,
+              claimedSetRewards: userState.claimedSetRewards,
+              claimedMailIds: userState.claimedMailIds,
+              claimedCouponCodes: userState.claimedCouponCodes,
+              hasClaimedMmuEasterEgg: userState.hasClaimedMmuEasterEgg,
+            }).catch(err => console.error("Auto delete nmixx_200_110 failed:", err));
+          }
         } else {
           // 신규 가입 유저(Firestore 문서 부재 시): 신규 100만원 기본 데이터 1회 생성 및 즉시 Firestore 저장
           const freshState = StorageService.loadState(user.id);
+          if (freshState.collection && freshState.collection['nmixx_200_110']) {
+            delete freshState.collection['nmixx_200_110'];
+          }
           await CloudSyncService.saveUserGameData(user, {
             collection: freshState.collection,
             coins: freshState.coins,
@@ -100,6 +124,10 @@ export function useGameState() {
         activeUserIdRef.current = null;
         CloudSyncService.forceResetHash();
         const guestState = StorageService.loadState('guest');
+        if (guestState.collection && guestState.collection['nmixx_200_110']) {
+          delete guestState.collection['nmixx_200_110'];
+          StorageService.saveState(guestState, 'guest');
+        }
         setState(guestState);
       }
 
