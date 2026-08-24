@@ -447,16 +447,14 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                       ? 'Symbol'
                       : card.member === 'NMIXX'
                       ? 'Group Portrait'
-                      : card.member === 'PARK'
-                      ? 'J.Y. Park'
-                      : {
+                      : (({
                           LILY: 'Lily',
                           HAEWON: 'Haewon',
                           SULLYOON: 'Sullyoon',
                           BAE: 'BAE',
                           JIWOO: 'Jiwoo',
                           KYUJIN: 'Kyujin',
-                        }[card.member] || card.member}
+                        } as Record<string, string>)[card.member] || card.member)}
                   </span>
                   <span className="font-mono font-bold text-[7.5px] sm:text-[8.5px] text-slate-400/90 tracking-widest">
                     NMIXX

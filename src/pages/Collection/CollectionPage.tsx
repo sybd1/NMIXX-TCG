@@ -664,7 +664,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
 
           {/* 6개 세트 와이드 리스트 */}
           <div className="flex flex-col gap-8 w-full">
-            {CONCEPT_SETS.map((set, sIdx) => {
+            {CONCEPT_SETS.map((set) => {
               const ownedInSet = set.cardIds.filter(id => (collection[id] || 0) > 0).length;
               const isCompleted = set.cardIds.length > 0 && ownedInSet === set.cardIds.length;
               const memberCards = set.cardIds
@@ -680,18 +680,15 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
               return (
                 <div
                   key={set.setId}
-                  className={`p-6 sm:p-8 rounded-3xl border transition-all flex flex-col gap-6 w-full ${
+                  className={`p-6 sm:p-8 rounded-3xl transition-all flex flex-col gap-6 w-full ${
                     isCompleted
-                      ? 'bg-gradient-to-b from-amber-950/30 via-void-900/90 to-void-950 border-amber-400/60 shadow-2xl shadow-amber-950/40 ring-1 ring-amber-400/50'
-                      : 'bg-void-900/70 border-void-800'
+                      ? 'bg-gradient-to-b from-amber-950/20 via-void-950/90 to-void-950/95 shadow-2xl ring-1 ring-amber-500/20'
+                      : 'bg-void-900/30'
                   }`}
                 >
                   {/* Set Header Bar (와이드 & 줄바꿈 방지) */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-4">
                     <div className="flex items-center gap-2.5 flex-wrap">
-                      <span className="text-slate-400 font-mono text-xs font-bold mr-1">
-                        #{sIdx + 1}
-                      </span>
                       <span className="text-[10.5px] font-mono font-black text-sky-300 bg-sky-950/80 px-2.5 py-1 rounded-lg border border-sky-500/30">
                         📦 {set.packCode} {set.packName ? `• ${set.packName}` : ''}
                       </span>
