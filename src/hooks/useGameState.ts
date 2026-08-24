@@ -39,6 +39,7 @@ export function useGameState() {
         claimedMailIds: state.claimedMailIds || [],
         claimedCouponCodes: state.claimedCouponCodes || [],
         hasClaimedMmuEasterEgg: state.hasClaimedMmuEasterEgg,
+        lastMailClaimDate: state.lastMailClaimDate,
       });
     }
   }, [state]);
