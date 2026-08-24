@@ -292,7 +292,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
       } as React.CSSProperties}
       className={`group relative ${defaultSizeClass} ${className} rounded-2xl p-[1.5px] cursor-pointer select-none transition-all duration-300 ${
         !isOwned && !isXrMystery ? 'opacity-40 hover:opacity-75 filter grayscale-[80%] brightness-[70%] contrast-[90%]' : 'hover:scale-[1.03]'
-      } ${isXrMystery ? 'hover:scale-[1.04]' : ''}`}
+      } ${isXrMystery ? 'hover:scale-[1.04]' : ''} card-tier-${card.rarity.toLowerCase()}`}
     >
       {/* 🔒 미보유 카드 잠금 오버레이 */}
       {!isOwned && !isXrMystery && (
@@ -309,7 +309,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
       <div
         className={`relative w-full h-full rounded-2xl ${
           rarityBorders[card.rarity]
-        } bg-black flex flex-col justify-between overflow-hidden z-10 shadow-2xl`}
+        } bg-black flex flex-col justify-between overflow-hidden z-10 shadow-2xl card-inner-frame`}
       >
         {/* XR 미획득 상태: 미스터리 카드 */}
         {isXrMystery ? (
@@ -440,17 +440,19 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
             {/* 5C. 1px 섬세한 이너 프레임 라인 */}
             <div className="absolute inset-[6px] rounded-xl border border-white/10 pointer-events-none z-27" />
 
-            {/* 5D. 상단 레퍼런스 디자인: NMIXX 시그니처 로고 (상단 좌측) */}
+            {/* 5D. 상단 레퍼런스 디자인: NMIXX 시그니처 로고 (상단 좌측) & 등급 표기 (상단 우측) */}
             <div className="relative z-30 w-full p-2.5 pt-2 flex items-center justify-between pointer-events-none">
               <span className="font-sans font-black text-[11px] sm:text-[13px] tracking-widest text-white/95 drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] uppercase">
                 NMIXX
               </span>
-              {/* 상단 우측: 사용자 요청에 따라 고등급 뱃지 취소 및 공백 유지 */}
+              <span className={`font-mono font-black text-xs px-1.5 py-0.5 rounded ${rarityTextStyles[card.rarity]} drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]`}>
+                {card.rarity}
+              </span>
             </div>
 
             {/* 5E. 하단 레퍼런스 디자인 정보 바 (하단 좌: 멤버명+NMIXX / 하단 우: 등급+시리얼) */}
             {showDetails && (
-              <div className="relative z-30 mt-auto w-full px-3 py-2.5 bg-gradient-to-t from-black/95 via-black/80 to-transparent flex items-end justify-between pointer-events-none">
+              <div className={`relative z-30 mt-auto w-full px-3 py-2.5 bg-gradient-to-t from-black/95 via-black/80 to-transparent flex items-end justify-between pointer-events-none ${card.rarity === 'SR' ? 'text-overlay-glass rounded-b-2xl' : ''}`}>
                 {/* 하단 좌측: 멤버 이름 (Bold Large) + NMIXX 서브텍스트 */}
                 <div className="flex flex-col leading-tight overflow-hidden max-w-[65%]">
                   <span className="font-sans font-black text-[13px] sm:text-[15px] text-white tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] truncate">
