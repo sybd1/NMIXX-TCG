@@ -55,25 +55,6 @@ export const App: React.FC = () => {
   const [isMailboxOpen, setIsMailboxOpen] = useState(false);
   const [isMarketOpen, setIsMarketOpen] = useState(false);
 
-  // ⌨️ 글로벌 ESC 키 핸들러: 어떤 화면이나 모달에서도 ESC를 누르면 즉시 메인 팩오픈 화면으로 복귀
-  useEffect(() => {
-    const handleGlobalKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setIsAuthModalOpen(false);
-        setIsProfileModalOpen(false);
-        setIsLeaderboardOpen(false);
-        setIsMailboxOpen(false);
-        setIsMarketOpen(false);
-        if (currentTab !== 'home') {
-          sound.playClick();
-          setCurrentTab('home');
-        }
-      }
-    };
-    window.addEventListener('keydown', handleGlobalKeyDown);
-    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
-  }, [currentTab]);
-
   const [openingState, setOpeningState] = useState<{
     cards: RevealedCard[];
     pack: BoosterPackConfig;
@@ -83,6 +64,31 @@ export const App: React.FC = () => {
 
   // 개봉 중복 호출 방지용 락
   const isOpeningLockRef = useRef(false);
+
+  // ⌨️ 글로벌 고속 ESC 키 핸들러: 카드팩 개봉 중, 탭 화면, 모달 등 어디서나 ESC를 누르면 0ms 즉시 메인 팩오픈 화면으로 복귀
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        // 1. 팩 개봉 화면 즉시 탈출 & 락 해제
+        setOpeningState(null);
+        isOpeningLockRef.current = false;
+
+        // 2. 열려있는 모든 모달 즉시 닫기
+        setIsAuthModalOpen(false);
+        setIsProfileModalOpen(false);
+        setIsLeaderboardOpen(false);
+        setIsMailboxOpen(false);
+        setIsMarketOpen(false);
+
+        // 3. 메인 팩오픈 화면으로 즉시 전환
+        setCurrentTab('home');
+      }
+    };
+
+    // Capture phase(true)로 등록하여 어떤 요소보다 최우선으로 즉시 가로채 처리
+    window.addEventListener('keydown', handleGlobalKeyDown, true);
+    return () => window.removeEventListener('keydown', handleGlobalKeyDown, true);
+  }, []);
 
   // 미수령 우편 수 계산
   const unreadMailCount = MultiplayerService.getMailList(state.claimedMailIds || []).filter(

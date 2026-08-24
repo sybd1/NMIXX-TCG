@@ -122,6 +122,17 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
     return () => clearTimeout(timer);
   }, [cards]);
 
+  // ⌨️ ESC 키 입력 시 팩 개봉 화면 즉시 종료 및 홈 복귀
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onFinish();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown, true);
+    return () => window.removeEventListener('keydown', handleKeyDown, true);
+  }, [onFinish]);
+
   // 🌟 Step 1: 팩 개봉 즉시 팩에 든 모든 카드가 그리드로 차례대로 깔림 (전체 카드 순차 노출)
   const handleStartOpening = () => {
     if (step !== 'PACK_ENTER') return;
