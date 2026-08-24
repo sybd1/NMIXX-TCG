@@ -12651,7 +12651,7 @@ export const CONCEPT_SETS: ConceptSetCard[] = [
       era: 'MIXX LAB',
       gradient: 'from-blue-500 via-indigo-600 to-purple-600',
       symbol: '🌸',
-      image: '/card-pack-image/crop-image/nx1-fe3o4-foward/concept2/group-members/12c6c9eadb560590e1c685e0f7d1723e.jpg',
+      image: '/card-pack-image/crop-image/nx1-fe3o4-foward/concept-MIXXLAB/group-members/726a13f4b201db6ec0a44ae82a2ddabc.jpg',
       packCode: 'NX-01',
       packId: 'op01',
       packName: 'NX 01 - Fe3O4: FORWARD',
