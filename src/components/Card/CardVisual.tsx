@@ -339,27 +339,15 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
           </div>
         ) : (
           <>
-            {/* ── [Layer 1: Base Background Layer] (멤버별 시그니처 배경 그라디언트 + 앰비언트) ── */}
+            {/* ── [Layer 1: Base Background Layer] (멤버별 시그니처 배경 그라디언트) ── */}
             <div
               className={`absolute inset-0 bg-gradient-to-b ${card.gradient || memberTheme.bgGradient} pointer-events-none opacity-85 z-0`}
             />
-            {card.image && (
-              <div className="absolute inset-0 overflow-hidden pointer-events-none z-1">
-                <img
-                  src={card.image}
-                  alt=""
-                  aria-hidden="true"
-                  className="w-full h-full object-cover scale-[1.65] blur-[24px] brightness-[0.7] contrast-125 opacity-80"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/80" />
-              </div>
-            )}
 
             {/* ── [Layer 2: Foil & Holo Shine Layer] (z-10) ── */}
             {isOwned && (
               <div className={`absolute inset-0 rounded-2xl z-10 pointer-events-none ${finishClass}`} />
             )}
-            {/* UR/SSR의 경우 사선/딥섀도우 빛만 집중되도록 shine 분기 */}
             {isOwned && isSsrPlus && !['SSR', 'UR'].includes(card.rarity) && (
               <div
                 className="card__shine absolute inset-0 rounded-2xl z-12 pointer-events-none"
@@ -375,26 +363,29 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
             <div className="card__noise absolute inset-0 rounded-2xl z-15 pointer-events-none" />
 
             {/* ── [Layer 4: Character Artwork Layer] (z-20) ── */}
-            {/* 🎯 홀로그램 레이어 상위에 위치하여, 인물 얼굴이 color-dodge 빛으로 인해 허옇게 날아가지 않고 선명하게 유지! */}
+            {/* 🎯 스마트 크롭된 600x840 px 고화질 이미지를 카드에 꽉 채우고, 얼굴이 color-dodge로 타지 않도록 선명하게 보호! */}
             {card.image && (
-              <div className="absolute inset-0 flex items-center justify-center p-3 pt-7 pb-11 pointer-events-none z-20">
-                <div className="relative max-w-full max-h-full flex items-center justify-center">
-                  <img
-                    src={card.image}
-                    alt={card.name}
-                    loading="lazy"
-                    decoding="async"
-                    className={`max-w-full max-h-full object-contain rounded-lg shadow-[0_8px_20px_rgba(0,0,0,0.85)] ring-1 ring-white/15 group-hover:scale-[1.02] transition-transform duration-200 pointer-events-none ${
-                      card.rarity === 'UR'
-                        ? 'filter brightness-[1.04] saturate-[1.22] contrast-[1.05] drop-shadow-[0_4px_12px_rgba(253,164,175,0.35)]'
-                        : ''
-                    }`}
-                  />
-                </div>
+              <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+                <img
+                  src={card.image}
+                  alt={card.name}
+                  loading="lazy"
+                  decoding="async"
+                  className={`w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-200 pointer-events-none ${
+                    card.rarity === 'UR'
+                      ? 'filter brightness-[1.04] saturate-[1.22] contrast-[1.05] drop-shadow-[0_4px_12px_rgba(253,164,175,0.35)]'
+                      : ''
+                  }`}
+                />
               </div>
             )}
 
-            {/* ── [Layer 4-B: MR 전용 인물 위 교차 격자 광선 투과 레이어] ── */}
+            {/* ── [Layer 4-B: SSR 전용 3D 이너 림 액자 프레임 (레퍼런스 스타일)] ── */}
+            {card.rarity === 'SSR' && isOwned && (
+              <div className="absolute inset-[12px] rounded-xl border-2 border-white/45 shadow-[inset_0_0_15px_rgba(255,255,255,0.4),0_0_15px_rgba(0,0,0,0.6)] pointer-events-none z-21" />
+            )}
+
+            {/* ── [Layer 4-C: MR 전용 인물 위 교차 격자 광선 투과 레이어] ── */}
             {isOwned && card.rarity === 'MR' && (
               <div className="absolute inset-0 rounded-2xl z-22 pointer-events-none finish-mr-radiant-nmixx opacity-45 mix-blend-color-dodge" />
             )}
@@ -434,43 +425,48 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
             {/* 5C. 1px 섬세한 이너 프레임 라인 */}
             <div className="absolute inset-[6px] rounded-xl border border-white/10 pointer-events-none z-27" />
 
-            {/* 5D. 상단 미니멀 타이포그래피 HUD */}
-            <div className="relative z-30 w-full p-2.5 flex items-center justify-between pointer-events-none">
-              <div className="flex items-center gap-1.5 overflow-hidden">
-                <span className="font-mono text-[8.5px] sm:text-[9px] font-bold text-slate-300 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] tracking-tight">
-                  {serialCode}
-                </span>
-                <span className="text-white/40 text-[8px]">•</span>
-                <span className="text-[8px] sm:text-[8.5px] font-bold text-slate-200 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] truncate max-w-[90px]">
-                  {isLogoCard ? '심볼' : memberTheme.nameKo}
-                </span>
-              </div>
-
-              <span className={`text-[9.5px] sm:text-[10.5px] tracking-widest uppercase ${rarityTextStyles[card.rarity]}`}>
-                {card.rarity}
+            {/* 5D. 상단 레퍼런스 디자인: NMIXX 시그니처 로고 (상단 좌측) */}
+            <div className="relative z-30 w-full p-2.5 pt-2 flex items-center justify-between pointer-events-none">
+              <span className="font-sans font-black text-[11px] sm:text-[13px] tracking-widest text-white/95 drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] uppercase">
+                NMIXX
               </span>
+              {/* 상단 우측: 사용자 요청에 따라 고등급 뱃지 취소 및 공백 유지 */}
             </div>
 
-            {/* 5E. 하단 플랫 정보 패널 */}
+            {/* 5E. 하단 레퍼런스 디자인 정보 바 (하단 좌: 멤버명+NMIXX / 하단 우: 등급+시리얼) */}
             {showDetails && (
-              <div className="relative z-30 mt-auto w-full p-2.5 pt-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col gap-0.5 pointer-events-none">
-                <div className="flex items-center justify-between w-full overflow-hidden">
-                  <span className="font-serif font-black text-white text-[10.5px] sm:text-[12px] tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] truncate max-w-[75%] leading-tight">
-                    {isLogoCard ? 'Fe3O4: FORWARD 심볼' : (card.name.replace(/^\[[^\]]+\]\s*/, '') || card.name)}
+              <div className="relative z-30 mt-auto w-full px-3 py-2.5 bg-gradient-to-t from-black/95 via-black/80 to-transparent flex items-end justify-between pointer-events-none">
+                {/* 하단 좌측: 멤버 이름 (Bold Large) + NMIXX 서브텍스트 */}
+                <div className="flex flex-col leading-tight overflow-hidden max-w-[65%]">
+                  <span className="font-sans font-black text-[13px] sm:text-[15px] text-white tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] truncate">
+                    {isLogoCard
+                      ? 'Symbol'
+                      : card.member === 'NMIXX'
+                      ? 'Group Portrait'
+                      : card.member === 'PARK'
+                      ? 'J.Y. Park'
+                      : {
+                          LILY: 'Lily',
+                          HAEWON: 'Haewon',
+                          SULLYOON: 'Sullyoon',
+                          BAE: 'BAE',
+                          JIWOO: 'Jiwoo',
+                          KYUJIN: 'Kyujin',
+                        }[card.member] || card.member}
                   </span>
-                  <span className="text-[7.5px] sm:text-[8px] font-mono font-bold text-amber-300/90 uppercase tracking-tight drop-shadow">
-                    {card.era}
+                  <span className="font-mono font-bold text-[7.5px] sm:text-[8.5px] text-slate-400/90 tracking-widest">
+                    NMIXX
                   </span>
                 </div>
 
-                <p className="text-[7.5px] sm:text-[8px] font-sans text-slate-300/85 leading-tight truncate italic drop-shadow-sm">
-                  {card.quote ? `"${card.quote}"` : card.description}
-                </p>
-
-                <div className="flex items-center justify-between text-[6.5px] sm:text-[7px] font-mono text-slate-400 pt-0.5 border-t border-white/10 mt-0.5 leading-none">
-                  <span className="tracking-tight text-amber-300/80 font-bold">{serialCode}</span>
-                  <span className="truncate max-w-[100px] text-slate-400">{card.packName || 'NMIXX TCG'}</span>
-                  <span className="text-pink-300/90 font-medium">{card.finishType || 'NORMAL'}</span>
+                {/* 하단 우측: 등급 (Bold Large) + 시리얼 코드 서브텍스트 */}
+                <div className="flex flex-col items-end leading-tight flex-shrink-0">
+                  <span className={`font-sans font-black text-[13px] sm:text-[15px] tracking-wider ${rarityTextStyles[card.rarity]} drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]`}>
+                    {card.rarity}
+                  </span>
+                  <span className="font-mono font-bold text-[7.5px] sm:text-[8.5px] text-slate-400/90 tracking-tight">
+                    {serialCode}
+                  </span>
                 </div>
               </div>
             )}
