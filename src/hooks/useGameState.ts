@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { GameState, PackHistoryItem } from '../types/game';
 import { Card, RevealedCard } from '../types/card';
-import { StorageService, getAllCardsCollection } from '../services/storageService';
+import { StorageService } from '../services/storageService';
 import { CloudSyncService } from '../services/cloudSyncService';
 import { AuthService } from '../services/authService';
 import { MultiplayerService } from '../services/multiplayerService';
@@ -55,13 +55,11 @@ export function useGameState() {
         const cloudData = await CloudSyncService.loadUserGameData(user.id);
         
         if (cloudData) {
-          const isSpecialUser = user.email === 'gjffpdlem@gmail.com';
-          
           // 기존 Firestore 클라우드 세이브 데이터 100% 온전히 복원 (초기화 절대 금지)
           const userState: GameState = {
             coins: cloudData.coins ?? 1_000_000,
             dust: cloudData.dust ?? 0,
-            collection: isSpecialUser ? getAllCardsCollection() : (cloudData.collection || {}),
+            collection: cloudData.collection || {},
             pityCount: cloudData.pityCounter ?? 0,
             openedPacksTotal: cloudData.totalPacksOpened ?? 0,
             coinsSpentTotal: 0,
@@ -77,7 +75,6 @@ export function useGameState() {
             coinReset_v16: true,
             hasClaimedMmuEasterEgg: cloudData.hasClaimedMmuEasterEgg || false,
           };
-
           StorageService.saveState(userState, user.id);
           setState(userState);
         } else {
