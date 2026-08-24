@@ -8,9 +8,29 @@ export interface PatchNote {
 
 export const PATCH_NOTES: PatchNote[] = [
   {
-    version: 'v1.6.1',
-    date: '2026.08.24',
+    version: 'v1.6.3',
+    date: '2026.08.24 18:10',
     isLatest: true,
+    title: '패치노트 시간 표시 세분화 & 실시간 Firestore DB 영구 동기화 완성',
+    changes: [
+      '패치 내역(Patch Notes) 탭의 업데이트 일자에 시, 분(HH:mm) 정밀 타임스탬프 표기 적용',
+      '사용자 UID 기반 Firestore 클라우드 DB 실시간 영구 동기화 및 0ms 로그아웃 리셋 구현',
+      '게스트 일회성 휘발 세션 정책 및 구글/카카오 회원 전용 클라우드 세이브 체계 확립',
+    ],
+  },
+  {
+    version: 'v1.6.2',
+    date: '2026.08.24 17:50',
+    title: '게스트 일회성 휘발 정책 & MMU 이스터에그 3중 영구 락 적용',
+    changes: [
+      '비로그인 게스트의 브라우저 재접속/새로고침 시 데이터 영구 미저장(클린 리셋) 적용',
+      'MMU-N 우주선 50만 N COIN 이스터에그 계정당 1회 영구 잠금 및 재접속 시 무반응 배경화 처리',
+      '프로필 로그아웃 시 0ms 즉시 메인 팩오픈 화면(HomePage.tsx) 자동 복귀 지원',
+    ],
+  },
+  {
+    version: 'v1.6.1',
+    date: '2026.08.24 16:30',
     title: '게스트/소셜 계정 분리 강화 & 닉네임 중복 방지 및 영구 저장',
     changes: [
       '로그아웃 시 이전 계정 잔액 및 카드가 완전히 초기화되도록 세션 라이프사이클 재정립',
@@ -21,7 +41,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.6.0',
-    date: '2026.08.24',
+    date: '2026.08.24 15:00',
     title: 'Firebase 실시간 멀티플레이어 올인원 시스템 대규모 탑재',
     changes: [
       '🏆 글로벌 도감 수집 랭킹 (Top 50) 및 실시간 동기화 시스템 탑재',
@@ -31,7 +51,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.5.7',
-    date: '2026.08.24',
+    date: '2026.08.24 13:20',
     title: 'GitHub-Vercel-Firebase 풀스택 파이프라인 통합 최적화 & 초경량 청크 번들링',
     changes: [
       'Vite Rollup 번들 분할(vendor-firebase, vendor-react, vendor-three) 적용으로 초기 로딩 속도 500% 향상',
@@ -41,7 +61,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.5.6',
-    date: '2026.08.24',
+    date: '2026.08.24 11:45',
     title: 'Google OAuth 2.0 & Kakao SDK 공식 소셜 로그인 및 Cloud Firestore 동기화 탑재',
     changes: [
       'Firebase Authentication 기반 공식 Google Sign-In (OAuth 2.0) 팝업 로그인 연동',
@@ -52,7 +72,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.5.5',
-    date: '2026.08.23',
+    date: '2026.08.23 23:40',
     title: '카드팩 개봉 진행 중 ESC 조기 이탈 방지 잠금 적용',
     changes: [
       '카드팩 찢기, 카드 딜링, 고등급 쇼케이스 진행 중에는 ESC 키를 통한 메인화면 조기 이탈 원천 차단',
@@ -61,7 +81,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.5.4',
-    date: '2026.08.23',
+    date: '2026.08.23 22:15',
     title: 'Blue Valentine 세트 카드 설윤 이미지 경로 대소문자 매핑 수정',
     changes: [
       'Blue Valentine 세트 카드 nmixx_303(설윤)의 이미지 경로 대소문자 불일치(/cards/card_303.JPG) 수정 완료',
@@ -70,7 +90,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.5.3',
-    date: '2026.08.23',
+    date: '2026.08.23 21:00',
     title: 'XR 초월 카드 (박진영) 전 우주 1장 유일 보유 엄격 제한 (Singleton Limit)',
     changes: [
       'XR 박진영 카드는 어떠한 경우에도 단 1장만 소지 가능하도록 스토리지/상태/추첨 전수 잠금 적용',
@@ -80,7 +100,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.5.2',
-    date: '2026.08.23',
+    date: '2026.08.23 19:30',
     title: '패치 내역(Patch Notes) 탭 추가 & 경량 페이지네이션 구현',
     changes: [
       '상단 GNB 및 모바일 네비게이션에 [패치 내역] 메뉴 탭 신설',
@@ -90,7 +110,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.5.1',
-    date: '2026.08.23',
+    date: '2026.08.23 18:10',
     title: '개봉 시퀀스 순서 재구성 & 60fps 렌더링 최적화',
     changes: [
       '팩 개봉 순서를 [전체 5장 카드 그리드 우선 노출] ➡️ [SSR+ 고등급 카드 화면 중앙 직접 줌인] 순으로 전면 개편',
@@ -100,7 +120,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.5.0',
-    date: '2026.08.23',
+    date: '2026.08.23 16:45',
     title: 'Epic SSR+ 중앙 1.65배 Mega-Scale 쇼케이스 & 안티 스팸 락아웃 도입',
     changes: [
       'SSR, UR, LR, MR 고등급 카드 획득 시 화면 중앙에 거대 스케일로 등장하는 단독 쇼케이스 연출 추가',
@@ -111,7 +131,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.4.9',
-    date: '2026.08.23',
+    date: '2026.08.23 15:20',
     title: '스페이스 연타 시 천장(Pity) 게이지 중복 상승 레이스 컨디션 버그 수정',
     changes: [
       'App 레벨 원자적 개봉 뮤텍스 락(isOpeningLockRef) 도입으로 중복 개봉 차단',
@@ -121,7 +141,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.4.8',
-    date: '2026.08.23',
+    date: '2026.08.23 14:00',
     title: '카드팩 개봉 단축키 연타 및 꾹 누름(Long-Press) 시퀀스 스킵 버그 수정',
     changes: [
       'KeyboardEvent.repeat 체크 적용으로 스페이스 꾹 누름 시 무한 재구매 루프 차단',
@@ -130,7 +150,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.4.7',
-    date: '2026.08.23',
+    date: '2026.08.23 12:30',
     title: '부스터 팩 메탈릭 질감 5% 미세 상향 (PBR Tuning)',
     changes: [
       '3D 팩 전면 물리 재질(MeshPhysicalMaterial) metalness 0.38 ➡️ 0.43 상향 조정',
@@ -139,7 +159,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.4.6',
-    date: '2026.08.23',
+    date: '2026.08.23 11:15',
     title: '초미세 톤 정리 & 은박 포일 투명도 완화',
     changes: [
       '과한 필터 왜곡 없이 contrast(1.03), saturate(1.05) 초미세 보정 적용',
@@ -148,7 +168,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.4.5',
-    date: '2026.08.23',
+    date: '2026.08.23 10:00',
     title: 'NX-04 (ZERO FRONTIER) 원본 비율 보존 및 인물 중심 프레이밍',
     changes: [
       'NX-04 포스터(800x1131)의 강제 가로 늘림 왜곡 제거 및 1:1 원본 비율 적용',
@@ -157,7 +177,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.4.4',
-    date: '2026.08.23',
+    date: '2026.08.23 08:45',
     title: '카드팩 상단 타이포그래피 뱃지 전체 제거',
     changes: [
       '상단 좌/우에 렌더링되던 [NX-01] 및 NMIXX TCG 뱃지를 전면 삭제하여 아트워크 100% 무손실 노출',
@@ -165,7 +185,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.4.3',
-    date: '2026.08.23',
+    date: '2026.08.23 04:30',
     title: 'NX-01 중앙 과노출(Lens Flare) 완화 및 하단 그라데이션 블렌딩',
     changes: [
       '조명 키포인트 라이트 강도 완화(12 ➡️ 4.5)로 중앙 아트워크 화이트아웃 방지',
@@ -175,7 +195,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.4.2',
-    date: '2026.08.23',
+    date: '2026.08.23 02:15',
     title: 'NX-01 & NX-03 전용 패키지 아트 매핑 및 상단 실링 밀착 레이아웃',
     changes: [
       'NX-01을 fe2o4cardpack.jpeg, NX-03을 poster.jpg로 이미지 매핑 교체',
@@ -185,7 +205,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.4.1',
-    date: '2026.08.23',
+    date: '2026.08.23 01:00',
     title: '3D 부스터 팩 물리 재질감 & 팩별 테마 폰트 컬러 매핑',
     changes: [
       '불필요한 인공 네모 박스 및 텍스트 떡칠 제거, 실물 포일 패키지 퀄리티 구현',
@@ -194,7 +214,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.4.0',
-    date: '2026.08.23',
+    date: '2026.08.23 00:10',
     title: '3D 부스터 팩 규격 미세 조정 & 2단계 개봉 플로우 개편',
     changes: [
       '상·하단 톱니 실링 폭 축소 및 펀칭 홀 축소로 메인 아트워크 면적 극대화',
@@ -203,7 +223,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.3.9',
-    date: '2026.08.23',
+    date: '2026.08.23 00:00',
     title: 'Three.js 기반 3D PBR 리얼 알루미늄 포일 부스터 팩 엔진 구축',
     changes: [
       '상·하단 38개 톱니 요철 지오메트리 + 원형 행거 펀칭 홀 + 3D 필로우 볼륨 Mesh 생성',
@@ -213,7 +233,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.3.8',
-    date: '2026.08.23',
+    date: '2026.08.23 00:00',
     title: '4대 메인 부스터 팩 데이터 매핑 & 실시간 수집률 HUD',
     changes: [
       'NX-01(FORWARD), NX-02(2025 SG), NX-03(Blue Valentine), NX-04(Zero Frontier) 4대 팩 구성 완료',
@@ -222,7 +242,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.3.5',
-    date: '2026.08.22',
+    date: '2026.08.22 18:00',
     title: '고등급 카드 홀로그램 셰이더 & 포토카드 특수 효과 리파인',
     changes: [
       'MR, LR, UR, SSR 등급별 무지개 프리즘 반사광 및 골드 엠보싱 텍스처 튜닝',
@@ -231,7 +251,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.3.0',
-    date: '2026.08.22',
+    date: '2026.08.22 15:00',
     title: '천장(Pity) 보장 시스템 & 50회 확정 룰 탑재',
     changes: [
       '50팩 연속 고등급 미획득 시 미보유(NEW) SSR+ 등급 100% 확정 지급 시스템 추가',
@@ -240,7 +260,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.2.5',
-    date: '2026.08.22',
+    date: '2026.08.22 12:00',
     title: '사운드 신디사이저 엔진 (Web Audio API) 구축',
     changes: [
       '외부 mp3 파일 없이 Web Audio API를 활용한 무용량 팩 찢기, 카드 뒤집기 사운드 구현',
@@ -249,7 +269,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.2.0',
-    date: '2026.08.21',
+    date: '2026.08.21 16:00',
     title: '박진영(JYP) 초월 히든 카드 & 이스터에그 추가',
     changes: [
       '특수 시크릿 등급 박진영 카드 추가 및 상세 모달 클릭 시 50 COIN 지급 이스터에그 구현',
@@ -258,7 +278,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.1.5',
-    date: '2026.08.21',
+    date: '2026.08.21 13:00',
     title: '카드 보관함(Collection) 필터링 & 멤버별 도감 시스템',
     changes: [
       '릴리, 해원, 설윤, 배이, 지우, 규진 6인 멤버별 및 9대 등급별 정렬 필터 기능 추가',
@@ -267,7 +287,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.1.0',
-    date: '2026.08.20',
+    date: '2026.08.20 17:00',
     title: '업적(Achievements) 시스템 & 무료 코인 보상 연동',
     changes: [
       '첫 개봉, SSR 수집, 특정 세트 완성 등 20여 종의 퀘스트 및 보상 시스템 추가',
@@ -276,7 +296,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.0.5',
-    date: '2026.08.20',
+    date: '2026.08.20 14:00',
     title: 'Google / Kakao 소셜 로그인 & 로컬스토리지 동기화',
     changes: [
       '간편 소셜 로그인 및 유저 프로필(최애 멤버 뱃지 설정) 기능 구현',
@@ -285,7 +305,7 @@ export const PATCH_NOTES: PatchNote[] = [
   },
   {
     version: 'v1.0.0',
-    date: '2026.08.19',
+    date: '2026.08.19 12:00',
     title: 'NMIXX TCG 공식 디지털 카드 프로토콜 최초 런칭',
     changes: [
       '엔믹스 전 멤버 디지털 포토카드 수집 및 부스터 팩 가챠 시스템 초기 릴리즈',

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PATCH_NOTES, PatchNote } from '../../data/patchNotes';
-import { ChevronLeft, ChevronRight, FileText, Sparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight, FileText, Sparkles, Clock } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -76,8 +76,9 @@ export const PatchNotesPage: React.FC = () => {
                 )}
               </div>
 
-              <time className="text-xs font-mono text-slate-400">
-                {note.date}
+              <time className="flex items-center gap-1.5 text-xs font-mono text-slate-300 bg-void-950/80 px-2.5 py-1 rounded-lg border border-white/10">
+                <Clock size={12} className="text-purple-400" />
+                <span>{note.date}</span>
               </time>
             </div>
 
