@@ -62,6 +62,10 @@ export function useGameState() {
             delete cleanCollection['nmixx_200_110'];
             needsUpdate = true;
           }
+          if (cleanCollection['nmixx_400_087']) {
+            delete cleanCollection['nmixx_400_087'];
+            needsUpdate = true;
+          }
           const userState: GameState = {
             coins: cloudData.coins ?? 1_000_000,
             dust: cloudData.dust ?? 0,
@@ -96,13 +100,14 @@ export function useGameState() {
               claimedMailIds: userState.claimedMailIds,
               claimedCouponCodes: userState.claimedCouponCodes,
               hasClaimedMmuEasterEgg: userState.hasClaimedMmuEasterEgg,
-            }).catch(err => console.error("Auto delete nmixx_200_110 failed:", err));
+            }).catch(err => console.error("Auto delete cleanup failed:", err));
           }
         } else {
           // 신규 가입 유저(Firestore 문서 부재 시): 신규 100만원 기본 데이터 1회 생성 및 즉시 Firestore 저장
           const freshState = StorageService.loadState(user.id);
-          if (freshState.collection && freshState.collection['nmixx_200_110']) {
-            delete freshState.collection['nmixx_200_110'];
+          if (freshState.collection) {
+            if (freshState.collection['nmixx_200_110']) delete freshState.collection['nmixx_200_110'];
+            if (freshState.collection['nmixx_400_087']) delete freshState.collection['nmixx_400_087'];
           }
           await CloudSyncService.saveUserGameData(user, {
             collection: freshState.collection,
@@ -124,9 +129,19 @@ export function useGameState() {
         activeUserIdRef.current = null;
         CloudSyncService.forceResetHash();
         const guestState = StorageService.loadState('guest');
-        if (guestState.collection && guestState.collection['nmixx_200_110']) {
-          delete guestState.collection['nmixx_200_110'];
-          StorageService.saveState(guestState, 'guest');
+        if (guestState.collection) {
+          let guestNeedsSave = false;
+          if (guestState.collection['nmixx_200_110']) {
+            delete guestState.collection['nmixx_200_110'];
+            guestNeedsSave = true;
+          }
+          if (guestState.collection['nmixx_400_087']) {
+            delete guestState.collection['nmixx_400_087'];
+            guestNeedsSave = true;
+          }
+          if (guestNeedsSave) {
+            StorageService.saveState(guestState, 'guest');
+          }
         }
         setState(guestState);
       }
