@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { GameState, PackHistoryItem } from '../types/game';
 import { Card, RevealedCard } from '../types/card';
-import { StorageService, isLocalServer } from '../services/storageService';
-import { MASTER_CARDS } from '../data/cards';
+import { StorageService } from '../services/storageService';
 import { CloudSyncService } from '../services/cloudSyncService';
 import { AuthService } from '../services/authService';
 import { MultiplayerService } from '../services/multiplayerService';
@@ -48,18 +47,10 @@ export function useGameState() {
         hasAuthResolvedRef.current = true;
         const cloudData = await CloudSyncService.loadUserGameData(user.id);
         if (cloudData) {
-          const loadedCollection = cloudData.collection || {};
-          if (isLocalServer()) {
-            for (const card of MASTER_CARDS) {
-              if (!loadedCollection[card.id] || loadedCollection[card.id] < 1) {
-                loadedCollection[card.id] = 1;
-              }
-            }
-          }
           const freshState: GameState = {
             coins: cloudData.coins ?? GAME_CONFIG.INITIAL_COINS,
             dust: cloudData.dust ?? 0,
-            collection: loadedCollection,
+            collection: cloudData.collection || {},
             pityCount: cloudData.pityCounter ?? 0,
             openedPacksTotal: cloudData.totalPacksOpened ?? 0,
             coinsSpentTotal: 0,
@@ -77,7 +68,7 @@ export function useGameState() {
           StorageService.saveState(freshState);
           setState(freshState);
         } else {
-          // 신규 계정: 게스트 초기 상태로 시작
+          // 신규 계정: 클린 게스트 초기 상태로 시작
           const fresh = StorageService.clearState();
           setState(fresh);
         }
@@ -356,11 +347,13 @@ export function useGameState() {
   }, []);
 
   const resetGame = useCallback(() => {
+    CloudSyncService.forceResetHash();
     const freshState = StorageService.clearState();
     setState(freshState);
   }, []);
 
   const logoutAndResetState = useCallback(() => {
+    CloudSyncService.forceResetHash();
     const freshState = StorageService.clearState();
     setState(freshState);
   }, []);

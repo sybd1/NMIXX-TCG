@@ -38,11 +38,10 @@ export const getAllCardsCollection = (): Record<string, number> => {
  * - 카드 도감: 로컬 서버일 경우 모든 카드 보유, 라이브 서버일 경우 0장에서 시작
  */
 export const createGuestInitialState = (): GameState => {
-  const initialCollection = isLocalServer() ? getAllCardsCollection() : {};
   return {
     coins: 1_000_000, // 게스트 기본 머니 100만원
     dust: 0,
-    collection: initialCollection,
+    collection: {}, // 게스트 기본 컬렉션 0장 (클린 상태)
     pityCount: 0,
     lastDailyBonus: null,
     packHistory: [],
@@ -77,16 +76,6 @@ export class StorageService {
       if (!parsed.coinReset_v16 || parsed.coins > 10_000_000) {
         parsed.coins = 1_000_000;
         parsed.coinReset_v16 = true;
-      }
-
-      // 💻 로컬 서버일 경우 모든 카드가 최소 1장 이상 있도록 자동 보장
-      if (isLocalServer()) {
-        parsed.collection = parsed.collection || {};
-        for (const card of MASTER_CARDS) {
-          if (!parsed.collection[card.id] || parsed.collection[card.id] < 1) {
-            parsed.collection[card.id] = 1;
-          }
-        }
       }
 
       // XR 박진영 카드는 최대 1장 제한
