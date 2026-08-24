@@ -33,14 +33,17 @@ export const FlyingMmuShip: React.FC<FlyingMmuShipProps> = ({ onClaimEasterEgg }
     e.stopPropagation();
     if (isHit || hasFlown || !isStarted) return;
 
-    setIsHit(true);
     const result = onClaimEasterEgg();
-    setClaimResult(result);
+    if (result.success) {
+      setIsHit(true);
+      setClaimResult(result);
 
-    setTimeout(() => {
-      setClaimResult(null);
-      setHasFlown(true);
-    }, 2800);
+      setTimeout(() => {
+        setClaimResult(null);
+        setHasFlown(true);
+      }, 2800);
+    }
+    // 이미 수령한 경우 아무 반응 없이 그대로 비행 지속
   };
 
   if (hasFlown && !claimResult) return null;
@@ -100,41 +103,24 @@ export const FlyingMmuShip: React.FC<FlyingMmuShipProps> = ({ onClaimEasterEgg }
         </div>
       )}
 
-      {/* 🎉 심플한 이스터에그 획득 팝업 뱃지 */}
+      {/* 🎉 최초 수령 시에만 등장하는 심플한 이스터에그 획득 팝업 뱃지 */}
       <AnimatePresence>
-        {claimResult && (
+        {claimResult?.success && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
             <motion.div
               initial={{ scale: 0.6, opacity: 0, y: 15 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.8, opacity: 0, y: -15 }}
               transition={{ type: 'spring', stiffness: 380, damping: 24 }}
-              className={`bg-black/95 border-2 px-7 py-4 rounded-2xl shadow-2xl backdrop-blur-2xl text-center flex flex-col items-center gap-1.5 pointer-events-auto ${
-                claimResult.success
-                  ? 'border-amber-400 shadow-amber-500/40'
-                  : 'border-cyan-400/60 shadow-cyan-950/60'
-              }`}
+              className="bg-black/95 border-2 border-amber-400 px-7 py-4 rounded-2xl shadow-2xl shadow-amber-500/40 backdrop-blur-2xl text-center flex flex-col items-center gap-1.5 pointer-events-auto"
             >
-              {claimResult.success ? (
-                <>
-                  <div className="flex items-center gap-1.5 text-amber-300 font-mono font-black text-xs uppercase tracking-widest">
-                    <Sparkles size={14} className="text-yellow-300 animate-spin" />
-                    <span>이스터에그</span>
-                  </div>
-                  <span className="font-mono font-black text-lg sm:text-2xl text-white drop-shadow-[0_2px_8px_rgba(245,158,11,0.6)]">
-                    500,000 N COIN 획득.
-                  </span>
-                </>
-              ) : (
-                <>
-                  <div className="flex items-center gap-1.5 text-cyan-300 font-mono font-black text-xs uppercase tracking-widest">
-                    <span>🛸 MMU 탐사선 조우</span>
-                  </div>
-                  <span className="font-mono font-bold text-sm sm:text-base text-slate-300">
-                    이미 보급 수령이 완료된 계정입니다.
-                  </span>
-                </>
-              )}
+              <div className="flex items-center gap-1.5 text-amber-300 font-mono font-black text-xs uppercase tracking-widest">
+                <Sparkles size={14} className="text-yellow-300 animate-spin" />
+                <span>이스터에그</span>
+              </div>
+              <span className="font-mono font-black text-lg sm:text-2xl text-white drop-shadow-[0_2px_8px_rgba(245,158,11,0.6)]">
+                500,000 N COIN 획득.
+              </span>
             </motion.div>
           </div>
         )}
