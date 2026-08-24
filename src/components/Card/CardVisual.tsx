@@ -14,16 +14,79 @@ interface CardVisualProps {
   showDetails?: boolean;
 }
 
-// 멤버별 시그니처 컬러 및 포지션
-const MEMBER_INFO: Record<string, { nameKo: string; position: string; color: string }> = {
-  LILY: { nameKo: '릴리', position: 'MAIN VOCAL', color: '#38bdf8' },
-  HAEWON: { nameKo: '해원', position: 'LEADER / LEAD VOCAL', color: '#a855f7' },
-  SULLYOON: { nameKo: '설윤', position: 'LEAD VOCAL / VISUAL', color: '#f472b6' },
-  BAE: { nameKo: '배이', position: 'VOCAL / DANCER', color: '#fbbf24' },
-  JIWOO: { nameKo: '지우', position: 'MAIN RAPPER / DANCER', color: '#ef4444' },
-  KYUJIN: { nameKo: '규진', position: 'MAIN DANCER / RAPPER', color: '#22c55e' },
-  NMIXX: { nameKo: 'NMIXX', position: 'ALL-ROUNDER', color: '#ec4899' },
-  PARK: { nameKo: '박진영', position: 'PRODUCER', color: '#f43f5e' },
+// 🌈 멤버별 시그니처 컬러, 전용 배경 그라디언트 및 마우스 반응 라이트 컬러
+export const MEMBER_THEMES: Record<string, {
+  nameKo: string;
+  position: string;
+  color: string;
+  lightColor: string; // 마우스 반응 라이트 컬러
+  glowColor: string;
+  bgGradient: string; // 멤버 전용 배경 그라디언트
+}> = {
+  LILY: {
+    nameKo: '릴리',
+    position: 'MAIN VOCAL',
+    color: '#38bdf8',
+    lightColor: 'rgba(56, 189, 248, 0.45)',
+    glowColor: 'rgba(56, 189, 248, 0.35)',
+    bgGradient: 'from-sky-950/90 via-cyan-900/50 to-slate-950',
+  },
+  HAEWON: {
+    nameKo: '해원',
+    position: 'LEADER / LEAD VOCAL',
+    color: '#a855f7',
+    lightColor: 'rgba(168, 85, 247, 0.45)',
+    glowColor: 'rgba(168, 85, 247, 0.35)',
+    bgGradient: 'from-purple-950/90 via-indigo-900/50 to-slate-950',
+  },
+  SULLYOON: {
+    nameKo: '설윤',
+    position: 'LEAD VOCAL / VISUAL',
+    color: '#f472b6',
+    lightColor: 'rgba(244, 114, 182, 0.45)',
+    glowColor: 'rgba(244, 114, 182, 0.35)',
+    bgGradient: 'from-pink-950/90 via-rose-900/50 to-slate-950',
+  },
+  BAE: {
+    nameKo: '배이',
+    position: 'VOCAL / DANCER',
+    color: '#fbbf24',
+    lightColor: 'rgba(251, 191, 36, 0.45)',
+    glowColor: 'rgba(251, 191, 36, 0.35)',
+    bgGradient: 'from-amber-950/90 via-yellow-900/50 to-slate-950',
+  },
+  JIWOO: {
+    nameKo: '지우',
+    position: 'MAIN RAPPER / DANCER',
+    color: '#ef4444',
+    lightColor: 'rgba(239, 68, 68, 0.45)',
+    glowColor: 'rgba(239, 68, 68, 0.35)',
+    bgGradient: 'from-rose-950/90 via-red-900/50 to-slate-950',
+  },
+  KYUJIN: {
+    nameKo: '규진',
+    position: 'MAIN DANCER / RAPPER',
+    color: '#22c55e',
+    lightColor: 'rgba(34, 197, 94, 0.45)',
+    glowColor: 'rgba(34, 197, 94, 0.35)',
+    bgGradient: 'from-emerald-950/90 via-teal-900/50 to-slate-950',
+  },
+  NMIXX: {
+    nameKo: '단체',
+    position: 'ALL-ROUNDER',
+    color: '#ec4899',
+    lightColor: 'rgba(236, 72, 153, 0.45)',
+    glowColor: 'rgba(236, 72, 153, 0.35)',
+    bgGradient: 'from-fuchsia-950/90 via-purple-900/50 to-slate-950',
+  },
+  PARK: {
+    nameKo: '박진영',
+    position: 'PRODUCER',
+    color: '#f43f5e',
+    lightColor: 'rgba(244, 63, 94, 0.5)',
+    glowColor: 'rgba(250, 204, 21, 0.4)',
+    bgGradient: 'from-void-950 via-rose-950/80 to-amber-950/60',
+  },
 };
 
 // 8단계 Rarity별 전용 후가공 셰이더 클래스 매핑
@@ -74,7 +137,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     ? FINISH_CLASS_MAP[finishType] || 'finish-matte'
     : RARITY_FINISH_MAP[card.rarity] || 'finish-matte';
 
-  const memberInfo = MEMBER_INFO[card.member] || MEMBER_INFO.NMIXX;
+  const memberTheme = MEMBER_THEMES[card.member] || MEMBER_THEMES.NMIXX;
   const isHighTier = ['SR', 'SSR', 'UR', 'LR', 'MR', 'XR'].includes(card.rarity);
   const isSsrPlus = ['SSR', 'UR', 'LR', 'MR', 'XR'].includes(card.rarity);
   const isXR = card.rarity === 'XR' || card.id === 'card_xr_transcendent_park_741';
@@ -215,6 +278,9 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
         ['--rotate-x'           as string]: `${springVars.rotateX}deg`,
         ['--rotate-y'           as string]: `${springVars.rotateY}deg`,
         ['--card-opacity'       as string]: springVars.opacity,
+        // 🌈 멤버 시그니처 틴트 라이트 컬러 연동
+        ['--member-light'       as string]: memberTheme.lightColor,
+        ['--member-glow'        as string]: memberTheme.glowColor,
         // ── GPU 하드웨어 가속 3D 틸트: 루트에만 적용 (마우스 있는 곳이 들려 올라옴) ──
         transform: isOwned
           ? `perspective(800px) rotateX(var(--rotate-x)) rotateY(var(--rotate-y)) ${interacting ? 'translateY(-3px)' : ''}`
@@ -273,9 +339,9 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
           </div>
         ) : (
           <>
-            {/* ── [Layer 1: Base Background Layer] (z-0) ── */}
+            {/* ── [Layer 1: Base Background Layer] (멤버별 시그니처 배경 그라디언트 + 앰비언트) ── */}
             <div
-              className={`absolute inset-0 bg-gradient-to-b ${card.gradient} pointer-events-none opacity-85 z-0`}
+              className={`absolute inset-0 bg-gradient-to-b ${card.gradient || memberTheme.bgGradient} pointer-events-none opacity-85 z-0`}
             />
             {card.image && (
               <div className="absolute inset-0 overflow-hidden pointer-events-none z-1">
@@ -293,7 +359,8 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
             {isOwned && (
               <div className={`absolute inset-0 rounded-2xl z-10 pointer-events-none ${finishClass}`} />
             )}
-            {isOwned && isSsrPlus && card.rarity !== 'SSR' && (
+            {/* UR/SSR의 경우 사선/딥섀도우 빛만 집중되도록 shine 분기 */}
+            {isOwned && isSsrPlus && !['SSR', 'UR'].includes(card.rarity) && (
               <div
                 className="card__shine absolute inset-0 rounded-2xl z-12 pointer-events-none"
                 style={{
@@ -317,14 +384,23 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                     alt={card.name}
                     loading="lazy"
                     decoding="async"
-                    className="max-w-full max-h-full object-contain rounded-lg shadow-[0_8px_20px_rgba(0,0,0,0.85)] ring-1 ring-white/15 group-hover:scale-[1.02] transition-transform duration-200 pointer-events-none"
+                    className={`max-w-full max-h-full object-contain rounded-lg shadow-[0_8px_20px_rgba(0,0,0,0.85)] ring-1 ring-white/15 group-hover:scale-[1.02] transition-transform duration-200 pointer-events-none ${
+                      card.rarity === 'UR'
+                        ? 'filter brightness-[1.04] saturate-[1.22] contrast-[1.05] drop-shadow-[0_4px_12px_rgba(253,164,175,0.35)]'
+                        : ''
+                    }`}
                   />
                 </div>
               </div>
             )}
 
+            {/* ── [Layer 4-B: MR 전용 인물 위 교차 격자 광선 투과 레이어] ── */}
+            {isOwned && card.rarity === 'MR' && (
+              <div className="absolute inset-0 rounded-2xl z-22 pointer-events-none finish-mr-radiant-nmixx opacity-45 mix-blend-color-dodge" />
+            )}
+
             {/* ── [Layer 5: Glare, Lighting & HUD UI Layer] (z-25 ~ z-30) ── */}
-            {/* 5A. 원형 실물 포토카드 코팅 표면 반사광 (Glare) */}
+            {/* 5A. 원형 실물 포토카드 코팅 표면 반사광 (멤버별 시그니처 틴트 반영) */}
             {isOwned && card.rarity !== 'SSR' && (
               <div
                 className="card__glare absolute inset-0 rounded-2xl z-25 pointer-events-none"
@@ -366,7 +442,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                 </span>
                 <span className="text-white/40 text-[8px]">•</span>
                 <span className="text-[8px] sm:text-[8.5px] font-bold text-slate-200 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] truncate max-w-[90px]">
-                  {isLogoCard ? '심볼' : memberInfo.nameKo}
+                  {isLogoCard ? '심볼' : memberTheme.nameKo}
                 </span>
               </div>
 
@@ -399,9 +475,9 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               </div>
             )}
 
-            {/* 5F. 수량 및 NEW 인디케이터 (z-40) */}
+            {/* 5F. 수량 뱃지 — 🎯 하단 텍스트 및 아트를 가리지 않도록 우측 상단(top-2.5 right-2.5)에 배치 */}
             {effectiveCount > 1 && (
-              <div className="absolute bottom-8 right-2 z-40 bg-black/85 text-amber-300 border border-amber-400/60 font-mono text-[9px] sm:text-[9.5px] font-black px-1.5 py-0.2 rounded-md shadow-md pointer-events-none">
+              <div className="absolute top-2.5 right-2.5 z-40 bg-black/85 text-amber-300 border border-amber-400/60 font-mono text-[9px] sm:text-[9.5px] font-black px-1.5 py-0.2 rounded-md shadow-md pointer-events-none">
                 x{effectiveCount}
               </div>
             )}
