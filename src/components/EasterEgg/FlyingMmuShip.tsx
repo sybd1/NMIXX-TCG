@@ -49,52 +49,55 @@ export const FlyingMmuShip: React.FC<FlyingMmuShipProps> = ({ onClaimCoins }) =>
 
   return (
     <>
-      {/* 🛸 접속 3초 후 2.5초 빠르기로 화면을 횡단하는 4배 거대 MMU 우주선 */}
+      {/* 🛸 접속 3초 후 2.5초 빠르기로 화면 정중앙을 수평 횡단하는 MMU 우주선 */}
       {!hasFlown && isStarted && (
         <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden select-none">
           <motion.div
             initial={{
-              x: '125vw',
-              y: '28vh',
-              scale: 0.9,
-              rotate: -3,
+              x: '115vw',
+              y: '-50%',
+              top: '50%',
+              scale: 0.95,
+              rotate: 0,
               opacity: 0.95,
             }}
             animate={
               isHit
                 ? {
                     x: '-40vw',
-                    y: '10vh',
-                    scale: 1.15,
-                    rotate: -15,
+                    y: '-65%',
+                    top: '50%',
+                    scale: 1.1,
+                    rotate: -12,
                     opacity: 0,
                     transition: { duration: 0.5, ease: 'easeIn' },
                   }
                 : {
-                    x: '-165vw',
-                    y: '48vh',
+                    x: '-135vw',
+                    y: '-50%',
+                    top: '50%',
                     scale: 1.0,
-                    rotate: 3,
+                    rotate: 0,
                     opacity: 1,
                     transition: { duration: 2.5, ease: 'linear' },
                   }
             }
             onClick={handleClick}
-            className="absolute cursor-pointer pointer-events-auto filter drop-shadow-[0_20px_45px_rgba(6,182,212,0.7)] group"
+            className="absolute cursor-pointer pointer-events-auto filter drop-shadow-[0_15px_35px_rgba(6,182,212,0.65)] group"
           >
-            {/* 거대 엔진 플라즈마 분사광 */}
-            <div className="absolute top-1/2 -right-16 w-64 h-24 -translate-y-1/2 bg-gradient-to-r from-transparent via-cyan-400 to-pink-500 blur-xl rounded-full pointer-events-none opacity-90" />
+            {/* 엔진 플라즈마 분사광 */}
+            <div className="absolute top-1/2 -right-12 w-44 h-16 -translate-y-1/2 bg-gradient-to-r from-transparent via-cyan-400 to-pink-500 blur-lg rounded-full pointer-events-none opacity-90" />
 
-            {/* 4배 거대 MMU 우주선 이미지 */}
+            {/* 정밀 축소된 MMU 우주선 이미지 */}
             <img
               src="/card-pack-image/MMU-N.png"
-              alt="Giant Flying MMU Spaceship"
-              className="w-[650px] sm:w-[950px] md:w-[1300px] lg:w-[1700px] xl:w-[2100px] h-auto object-contain transition-transform hover:scale-[1.02]"
+              alt="Center Flying MMU Spaceship"
+              className="w-[320px] sm:w-[480px] md:w-[640px] lg:w-[840px] xl:w-[980px] h-auto object-contain transition-transform hover:scale-[1.03]"
               draggable={false}
             />
 
             {/* 타겟 링 오라 */}
-            <div className="absolute inset-0 rounded-full border-4 border-cyan-400/30 border-dashed animate-spin opacity-35 pointer-events-none" />
+            <div className="absolute inset-0 rounded-full border-2 border-cyan-400/30 border-dashed animate-spin opacity-35 pointer-events-none" />
           </motion.div>
         </div>
       )}

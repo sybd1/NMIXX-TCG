@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useGameState } from './hooks/useGameState';
 import { NavTab } from './types/game';
 import { Card, RevealedCard } from './types/card';
@@ -54,6 +54,25 @@ export const App: React.FC = () => {
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
   const [isMailboxOpen, setIsMailboxOpen] = useState(false);
   const [isMarketOpen, setIsMarketOpen] = useState(false);
+
+  // ⌨️ 글로벌 ESC 키 핸들러: 어떤 화면이나 모달에서도 ESC를 누르면 즉시 메인 팩오픈 화면으로 복귀
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsAuthModalOpen(false);
+        setIsProfileModalOpen(false);
+        setIsLeaderboardOpen(false);
+        setIsMailboxOpen(false);
+        setIsMarketOpen(false);
+        if (currentTab !== 'home') {
+          sound.playClick();
+          setCurrentTab('home');
+        }
+      }
+    };
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
+  }, [currentTab]);
 
   const [openingState, setOpeningState] = useState<{
     cards: RevealedCard[];
