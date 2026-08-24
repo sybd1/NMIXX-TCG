@@ -326,7 +326,7 @@ export const App: React.FC = () => {
         )}
 
         {currentTab === 'ranking' && (
-          <RankingPage currentUserId={user?.id} />
+          <RankingPage currentUserId={user?.id} collection={state.collection} />
         )}
 
         {currentTab === 'settings' && (

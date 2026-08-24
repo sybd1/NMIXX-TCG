@@ -2,16 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { LeaderboardEntry } from '../../types/multiplayer';
 import { MultiplayerService } from '../../services/multiplayerService';
-import { Trophy, Sparkles, User, RefreshCw, Flame } from 'lucide-react';
+import { Trophy, Sparkles, User, RefreshCw, Flame, Share2 } from 'lucide-react';
+import { ShareBadgeModal } from '../../components/Share/ShareBadgeModal';
+import { AuthService } from '../../services/authService';
+import { MASTER_CARDS } from '../../data/cards';
 
 interface RankingPageProps {
   currentUserId?: string;
+  collection?: Record<string, number>;
 }
 
-export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId }) => {
+export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId, collection = {} }) => {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isShareOpen, setIsShareOpen] = useState(false);
 
   const loadLeaderboard = async () => {
     setIsLoading(true);
@@ -32,6 +37,22 @@ export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId }) => {
   };
 
   const topRanker = entries.length > 0 ? entries[0] : null;
+  const currentUser = AuthService.getCurrentUser();
+
+  // 내 랭킹 엔트리
+  const myEntry = entries.find(e => e.uid === currentUserId) || null;
+  const myRank = myEntry?.rank || null;
+
+  // 보유 카드 중 최고 등급 3장 (XR > LR > MR > UR > SSR > SR > R)
+  const RARITY_ORDER = ['XR', 'LR', 'MR', 'UR', 'SSR', 'SR', 'R'];
+  const topCards = MASTER_CARDS
+    .filter(c => (collection[c.id] || 0) > 0)
+    .sort((a, b) => RARITY_ORDER.indexOf(a.rarity) - RARITY_ORDER.indexOf(b.rarity))
+    .slice(0, 3)
+    .map(c => ({ id: c.id, image: c.image || '', rarity: c.rarity, name: c.name }));
+
+  const myUniqueCount = myEntry?.uniqueCardCount ?? Object.values(collection).filter(v => v > 0).length;
+  const myCollectionRate = myEntry?.collectionRate ?? Math.round((myUniqueCount / 651) * 100);
 
   return (
     <div className="w-full max-w-4xl mx-auto px-3 sm:px-6 py-6 sm:py-10 flex flex-col gap-6 select-text">
@@ -50,15 +71,26 @@ export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId }) => {
           소셜 계정 연동을 완료한 엔써(NSWER)들의 실시간 카드 도감 수집률 순위입니다.
         </p>
 
-        {/* 새로고침 버튼 */}
-        <button
-          onClick={handleManualRefresh}
-          disabled={isRefreshing}
-          className="mt-1 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-void-900 hover:bg-void-800 border border-white/10 text-slate-300 text-xs font-mono font-bold transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-md disabled:opacity-50"
-        >
-          <RefreshCw size={13} className={isRefreshing ? 'animate-spin text-pink-400' : 'text-slate-400'} />
-          <span>{isRefreshing ? '데이터 갱신 중...' : '실시간 순위 새로고침'}</span>
-        </button>
+        {/* 새로고침 & 공유 버튼 */}
+        <div className="flex items-center gap-2 flex-wrap justify-center">
+          <button
+            onClick={handleManualRefresh}
+            disabled={isRefreshing}
+            className="mt-1 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-void-900 hover:bg-void-800 border border-white/10 text-slate-300 text-xs font-mono font-bold transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-md disabled:opacity-50"
+          >
+            <RefreshCw size={13} className={isRefreshing ? 'animate-spin text-pink-400' : 'text-slate-400'} />
+            <span>{isRefreshing ? '데이터 갱신 중...' : '실시간 순위 새로고침'}</span>
+          </button>
+
+          {/* 🔗 내 배지 공유 버튼 */}
+          <button
+            onClick={() => setIsShareOpen(true)}
+            className="mt-1 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-pink-900/60 to-purple-900/60 hover:from-pink-800/70 hover:to-purple-800/70 border border-pink-500/40 text-pink-300 text-xs font-mono font-bold transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-md"
+          >
+            <Share2 size={13} className="text-pink-400" />
+            <span>내 배지 공유</span>
+          </button>
+        </div>
       </div>
 
       {/* 👑 1위 독점 하이라이트 쇼케이스 카드 */}
@@ -196,7 +228,7 @@ export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId }) => {
                 </div>
 
                 {/* 수집률 & 카드 수 */}
-                <div className="flex flex-col items-end flex-shrink-0 pl-2">
+                <div className="flex flex-col items-end flex-shrink-0 pl-2 gap-1">
                   <div className="flex items-baseline gap-1">
                     <span className="text-base sm:text-lg font-serif font-black text-amber-300">
                       {entry.collectionRate || 0}%
@@ -205,12 +237,34 @@ export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId }) => {
                   <span className="text-[11px] font-mono text-slate-400">
                     <span className="text-pink-300 font-bold">{entry.uniqueCardCount || 0}</span> / 651장
                   </span>
+                  {/* 내 항목에만 공유 버튼 표시 */}
+                  {isCurrentUser && (
+                    <button
+                      onClick={() => setIsShareOpen(true)}
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-pink-500/20 hover:bg-pink-500/35 border border-pink-500/40 text-pink-300 text-[10px] font-mono font-bold transition-all hover:scale-105 cursor-pointer"
+                    >
+                      <Share2 size={10} />
+                      공유
+                    </button>
+                  )}
                 </div>
               </motion.div>
             );
           })
         )}
       </div>
+
+      {/* 🔗 공유 배지 모달 */}
+      <ShareBadgeModal
+        isOpen={isShareOpen}
+        onClose={() => setIsShareOpen(false)}
+        user={currentUser}
+        rank={myRank}
+        totalRankers={entries.length}
+        uniqueCardCount={myUniqueCount}
+        collectionRate={myCollectionRate}
+        topCards={topCards}
+      />
     </div>
   );
 };
