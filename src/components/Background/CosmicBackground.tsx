@@ -52,8 +52,8 @@ export const CosmicBackground: React.FC<CosmicBackgroundProps> = ({
         <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_0.6px,transparent_0.6px)] [background-size:80px_80px] opacity-20" />
       </div>
 
-      {/* 🛸 2. Giant Floating MMU Spaceship filling bottom-right corner */}
-      <div className="fixed -bottom-10 sm:-bottom-20 md:-bottom-28 -right-12 sm:-right-24 md:-right-36 z-20 pointer-events-auto select-none">
+      {/* 🛸 2. Giant Floating MMU Spaceship situated at the very bottom background (Behind UI, obscuring nothing) */}
+      <div className="fixed -bottom-28 sm:-bottom-44 md:-bottom-56 lg:-bottom-64 -right-10 sm:-right-20 md:-right-28 z-0 pointer-events-auto select-none">
         <div className="relative group">
           {/* Tooltip on already claimed */}
           <AnimatePresence>
@@ -62,7 +62,7 @@ export const CosmicBackground: React.FC<CosmicBackgroundProps> = ({
                 initial={{ opacity: 0, y: 15, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 15, scale: 0.9 }}
-                className="absolute top-12 left-12 sm:left-24 bg-void-950/95 border border-cyan-400/60 px-4 py-2.5 rounded-2xl shadow-2xl backdrop-blur-xl text-xs font-mono text-cyan-200 whitespace-nowrap z-50 flex items-center gap-2"
+                className="absolute top-16 left-16 sm:left-32 bg-void-950/95 border border-cyan-400/60 px-4 py-2.5 rounded-2xl shadow-2xl backdrop-blur-xl text-xs font-mono text-cyan-200 whitespace-nowrap z-50 flex items-center gap-2"
               >
                 <CheckCircle2 size={15} className="text-emerald-400" />
                 <span>MMU 탐사선이 MIXXTOPIA를 향해 순항 중입니다! ✨</span>
@@ -72,15 +72,15 @@ export const CosmicBackground: React.FC<CosmicBackgroundProps> = ({
 
           {/* Massive Engine Plasma Aura Behind Ship */}
           <div
-            className={`absolute inset-10 rounded-full bg-gradient-to-r from-cyan-400/30 via-pink-500/25 to-purple-600/30 blur-3xl transition-all duration-700 pointer-events-none ${
-              isBoosting ? 'opacity-100 scale-125' : 'opacity-45 group-hover:opacity-85'
+            className={`absolute inset-10 rounded-full bg-gradient-to-r from-cyan-400/25 via-pink-500/20 to-purple-600/25 blur-3xl transition-all duration-700 pointer-events-none ${
+              isBoosting ? 'opacity-100 scale-125' : 'opacity-40 group-hover:opacity-75'
             }`}
           />
 
           {/* Engine Core Thruster Glow */}
           <div
             className={`absolute bottom-1/4 left-1/4 w-32 sm:w-48 h-32 sm:h-48 rounded-full bg-cyan-300 blur-2xl pointer-events-none transition-all duration-500 ${
-              isBoosting ? 'opacity-100 scale-150' : 'opacity-50 group-hover:opacity-90'
+              isBoosting ? 'opacity-100 scale-150' : 'opacity-40 group-hover:opacity-80'
             }`}
           />
 
@@ -89,31 +89,31 @@ export const CosmicBackground: React.FC<CosmicBackgroundProps> = ({
             animate={
               isBoosting
                 ? {
-                    y: [-8, -32, -8],
-                    x: [0, 16, 0],
-                    scale: [1, 1.05, 1],
-                    rotate: [0, -2, 0],
+                    y: [-6, -24, -6],
+                    x: [0, 12, 0],
+                    scale: [1, 1.04, 1],
+                    rotate: [0, -1.5, 0],
                   }
                 : {
-                    y: [-12, 16, -12],
-                    rotate: [-0.6, 1.0, -0.6],
+                    y: [-8, 12, -8],
+                    rotate: [-0.4, 0.8, -0.4],
                   }
             }
             transition={
               isBoosting
                 ? { duration: 1.4, ease: 'easeInOut' }
-                : { duration: 6.5, repeat: Infinity, ease: 'easeInOut' }
+                : { duration: 7.0, repeat: Infinity, ease: 'easeInOut' }
             }
-            whileHover={{ scale: 1.03, rotate: -1 }}
-            whileTap={{ scale: 0.97 }}
+            whileHover={{ scale: 1.02, rotate: -0.8 }}
+            whileTap={{ scale: 0.98 }}
             onClick={handleShipClick}
-            className="relative cursor-pointer filter drop-shadow-[0_25px_45px_rgba(0,0,0,0.95)]"
+            className="relative cursor-pointer filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.95)]"
           >
             {/* 🌟 Giant Authentic MMU-N.png */}
             <img
               src="/card-pack-image/MMU-N.png"
               alt="MMU - NMIXX Lore Spaceship"
-              className="w-[480px] sm:w-[720px] md:w-[980px] lg:w-[1240px] xl:w-[1450px] h-auto object-contain transition-all duration-500 group-hover:brightness-110"
+              className="w-[460px] sm:w-[680px] md:w-[920px] lg:w-[1150px] xl:w-[1300px] h-auto object-contain transition-all duration-500 group-hover:brightness-110 opacity-90 group-hover:opacity-100"
               draggable={false}
             />
 
