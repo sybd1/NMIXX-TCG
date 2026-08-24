@@ -239,18 +239,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     XR:  isOwned ? 'border-[3px] border-rose-500 shadow-[0_0_40px_rgba(244,63,94,0.95),0_0_20px_rgba(250,204,21,0.8)] ring-2 ring-amber-400/80' : 'border border-rose-900/80',
   };
 
-  // 9단계 Rarity 텍스트 타이포그래피 스타일
-  const rarityTextStyles: Record<Card['rarity'], string> = {
-    C:   'text-slate-400 font-bold',
-    UC:  'text-emerald-300 font-black drop-shadow-[0_0_6px_rgba(52,211,153,0.8)]',
-    R:   'text-sky-300 font-black drop-shadow-[0_0_8px_rgba(56,189,248,0.85)]',
-    SR:  'text-purple-300 font-black drop-shadow-[0_0_10px_rgba(192,132,252,0.9)]',
-    SSR: 'text-amber-300 font-black drop-shadow-[0_0_12px_rgba(250,204,21,0.95)]',
-    UR:  'text-rose-300 font-black drop-shadow-[0_0_14px_rgba(253,164,175,1)]',
-    LR:  'text-yellow-200 font-black drop-shadow-[0_0_16px_rgba(254,240,138,1)]',
-    MR:  'text-cyan-200 font-black drop-shadow-[0_0_18px_rgba(165,243,252,1)]',
-    XR:  'text-rose-400 font-black drop-shadow-[0_0_20px_rgba(244,63,94,1)]',
-  };
+
 
   const isLogoCard = card.theme?.includes('심볼') || card.theme?.includes('로고') || card.name.includes('심볼') || card.name.includes('로고');
   const serialCode = card.packCode
@@ -474,11 +463,8 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
                   </span>
                 </div>
 
-                {/* 하단 우측: 등급 (Bold Large) + 시리얼 코드 서브텍스트 */}
+                {/* 하단 우측: 시리얼 코드 서브텍스트 */}
                 <div className="flex flex-col items-end leading-tight flex-shrink-0">
-                  <span className={`font-sans font-black text-[13px] sm:text-[15px] tracking-wider ${rarityTextStyles[card.rarity]} drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]`}>
-                    {card.rarity}
-                  </span>
                   <span className="font-mono font-bold text-[7.5px] sm:text-[8.5px] text-slate-400/90 tracking-tight">
                     {serialCode}
                   </span>

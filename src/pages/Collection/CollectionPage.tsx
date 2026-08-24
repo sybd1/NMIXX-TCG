@@ -675,17 +675,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
 
               if (memberCards.length === 0) return null;
 
-              const badgeColors: Record<Rarity, string> = {
-                UR: 'from-red-950 via-rose-900 to-red-950 text-rose-100 border-red-400 ring-1 ring-red-400/50',
-                SSR: 'from-amber-950 via-yellow-900 to-amber-950 text-amber-200 border-amber-400',
-                SR: 'from-purple-950 via-indigo-900 to-purple-950 text-purple-200 border-purple-400',
-                R: 'from-sky-950 via-blue-900 to-sky-950 text-sky-200 border-sky-400',
-                C: 'from-slate-900 to-slate-950 text-slate-300 border-slate-600',
-                UC: 'from-emerald-950 to-teal-950 text-emerald-300 border-emerald-500',
-                LR: 'from-pink-950 to-rose-950 text-pink-200 border-pink-400',
-                MR: 'from-amber-500 to-cyan-400 text-black border-white',
-                XR: 'from-rose-600 via-purple-600 to-amber-400 text-white border-white',
-              };
+
 
               return (
                 <div
@@ -701,9 +691,6 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                     <div className="flex items-center gap-2.5 flex-wrap">
                       <span className="text-slate-400 font-mono text-xs font-bold mr-1">
                         #{sIdx + 1}
-                      </span>
-                      <span className={`text-[11px] font-mono font-black px-2.5 py-1 rounded-lg border bg-gradient-to-r ${badgeColors[r] || badgeColors.SSR} shadow-md`}>
-                        {r} SET
                       </span>
                       <span className="text-[10.5px] font-mono font-black text-sky-300 bg-sky-950/80 px-2.5 py-1 rounded-lg border border-sky-500/30">
                         📦 {set.packCode} {set.packName ? `• ${set.packName}` : ''}
@@ -784,9 +771,6 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                         <div className="flex items-center gap-2">
                           <span className="text-sm sm:text-base font-serif font-black text-amber-200">
                             {set.rewardCard.name}
-                          </span>
-                          <span className={`text-[10px] font-black font-mono px-2 py-0.5 rounded border bg-gradient-to-r ${badgeColors[r] || badgeColors.SSR}`}>
-                            {r}
                           </span>
                           <span className="text-xs font-mono font-black text-amber-300 bg-black/70 px-2 py-0.5 rounded-lg border border-amber-500/30">
                             🪙 +{set.rewardCoins.toLocaleString()} N COIN 지급
