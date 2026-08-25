@@ -23,7 +23,7 @@ export const CardModal: React.FC<CardModalProps> = ({
 }) => {
   const isHighTier = card ? ['SR', 'SSR', 'UR', 'LR', 'MR', 'XR'].includes(card.rarity) : false;
   const isOwned = count > 0;
-  const isJypCard = card ? (card.member === 'PARK' || card.rarity === 'XR' || card.name.includes('박진영')) : false;
+  const isJypCard = card ? (card.rarity === 'XR' || !!card.triggerCelebration) : false;
 
   const lastEasterEggRef = useRef<number>(0);
 

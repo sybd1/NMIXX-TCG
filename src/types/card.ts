@@ -46,6 +46,9 @@ export interface Card {
   isLegacy?: boolean; // 구버전 한정판 소장용 레거시 카드 여부
   isLandscape?: boolean; // 가로형 이미지 여부
   aspectRatio?: string; // 원본 이미지 종횡비 (예: 16:9)
+  isMystery?: boolean; // 수집 전까지 도감에서 물음표 처리되는 미스터리 카드 여부
+  triggerCelebration?: boolean; // 획득 시 팡파레 축하를 띄우는 트리거 카드 여부
+  isSetReward?: boolean; // 세트 수집 보상 카드 여부
 }
 
 export interface RevealedCard extends Card {

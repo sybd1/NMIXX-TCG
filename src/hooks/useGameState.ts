@@ -56,20 +56,7 @@ export function useGameState() {
         
         if (cloudData) {
           // 기존 Firestore 클라우드 세이브 데이터 100% 온전히 복원 (초기화 절대 금지)
-          const cleanCollection = { ...(cloudData.collection || {}) };
-          let needsUpdate = false;
-          if (cleanCollection['nmixx_200_110']) {
-            delete cleanCollection['nmixx_200_110'];
-            needsUpdate = true;
-          }
-          if (cleanCollection['nmixx_400_087']) {
-            delete cleanCollection['nmixx_400_087'];
-            needsUpdate = true;
-          }
-          if (cleanCollection['nmixx_300_014']) {
-            delete cleanCollection['nmixx_300_014'];
-            needsUpdate = true;
-          }
+          const cleanCollection = cloudData.collection || {};
           const userState: GameState = {
             coins: cloudData.coins ?? 1_000_000,
             dust: cloudData.dust ?? 0,
@@ -91,29 +78,9 @@ export function useGameState() {
           };
           StorageService.saveState(userState, user.id);
           setState(userState);
-
-          if (needsUpdate) {
-            CloudSyncService.saveUserGameData(user, {
-              collection: cleanCollection,
-              coins: userState.coins,
-              dust: userState.dust,
-              pityCounter: userState.pityCount,
-              totalPacksOpened: userState.openedPacksTotal,
-              unlockedAchievements: userState.claimedAchievements,
-              claimedSetRewards: userState.claimedSetRewards,
-              claimedMailIds: userState.claimedMailIds,
-              claimedCouponCodes: userState.claimedCouponCodes,
-              hasClaimedMmuEasterEgg: userState.hasClaimedMmuEasterEgg,
-            }).catch(err => console.error("Auto delete cleanup failed:", err));
-          }
         } else {
           // 신규 가입 유저(Firestore 문서 부재 시): 신규 100만원 기본 데이터 1회 생성 및 즉시 Firestore 저장
           const freshState = StorageService.loadState(user.id);
-          if (freshState.collection) {
-            if (freshState.collection['nmixx_200_110']) delete freshState.collection['nmixx_200_110'];
-            if (freshState.collection['nmixx_400_087']) delete freshState.collection['nmixx_400_087'];
-            if (freshState.collection['nmixx_300_014']) delete freshState.collection['nmixx_300_014'];
-          }
           await CloudSyncService.saveUserGameData(user, {
             collection: freshState.collection,
             coins: freshState.coins,
@@ -134,24 +101,6 @@ export function useGameState() {
         activeUserIdRef.current = null;
         CloudSyncService.forceResetHash();
         const guestState = StorageService.loadState('guest');
-        if (guestState.collection) {
-          let guestNeedsSave = false;
-          if (guestState.collection['nmixx_200_110']) {
-            delete guestState.collection['nmixx_200_110'];
-            guestNeedsSave = true;
-          }
-          if (guestState.collection['nmixx_400_087']) {
-            delete guestState.collection['nmixx_400_087'];
-            guestNeedsSave = true;
-          }
-          if (guestState.collection['nmixx_300_014']) {
-            delete guestState.collection['nmixx_300_014'];
-            guestNeedsSave = true;
-          }
-          if (guestNeedsSave) {
-            StorageService.saveState(guestState, 'guest');
-          }
-        }
         setState(guestState);
       }
 

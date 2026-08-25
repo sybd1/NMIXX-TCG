@@ -140,9 +140,9 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
   const memberTheme = MEMBER_THEMES[card.member] || MEMBER_THEMES.NMIXX;
   const isHighTier = ['SR', 'SSR', 'UR', 'LR', 'MR', 'XR'].includes(card.rarity);
   const isSsrPlus = ['SSR', 'UR', 'LR', 'MR', 'XR'].includes(card.rarity);
-  const isXR = card.rarity === 'XR' || card.id === 'card_xr_transcendent_park_741';
+  const isXR = card.rarity === 'XR' || !!card.isMystery;
   const effectiveCount = isXR ? Math.min(1, count) : count;
-  const isXrMystery = card.rarity === 'XR' && !isOwned;
+  const isXrMystery = (card.rarity === 'XR' || !!card.isMystery) && !isOwned;
 
   // ─────────────────────────────────────────────────────────────────
   // 올바른 물리 기반 3D 틸트 (X/Y 축 완벽 연동)
