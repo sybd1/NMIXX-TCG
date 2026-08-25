@@ -7,6 +7,7 @@ import { AuthService } from '../services/authService';
 import { MultiplayerService } from '../services/multiplayerService';
 import { GAME_CONFIG } from '../config/gameConfig';
 import { sound } from '../services/soundService';
+import { getCardById } from '../data/cards';
 
 export function useGameState() {
   const currentUser = AuthService.getCurrentUser();
@@ -142,7 +143,7 @@ export function useGameState() {
       let highestRarity = pack.cards[0].rarity;
 
       pack.cards.forEach((card, cIdx) => {
-        const isXR = card.rarity === 'XR' || card.id === 'card_xr_transcendent_park_741';
+        const isXR = card.rarity === 'XR' || !!card.isMystery;
         const existingCount = newCollection[card.id] || 0;
         const isNew = existingCount === 0;
 
@@ -213,7 +214,7 @@ export function useGameState() {
       let highestRarity = pack.cards[0].rarity;
 
       pack.cards.forEach((card, cIdx) => {
-        const isXR = card.rarity === 'XR' || card.id === 'card_xr_transcendent_park_741';
+        const isXR = card.rarity === 'XR' || !!card.isMystery;
         const existingCount = newCollection[card.id] || 0;
         const isNew = existingCount === 0;
 
@@ -441,7 +442,8 @@ export function useGameState() {
         newCollection[offeredCardId] = Math.max(0, newCollection[offeredCardId] - 1);
       }
       // 교환받은 카드 1장 추가
-      const isXR = receivedCardId === 'card_xr_transcendent_park_741';
+      const rCard = getCardById(receivedCardId);
+      const isXR = rCard ? (rCard.rarity === 'XR' || !!rCard.isMystery) : false;
       const existing = newCollection[receivedCardId] || 0;
       newCollection[receivedCardId] = isXR ? 1 : existing + 1;
 

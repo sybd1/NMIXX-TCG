@@ -70,7 +70,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
 
     const mergedList: RevealedCard[] = [];
     cardMap.forEach((card, id) => {
-      const isXR = card.rarity === 'XR' || card.id === 'card_xr_transcendent_park_741';
+      const isXR = card.rarity === 'XR' || !!card.isMystery;
       mergedList.push({
         ...card,
         duplicateCount: isXR ? 1 : (countsMap.get(id) || 1),

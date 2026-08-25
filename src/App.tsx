@@ -140,7 +140,7 @@ export const App: React.FC = () => {
     const tempCollection = { ...state.collection };
     const revealed: RevealedCard[] = result.cards.map((c, idx) => {
       const existing = tempCollection[c.id] || 0;
-      tempCollection[c.id] = (c.rarity === 'XR' || c.id === 'card_xr_transcendent_park_741') ? 1 : existing + 1;
+      tempCollection[c.id] = (c.rarity === 'XR' || !!c.isMystery) ? 1 : existing + 1;
       return {
         ...c,
         instanceId: `${c.id}_${Date.now()}_0_${idx}`,
@@ -181,7 +181,7 @@ export const App: React.FC = () => {
       currentPity = result.newPity;
       result.cards.forEach((c, idx) => {
         const existing = tempCollection[c.id] || 0;
-        tempCollection[c.id] = (c.rarity === 'XR' || c.id === 'card_xr_transcendent_park_741') ? 1 : existing + 1;
+        tempCollection[c.id] = (c.rarity === 'XR' || !!c.isMystery) ? 1 : existing + 1;
         allRevealedCards.push({
           ...c,
           instanceId: `${c.id}_${Date.now()}_${i}_${idx}`,
@@ -224,7 +224,7 @@ export const App: React.FC = () => {
       currentPity = result.newPity;
       result.cards.forEach((c, idx) => {
         const existing = tempCollection[c.id] || 0;
-        tempCollection[c.id] = (c.rarity === 'XR' || c.id === 'card_xr_transcendent_park_741') ? 1 : existing + 1;
+        tempCollection[c.id] = (c.rarity === 'XR' || !!c.isMystery) ? 1 : existing + 1;
         allRevealedCards.push({
           ...c,
           instanceId: `${c.id}_${Date.now()}_${i}_${idx}`,
