@@ -10,11 +10,16 @@ echo.
 
 cd /d "%~dp0"
 
-echo [1/2] Pushing main branch...
+echo [1/3] Adding changes and committing...
+git add .
+git commit -m "chore: auto-deploy update"
+
+echo.
+echo [2/3] Pushing main branch...
 git push --progress -v origin main
 
 echo.
-echo [2/2] Pushing dev branch...
+echo [3/3] Pushing dev branch...
 git push --progress -v origin dev
 
 echo.

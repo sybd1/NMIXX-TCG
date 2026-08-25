@@ -1,0 +1,29 @@
+[
+  {
+    "id": "card_xr_transcendent_park_741",
+    "name": "[XR] Transcendent - 박진영",
+    "member": "PARK",
+    "category": "CHARACTER",
+    "rarity": "XR",
+    "finishType": "TRANSCENDENT_COSMIC",
+    "collectionNumber": 651,
+    "cost": 0,
+    "power": 0,
+    "theme": "JYP TRANSCENDENT MASTER",
+    "era": "JYP TRANSCENDENT MASTER",
+    "gradient": "from-rose-600 via-purple-600 to-amber-400",
+    "symbol": "👑",
+    "image": "/image/XR-park.jpg",
+    "packCode": "SECRET",
+    "packId": "secret_transcendent",
+    "packName": "특수 비매품 (전종 수집 보상)",
+    "quote": "이 카드를 제외한 모든 카드를 수집한 자에게 주어지는 궁극의 마스터피스.",
+    "description": "이 카드를 제외한 모든 카드를 수집하면 자동으로 획득할 수 있는 유일무이한 궁극의 초월 카드입니다.",
+    "dustValue": 100000,
+    "craftCost": null,
+    "isSpecialEdition": true,
+    "isEmbossed3D": true,
+    "isMystery": true,
+    "triggerCelebration": true
+  }
+]
