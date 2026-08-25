@@ -1,6 +1,7 @@
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   setDoc,
   addDoc,
@@ -395,6 +396,22 @@ export class MultiplayerService {
     } catch (error) {
       console.warn('[Multiplayer] Failed to complete trade:', error);
       return false;
+    }
+  }
+
+  public static async fetchUserCollection(uid: string): Promise<Record<string, number>> {
+    if (!isFirebaseConfigured || !db || !uid) return {};
+    try {
+      const userDocRef = doc(db, 'nmixx_tcg_users', uid);
+      const snapshot = await getDoc(userDocRef);
+      if (snapshot.exists()) {
+        const data = snapshot.data();
+        return data?.collection || {};
+      }
+      return {};
+    } catch (error) {
+      console.warn('[Multiplayer] Failed to fetch user collection:', error);
+      return {};
     }
   }
 
