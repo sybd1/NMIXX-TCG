@@ -101,7 +101,7 @@ export class CloudSyncService {
 
       // 🏆 글로벌 리더보드 인덱스 자동 갱신
       const uniqueCards = Object.values(data.collection).filter(c => c > 0).length;
-      const totalMasterCards = 651;
+      const totalMasterCards = 521;
       const collectionRate = Math.round((uniqueCards / totalMasterCards) * 1000) / 10;
       const hasXR = (data.collection['card_xr_transcendent_park_741'] || 0) > 0;
 

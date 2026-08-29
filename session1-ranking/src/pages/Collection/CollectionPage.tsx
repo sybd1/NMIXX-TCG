@@ -105,7 +105,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
   const ownedLegacyCards = LEGACY_CARDS.filter(c => (collection[c.id] || 0) > 0);
   const allViewableCards = [...MASTER_CARDS, ...ownedLegacyCards];
 
-  // 수집 통계 계산 (공식 651장 기준 정밀 계산)
+  // 수집 통계 계산 (공식 521장 기준 정밀 계산)
   const ownedOfficialCount = MASTER_CARDS.filter(c => (collection[c.id] || 0) > 0).length;
   const ownedUniqueCount = ownedOfficialCount;
   const totalCardsCount = MASTER_CARDS.length;
@@ -116,7 +116,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
     set.cardIds.every(id => (collection[id] || 0) > 0)
   ).length;
 
-  // 필터링 및 오름차순/내림차순 정렬 (useMemo로 651장 고속 메모이제이션)
+  // 필터링 및 오름차순/내림차순 정렬 (useMemo로 521장 고속 메모이제이션)
   const filteredCards = useMemo(() => {
     return allViewableCards.filter(card => {
       const aCount = collection[card.id] || 0;

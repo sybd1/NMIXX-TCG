@@ -48,7 +48,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
 
   const totalCollectedCards = Object.values(state.collection).reduce((sum, c) => sum + c, 0);
   const uniqueCollectedCards = Object.keys(state.collection).filter(id => (state.collection[id] || 0) > 0).length;
-  const totalMasterCardsCount = MASTER_CARDS.length; // 전체 651종
+  const totalMasterCardsCount = MASTER_CARDS.length; // 전체 521종
   const completionPercentage = Math.round((uniqueCollectedCards / totalMasterCardsCount) * 100);
 
   return (

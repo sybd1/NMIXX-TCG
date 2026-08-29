@@ -52,7 +52,7 @@ export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId, collect
     .map(c => ({ id: c.id, image: c.image || '', rarity: c.rarity, name: c.name }));
 
   const myUniqueCount = myEntry?.uniqueCardCount ?? Object.values(collection).filter(v => v > 0).length;
-  const myCollectionRate = myEntry?.collectionRate ?? Math.round((myUniqueCount / 651) * 100);
+  const myCollectionRate = myEntry?.collectionRate ?? Math.round((myUniqueCount / 521) * 100);
 
   return (
     <div className="w-full max-w-4xl mx-auto px-3 sm:px-6 py-6 sm:py-10 flex flex-col gap-6 select-text">
@@ -147,7 +147,7 @@ export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId, collect
                 </span>
               </div>
               <span className="text-xs font-mono text-slate-300 font-bold mt-0.5">
-                도감 보유: <span className="text-pink-300 font-black">{topRanker.uniqueCardCount || 0}</span> / 651장
+                도감 보유: <span className="text-pink-300 font-black">{topRanker.uniqueCardCount || 0}</span> / 521장
               </span>
             </div>
           </div>
@@ -235,7 +235,7 @@ export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId, collect
                     </span>
                   </div>
                   <span className="text-[11px] font-mono text-slate-400">
-                    <span className="text-pink-300 font-bold">{entry.uniqueCardCount || 0}</span> / 651장
+                    <span className="text-pink-300 font-bold">{entry.uniqueCardCount || 0}</span> / 521장
                   </span>
                   {/* 내 항목에만 공유 버튼 표시 */}
                   {isCurrentUser && (

@@ -137,7 +137,7 @@ export const LeaderboardModal: React.FC<LeaderboardModalProps> = ({
               <div className="flex flex-col items-center text-center border-x border-white/10">
                 <span className="text-[10px] font-mono text-slate-400">보유 카드 종류</span>
                 <span className="text-sm font-serif font-black text-slate-200 mt-0.5">
-                  {selectedUser.uniqueCardCount} / 651장
+                  {selectedUser.uniqueCardCount} / 521장
                 </span>
               </div>
               <div className="flex flex-col items-center text-center">
@@ -309,7 +309,7 @@ export const LeaderboardModal: React.FC<LeaderboardModalProps> = ({
                           </span>
                         </div>
                         <span className="text-[10px] sm:text-[11px] font-mono text-slate-400">
-                          <span className="text-pink-300 font-bold">{entry.uniqueCardCount || 0}</span> / 651장
+                          <span className="text-pink-300 font-bold">{entry.uniqueCardCount || 0}</span> / 521장
                         </span>
                       </div>
                     </div>
