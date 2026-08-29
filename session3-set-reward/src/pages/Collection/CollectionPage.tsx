@@ -50,6 +50,7 @@ const PACK_FILTERS = [
   { id: 'op02', code: 'NX-02', name: 'NX 02 - 2025 NEW ERA' },
   { id: 'op03', code: 'NX-03', name: 'NX 03 - Blue Valentine' },
   { id: 'op04', code: 'NX-04', name: 'NX 04 - ZERO FRONTIER' },
+  { id: 'op05', code: 'NX-05', name: 'NX 05 - Heavy Serenade' },
 ];
 
 export const CollectionPage: React.FC<CollectionPageProps> = ({
@@ -408,19 +409,35 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
             {/* 2. Booster Pack Filters */}
             <div className="flex flex-wrap items-center gap-1.5 border-b border-void-800/80 pb-3">
               <span className="text-[11px] font-mono text-slate-400 font-bold mr-1">BOOSTER:</span>
-              {PACK_FILTERS.map(p => (
-                <button
-                  key={p.id}
-                  onClick={() => setSelectedPack(p.id)}
-                  className={`px-3 py-1 rounded-xl text-xs font-bold transition-all ${
-                    selectedPack === p.id
-                      ? 'bg-pink-600/30 text-pink-200 border border-pink-500/40 shadow-sm'
-                      : 'text-slate-400 hover:text-white bg-void-900 border border-transparent'
-                  }`}
-                >
-                  {p.code ? `[${p.code}] ${p.name}` : p.name}
-                </button>
-              ))}
+              {PACK_FILTERS.map(p => {
+                const isActive = selectedPack === p.id;
+                let activeStyle = 'bg-pink-600/30 text-pink-200 border border-pink-500/40 shadow-sm';
+                if (isActive) {
+                  if (p.id === 'op05') {
+                    // NX-05만의 특별한 골드 메탈릭/슬레이트 테마 스타일
+                    activeStyle = 'bg-gradient-to-r from-slate-700/60 to-amber-500/30 text-amber-300 border border-amber-500/60 shadow-[0_0_12px_rgba(245,158,11,0.3)] font-black';
+                  } else if (p.id === 'op04') {
+                    activeStyle = 'bg-fuchsia-600/30 text-fuchsia-200 border border-fuchsia-500/40 shadow-sm';
+                  } else if (p.id === 'op03') {
+                    activeStyle = 'bg-blue-600/30 text-blue-200 border border-blue-500/40 shadow-sm';
+                  } else if (p.id === 'op02') {
+                    activeStyle = 'bg-amber-600/30 text-amber-200 border border-amber-500/40 shadow-sm';
+                  }
+                }
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => setSelectedPack(p.id)}
+                    className={`px-3 py-1 rounded-xl text-xs font-bold transition-all ${
+                      isActive
+                        ? activeStyle
+                        : 'text-slate-400 hover:text-white bg-void-900 border border-transparent hover:border-slate-800'
+                    }`}
+                  >
+                    {p.code !== 'ALL' ? `[${p.code}] ${p.name}` : p.name}
+                  </button>
+                );
+              })}
             </div>
 
             {/* 3. Member Filters (XR 획득 전까지 박진영 숨김) */}
