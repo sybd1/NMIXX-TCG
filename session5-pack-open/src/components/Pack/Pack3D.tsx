@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { BoosterPackConfig, BOOSTER_PACKS } from '../../config/gameConfig';
 import { BoosterPackThreeView } from './BoosterPackThreeView';
+import { WebGLErrorBoundary } from '../Common/WebGLErrorBoundary';
+import { BoosterPack2DView } from './BoosterPack2DView';
 
 interface Pack3DProps {
   pack?: BoosterPackConfig;
@@ -16,6 +18,15 @@ export const Pack3D: React.FC<Pack3DProps> = ({
   isOpening = false,
   disabled = false,
 }) => {
+  const fallbackView = (
+    <BoosterPack2DView
+      pack={pack}
+      disabled={disabled}
+      onClick={!disabled ? onClick : undefined}
+      className="w-full h-full relative z-10 drop-shadow-[0_25px_35px_rgba(0,0,0,0.85)]"
+    />
+  );
+
   return (
     <motion.div
       whileHover={!disabled && !isOpening ? { scale: 1.03, y: -2 } : {}}
@@ -31,12 +42,14 @@ export const Pack3D: React.FC<Pack3DProps> = ({
       />
 
       {/* 🌟 Three.js WebGL 물리 기반(PBR) 3D 부스터 팩 */}
-      <BoosterPackThreeView
-        pack={pack}
-        disabled={disabled}
-        onClick={!disabled ? onClick : undefined}
-        className="w-full h-full relative z-10 drop-shadow-[0_25px_35px_rgba(0,0,0,0.85)]"
-      />
+      <WebGLErrorBoundary fallback={fallbackView}>
+        <BoosterPackThreeView
+          pack={pack}
+          disabled={disabled}
+          onClick={!disabled ? onClick : undefined}
+          className="w-full h-full relative z-10 drop-shadow-[0_25px_35px_rgba(0,0,0,0.85)]"
+        />
+      </WebGLErrorBoundary>
     </motion.div>
   );
 };

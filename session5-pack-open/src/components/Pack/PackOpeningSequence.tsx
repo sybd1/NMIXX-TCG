@@ -10,6 +10,8 @@ import { Home, X, Zap, Sparkles } from 'lucide-react';
 import { BoosterPackConfig, BOOSTER_PACKS, RARITY_CONFIGS } from '../../config/gameConfig';
 import { MASTER_CARDS } from '../../data/cards';
 import { BoosterPackThreeView } from './BoosterPackThreeView';
+import { WebGLErrorBoundary } from '../Common/WebGLErrorBoundary';
+import { BoosterPack2DView } from './BoosterPack2DView';
 
 interface PackOpeningSequenceProps {
   cards: RevealedCard[];
@@ -496,11 +498,21 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
             )}
 
             {/* 3D 부스터 팩 */}
-            <BoosterPackThreeView
-              pack={pack}
-              onClick={handleStartOpening}
-              className="w-full h-full rounded-2xl overflow-hidden drop-shadow-2xl"
-            />
+            <WebGLErrorBoundary
+              fallback={
+                <BoosterPack2DView
+                  pack={pack}
+                  onClick={handleStartOpening}
+                  className="w-full h-full rounded-2xl overflow-hidden drop-shadow-2xl"
+                />
+              }
+            >
+              <BoosterPackThreeView
+                pack={pack}
+                onClick={handleStartOpening}
+                className="w-full h-full rounded-2xl overflow-hidden drop-shadow-2xl"
+              />
+            </WebGLErrorBoundary>
           </motion.div>
 
           {step === 'PACK_ENTER' && (

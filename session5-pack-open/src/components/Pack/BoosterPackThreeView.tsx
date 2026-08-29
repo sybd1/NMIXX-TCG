@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { BoosterPackConfig } from '../../config/gameConfig';
 import {
@@ -6,6 +6,8 @@ import {
   generateFoilNormalMap,
   createPackColorTexture,
 } from './BoosterPack3DScene';
+import { isWebGLSupported } from '../../utils/webgl';
+import { BoosterPack2DView } from './BoosterPack2DView';
 
 interface BoosterPackThreeViewProps {
   pack: BoosterPackConfig;
@@ -22,8 +24,14 @@ export const BoosterPackThreeView: React.FC<BoosterPackThreeViewProps> = ({
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
+  const [webglSupported, setWebglSupported] = useState<boolean | null>(null);
 
   useEffect(() => {
+    setWebglSupported(isWebGLSupported());
+  }, []);
+
+  useEffect(() => {
+    if (webglSupported === false) return;
     const container = mountRef.current;
     if (!container) return;
 
@@ -206,6 +214,17 @@ export const BoosterPackThreeView: React.FC<BoosterPackThreeViewProps> = ({
       }
     };
   }, [pack]);
+
+  if (webglSupported === false) {
+    return (
+      <BoosterPack2DView
+        pack={pack}
+        disabled={disabled}
+        className={className}
+        onClick={onClick}
+      />
+    );
+  }
 
   return (
     <div
