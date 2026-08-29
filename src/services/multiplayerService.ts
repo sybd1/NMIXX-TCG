@@ -16,6 +16,7 @@ import {
 import { db, isFirebaseConfigured } from '../config/firebase';
 import { UserAccount } from '../types/auth';
 import { Card } from '../types/card';
+import { MASTER_CARDS } from '../data/cards';
 import {
   LeaderboardEntry,
   GlobalPullFeedItem,
@@ -89,57 +90,64 @@ export class MultiplayerService {
   // 🏆 1. 글로벌 리더보드
   // ---------------------------------------------------------------------------
   public static async fetchLeaderboard(limitCount = 50, currentUserId?: string): Promise<LeaderboardEntry[]> {
-    if (!isFirebaseConfigured || !db) {
-      return this.getMockLeaderboard();
-    }
+    let entries: LeaderboardEntry[] = [];
 
-    try {
-      const q = query(
-        collection(db, 'nmixx_tcg_leaderboard'),
-        orderBy('uniqueCardCount', 'desc'),
-        limit(limitCount)
-      );
-      const snapshot = await getDocs(q);
+    if (isFirebaseConfigured && db) {
+      try {
+        const q = query(
+          collection(db, 'nmixx_tcg_leaderboard'),
+          orderBy('uniqueCardCount', 'desc'),
+          limit(limitCount)
+        );
+        const snapshot = await getDocs(q);
 
-      if (snapshot.empty) {
-        return this.getMockLeaderboard();
-      }
+        if (!snapshot.empty) {
+          snapshot.forEach(docSnap => {
+            const data = docSnap.data() as LeaderboardEntry;
+            const uid = docSnap.id || data.uid;
 
-      const entries: LeaderboardEntry[] = [];
-      let rank = 1;
-      snapshot.forEach(docSnap => {
-        const data = docSnap.data() as LeaderboardEntry;
-        const uid = docSnap.id || data.uid;
+            // 🗑️ 과거 테스트 계정 식별 (GM, 카카오_엔써_..., 중복 구버전 운영자 등)
+            const isOldTest =
+              !uid ||
+              uid === 'guest' ||
+              uid.startsWith('mock_') ||
+              uid.startsWith('user_mock_') ||
+              data.displayName === 'GM' ||
+              data.displayName?.startsWith('카카오_엔써_') ||
+              (data.displayName === '운영자' && currentUserId && uid !== currentUserId);
 
-        // 🗑️ 과거 테스트 계정 식별 (GM, 카카오_엔써_..., 중복 구버전 운영자 등)
-        const isOldTest =
-          !uid ||
-          uid === 'guest' ||
-          uid.startsWith('mock_') ||
-          uid.startsWith('user_mock_') ||
-          data.displayName === 'GM' ||
-          data.displayName?.startsWith('카카오_엔써_') ||
-          (data.displayName === '운영자' && currentUserId && uid !== currentUserId);
+            if (isOldTest) {
+              // Firebase Firestore에서 해당 테스트 계정 영구 삭제
+              deleteDoc(doc(db!, 'nmixx_tcg_leaderboard', uid)).catch(() => {});
+              deleteDoc(doc(db!, 'nmixx_tcg_users', uid)).catch(() => {});
+              return;
+            }
 
-        if (isOldTest) {
-          // Firebase Firestore에서 해당 테스트 계정 영구 삭제
-          deleteDoc(doc(db!, 'nmixx_tcg_leaderboard', uid)).catch(() => {});
-          deleteDoc(doc(db!, 'nmixx_tcg_users', uid)).catch(() => {});
-          return;
+            entries.push({
+              ...data,
+              uid,
+            });
+          });
         }
-
-        entries.push({
-          ...data,
-          uid,
-          rank: rank++,
-        });
-      });
-
-      return entries;
-    } catch (error) {
-      console.warn('[Multiplayer] Failed to fetch leaderboard, fallback:', error);
-      return this.getMockLeaderboard();
+      } catch (error) {
+        console.warn('[Multiplayer] Failed to fetch leaderboard, fallback:', error);
+      }
     }
+
+    // 🤖 53명의 봇 추가
+    const bots = this.getMockBots();
+    const combined = [...entries, ...bots];
+
+    // 고유 카드 개수 기준으로 내림차순 정렬
+    combined.sort((a, b) => b.uniqueCardCount - a.uniqueCardCount);
+
+    // 순위 매기기
+    const ranked = combined.map((entry, idx) => ({
+      ...entry,
+      rank: idx + 1,
+    }));
+
+    return ranked.slice(0, limitCount);
   }
 
   public static async updateLeaderboardEntry(
@@ -400,6 +408,9 @@ export class MultiplayerService {
   }
 
   public static async fetchUserCollection(uid: string): Promise<Record<string, number>> {
+    if (uid && uid.startsWith('bot_')) {
+      return this.getBotCollection(uid);
+    }
     if (!isFirebaseConfigured || !db || !uid) return {};
     try {
       const userDocRef = doc(db, 'nmixx_tcg_users', uid);
@@ -418,15 +429,89 @@ export class MultiplayerService {
   // ---------------------------------------------------------------------------
   // 🤖 Clean Fallback Data (더미 계정 제거 및 실시간 실유저 전용)
   // ---------------------------------------------------------------------------
-  private static getMockLeaderboard(): LeaderboardEntry[] {
-    return [];
-  }
-
   private static getMockFeed(): GlobalPullFeedItem[] {
     return [];
   }
 
   private static getMockTradeListings(): CardTradeListing[] {
     return [];
+  }
+
+  // 🤖 53명의 봇 정보 생성 (결정론적 난수 사용)
+  private static getMockBots(): LeaderboardEntry[] {
+    const BOT_NAMES = [
+      '엔믹스짱사랑', '설윤아카이브', '릴리둥이', '해원예능신', '배이무한매력', '지우의도토리', '규진아기고양이',
+      '엔써1기회원', '믹스토피아시민', '오오필드개척자', '러브미라이크디스', '다이스굴려봐', '소냐르빛무리', '장미를위해달려',
+      '벽을부숴라', '공방포카마스터', '도감100프로도전', '엔믹스컴백대기', '지우개귀여워', '배솔지', '오렌지릴리',
+      '설윤꽃미모', '규진캣', '해원워크돌짱', '배이비', '릴리진성엔써', '설윤하트뿅', '오오선율', '믹스팝전도사',
+      '엔믹스덕후', '별별별노래짱', 'Fe3O4전진', 'FORWARD에너지', '영원히엔써', '엔믹스응원봉', '제이와이피키즈',
+      '믹스토피아행열차', '포토카드광인', '한정판수집러', '전설카드대기', '신화카드언젠가', '엔써의맹세', '오래보자엔믹스',
+      '릴리아빠', '설윤공주', '해원아재', '배이유튜브', '지우냥', '규진꼬맹이', '믹스팝에중독', '엔믹스컴백', '엔써의꿈', 'JYP차세대팬'
+    ];
+
+    const bots: LeaderboardEntry[] = [];
+    const totalMasterCards = 521;
+
+    for (let i = 0; i < 53; i++) {
+      const name = BOT_NAMES[i % BOT_NAMES.length] + `_${i + 1}`;
+      
+      // 결정론적 랜덤 생성 (3% ~ 46%)
+      const seedVal = Math.sin(i * 123.456) * 10000;
+      const randPercent = 3 + Math.floor((seedVal - Math.floor(seedVal)) * 44); // 3% ~ 46%
+      
+      const uniqueCount = Math.round(totalMasterCards * (randPercent / 100));
+      const collectionRate = Math.round((uniqueCount / totalMasterCards) * 1000) / 10;
+      const totalPacks = Math.round(uniqueCount * 2.5) + (i % 5);
+      
+      bots.push({
+        uid: `bot_${i + 1}`,
+        displayName: name,
+        avatarUrl: '',
+        avatarMemberId: ['LILY', 'HAEWON', 'SULLYOON', 'BAE', 'JIWOO', 'KYUZIN'][i % 6],
+        uniqueCardCount: uniqueCount,
+        collectionRate,
+        totalPacksOpened: totalPacks,
+        coins: 10000 + (i * 379) % 50000,
+        hasXR: false,
+        updatedAt: null,
+      });
+    }
+    return bots;
+  }
+
+  // 🤖 봇의 카드 컬렉션 맵 결정론적 생성
+  private static getBotCollection(uid: string): Record<string, number> {
+    const botId = parseInt(uid.replace('bot_', ''), 10);
+    const botIndex = isNaN(botId) ? 0 : botId - 1;
+    
+    const bots = this.getMockBots();
+    const botData = bots[botIndex] || bots[0];
+    
+    const collection: Record<string, number> = {};
+    const availableCards = MASTER_CARDS.filter(c => c.rarity !== 'XR');
+    
+    // 결정론적 랜덤 함수
+    const seededRandom = (seed: number) => {
+      const x = Math.sin(seed) * 10000;
+      return x - Math.floor(x);
+    };
+    
+    const cardsWithWeight = availableCards.map((c, idx) => {
+      const randVal = seededRandom(botIndex * 17 + idx * 31);
+      const rarityWeights: Record<string, number> = { C: 0.9, UC: 0.7, R: 0.5, SR: 0.3, SSR: 0.15, UR: 0.08, LR: 0.04, MR: 0.02 };
+      const rWeight = rarityWeights[c.rarity] || 0.01;
+      return { card: c, sortVal: randVal * rWeight };
+    });
+    
+    const selected = cardsWithWeight
+      .sort((a, b) => b.sortVal - a.sortVal)
+      .slice(0, botData.uniqueCardCount)
+      .map(x => x.card);
+      
+    selected.forEach(c => {
+      collection[c.id] = 1;
+    });
+    
+    return collection;
   }
 }

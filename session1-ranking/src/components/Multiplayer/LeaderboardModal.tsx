@@ -4,6 +4,7 @@ import { LeaderboardEntry } from '../../types/multiplayer';
 import { MultiplayerService } from '../../services/multiplayerService';
 import { Trophy, X, Sparkles, User, ArrowLeft } from 'lucide-react';
 import { CardVisual } from '../Card/CardVisual';
+import { CardModal } from '../Card/CardModal';
 import { MASTER_CARDS } from '../../data/cards';
 import { Card } from '../../types/card';
 
@@ -25,6 +26,7 @@ export const LeaderboardModal: React.FC<LeaderboardModalProps> = ({
   const [selectedUser, setSelectedUser] = useState<LeaderboardEntry | null>(null);
   const [userCollection, setUserCollection] = useState<Record<string, number>>({});
   const [isFetchingUser, setIsFetchingUser] = useState(false);
+  const [inspectCard, setInspectCard] = useState<Card | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -172,16 +174,20 @@ export const LeaderboardModal: React.FC<LeaderboardModalProps> = ({
                 return (
                   <div className="grid grid-cols-3 gap-3.5 mt-1">
                     {topCards.map((card, idx) => (
-                      <div key={card.id || idx} className="flex flex-col items-center gap-2">
-                        <div className="w-full relative rounded-2xl overflow-hidden border border-white/10 hover:border-amber-400/40 transition-colors">
+                      <div
+                        key={card.id || idx}
+                        onClick={() => setInspectCard(card)}
+                        className="flex flex-col items-center gap-2 cursor-pointer group"
+                      >
+                        <div className="w-full relative rounded-2xl overflow-hidden border border-white/10 group-hover:border-amber-400/80 group-hover:scale-105 active:scale-95 transition-all duration-200">
                           <CardVisual
                             card={card}
                             size="sm"
-                            className="w-full pointer-events-none select-none"
+                            className="w-full select-none"
                             showDetails={false}
                           />
                         </div>
-                        <span className="text-[10px] sm:text-xs font-mono text-slate-300 text-center truncate w-full px-1">
+                        <span className="text-[10px] sm:text-xs font-mono text-slate-300 group-hover:text-amber-300 text-center truncate w-full px-1 transition-colors">
                           {card.name.replace('[보상] ', '')}
                         </span>
                       </div>
@@ -230,12 +236,12 @@ export const LeaderboardModal: React.FC<LeaderboardModalProps> = ({
 
                   const rankBadge =
                     rank === 1
-                      ? 'bg-gradient-to-r from-yellow-400 to-amber-500 text-black font-black shadow-lg shadow-amber-500/40'
+                      ? 'w-9 h-9 sm:w-10 sm:h-10 text-sm sm:text-base bg-gradient-to-r from-yellow-300 via-amber-400 to-yellow-500 text-black border-2 border-yellow-300/80 shadow-[0_0_12px_rgba(245,158,11,0.5)]'
                       : rank === 2
-                      ? 'bg-gradient-to-r from-slate-200 to-slate-400 text-black font-black shadow-md'
+                      ? 'w-9 h-9 sm:w-10 sm:h-10 text-sm sm:text-base bg-gradient-to-r from-slate-100 via-slate-300 to-slate-400 text-black border-2 border-slate-200/80 shadow-[0_0_8px_rgba(200,200,200,0.3)]'
                       : rank === 3
-                      ? 'bg-gradient-to-r from-amber-700 to-amber-600 text-white font-bold shadow-md'
-                      : 'bg-void-950 text-slate-400 border border-white/10 font-bold';
+                      ? 'w-9 h-9 sm:w-10 sm:h-10 text-sm sm:text-base bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white border-2 border-amber-600/80 shadow-[0_0_8px_rgba(180,100,50,0.3)]'
+                      : 'w-8 h-8 text-xs bg-void-950 text-slate-400 border border-white/10';
 
                   return (
                     <div
@@ -257,7 +263,7 @@ export const LeaderboardModal: React.FC<LeaderboardModalProps> = ({
                             e.stopPropagation();
                             setSelectedUser(entry);
                           }}
-                          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center text-xs sm:text-sm font-mono flex-shrink-0 cursor-pointer ${rankBadge}`}
+                          className={`rounded-xl flex items-center justify-center font-mono flex-shrink-0 cursor-pointer font-bold ${rankBadge}`}
                         >
                           {rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : rank}
                         </div>
@@ -320,6 +326,13 @@ export const LeaderboardModal: React.FC<LeaderboardModalProps> = ({
           </div>
         )}
       </motion.div>
+
+      <CardModal
+        card={inspectCard}
+        count={inspectCard ? (userCollection[inspectCard.id] || 1) : 0}
+        isOpen={!!inspectCard}
+        onClose={() => setInspectCard(null)}
+      />
     </div>
   );
 };

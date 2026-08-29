@@ -173,12 +173,12 @@ export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId, collect
 
             const rankBadge =
               rank === 1
-                ? 'bg-gradient-to-r from-yellow-400 to-amber-500 text-black font-black shadow-lg shadow-amber-500/40 text-sm'
+                ? 'w-9 h-9 sm:w-10 sm:h-10 text-sm sm:text-base bg-gradient-to-r from-yellow-300 via-amber-400 to-yellow-500 text-black border-2 border-yellow-300/80 shadow-[0_0_12px_rgba(245,158,11,0.5)]'
                 : rank === 2
-                ? 'bg-gradient-to-r from-slate-200 to-slate-400 text-black font-black shadow-md text-sm'
+                ? 'w-9 h-9 sm:w-10 sm:h-10 text-sm sm:text-base bg-gradient-to-r from-slate-100 via-slate-300 to-slate-400 text-black border-2 border-slate-200/80 shadow-[0_0_8px_rgba(200,200,200,0.3)]'
                 : rank === 3
-                ? 'bg-gradient-to-r from-amber-700 to-amber-600 text-white font-bold shadow-md text-sm'
-                : 'bg-void-900 text-slate-400 border border-white/10 font-bold text-xs';
+                ? 'w-9 h-9 sm:w-10 sm:h-10 text-sm sm:text-base bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white border-2 border-amber-600/80 shadow-[0_0_8px_rgba(180,100,50,0.3)]'
+                : 'w-8 h-8 text-xs bg-void-900 text-slate-400 border border-white/10';
 
             return (
               <motion.div
@@ -194,7 +194,7 @@ export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId, collect
               >
                 <div className="flex items-center gap-3.5 min-w-0">
                   {/* 순위 */}
-                  <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-mono flex-shrink-0 ${rankBadge}`}>
+                  <div className={`rounded-xl flex items-center justify-center font-mono flex-shrink-0 font-bold ${rankBadge}`}>
                     {rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : rank}
                   </div>
 
