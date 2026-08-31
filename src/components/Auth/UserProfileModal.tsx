@@ -29,6 +29,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
   onUpdateUser,
   onLogout,
 }) => {
+  const [displayName, setDisplayName] = useState(user.displayName);
   const [selectedMember, setSelectedMember] = useState(user.avatarMemberId || 'SULLYOON');
   const [isSaved, setIsSaved] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -42,9 +43,15 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
     sound.playClick();
     setErrorMessage(null);
 
+    const trimmedName = displayName.trim();
+    if (!trimmedName || trimmedName.length < 2) {
+      setErrorMessage('닉네임은 최소 2글자 이상 입력해 주세요.');
+      return;
+    }
+
     setIsSaving(true);
-    // 닉네임은 변경이 불가능하므로 대표 멤버(avatarMemberId) 수정 정보만 전송
     const result = await AuthService.updateProfile({
+      displayName: trimmedName,
       avatarMemberId: selectedMember,
     });
     setIsSaving(false);
@@ -54,7 +61,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
       setIsSaved(true);
       setTimeout(() => setIsSaved(false), 2000);
     } else {
-      setErrorMessage(result.message || '프로필 변경에 실패했습니다.');
+      setErrorMessage(result.message || '닉네임 변경에 실패했습니다.');
     }
   };
 
@@ -120,16 +127,20 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           </div>
         )}
 
-        {/* 닉네임 수정 (계정 최초 가입 시 외 변경 차단) */}
+        {/* 닉네임 수정 */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-mono font-bold text-rose-400">
-            닉네임 변경 불가 (한 번 가입/설정된 닉네임은 변경할 수 없습니다)
+          <label className="text-xs font-mono font-bold text-slate-300">
+            닉네임 변경 (중복 불가)
           </label>
           <input
             type="text"
-            value={user.displayName}
-            disabled={true}
-            className="w-full px-4 py-2.5 rounded-xl bg-void-950/80 border border-red-500/20 text-slate-400 font-serif text-sm focus:outline-none cursor-not-allowed select-none"
+            value={displayName}
+            onChange={(e) => {
+              setDisplayName(e.target.value);
+              setErrorMessage(null);
+            }}
+            maxLength={12}
+            className="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-purple-500/30 text-white font-serif text-sm focus:outline-none focus:border-pink-400 transition-all select-text"
           />
         </div>
 

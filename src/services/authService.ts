@@ -445,8 +445,9 @@ export class AuthService {
       return { success: false, message: '로그인 상태가 아닙니다.' };
     }
 
-    const newDisplayName = this.currentUser.displayName;
-    const isNameChanging = false;
+    let newDisplayName = updates.displayName ? updates.displayName.trim() : this.currentUser.displayName;
+    newDisplayName = sanitizeDisplayName(newDisplayName);
+    const isNameChanging = newDisplayName !== this.currentUser.displayName;
 
     // 🚫 운영자, GM 관련 단어 생성 불가 제한 (대소문자 무관)
     const upperName = newDisplayName.toUpperCase();
