@@ -203,6 +203,10 @@ export class AuthService {
         return account;
       } catch (err: any) {
         console.error('Google Sign-In Error:', err);
+        // COOP 또는 팝업 차단 대응 에러 핸들링
+        if (err.code === 'auth/popup-closed-by-user' || err.message?.includes('Cross-Origin-Opener-Policy')) {
+          throw new Error('로그인 팝업이 닫혔거나 브라우저 보안 정책에 의해 차단되었습니다. 팝업 차단을 해제하거나 다시 시도해 주세요.');
+        }
         throw new Error(err.message || 'Google 로그인에 실패했습니다.');
       }
     }
