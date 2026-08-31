@@ -245,15 +245,27 @@ export class AuthService {
                 const profileImg = kakaoAccount?.profile?.profile_image_url || '/cards/card_002.webp';
                 const email = kakaoAccount?.email || `kakao_${kakaoId}@kakao.com`;
 
-                // 🛡️ 기존 Firestore 계정 프로필 우선 조회 (커스텀 닉네임 보존)
-                const existingProfile = await this.fetchExistingProfile(uid);
+                // 🔑 [1순위] localStorage 기존 세션 확인 — 닉네임 변경 즉시 반영됨, Firestore 규칙 영향 없음
+                const existingLocalSession = AuthService.loadSession();
+                const hasSameUidSession = existingLocalSession?.id === uid && existingLocalSession.provider === 'kakao';
+
+                // 🛡️ [2순위] Firestore에서 기존 계정 프로필 조회 (타 기기 닉네임 변경 반영)
+                const existingProfile = hasSameUidSession ? null : await this.fetchExistingProfile(uid);
 
                 let nickname = '';
                 let avatarMemberId = 'HAEWON';
+                let avatarUrl = profileImg;
 
-                if (existingProfile && existingProfile.displayName) {
+                if (hasSameUidSession && existingLocalSession) {
+                  // ✅ 같은 기기에 이미 로그인 기록 있음 → 저장된 닉네임/아바타 그대로 사용
+                  nickname = existingLocalSession.displayName;
+                  avatarMemberId = existingLocalSession.avatarMemberId || 'HAEWON';
+                  avatarUrl = existingLocalSession.avatarUrl || profileImg;
+                } else if (existingProfile && existingProfile.displayName) {
+                  // ✅ 타 기기에서 변경된 닉네임 Firestore에서 복원
                   nickname = existingProfile.displayName;
                   avatarMemberId = existingProfile.avatarMemberId || 'HAEWON';
+                  avatarUrl = existingProfile.avatarUrl || profileImg;
                 } else {
                   nickname = customName?.trim() || kakaoAccount?.profile?.nickname || `카카오_엔써_${kakaoId.substring(0, 4)}`;
 
@@ -270,9 +282,9 @@ export class AuthService {
                   provider: 'kakao',
                   email,
                   displayName: sanitizeDisplayName(nickname),
-                  avatarUrl: existingProfile?.avatarUrl || profileImg,
+                  avatarUrl,
                   avatarMemberId,
-                  createdAt: Date.now(),
+                  createdAt: existingLocalSession?.createdAt || Date.now(),
                   lastLoginAt: Date.now(),
                   isCloudSynced: true,
                   securityHash: '',
