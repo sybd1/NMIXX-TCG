@@ -18,12 +18,20 @@ export function useGameState() {
   // Firestore 로딩 중 로컬 빈 상태가 DB를 덮어쓰지 않도록 보호하는 동기화 가드 Ref
   const isSyncingRef = React.useRef(true);
   const activeUserIdRef = React.useRef<string | null>(currentUser?.id || null);
+  // 타 기기로부터 동기화된 상태가 다시 Firestore로 중복 업로드(피드백 루프)되는 것을 방지하기 위한 Ref
+  const skipNextCloudSaveRef = React.useRef(false);
 
   // 1. 상태가 바뀔 때마다 해당 유저 전용 스토리지 및 클라우드(Firestore)에 즉각 자동 동기화
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     StorageService.saveState(state, user?.id);
     sound.setMuted(state.soundMuted);
+
+    // 타 기기 데이터 동기화로 인한 상태 변동일 경우, Firestore 재저장은 생략하고 락만 해제
+    if (skipNextCloudSaveRef.current) {
+      skipNextCloudSaveRef.current = false;
+      return;
+    }
 
     // 🛡️ Firestore 로딩 중이거나 게스트일 때는 클라우드 덮어쓰기 엄격 차단
     if (isSyncingRef.current) return;
@@ -116,24 +124,22 @@ export function useGameState() {
           isSyncingRef.current = false;
 
           // 🔴 핵심: 실시간 onSnapshot 구독 시작 — 다른 기기에서 변경 시 즉시 로컬 상태에 반영
-          // 최초 구독 시 수신되는 초기 이벤트를 건너뛰기 위해 isFirstSnapshotRef 플래그 사용
           let isFirstSnapshot = true;
           cloudListenerRef.current = CloudSyncService.subscribeUserGameData(
             user.id,
             (freshCloudData) => {
-              // 구독 직후 첫 번째 이벤트는 방금 로드한 데이터와 동일하므로 무시
+              // 최초 로드 시 수신되는 첫 데이터는 로컬 복구 데이터와 같으므로 생략
               if (isFirstSnapshot) {
                 isFirstSnapshot = false;
                 return;
               }
-              // 현재 기기가 저장 중인 경우(isSyncingRef.current)는 무시 (자기 자신의 쓰기 이벤트 무시)
+              // 만약 이 기기가 마침 직접 Firestore에 쓰는 중이었다면 들어오는 스냅샷 이벤트는 무시
               if (isSyncingRef.current) return;
-              // 다른 기기에서 변경된 데이터를 즉시 현재 기기 상태에 반영
-              isSyncingRef.current = true;
+
+              // 클라우드로부터 데이터가 새로 왔을 때:
+              // 1. skipNextCloudSaveRef 를 true 로 설정하여 useEffect 가 다시 Firestore에 저장 요청을 하지 않도록 방어
+              skipNextCloudSaveRef.current = true;
               applyCloudData(freshCloudData);
-              setTimeout(() => {
-                isSyncingRef.current = false;
-              }, 1000);
             }
           );
         }, 300);
