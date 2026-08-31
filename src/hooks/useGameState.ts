@@ -18,12 +18,16 @@ export function useGameState() {
   // Firestore 로딩 중 로컬 빈 상태가 DB를 덮어쓰지 않도록 보호하는 동기화 가드 Ref
   const isSyncingRef = React.useRef(true);
   const activeUserIdRef = React.useRef<string | null>(currentUser?.id || null);
+  // 🔑 로그아웃 타이밍 레이스 방지: 현재 로그인 유저 객체를 ref로 유지
+  // (AuthService.getCurrentUser()는 logout() 호출 직후 null이 되므로 useEffect에서 직접 참조 불가)
+  const activeUserRef = React.useRef<import('../types/auth').UserAccount | null>(currentUser || null);
   // 타 기기로부터 동기화된 상태가 다시 Firestore로 중복 업로드(피드백 루프)되는 것을 방지하기 위한 Ref
   const skipNextCloudSaveRef = React.useRef(false);
 
   // 1. 상태가 바뀔 때마다 해당 유저 전용 스토리지 및 클라우드(Firestore)에 즉각 자동 동기화
   useEffect(() => {
-    const user = AuthService.getCurrentUser();
+    // ✅ AuthService.getCurrentUser() 대신 ref를 사용 — 로그아웃 타이밍 레이스 방지
+    const user = activeUserRef.current;
     StorageService.saveState(state, user?.id);
     sound.setMuted(state.soundMuted);
 
@@ -95,6 +99,8 @@ export function useGameState() {
       if (user?.isCloudSynced && user.id && user.id !== 'guest') {
         // ✅ [1] 구글/카카오 계정 로그인:
         activeUserIdRef.current = user.id;
+        // 🔑 activeUserRef 갱신 — 이후 useEffect([state])가 올바른 유저로 저장하도록
+        activeUserRef.current = user;
 
         const isAdmin = 
           user.id.includes('chip') || 
@@ -172,6 +178,8 @@ export function useGameState() {
         }, 300);
       } else {
         // 🚪 [2] 로그아웃: DB는 건드리지 않고, 브라우저 로컬 상태만 게스트 저장 상태로 안전 전환
+        // 🔑 activeUserRef를 null로 먼저 설정하여 useEffect([state])가 이후 guestState로 Firestore를 덮어쓰지 않도록 차단
+        activeUserRef.current = null;
         activeUserIdRef.current = null;
         CloudSyncService.forceResetHash();
         const guestState = StorageService.loadState('guest');

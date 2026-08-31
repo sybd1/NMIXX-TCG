@@ -503,6 +503,34 @@ export class AuthService {
    * 로그아웃
    */
   public static async logout(): Promise<void> {
+    // 🔑 로그아웃 전 현재 유저의 게임 데이터를 Firestore에 강제 저장 (카카오 유저 데이터 유실 방지)
+    const userBeforeLogout = this.currentUser;
+    if (userBeforeLogout?.isCloudSynced && userBeforeLogout.id && userBeforeLogout.id !== 'guest') {
+      try {
+        const { StorageService } = await import('./storageService');
+        const { CloudSyncService } = await import('./cloudSyncService');
+        CloudSyncService.forceResetHash(); // 해시 초기화로 저장 강제
+        const savedState = StorageService.loadState(userBeforeLogout.id);
+        if (savedState && savedState.coins !== undefined) {
+          await CloudSyncService.saveUserGameData(userBeforeLogout, {
+            collection: savedState.collection || {},
+            coins: savedState.coins,
+            dust: savedState.dust || 0,
+            pityCounter: savedState.pityCount || 0,
+            totalPacksOpened: savedState.openedPacksTotal || 0,
+            unlockedAchievements: savedState.claimedAchievements || [],
+            claimedSetRewards: savedState.claimedSetRewards || [],
+            claimedMailIds: savedState.claimedMailIds || [],
+            claimedCouponCodes: savedState.claimedCouponCodes || [],
+            hasClaimedMmuEasterEgg: savedState.hasClaimedMmuEasterEgg || false,
+            lastMailClaimDate: savedState.lastMailClaimDate || null,
+          });
+        }
+      } catch (e) {
+        console.warn('[Auth] Pre-logout Firestore save failed:', e);
+      }
+    }
+
     if (isFirebaseConfigured && auth) {
       try {
         await firebaseSignOut(auth);
