@@ -72,6 +72,12 @@ export class AuthService {
     const cleanName = nickname.trim();
     if (!cleanName || cleanName.length < 2) return false;
 
+    // 🚫 운영자, GM 관련 단어 생성 불가 제한 (대소문자 무관)
+    const upperName = cleanName.toUpperCase();
+    if (upperName.includes('운영자') || upperName.includes('GM')) {
+      return false;
+    }
+
     if (!isFirebaseConfigured || !db) {
       return true; // 오프라인 모드에서는 통과
     }
@@ -411,6 +417,12 @@ export class AuthService {
     const newDisplayName = updates.displayName ? updates.displayName.trim() : this.currentUser.displayName;
     const isNameChanging = newDisplayName !== this.currentUser.displayName;
 
+    // 🚫 운영자, GM 관련 단어 생성 불가 제한 (대소문자 무관)
+    const upperName = newDisplayName.toUpperCase();
+    if (upperName.includes('운영자') || upperName.includes('GM')) {
+      return { success: false, message: '사용할 수 없는 단어(운영자, GM)가 포함되어 있습니다.' };
+    }
+
     if (isNameChanging) {
       const isAvailable = await this.isNicknameAvailable(newDisplayName, this.currentUser.id);
       if (!isAvailable) {
@@ -435,6 +447,7 @@ export class AuthService {
         const userRef = doc(db, 'nmixx_tcg_users', updatedAccount.id);
         await setDoc(userRef, {
           displayName: updatedAccount.displayName,
+          nickname: updatedAccount.displayName,
           avatarMemberId: updatedAccount.avatarMemberId || 'SULLYOON',
           ...(updatedAccount.avatarUrl ? { avatarUrl: updatedAccount.avatarUrl } : {}),
         }, { merge: true });
