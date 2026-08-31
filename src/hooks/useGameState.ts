@@ -116,9 +116,16 @@ export function useGameState() {
           isSyncingRef.current = false;
 
           // 🔴 핵심: 실시간 onSnapshot 구독 시작 — 다른 기기에서 변경 시 즉시 로컬 상태에 반영
+          // 최초 구독 시 수신되는 초기 이벤트를 건너뛰기 위해 isFirstSnapshotRef 플래그 사용
+          let isFirstSnapshot = true;
           cloudListenerRef.current = CloudSyncService.subscribeUserGameData(
             user.id,
             (freshCloudData) => {
+              // 구독 직후 첫 번째 이벤트는 방금 로드한 데이터와 동일하므로 무시
+              if (isFirstSnapshot) {
+                isFirstSnapshot = false;
+                return;
+              }
               // 현재 기기가 저장 중인 경우(isSyncingRef.current)는 무시 (자기 자신의 쓰기 이벤트 무시)
               if (isSyncingRef.current) return;
               // 다른 기기에서 변경된 데이터를 즉시 현재 기기 상태에 반영
@@ -126,10 +133,10 @@ export function useGameState() {
               applyCloudData(freshCloudData);
               setTimeout(() => {
                 isSyncingRef.current = false;
-              }, 300);
+              }, 1000);
             }
           );
-        }, 50);
+        }, 300);
       } else {
         // 🚪 [2] 로그아웃: DB는 건드리지 않고, 브라우저 로컬 상태만 게스트 저장 상태로 안전 전환
         activeUserIdRef.current = null;

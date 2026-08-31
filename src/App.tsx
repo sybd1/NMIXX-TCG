@@ -164,8 +164,14 @@ export const App: React.FC = () => {
 
       // 메인 홈 화면으로 리다이렉트
       setCurrentTab('home');
+
+      // 🔴 즉시 자동 로그아웃 처리 (버튼 클릭 없이 바로 실행)
+      AuthService.logout().then(() => {
+        setUser(null);
+        logoutAndResetState();
+      });
     }
-  }, [isSessionLocked]);
+  }, [isSessionLocked, logoutAndResetState]);
 
   // ⌨️ 글로벌 고속 ESC 키 핸들러: 카드팩 개봉 중, 탭 화면, 모달 등 어디서나 ESC를 누르면 0ms 즉시 메인 팩오픈 화면으로 복귀
   useEffect(() => {
@@ -524,16 +530,14 @@ export const App: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-slate-100 mb-2">중복 로그인 감지</h3>
+            <h3 className="text-xl font-bold text-slate-100 mb-2">다른 기기에서 로그인됨</h3>
             <p className="text-sm text-slate-300 leading-relaxed mb-6">
-              다른 기기에서 로그인이 감지되어<br />
-              이 세션은 강제로 로그아웃됩니다.
+              동일 계정이 다른 기기에서 로그인되었습니다.<br />
+              이 세션은 자동으로 로그아웃 처리되었습니다.
             </p>
             <button
               onClick={() => {
                 setIsSessionLocked(false);
-                setUser(null);
-                logoutAndResetState();
               }}
               className="w-full py-3 bg-red-600 hover:bg-red-500 active:scale-[0.98] transition text-white font-semibold rounded-xl shadow-lg shadow-red-600/30"
             >
