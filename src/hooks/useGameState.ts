@@ -45,40 +45,53 @@ export function useGameState() {
     }
   }, [state]);
 
+  // Ref to hold the current Firestore onSnapshot unsubscribe function
+  const cloudListenerRef = React.useRef<(() => void) | null>(null);
+
+  // Helper: apply Firestore cloud data to local React state
+  const applyCloudData = React.useCallback((cloudData: import('../services/cloudSyncService').CloudGameData) => {
+    const userState: GameState = {
+      coins: cloudData.coins ?? 1_000_000,
+      dust: cloudData.dust ?? 0,
+      collection: cloudData.collection || {},
+      pityCount: cloudData.pityCounter ?? 0,
+      openedPacksTotal: cloudData.totalPacksOpened ?? 0,
+      coinsSpentTotal: 0,
+      claimedAchievements: cloudData.unlockedAchievements || [],
+      claimedSetRewards: cloudData.claimedSetRewards || [],
+      claimedMailIds: cloudData.claimedMailIds || [],
+      claimedCouponCodes: cloudData.claimedCouponCodes || [],
+      lastDailyBonus: null,
+      lastMailClaimDate: (cloudData as any).lastMailClaimDate || null,
+      packHistory: [],
+      soundMuted: false,
+      isFirstVisit: false,
+      coinReset_v16: true,
+      hasClaimedMmuEasterEgg: cloudData.hasClaimedMmuEasterEgg || false,
+    };
+    StorageService.saveState(userState, activeUserIdRef.current);
+    setState(userState);
+  }, []);
+
   // 2. 로그인/로그아웃 시 계정별 스토리지 및 Firestore 즉각 전환 (원자적 읽기/복원)
   useEffect(() => {
     const unsubscribe = AuthService.subscribeAuthState(async (user) => {
+      // 이전 Firestore 실시간 구독 해제 (계정 전환, 로그아웃 시 누수 방지)
+      if (cloudListenerRef.current) {
+        cloudListenerRef.current();
+        cloudListenerRef.current = null;
+      }
+
       isSyncingRef.current = true;
 
       if (user?.isCloudSynced && user.id && user.id !== 'guest') {
         // ✅ [1] 구글/카카오 계정 로그인:
         activeUserIdRef.current = user.id;
         const cloudData = await CloudSyncService.loadUserGameData(user.id);
-        
+
         if (cloudData) {
           // 기존 Firestore 클라우드 세이브 데이터 100% 온전히 복원 (초기화 절대 금지)
-          const cleanCollection = cloudData.collection || {};
-          const userState: GameState = {
-            coins: cloudData.coins ?? 1_000_000,
-            dust: cloudData.dust ?? 0,
-            collection: cleanCollection,
-            pityCount: cloudData.pityCounter ?? 0,
-            openedPacksTotal: cloudData.totalPacksOpened ?? 0,
-            coinsSpentTotal: 0,
-            claimedAchievements: cloudData.unlockedAchievements || [],
-            claimedSetRewards: cloudData.claimedSetRewards || [],
-            claimedMailIds: cloudData.claimedMailIds || [],
-            claimedCouponCodes: cloudData.claimedCouponCodes || [],
-            lastDailyBonus: null,
-            lastMailClaimDate: (cloudData as any).lastMailClaimDate || null,
-            packHistory: [],
-            soundMuted: false,
-            isFirstVisit: false,
-            coinReset_v16: true,
-            hasClaimedMmuEasterEgg: cloudData.hasClaimedMmuEasterEgg || false,
-          };
-          StorageService.saveState(userState, user.id);
-          setState(userState);
+          applyCloudData(cloudData);
         } else {
           // 신규 가입 유저(Firestore 문서 부재 시): 신규 100만원 기본 데이터 1회 생성 및 즉시 Firestore 저장
           const freshState = StorageService.loadState(user.id);
@@ -97,22 +110,49 @@ export function useGameState() {
           StorageService.saveState(freshState, user.id);
           setState(freshState);
         }
+
+        // 상태 반영 완료 후 클라우드 동기화 가드 안전 해제, 이후 실시간 구독 시작
+        setTimeout(() => {
+          isSyncingRef.current = false;
+
+          // 🔴 핵심: 실시간 onSnapshot 구독 시작 — 다른 기기에서 변경 시 즉시 로컬 상태에 반영
+          cloudListenerRef.current = CloudSyncService.subscribeUserGameData(
+            user.id,
+            (freshCloudData) => {
+              // 현재 기기가 저장 중인 경우(isSyncingRef.current)는 무시 (자기 자신의 쓰기 이벤트 무시)
+              if (isSyncingRef.current) return;
+              // 다른 기기에서 변경된 데이터를 즉시 현재 기기 상태에 반영
+              isSyncingRef.current = true;
+              applyCloudData(freshCloudData);
+              setTimeout(() => {
+                isSyncingRef.current = false;
+              }, 300);
+            }
+          );
+        }, 50);
       } else {
         // 🚪 [2] 로그아웃: DB는 건드리지 않고, 브라우저 로컬 상태만 게스트 저장 상태로 안전 전환
         activeUserIdRef.current = null;
         CloudSyncService.forceResetHash();
         const guestState = StorageService.loadState('guest');
         setState(guestState);
-      }
 
-      // 상태 반영 완료 후 클라우드 동기화 가드 안전 해제
-      setTimeout(() => {
-        isSyncingRef.current = false;
-      }, 50);
+        // 상태 반영 완료 후 클라우드 동기화 가드 안전 해제
+        setTimeout(() => {
+          isSyncingRef.current = false;
+        }, 50);
+      }
     });
 
-    return () => unsubscribe();
-  }, []);
+    return () => {
+      unsubscribe();
+      // 컴포넌트 언마운트 시 실시간 Firestore 구독도 함께 해제
+      if (cloudListenerRef.current) {
+        cloudListenerRef.current();
+        cloudListenerRef.current = null;
+      }
+    };
+  }, [applyCloudData]);
 
   const toggleSound = useCallback(() => {
     setState(prev => {

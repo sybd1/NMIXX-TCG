@@ -156,9 +156,7 @@ export class AuthService {
           sessionId: newSessionId,
         };
 
-        await AuthService.saveSession(account);
-
-        // Firestore에 유저 기본 정보 동기화
+        // ⚠️ 순서 중요: Firestore에 새 sessionId를 먼저 기록하여 타 기기 세션을 즉시 무효화한 뒤 로컬 세션 저장
         if (db) {
           try {
             const userDocRef = doc(db, 'nmixx_tcg_users', uid);
@@ -176,6 +174,8 @@ export class AuthService {
             console.warn('[Auth] Firestore sync warning:', e);
           }
         }
+
+        await AuthService.saveSession(account);
 
         return account;
       } catch (err: any) {
@@ -242,9 +242,7 @@ export class AuthService {
                   sessionId: newSessionId,
                 };
 
-                await AuthService.saveSession(account);
-
-                // Firestore에 유저 기본 정보 동기화
+                // ⚠️ 순서 중요: Firestore에 새 sessionId를 먼저 기록하여 타 기기 세션을 즉시 무효화한 뒤 로컬 세션 저장
                 if (db) {
                   try {
                     const userDocRef = doc(db, 'nmixx_tcg_users', uid);
@@ -262,6 +260,8 @@ export class AuthService {
                     console.warn('[Auth] Firestore sync warning:', e);
                   }
                 }
+
+                await AuthService.saveSession(account);
 
                 resolve(account);
               },

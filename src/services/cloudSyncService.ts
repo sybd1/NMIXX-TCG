@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, getDoc, setDoc, onSnapshot, serverTimestamp } from 'firebase/firestore';
 import { db, isFirebaseConfigured } from '../config/firebase';
 import { UserAccount } from '../types/auth';
 import { MultiplayerService } from './multiplayerService';
@@ -26,6 +26,36 @@ export class CloudSyncService {
 
   public static forceResetHash(): void {
     this.lastSavedHash = '';
+  }
+
+  /**
+   * 실시간 Firestore onSnapshot 구독: 다른 기기에서의 변경을 즉시 수신 (기기 간 실시간 동기화 핵심)
+   * 로그인 시 구독 시작, 로그아웃 시 반드시 unsubscribe 해제해야 함
+   */
+  public static subscribeUserGameData(
+    uid: string,
+    onData: (data: CloudGameData) => void,
+    onError?: (error: Error) => void
+  ): () => void {
+    if (!isFirebaseConfigured || !db || !uid || uid === 'guest') {
+      return () => {};
+    }
+
+    const userDocRef = doc(db, 'nmixx_tcg_users', uid);
+    const unsubscribe = onSnapshot(
+      userDocRef,
+      (snapshot) => {
+        if (snapshot.exists()) {
+          onData(snapshot.data() as CloudGameData);
+        }
+      },
+      (error) => {
+        console.warn('[CloudSync] onSnapshot error:', error);
+        onError?.(error);
+      }
+    );
+
+    return unsubscribe;
   }
 
   /**
