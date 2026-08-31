@@ -40,7 +40,6 @@ export const App: React.FC = () => {
     redeemCouponCode,
     applyTradeResult,
     toggleSound,
-    resetGame,
     logoutAndResetState,
     dismissFirstVisit,
     addCoins,
@@ -350,7 +349,15 @@ export const App: React.FC = () => {
           <SettingsPage
             state={state}
             onToggleSound={toggleSound}
-            onResetGame={resetGame}
+            onDeleteAccount={async () => {
+              const { AuthService } = await import('./services/authService');
+              const result = await AuthService.deleteAccount();
+              if (result.success) {
+                window.location.reload();
+              } else {
+                alert(result.message);
+              }
+            }}
             onRedeemCoupon={redeemCouponCode}
           />
         )}

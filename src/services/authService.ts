@@ -3,11 +3,13 @@ import {
   signOut as firebaseSignOut,
   onAuthStateChanged,
   User as FirebaseUser,
+  deleteUser,
 } from 'firebase/auth';
 import {
   setDoc,
   getDoc,
   getDocs,
+  deleteDoc,
   collection,
   query,
   where,
@@ -608,5 +610,66 @@ export class AuthService {
       this.authListeners = this.authListeners.filter((cb) => cb !== callback);
       unsubFirebase();
     };
+  }
+
+  /**
+   * 회원 탈퇴: Firestore 계정 데이터 및 Firebase Auth 계정 완전 삭제
+   */
+  public static async deleteAccount(): Promise<{ success: boolean; message: string }> {
+    if (!this.currentUser) {
+      return { success: false, message: '로그인 상태가 아닙니다.' };
+    }
+
+    const userId = this.currentUser.id;
+
+    try {
+      // 1. Firestore nmixx_tcg_users 문서 삭제
+      if (isFirebaseConfigured && db && userId && userId !== 'guest') {
+        try {
+          await deleteDoc(doc(db, 'nmixx_tcg_users', userId));
+        } catch (e) {
+          console.warn('[Auth] Failed to delete user Firestore doc:', e);
+        }
+
+        // 2. Firestore nmixx_tcg_leaderboard 문서 삭제
+        try {
+          await deleteDoc(doc(db, 'nmixx_tcg_leaderboard', userId));
+        } catch (e) {
+          console.warn('[Auth] Failed to delete leaderboard Firestore doc:', e);
+        }
+      }
+
+      // 3. Firebase Auth 계정 삭제 (Google 로그인 유저)
+      if (auth?.currentUser) {
+        try {
+          await deleteUser(auth.currentUser);
+        } catch (e: any) {
+          // requires-recent-login: 재인증 필요 (드문 케이스)
+          console.warn('[Auth] Firebase deleteUser error:', e?.code, e?.message);
+          if (e?.code === 'auth/requires-recent-login') {
+            return { success: false, message: '보안을 위해 다시 로그인 후 탈퇴를 진행해 주세요.' };
+          }
+        }
+      }
+
+      // 4. 로컬 세션 및 localStorage 전체 정리
+      this.currentUser = null;
+      try {
+        localStorage.removeItem(AUTH_STORAGE_KEY);
+        // 게임 데이터 키도 함께 제거
+        const keysToRemove: string[] = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && key.startsWith('nmixx_')) keysToRemove.push(key);
+        }
+        keysToRemove.forEach(k => localStorage.removeItem(k));
+      } catch (e) {}
+
+      this.notifyAuthChange(null);
+      return { success: true, message: '회원 탈퇴가 완료되었습니다.' };
+    } catch (error: any) {
+      console.error('[Auth] deleteAccount error:', error);
+      return { success: false, message: '탈퇴 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.' };
+    }
   }
 }

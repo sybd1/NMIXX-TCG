@@ -3,23 +3,25 @@ import { GameState } from '../../types/game';
 import { RARITY_CONFIGS, FINISH_CONFIGS } from '../../config/gameConfig';
 import { MASTER_CARDS } from '../../data/cards';
 import { Rarity } from '../../types/card';
-import { Info, Volume2, VolumeX, RotateCcw, ShieldCheck, AlertTriangle, Ticket } from 'lucide-react';
+import { Info, Volume2, VolumeX, ShieldCheck, Ticket, UserX } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface SettingsPageProps {
   state: GameState;
   onToggleSound: () => void;
-  onResetGame: () => void;
+  onDeleteAccount: () => Promise<void>;
   onRedeemCoupon?: (code: string) => { success: boolean; message: string; isSecret?: boolean };
 }
 
 export const SettingsPage: React.FC<SettingsPageProps> = ({
   state,
   onToggleSound,
-  onResetGame,
+  onDeleteAccount,
   onRedeemCoupon,
 }) => {
-  const [showConfirmReset, setShowConfirmReset] = useState(false);
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
   const [couponCode, setCouponCode] = useState('');
   const [couponMsg, setCouponMsg] = useState<{ success: boolean; text: string } | null>(null);
 
@@ -215,49 +217,77 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
         </div>
       </div>
 
-      {/* Reset Game Section */}
+      {/* 회원 탈퇴 Section */}
       <div className="bg-void-900/80 border border-rose-950/60 p-6 rounded-3xl flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-1">
             <span className="font-serif font-bold text-rose-300 text-sm flex items-center gap-2">
-              <AlertTriangle size={16} className="text-rose-400" />
-              게임 데이터 완전 초기화 (RESET GAME)
+              <UserX size={16} className="text-rose-400" />
+              회원 탈퇴 (DELETE ACCOUNT)
             </span>
             <span className="text-xs text-slate-400 font-mono">
-              모든 컬렉션 및 진행 상황을 초기화하고 기본 5만원 (50,000 COIN)으로 다시 시작합니다.
+              계정과 연결된 모든 게임 데이터, 컬렉션, 랭킹 기록을 영구 삭제합니다. 이 작업은 되돌릴 수 없습니다.
             </span>
           </div>
 
           <button
-            onClick={() => setShowConfirmReset(true)}
-            className="px-4 py-2 rounded-xl bg-rose-950 hover:bg-rose-900 text-rose-300 border border-rose-800/60 text-xs font-mono font-bold transition-colors flex items-center gap-1.5"
+            onClick={() => { setShowConfirmDelete(true); setDeleteError(null); }}
+            disabled={isDeleting}
+            className="px-4 py-2 rounded-xl bg-rose-950 hover:bg-rose-900 text-rose-300 border border-rose-800/60 text-xs font-mono font-bold transition-colors flex items-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <RotateCcw size={14} />
-            <span>초기화</span>
+            <UserX size={14} />
+            <span>탈퇴</span>
           </button>
         </div>
 
-        {/* Confirmation modal */}
-        {showConfirmReset && (
-          <div className="bg-void-950 p-4 rounded-2xl border border-rose-500/30 flex flex-col gap-3">
-            <p className="text-xs text-rose-200 font-serif">
-              정말로 모든 진행 상황을 초기화하시겠습니까? 이 작업은 되돌릴 수 없습니다.
-            </p>
+        {/* 탈퇴 확인 패널 */}
+        {showConfirmDelete && (
+          <div className="bg-void-950 p-4 rounded-2xl border border-rose-500/40 flex flex-col gap-3">
+            <div className="flex flex-col gap-1.5">
+              <p className="text-xs text-rose-200 font-serif font-bold">
+                ⚠️ 정말로 회원 탈퇴하시겠습니까?
+              </p>
+              <p className="text-[11px] text-slate-400 font-mono leading-relaxed">
+                탈퇴 시 Firestore에 저장된 계정 데이터, 컬렉션, 글로벌 랭킹 기록이 <span className="text-rose-400 font-bold">영구적으로 삭제</span>되며 복구할 수 없습니다.
+              </p>
+            </div>
+
+            {deleteError && (
+              <div className="p-2.5 rounded-xl bg-rose-900/40 border border-rose-500/40 text-rose-300 text-xs font-mono">
+                {deleteError}
+              </div>
+            )}
+
             <div className="flex gap-2 justify-end">
               <button
-                onClick={() => setShowConfirmReset(false)}
-                className="px-3 py-1.5 rounded-lg bg-void-800 text-slate-400 text-xs font-mono"
+                onClick={() => { setShowConfirmDelete(false); setDeleteError(null); }}
+                disabled={isDeleting}
+                className="px-3 py-1.5 rounded-lg bg-void-800 text-slate-400 text-xs font-mono disabled:opacity-50"
               >
                 취소
               </button>
               <button
-                onClick={() => {
-                  onResetGame();
-                  setShowConfirmReset(false);
+                onClick={async () => {
+                  setIsDeleting(true);
+                  setDeleteError(null);
+                  await onDeleteAccount();
+                  setIsDeleting(false);
+                  setShowConfirmDelete(false);
                 }}
-                className="px-4 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs font-mono"
+                disabled={isDeleting}
+                className="px-4 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs font-mono flex items-center gap-1.5 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
               >
-                확인 및 초기화
+                {isDeleting ? (
+                  <>
+                    <span className="animate-spin inline-block w-3 h-3 border-2 border-white border-t-transparent rounded-full" />
+                    <span>탈퇴 처리 중...</span>
+                  </>
+                ) : (
+                  <>
+                    <UserX size={12} />
+                    <span>확인 및 탈퇴</span>
+                  </>
+                )}
               </button>
             </div>
           </div>
