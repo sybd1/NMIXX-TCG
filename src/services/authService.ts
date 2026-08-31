@@ -521,6 +521,9 @@ export class AuthService {
         if (fbUser) {
           const uid = `goog_${fbUser.uid}`;
           const account = AuthService.getCurrentUser();
+          if (account && account.id === uid && account.sessionId) {
+            return;
+          }
           if (!account || !account.id.includes(fbUser.uid)) {
             // 🛡️ Firestore에서 기존 커스텀 닉네임 우선 조회
             const existing = await AuthService.fetchExistingProfile(uid);
