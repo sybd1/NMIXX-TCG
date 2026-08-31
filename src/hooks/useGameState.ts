@@ -96,7 +96,11 @@ export function useGameState() {
         // ✅ [1] 구글/카카오 계정 로그인:
         activeUserIdRef.current = user.id;
 
-        const isAdmin = user.id.includes('chip') || user.id.includes('운영자') || (user.displayName && user.displayName.includes('운영자'));
+        const isAdmin = 
+          user.id.includes('chip') || 
+          user.id.includes('운영자') || 
+          (user.displayName && user.displayName.includes('운영자')) || 
+          (user.email && (user.email === 'gjffpdlem@gmail.com' || user.email.includes('chip')));
 
         if (isAdmin) {
           // 👑 운영자(관리자)는 강제로 1억원 + 전도감 보유 상태로 초기화하여 Firestore와 로컬 양쪽에 덮어씀
