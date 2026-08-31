@@ -68,6 +68,9 @@ export class StorageService {
   }
 
   public static loadState(userId?: string | null): GameState {
+    if (!userId || userId === 'guest') {
+      return createGuestInitialState();
+    }
     try {
       const key = this.getStorageKey(userId);
       const data = typeof window !== 'undefined' ? localStorage.getItem(key) : null;
@@ -95,6 +98,9 @@ export class StorageService {
   }
 
   public static saveState(state: GameState, userId?: string | null): void {
+    if (!userId || userId === 'guest') {
+      return; // Do not save guest state
+    }
     try {
       if (typeof window === 'undefined') return;
       const key = this.getStorageKey(userId);

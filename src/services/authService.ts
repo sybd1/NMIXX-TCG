@@ -363,7 +363,13 @@ export class AuthService {
     this.currentUser = user;
 
     try {
-      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+      if (user.provider === 'guest' || user.id === 'guest') {
+        sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+        localStorage.removeItem(AUTH_STORAGE_KEY);
+      } else {
+        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+        sessionStorage.removeItem(AUTH_STORAGE_KEY);
+      }
     } catch (e) {
       console.warn('Failed to persist auth session:', e);
     }
@@ -375,7 +381,10 @@ export class AuthService {
    */
   public static loadSession(): UserAccount | null {
     try {
-      const data = localStorage.getItem(AUTH_STORAGE_KEY);
+      let data = localStorage.getItem(AUTH_STORAGE_KEY);
+      if (!data) {
+        data = sessionStorage.getItem(AUTH_STORAGE_KEY);
+      }
       if (!data) return null;
       const parsed: UserAccount = JSON.parse(data);
       if (parsed.displayName?.toLowerCase().includes('chip sofa') || parsed.email?.toLowerCase().includes('chip') || parsed.displayName?.includes('운영자')) {
@@ -466,6 +475,7 @@ export class AuthService {
     this.currentUser = null;
     try {
       localStorage.removeItem(AUTH_STORAGE_KEY);
+      sessionStorage.removeItem(AUTH_STORAGE_KEY);
     } catch (e) {}
 
     this.notifyAuthChange(null);

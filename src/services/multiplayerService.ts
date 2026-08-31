@@ -194,7 +194,7 @@ export class MultiplayerService {
     card: Card
   ): Promise<void> {
     if (!['SSR', 'UR', 'LR', 'MR', 'XR'].includes(card.rarity)) return;
-    if (!isFirebaseConfigured || !db) return;
+    if (!isFirebaseConfigured || !db || !uid || uid === 'guest') return;
 
     try {
       await addDoc(collection(db, 'nmixx_tcg_global_feed'), {
@@ -357,6 +357,9 @@ export class MultiplayerService {
     offeredCard: Card,
     wantedCard: Card
   ): Promise<{ success: boolean; listingId?: string; error?: string }> {
+    if (!user || user.id === 'guest' || !user.isCloudSynced) {
+      return { success: false, error: '게스트는 거래를 이용할 수 없습니다.' };
+    }
     if (!isFirebaseConfigured || !db) {
       return { success: true, listingId: `mock_${Date.now()}` };
     }
@@ -388,6 +391,9 @@ export class MultiplayerService {
     tradeId: string,
     buyerUser: UserAccount
   ): Promise<boolean> {
+    if (!buyerUser || buyerUser.id === 'guest' || !buyerUser.isCloudSynced) {
+      return false;
+    }
     if (!isFirebaseConfigured || !db || tradeId.startsWith('mock_')) {
       return true;
     }
