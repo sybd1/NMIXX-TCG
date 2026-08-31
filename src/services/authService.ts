@@ -521,11 +521,6 @@ export class AuthService {
         if (fbUser) {
           const uid = `goog_${fbUser.uid}`;
           const account = AuthService.getCurrentUser();
-          
-          // 이미 해당 계정으로 로그인된 유효한 세션이 로컬에 저장되어 있다면 (새로고침 등) 신규 세션 ID 생성을 차단하고 그대로 사용
-          if (account && account.id === uid) {
-            return;
-          }
           if (!account || !account.id.includes(fbUser.uid)) {
             // 🛡️ Firestore에서 기존 커스텀 닉네임 우선 조회
             const existing = await AuthService.fetchExistingProfile(uid);

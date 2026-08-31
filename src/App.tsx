@@ -65,8 +65,7 @@ export const App: React.FC = () => {
     return () => unsub();
   }, []);
 
-  // 중복 로그인 세션 차단 경고창 상태 관리
-  const [isSessionLocked, setIsSessionLocked] = useState(false);
+
 
   const [openingState, setOpeningState] = useState<{
     cards: RevealedCard[];
@@ -112,74 +111,10 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('popstate', handlePopState);
   }, [openingState, isAuthModalOpen, isProfileModalOpen, isLeaderboardOpen, isMailboxOpen, isMarketOpen, currentTab]);
 
-  // 실시간 세션 감시 (onSnapshot 리스너)
-  useEffect(() => {
-    if (!user || user.id === 'guest' || !user.isCloudSynced) return;
-
-    // Firebase Firestore가 설정되어 있을 때만 실행
-    const checkSession = async () => {
-      const { doc, onSnapshot } = await import('firebase/firestore');
-      const { db, isFirebaseConfigured } = await import('./config/firebase');
-
-      if (!isFirebaseConfigured || !db) return;
-
-      const userDocRef = doc(db, 'nmixx_tcg_users', user.id);
-      
-      const unsubscribe = onSnapshot(userDocRef, (snapshot) => {
-        if (!snapshot.exists()) return;
-        
-        const data = snapshot.data();
-        if (data && data.sessionId && user.sessionId) {
-          // Firestore의 sessionId와 로컬의 sessionId가 다르면 중복 로그인 발생으로 판단
-          if (data.sessionId !== user.sessionId) {
-            setIsSessionLocked(true);
-          }
-        }
-      }, (error) => {
-        console.warn('[SessionMonitor] Firestore snapshot warning:', error);
-      });
-
-      return unsubscribe;
-    };
-
-    let unsubPromise = checkSession();
-    return () => {
-      unsubPromise.then((unsub) => {
-        if (unsub) unsub();
-      });
-    };
-  }, [user]);
-
-  // 세션이 잠겨 강제 로그아웃될 시 로컬에 저장하고 클리어 처리
-  useEffect(() => {
-    if (isSessionLocked) {
-      // 팩 개봉 및 모든 모달 즉시 닫기
-      setOpeningState(null);
-      isOpeningLockRef.current = false;
-      setIsAuthModalOpen(false);
-      setIsProfileModalOpen(false);
-      setIsLeaderboardOpen(false);
-      setIsMailboxOpen(false);
-      setIsMarketOpen(false);
-
-      // 메인 홈 화면으로 리다이렉트
-      setCurrentTab('home');
-
-      // 🔴 즉시 자동 로그아웃 처리 (버튼 클릭 없이 바로 실행)
-      AuthService.logout().then(() => {
-        setUser(null);
-        logoutAndResetState();
-      });
-    }
-  }, [isSessionLocked, logoutAndResetState]);
-
   // ⌨️ 글로벌 고속 ESC 키 핸들러: 카드팩 개봉 중, 탭 화면, 모달 등 어디서나 ESC를 누르면 0ms 즉시 메인 팩오픈 화면으로 복귀
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        // 중복 로그인 잠금 상태면 ESC 닫기 방지
-        if (isSessionLocked) return;
-
         // 1. 팩 개봉 화면 즉시 탈출 & 락 해제
         setOpeningState(null);
         isOpeningLockRef.current = false;
@@ -199,7 +134,7 @@ export const App: React.FC = () => {
     // Capture phase(true)로 등록하여 어떤 요소보다 최우선으로 즉시 가로채 처리
     window.addEventListener('keydown', handleGlobalKeyDown, true);
     return () => window.removeEventListener('keydown', handleGlobalKeyDown, true);
-  }, [isSessionLocked]);
+  }, []);
 
   // 미수령 우편 수 계산
   const unreadMailCount = MultiplayerService.getMailList(state.claimedMailIds || []).filter(
@@ -521,31 +456,6 @@ export const App: React.FC = () => {
         onTradeCompleted={applyTradeResult}
       />
 
-      {/* ⚠️ 11. 중복 로그인 경고 팝업 모달 */}
-      {isSessionLocked && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-md p-4 animate-fadeIn">
-          <div className="bg-[#150d22] border-2 border-red-500/80 rounded-2xl w-full max-w-md p-6 text-center shadow-[0_0_30px_rgba(239,68,68,0.3)] animate-scaleUp">
-            <div className="w-16 h-16 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-500/30">
-              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold text-slate-100 mb-2">다른 기기에서 로그인됨</h3>
-            <p className="text-sm text-slate-300 leading-relaxed mb-6">
-              동일 계정이 다른 기기에서 로그인되었습니다.<br />
-              이 세션은 자동으로 로그아웃 처리되었습니다.
-            </p>
-            <button
-              onClick={() => {
-                setIsSessionLocked(false);
-              }}
-              className="w-full py-3 bg-red-600 hover:bg-red-500 active:scale-[0.98] transition text-white font-semibold rounded-xl shadow-lg shadow-red-600/30"
-            >
-              확인
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
