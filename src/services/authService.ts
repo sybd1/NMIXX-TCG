@@ -21,6 +21,14 @@ import { CloudSyncService } from './cloudSyncService';
 
 const AUTH_STORAGE_KEY = 'nmixx_tcg_auth_session_v1';
 
+export function sanitizeDisplayName(name: string): string {
+  if (!name) return name;
+  if (name.includes('박민주') || name === '박민주 사랑해') {
+    return 'anjffhrkwl';
+  }
+  return name;
+}
+
 export class AuthService {
   private static currentUser: UserAccount | null = null;
   private static authListeners: ((user: UserAccount | null) => void)[] = [];
@@ -169,7 +177,7 @@ export class AuthService {
           id: uid,
           provider: 'google',
           email,
-          displayName,
+          displayName: sanitizeDisplayName(displayName),
           avatarUrl: existingProfile?.avatarUrl || avatarUrl,
           avatarMemberId,
           createdAt: Date.now(),
@@ -259,7 +267,7 @@ export class AuthService {
                   id: uid,
                   provider: 'kakao',
                   email,
-                  displayName: nickname,
+                  displayName: sanitizeDisplayName(nickname),
                   avatarUrl: existingProfile?.avatarUrl || profileImg,
                   avatarMemberId,
                   createdAt: Date.now(),
@@ -323,7 +331,7 @@ export class AuthService {
       id: uid,
       provider: 'kakao',
       email,
-      displayName: nickname,
+      displayName: sanitizeDisplayName(nickname),
       avatarUrl: '/cards/card_002.webp',
       avatarMemberId: 'HAEWON',
       createdAt: Date.now(),
@@ -553,7 +561,7 @@ export class AuthService {
               id: uid,
               provider: 'google',
               email: fbUser.email || `nswer_${fbUser.uid.substring(0, 6)}@gmail.com`,
-              displayName: existing?.displayName || fbUser.displayName || `엔써_${fbUser.uid.substring(0, 5)}`,
+              displayName: sanitizeDisplayName(existing?.displayName || fbUser.displayName || `엔써_${fbUser.uid.substring(0, 5)}`),
               avatarUrl: existing?.avatarUrl || fbUser.photoURL || '/cards/card_003.webp',
               avatarMemberId: existing?.avatarMemberId || 'SULLYOON',
               createdAt: Date.now(),
