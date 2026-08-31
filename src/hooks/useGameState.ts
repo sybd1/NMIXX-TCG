@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { GameState, PackHistoryItem } from '../types/game';
 import { Card, RevealedCard } from '../types/card';
-import { StorageService } from '../services/storageService';
+import { StorageService, createAdminInitialState } from '../services/storageService';
 import { CloudSyncService } from '../services/cloudSyncService';
 import { AuthService } from '../services/authService';
 import { MultiplayerService } from '../services/multiplayerService';
@@ -104,7 +104,8 @@ export function useGameState() {
 
         if (isAdmin) {
           // 👑 운영자(관리자)는 강제로 1억원 + 전도감 보유 상태로 초기화하여 Firestore와 로컬 양쪽에 덮어씀
-          const adminState = StorageService.clearState(user.id); // clearState가 adminState를 반환하도록 앞서 수정함
+          const adminState = createAdminInitialState();
+          StorageService.clearState(user.id);
           await CloudSyncService.saveUserGameData(user, {
             collection: adminState.collection,
             coins: adminState.coins,

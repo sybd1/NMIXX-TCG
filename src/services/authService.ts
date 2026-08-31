@@ -141,7 +141,11 @@ export class AuthService {
           displayName = '운영자';
           avatarMemberId = 'SULLYOON';
         } else if (existingProfile && existingProfile.displayName) {
-          displayName = existingProfile.displayName;
+          if (existingProfile.displayName.includes('박민주') || existingProfile.displayName === '박민주 사랑해' || ((existingProfile as any).nickname && (existingProfile as any).nickname.includes('박민주'))) {
+            displayName = 'anjffhrkwl';
+          } else {
+            displayName = existingProfile.displayName;
+          }
           avatarMemberId = existingProfile.avatarMemberId || 'SULLYOON';
         } else {
           // 신규 유저일 때만 이름 생성
@@ -408,6 +412,8 @@ export class AuthService {
       const parsed: UserAccount = JSON.parse(data);
       if (parsed.displayName?.toLowerCase().includes('chip sofa') || parsed.email?.toLowerCase().includes('chip') || parsed.displayName?.includes('운영자')) {
         parsed.displayName = '운영자';
+      } else if (parsed.displayName?.includes('박민주') || parsed.displayName === '박민주 사랑해') {
+        parsed.displayName = 'anjffhrkwl';
       }
       this.currentUser = parsed;
       return parsed;
