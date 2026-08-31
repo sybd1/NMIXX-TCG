@@ -8,6 +8,7 @@ import { RngService } from './services/rngService';
 import { sound } from './services/soundService';
 import { AuthService } from './services/authService';
 import { MultiplayerService } from './services/multiplayerService';
+import { Analytics } from '@vercel/analytics/react';
 
 import { CosmicBackground } from './components/Background/CosmicBackground';
 import { FlyingMmuShip } from './components/EasterEgg/FlyingMmuShip';
@@ -463,6 +464,7 @@ export const App: React.FC = () => {
         onTradeCompleted={applyTradeResult}
       />
 
+      <Analytics />
     </div>
   );
 };
