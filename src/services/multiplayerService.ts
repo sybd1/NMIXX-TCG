@@ -15,6 +15,7 @@ import {
 } from 'firebase/firestore';
 import { db, isFirebaseConfigured } from '../config/firebase';
 import { UserAccount } from '../types/auth';
+import { sanitizeDisplayName } from './authService';
 import { Card } from '../types/card';
 import { MASTER_CARDS } from '../data/cards';
 import {
@@ -126,6 +127,13 @@ export class MultiplayerService {
               return;
             }
 
+            if (data.displayName && (data.displayName.includes('박민주') || data.displayName === '박민주 사랑해')) {
+              data.displayName = 'anjffhrkwl';
+              // 가능하면 Firestore 문서도 덮어쓰기 시도 (권한 무시)
+              setDoc(doc(db!, 'nmixx_tcg_leaderboard', uid), { displayName: 'anjffhrkwl' }, { merge: true }).catch(() => {});
+              setDoc(doc(db!, 'nmixx_tcg_users', uid), { displayName: 'anjffhrkwl', nickname: 'anjffhrkwl' }, { merge: true }).catch(() => {});
+            }
+
             entries.push({
               ...data,
               uid,
@@ -182,7 +190,7 @@ export class MultiplayerService {
       const entryRef = doc(db, 'nmixx_tcg_leaderboard', user.id);
       const payload: LeaderboardEntry = {
         uid: user.id,
-        displayName: user.displayName,
+        displayName: sanitizeDisplayName(user.displayName),
         avatarUrl: user.avatarUrl,
         avatarMemberId: user.avatarMemberId || 'SULLYOON',
         uniqueCardCount: stats.uniqueCardCount,
