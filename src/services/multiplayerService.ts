@@ -40,9 +40,9 @@ const DEFAULT_GLOBAL_MAILS: MailItem[] = [
   {
     id: 'mail_fe3o4_celebration',
     title: '✨ Fe3O4: FORWARD 팩 출시 기념 특별 보급품',
-    content: '신규 카드팩 출시를 기념하여 무료 카드팩을 개봉할 수 있는 보너스 50,000 코인을 드립니다! - 운영자 드림',
+    content: '신규 카드팩 출시를 기념하여 무료 카드팩을 개봉할 수 있는 보너스 500,000 코인을 드립니다! - 운영자 드림',
     sender: '운영자',
-    coinsReward: 50000,
+    coinsReward: 500000,
     isClaimed: false,
     createdAt: Date.now() - 3600000 * 12,
   },
@@ -51,7 +51,7 @@ const DEFAULT_GLOBAL_MAILS: MailItem[] = [
     title: '💖 데일리 엔써 응원 상자',
     content: '오늘도 엔믹스와 함께 즐거운 카드 수집 되세요! 파이팅! - 운영자 드림',
     sender: '운영자',
-    coinsReward: 10000,
+    coinsReward: 300000,
     isClaimed: false,
     createdAt: Date.now() - 3600000 * 24,
   },
@@ -275,11 +275,21 @@ export class MultiplayerService {
   // ---------------------------------------------------------------------------
   // 🎁 3. 우편함 & 쿠폰 시스템
   // ---------------------------------------------------------------------------
-  public static getMailList(claimedMailIds: string[] = []): MailItem[] {
-    return DEFAULT_GLOBAL_MAILS.map(mail => ({
-      ...mail,
-      isClaimed: claimedMailIds.includes(mail.id),
-    }));
+  public static getMailList(claimedMailIds: string[] = [], lastMailClaimDate?: string | null): MailItem[] {
+    const kstToday = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    return DEFAULT_GLOBAL_MAILS.map(mail => {
+      // 데일리 응원 상자는 매일 초기화되므로 claimedMailIds 대신 lastMailClaimDate를 기준으로 수령 여부 판단
+      if (mail.id === 'mail_daily_support') {
+        return {
+          ...mail,
+          isClaimed: lastMailClaimDate === kstToday,
+        };
+      }
+      return {
+        ...mail,
+        isClaimed: claimedMailIds.includes(mail.id),
+      };
+    });
   }
 
   public static redeemCoupon(

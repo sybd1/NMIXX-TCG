@@ -479,6 +479,16 @@ export function useGameState() {
       .slice(0, 10);
 
     setState(prev => {
+      // 데일리 응원 우편은 매일 수령 가능하므로 claimedMailIds에 추가하지 않고 lastMailClaimDate만 갱신
+      if (mailId === 'mail_daily_support') {
+        if (prev.lastMailClaimDate === kstToday) return prev;
+        return {
+          ...prev,
+          coins: prev.coins + coinsReward,
+          lastMailClaimDate: kstToday,
+        };
+      }
+
       const alreadyClaimed = (prev.claimedMailIds || []).includes(mailId);
       if (alreadyClaimed) return prev;
 
@@ -486,7 +496,6 @@ export function useGameState() {
         ...prev,
         coins: prev.coins + coinsReward,
         claimedMailIds: [...(prev.claimedMailIds || []), mailId],
-        lastMailClaimDate: kstToday,
       };
     });
     sound.playLegendaryReveal();

@@ -252,7 +252,7 @@ export const GAME_CONFIG = {
   GAME_TITLE: 'NMIXX TCG',
   INITIAL_COINS: 1_000_000, // 기본 100만원 코인 지급 (모든 신규/기존 유저)
   INITIAL_DUST: 0,
-  DAILY_BONUS_COINS: 10_000, // 매일 출석 보너스 1만원 코인
+  DAILY_BONUS_COINS: 300_000, // 매일 출석 보너스 30만원 코인
   
   // 1팩, 5팩, 10팩 가격 설정 (N COIN)
   PACK_COST_SINGLE: 3800,      // 1팩 (5장: 3,800 N COIN)

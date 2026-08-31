@@ -137,7 +137,7 @@ export const App: React.FC = () => {
   }, []);
 
   // 미수령 우편 수 계산
-  const unreadMailCount = MultiplayerService.getMailList(state.claimedMailIds || []).filter(
+  const unreadMailCount = MultiplayerService.getMailList(state.claimedMailIds || [], state.lastMailClaimDate).filter(
     (m) => !m.isClaimed
   ).length;
 

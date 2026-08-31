@@ -43,7 +43,7 @@ export const MailboxModal: React.FC<MailboxModalProps> = ({
   // 이미 오늘(KST) 일일 우편을 수령했는지 확인
   const hasClaimedTodayMail = lastMailClaimDate === kstToday;
 
-  const mailList = MultiplayerService.getMailList(claimedMailIds);
+  const mailList = MultiplayerService.getMailList(claimedMailIds, lastMailClaimDate);
   const unreadCount = mailList.filter((m) => !m.isClaimed).length;
 
   const triggerConfetti = (isSecret = false) => {
