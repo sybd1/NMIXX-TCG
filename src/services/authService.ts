@@ -83,19 +83,29 @@ export class AuthService {
     }
 
     try {
-      // 1. 유저 컬렉션에서 닉네임 검색
-      const q = query(
+      // 1. 유저 컬렉션에서 displayName과 nickname 필드 각각 검색 (두 필드 모두 중복 가드)
+      const q1 = query(
         collection(db, 'nmixx_tcg_users'),
         where('displayName', '==', cleanName),
         limit(2)
       );
-      const snapshot = await getDocs(q);
+      const q2 = query(
+        collection(db, 'nmixx_tcg_users'),
+        where('nickname', '==', cleanName),
+        limit(2)
+      );
+      
+      const [snap1, snap2] = await Promise.all([getDocs(q1), getDocs(q2)]);
 
-      if (snapshot.empty) return true;
-
-      // 검색된 문서가 본인의 문서인지 확인
       let isTakenByOther = false;
-      snapshot.forEach((docSnap) => {
+      
+      snap1.forEach((docSnap) => {
+        if (docSnap.id !== currentUid) {
+          isTakenByOther = true;
+        }
+      });
+      
+      snap2.forEach((docSnap) => {
         if (docSnap.id !== currentUid) {
           isTakenByOther = true;
         }

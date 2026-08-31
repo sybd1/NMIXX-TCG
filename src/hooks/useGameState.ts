@@ -95,28 +95,50 @@ export function useGameState() {
       if (user?.isCloudSynced && user.id && user.id !== 'guest') {
         // ✅ [1] 구글/카카오 계정 로그인:
         activeUserIdRef.current = user.id;
-        const cloudData = await CloudSyncService.loadUserGameData(user.id);
 
-        if (cloudData) {
-          // 기존 Firestore 클라우드 세이브 데이터 100% 온전히 복원 (초기화 절대 금지)
-          applyCloudData(cloudData);
-        } else {
-          // 신규 가입 유저(Firestore 문서 부재 시): 신규 100만원 기본 데이터 1회 생성 및 즉시 Firestore 저장
-          const freshState = StorageService.loadState(user.id);
+        const isAdmin = user.id.includes('chip') || user.id.includes('운영자') || (user.displayName && user.displayName.includes('운영자'));
+
+        if (isAdmin) {
+          // 👑 운영자(관리자)는 강제로 1억원 + 전도감 보유 상태로 초기화하여 Firestore와 로컬 양쪽에 덮어씀
+          const adminState = StorageService.clearState(user.id); // clearState가 adminState를 반환하도록 앞서 수정함
           await CloudSyncService.saveUserGameData(user, {
-            collection: freshState.collection,
-            coins: freshState.coins,
-            dust: freshState.dust,
-            pityCounter: freshState.pityCount,
-            totalPacksOpened: freshState.openedPacksTotal,
-            unlockedAchievements: freshState.claimedAchievements,
-            claimedSetRewards: freshState.claimedSetRewards,
-            claimedMailIds: freshState.claimedMailIds,
-            claimedCouponCodes: freshState.claimedCouponCodes,
-            hasClaimedMmuEasterEgg: freshState.hasClaimedMmuEasterEgg,
+            collection: adminState.collection,
+            coins: adminState.coins,
+            dust: adminState.dust,
+            pityCounter: adminState.pityCount,
+            totalPacksOpened: adminState.openedPacksTotal,
+            unlockedAchievements: adminState.claimedAchievements,
+            claimedSetRewards: adminState.claimedSetRewards,
+            claimedMailIds: adminState.claimedMailIds,
+            claimedCouponCodes: adminState.claimedCouponCodes,
+            hasClaimedMmuEasterEgg: adminState.hasClaimedMmuEasterEgg,
           });
-          StorageService.saveState(freshState, user.id);
-          setState(freshState);
+          StorageService.saveState(adminState, user.id);
+          setState(adminState);
+        } else {
+          const cloudData = await CloudSyncService.loadUserGameData(user.id);
+
+          if (cloudData) {
+            // 기존 Firestore 클라우드 세이브 데이터 100% 온전히 복원 (초기화 절대 금지)
+            applyCloudData(cloudData);
+          } else {
+            // 신규 가입 유저(Firestore 문서 부재 시): 신규 100만원 기본 데이터 1회 생성 및 즉시 Firestore 저장
+            const freshState = StorageService.loadState(user.id);
+            await CloudSyncService.saveUserGameData(user, {
+              collection: freshState.collection,
+              coins: freshState.coins,
+              dust: freshState.dust,
+              pityCounter: freshState.pityCount,
+              totalPacksOpened: freshState.openedPacksTotal,
+              unlockedAchievements: freshState.claimedAchievements,
+              claimedSetRewards: freshState.claimedSetRewards,
+              claimedMailIds: freshState.claimedMailIds,
+              claimedCouponCodes: freshState.claimedCouponCodes,
+              hasClaimedMmuEasterEgg: freshState.hasClaimedMmuEasterEgg,
+            });
+            StorageService.saveState(freshState, user.id);
+            setState(freshState);
+          }
         }
 
         // 상태 반영 완료 후 클라우드 동기화 가드 안전 해제, 이후 실시간 구독 시작

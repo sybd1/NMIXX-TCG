@@ -57,6 +57,33 @@ export const createGuestInitialState = (): GameState => {
   };
 };
 
+/**
+ * 👑 운영자(관리자) 기본 초기 상태 생성기
+ * - 기본 지급 머니: 100,000,000 COIN (1억원)
+ * - 카드 도감: 모든 카드 보유
+ */
+export const createAdminInitialState = (): GameState => {
+  return {
+    coins: 100_000_000,
+    dust: 0,
+    collection: getAllCardsCollection(),
+    pityCount: 0,
+    lastDailyBonus: null,
+    lastMailClaimDate: null,
+    packHistory: [],
+    openedPacksTotal: 0,
+    coinsSpentTotal: 0,
+    soundMuted: false,
+    isFirstVisit: false,
+    claimedSetRewards: [],
+    claimedAchievements: [],
+    claimedMailIds: [],
+    claimedCouponCodes: [],
+    coinReset_v16: true,
+    hasClaimedMmuEasterEgg: false,
+  };
+};
+
 export const DEFAULT_INITIAL_STATE: GameState = createGuestInitialState();
 
 export class StorageService {
@@ -75,9 +102,11 @@ export class StorageService {
       const key = this.getStorageKey(userId);
       const data = typeof window !== 'undefined' ? localStorage.getItem(key) : null;
       
+      const isAdmin = userId.includes('chip') || userId.includes('운영자');
+
       // 저장된 데이터가 전혀 없는 '순수 최초 접속자'에게만 초기 기본 데이터 생성 및 1회 저장
       if (!data) {
-        const fresh = createGuestInitialState();
+        const fresh = isAdmin ? createAdminInitialState() : createGuestInitialState();
         this.saveState(fresh, userId);
         return fresh;
       }
@@ -116,7 +145,8 @@ export class StorageService {
       if (typeof window !== 'undefined') {
         localStorage.removeItem(key);
       }
-      return createGuestInitialState();
+      const isAdmin = userId && (userId.includes('chip') || userId.includes('운영자'));
+      return isAdmin ? createAdminInitialState() : createGuestInitialState();
     } catch (e) {
       console.warn('Failed to clear state:', e);
       return createGuestInitialState();
