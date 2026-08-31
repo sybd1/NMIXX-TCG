@@ -291,28 +291,28 @@ export const MailboxModal: React.FC<MailboxModalProps> = ({
                   className="p-2.5 rounded-xl bg-black/40 border border-white/5 hover:border-pink-500/40 cursor-pointer flex justify-between items-center transition-all hover:scale-[1.02]"
                 >
                   <span className="text-pink-300 font-bold">NMIXX2026</span>
-                  <span className="text-amber-400 font-bold">+30,000 🪙</span>
+                  <span className="text-amber-400 font-bold">+100,000 🪙</span>
                 </div>
                 <div
                   onClick={() => setCouponInput('FE3O4_FORWARD')}
                   className="p-2.5 rounded-xl bg-black/40 border border-white/5 hover:border-pink-500/40 cursor-pointer flex justify-between items-center transition-all hover:scale-[1.02]"
                 >
                   <span className="text-purple-300 font-bold">FE3O4_FORWARD</span>
-                  <span className="text-amber-400 font-bold">+20,000 🪙</span>
+                  <span className="text-amber-400 font-bold">+100,000 🪙</span>
                 </div>
                 <div
                   onClick={() => setCouponInput('WELCOME_NSWER')}
                   className="p-2.5 rounded-xl bg-black/40 border border-white/5 hover:border-pink-500/40 cursor-pointer flex justify-between items-center transition-all hover:scale-[1.02]"
                 >
                   <span className="text-cyan-300 font-bold">WELCOME_NSWER</span>
-                  <span className="text-amber-400 font-bold">+10,000 🪙</span>
+                  <span className="text-amber-400 font-bold">+100,000 🪙</span>
                 </div>
                 <div
                   onClick={() => setCouponInput('PARK_XR_GOD')}
                   className="p-2.5 rounded-xl bg-black/40 border border-white/5 hover:border-pink-500/40 cursor-pointer flex justify-between items-center transition-all hover:scale-[1.02]"
                 >
                   <span className="text-yellow-300 font-bold">PARK_XR_GOD</span>
-                  <span className="text-amber-400 font-bold">+50,000 🪙</span>
+                  <span className="text-amber-400 font-bold">+100,000 🪙</span>
                 </div>
               </div>
             </div>

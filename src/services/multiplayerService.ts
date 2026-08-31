@@ -61,22 +61,22 @@ const DEFAULT_GLOBAL_MAILS: MailItem[] = [
 const VALID_COUPONS: Record<string, CouponDefinition> = {
   NMIXX2026: {
     code: 'NMIXX2026',
-    coinsReward: 30000,
+    coinsReward: 100000,
     description: '2026 NMIXX 공식 웰컴 쿠폰',
   },
   FE3O4_FORWARD: {
     code: 'FE3O4_FORWARD',
-    coinsReward: 20000,
+    coinsReward: 100000,
     description: 'Fe3O4: FORWARD 컴백 기념 쿠폰',
   },
   WELCOME_NSWER: {
     code: 'WELCOME_NSWER',
-    coinsReward: 10000,
+    coinsReward: 100000,
     description: '신규 엔써 환영 특별 보급품',
   },
   PARK_XR_GOD: {
     code: 'PARK_XR_GOD',
-    coinsReward: 50000,
+    coinsReward: 100000,
     description: '초월자 박진영의 축복 쿠폰',
   },
   SECRET_NSWER_100M: {
