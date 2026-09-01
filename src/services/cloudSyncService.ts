@@ -2,6 +2,7 @@ import { doc, getDoc, setDoc, onSnapshot, serverTimestamp } from 'firebase/fires
 import { db, isFirebaseConfigured } from '../config/firebase';
 import { UserAccount } from '../types/auth';
 import { MultiplayerService } from './multiplayerService';
+import { MASTER_CARDS } from '../data/cards';
 
 export interface CloudGameData {
   collection: Record<string, number>;
@@ -131,7 +132,7 @@ export class CloudSyncService {
 
       // 🏆 글로벌 리더보드 인덱스 자동 갱신
       const uniqueCards = Object.values(data.collection).filter(c => c > 0).length;
-      const totalMasterCards = 651;
+      const totalMasterCards = MASTER_CARDS.length; // 실제 카드 수 동적 참조 (하드코딩 금지)
       const collectionRate = Math.round((uniqueCards / totalMasterCards) * 1000) / 10;
       const hasXR = (data.collection['card_xr_transcendent_park_741'] || 0) > 0;
 
