@@ -7,7 +7,7 @@ import { AuthService } from '../services/authService';
 import { MultiplayerService } from '../services/multiplayerService';
 import { GAME_CONFIG, RARITY_CONFIGS } from '../config/gameConfig';
 import { sound } from '../services/soundService';
-import { getCardById } from '../data/cards';
+import { getCardById, MASTER_CARDS } from '../data/cards';
 
 export function useGameState() {
   const currentUser = AuthService.getCurrentUser();
@@ -21,11 +21,16 @@ export function useGameState() {
   // 🔑 로그아웃 타이밍 레이스 방지: 현재 로그인 유저 객체를 ref로 유지
   // (AuthService.getCurrentUser()는 logout() 호출 직후 null이 되므로 useEffect에서 직접 참조 불가)
   const activeUserRef = React.useRef<import('../types/auth').UserAccount | null>(currentUser || null);
+  // 🔑 항상 최신 state에 접근하기 위한 ref (async 콜백 클로저 문제 방지)
+  const stateRef = React.useRef<GameState>(state);
   // 타 기기로부터 동기화된 상태가 다시 Firestore로 중복 업로드(피드백 루프)되는 것을 방지하기 위한 Ref
   const skipNextCloudSaveRef = React.useRef(false);
 
   // 1. 상태가 바뀔 때마다 해당 유저 전용 스토리지 및 클라우드(Firestore)에 즉각 자동 동기화
   useEffect(() => {
+    // 🔑 stateRef를 항상 최신 state로 유지
+    stateRef.current = state;
+
     // ✅ AuthService.getCurrentUser() 대신 ref를 사용 — 로그아웃 타이밍 레이스 방지
     const user = activeUserRef.current;
     StorageService.saveState(state, user?.id);
@@ -153,8 +158,22 @@ export function useGameState() {
         }
 
         // 상태 반영 완료 후 클라우드 동기화 가드 안전 해제, 이후 실시간 구독 시작
-        setTimeout(() => {
+        setTimeout(async () => {
           isSyncingRef.current = false;
+
+          // ✅ 로그인마다 리더보드 수집률 강제 재계산 및 갱신 (저장된 잘못된 값 덮어쓰기)
+          const latestState = stateRef.current;
+          const uniqueCards = Object.values(latestState.collection).filter(c => c > 0).length;
+          const totalCards = MASTER_CARDS.length; // 실제 카드 수: 521
+          const correctRate = Math.round((uniqueCards / totalCards) * 1000) / 10;
+          const hasXR = (latestState.collection['card_xr_transcendent_park_741'] || 0) > 0;
+          MultiplayerService.updateLeaderboardEntry(user, {
+            uniqueCardCount: uniqueCards,
+            collectionRate: correctRate,
+            totalPacksOpened: latestState.openedPacksTotal,
+            coins: latestState.coins,
+            hasXR,
+          }).catch(() => {});
 
           // 🔴 핵심: 실시간 onSnapshot 구독 시작 — 다른 기기에서 변경 시 즉시 로컬 상태에 반영
           let isFirstSnapshot = true;

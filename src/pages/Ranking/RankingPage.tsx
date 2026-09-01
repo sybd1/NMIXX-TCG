@@ -52,7 +52,8 @@ export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId, collect
     .map(c => ({ id: c.id, image: c.image || '', rarity: c.rarity, name: c.name }));
 
   const myUniqueCount = myEntry?.uniqueCardCount ?? Object.values(collection).filter(v => v > 0).length;
-  const myCollectionRate = myEntry?.collectionRate ?? Math.round((myUniqueCount / 521) * 100);
+  // ✅ 저장된 collectionRate 값 불신 — uniqueCardCount와 실제 카드 수로 항상 재계산
+  const myCollectionRate = Math.round((myUniqueCount / MASTER_CARDS.length) * 1000) / 10;
 
   return (
     <div className="w-full max-w-4xl mx-auto px-3 sm:px-6 py-6 sm:py-10 flex flex-col gap-6 select-text">
@@ -143,7 +144,7 @@ export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId, collect
               <div className="flex items-baseline gap-1.5">
                 <Flame size={18} className="text-amber-400" />
                 <span className="font-serif font-black text-2xl sm:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-amber-300 to-yellow-400">
-                  {topRanker.collectionRate || 0}%
+                  {Math.round(((topRanker.uniqueCardCount || 0) / MASTER_CARDS.length) * 1000) / 10}%
                 </span>
               </div>
               <span className="text-xs font-mono text-slate-300 font-bold mt-0.5">
@@ -231,7 +232,7 @@ export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId, collect
                 <div className="flex flex-col items-end flex-shrink-0 pl-2 gap-1">
                   <div className="flex items-baseline gap-1">
                     <span className="text-base sm:text-lg font-serif font-black text-amber-300">
-                      {entry.collectionRate || 0}%
+                      {Math.round(((entry.uniqueCardCount || 0) / MASTER_CARDS.length) * 1000) / 10}%
                     </span>
                   </div>
                   <span className="text-[11px] font-mono text-slate-400">
