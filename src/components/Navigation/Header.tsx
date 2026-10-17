@@ -172,7 +172,7 @@ export const Header: React.FC<HeaderProps> = ({
           <Mail size={13} className="text-pink-400" />
           <span>공식 우편함</span>
           {unreadMailCount > 0 && (
-            <span className="px-1.5 py-0.2 rounded-full bg-pink-500 text-white text-[8px] font-black animate-pulse">
+            <span className="px-1.5 py-0.5 rounded-full bg-pink-500 text-white text-[8px] font-black animate-pulse">
               {unreadMailCount}
             </span>
           )}

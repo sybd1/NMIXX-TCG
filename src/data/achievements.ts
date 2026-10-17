@@ -1,4 +1,5 @@
 import { Rarity } from '../types/card';
+import { MASTER_CARDS, getCardsByRarity } from './cards';
 
 export type AchievementCategory = 'PACKS' | 'PACK_SETS' | 'RARITY' | 'SPENDING';
 
@@ -13,6 +14,60 @@ export interface Achievement {
   type: 'PACK_COUNT' | 'PACK_SET' | 'RARITY_SET' | 'COIN_SPENT';
   targetPackId?: string;
   targetRarity?: Rarity;
+}
+
+export const ACHIEVEMENT_CATEGORY_META: {
+  id: AchievementCategory;
+  icon: string;
+  label: string;
+}[] = [
+  { id: 'PACK_SETS', icon: '🏆', label: '팩 전종 수집' },
+  { id: 'RARITY', icon: '⭐', label: '레어도 정복' },
+  { id: 'SPENDING', icon: '🪙', label: '골드 소비' },
+  { id: 'PACKS', icon: '📦', label: '팩 개봉' },
+];
+
+export function isAchievementCompleted(
+  ach: Achievement,
+  collection: Record<string, number>,
+  openedPacks: number,
+  coinsSpent: number,
+): boolean {
+  if (ach.type === 'PACK_COUNT') {
+    return openedPacks >= ach.targetValue;
+  }
+  if (ach.type === 'PACK_SET' && ach.targetPackId) {
+    const packCards = MASTER_CARDS.filter(c => c.packId === ach.targetPackId);
+    const owned = packCards.filter(c => (collection[c.id] || 0) > 0).length;
+    return packCards.length > 0 && owned >= packCards.length;
+  }
+  if (ach.type === 'RARITY_SET' && ach.targetRarity) {
+    if (ach.targetRarity === 'XR') {
+      const xrCard = MASTER_CARDS.find(c => c.rarity === 'XR');
+      return !!xrCard && (collection[xrCard.id] || 0) > 0;
+    }
+    const rarityCards = getCardsByRarity(ach.targetRarity);
+    const owned = rarityCards.filter(c => (collection[c.id] || 0) > 0).length;
+    return rarityCards.length > 0 && owned >= rarityCards.length;
+  }
+  if (ach.type === 'COIN_SPENT') {
+    return coinsSpent >= ach.targetValue;
+  }
+  return false;
+}
+
+/** 카테고리 안 업적을 전부 달성한 카테고리. 랭킹 닉네임 옆 아이콘에 쓴다. */
+export function getCompletedAchievementCategories(
+  collection: Record<string, number>,
+  openedPacks: number,
+  coinsSpent: number,
+): AchievementCategory[] {
+  return ACHIEVEMENT_CATEGORY_META
+    .map(meta => meta.id)
+    .filter(category => {
+      const list = ACHIEVEMENTS.filter(ach => ach.category === category);
+      return list.length > 0 && list.every(ach => isAchievementCompleted(ach, collection, openedPacks, coinsSpent));
+    });
 }
 
 export const ACHIEVEMENTS: Achievement[] = [

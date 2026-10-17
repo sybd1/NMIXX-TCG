@@ -428,7 +428,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
               <span className="text-pink-300 font-black">{packOwnedCards}</span>
               <span className="text-slate-500">/</span>
               <span className="text-slate-300 font-bold">{packTotalCards}장</span>
-              <span className="ml-1 text-amber-300 bg-amber-950/90 px-2 py-0.2 rounded-md border border-amber-500/40 text-[10.5px] font-black">
+              <span className="ml-1 text-amber-300 bg-amber-950/90 px-2 py-0.5 rounded-md border border-amber-500/40 text-[10.5px] font-black">
                 {packProgressPct}%
               </span>
             </div>
@@ -443,19 +443,6 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
       </div>
 
       {/* 📱 모바일 전용 '카드 모두 공개하기' 상단 고정 버튼 */}
-      {['CARDS_DEALT', 'REVEALING'].includes(step) && flippedCount < totalCount && (
-        <div className="sticky top-[58px] z-40 w-full max-w-lg px-4 md:hidden flex justify-center pointer-events-none mb-2">
-          <motion.button
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            onClick={handleRevealAll}
-            className="pointer-events-auto w-full max-w-sm min-h-[46px] px-6 py-2.5 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 active:scale-95 text-white font-serif font-black text-xs sm:text-sm tracking-wider shadow-lg flex items-center justify-center gap-1.5 border border-white transform-gpu touch-manipulation"
-          >
-            <Zap size={15} className="text-yellow-300 animate-pulse" />
-            <span>⚡ 카드 모두 공개하기</span>
-          </motion.button>
-        </div>
-      )}
 
       {/* 🌟 1. 시네마틱 전체화면 레이저/오로라 오버레이 */}
       <AnimatePresence>
@@ -647,7 +634,7 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
                 initial={{ opacity: 0, y: 20, scale: 0.92 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 onClick={handleRevealAll}
-                className="pointer-events-auto hidden md:flex w-full max-w-sm sm:max-w-md min-h-[50px] px-6 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 active:scale-95 text-white font-serif font-black text-sm sm:text-base tracking-wider shadow-2xl shadow-purple-950/90 items-center justify-center gap-2 hover:scale-105 transition-all cursor-pointer border-2 border-white ring-4 ring-amber-400/40 transform-gpu touch-manipulation"
+                className="pointer-events-auto flex w-full max-w-sm sm:max-w-md min-h-[50px] px-6 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 active:scale-95 text-white font-serif font-black text-sm sm:text-base tracking-wider shadow-2xl shadow-purple-950/90 items-center justify-center gap-2 hover:scale-105 transition-all cursor-pointer border-2 border-white ring-4 ring-amber-400/40 transform-gpu touch-manipulation"
               >
                 <Zap size={20} className="text-yellow-300 animate-pulse" />
                 <span>⚡ 카드 모두 공개하기</span>

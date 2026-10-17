@@ -11,8 +11,12 @@ export interface LeaderboardEntry {
   totalPacksOpened: number;
   coins: number;
   hasXR: boolean;
+  /** 카테고리 업적을 전부 달성한 항목. PACK_SETS, RARITY, SPENDING, PACKS */
+  achievementBadges?: string[];
   rank?: number;
   updatedAt: any;
+  /** 현재 도감 전체를 처음 채운 시각. 한 번 기록되면 갱신하지 않는다. */
+  fullCollectionAt?: any;
 }
 
 // 📢 2. 실시간 고등급 획득 전광판 피드 항목 인터페이스

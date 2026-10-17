@@ -168,6 +168,20 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
                   </tr>
                 );
               })}
+              <tr className="hover:bg-white/5 transition-colors">
+                <td className="py-3 font-bold">
+                  <div className="flex items-center gap-2.5">
+                    <span className="inline-flex items-center justify-center min-w-[38px] px-2 py-0.5 rounded-md text-[10.5px] font-black tracking-wider border shadow-md bg-gradient-to-r from-rose-600 via-purple-600 to-amber-400 text-white border-white">
+                      XR
+                    </span>
+                    <span className="text-slate-200 font-serif font-bold text-[12px]">???</span>
+                  </div>
+                  <p className="mt-1.5 text-[11px] font-sans text-rose-200/90">모든 카드를 수집하면 등장한다는데?</p>
+                </td>
+                <td className="py-3 font-mono font-bold text-pink-300 text-[11.5px]">???</td>
+                <td className="py-3 font-black text-amber-300 text-[12.5px]">???</td>
+                <td className="py-3 text-slate-400 text-[11px] font-sans">???</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -214,6 +228,28 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
               </div>
             );
           })}
+          <div className="bg-black/40 border border-rose-500/30 p-3.5 rounded-xl flex flex-col gap-2.5 shadow-sm">
+            <div className="flex items-center justify-between border-b border-void-800/60 pb-1.5">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center justify-center min-w-[38px] px-2 py-0.5 rounded-md text-[10px] font-black tracking-wider border shadow-sm bg-gradient-to-r from-rose-600 via-purple-600 to-amber-400 text-white border-white">
+                  XR
+                </span>
+                <span className="text-slate-200 font-serif font-bold text-xs">???</span>
+              </div>
+              <span className="font-mono font-black text-amber-300 text-sm">???</span>
+            </div>
+            <div className="flex flex-col gap-1 text-[11px] font-mono">
+              <div className="flex justify-between">
+                <span className="text-slate-500">가공:</span>
+                <span className="text-pink-300 font-bold">???</span>
+              </div>
+              <div className="flex justify-between gap-4 text-right">
+                <span className="text-slate-500 flex-shrink-0">이펙트:</span>
+                <span className="text-slate-400 font-sans leading-normal">???</span>
+              </div>
+            </div>
+            <p className="text-[11px] font-sans text-rose-200/90">모든 카드를 수집하면 등장한다는데?</p>
+          </div>
         </div>
       </div>
 

@@ -94,23 +94,25 @@
    8-TIER INTERACTIVE FOIL & FINISH SHADER SYSTEM (전면 정밀 개편)
    ========================================================================= */
 
-/* 1. MATTE (C): 무광 노멀 */
+/* 1. MATTE (C): 거의 안 보이는 무광 */
 .finish-matte {
-  background: transparent;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 42%);
+  mix-blend-mode: soft-light;
+  opacity: calc(var(--card-opacity, 0) * var(--foil-level, 0.14));
   pointer-events: none;
 }
 
-/* 2. GLOSSY (UC): 은은한 표면 코팅 반사광 */
+/* 2. GLOSSY (UC): 얇은 코팅 한 줄 */
 .finish-glossy {
   background: linear-gradient(
     125deg,
-    transparent 25%,
-    rgba(255, 255, 255, 0.25) var(--pointer-x, 50%),
-    rgba(255, 255, 255, 0.45) calc(var(--pointer-x, 50%) + 5%),
-    transparent calc(var(--pointer-x, 50%) + 18%)
+    transparent 30%,
+    rgba(255, 255, 255, 0.16) var(--pointer-x, 50%),
+    rgba(255, 255, 255, 0.28) calc(var(--pointer-x, 50%) + 4%),
+    transparent calc(var(--pointer-x, 50%) + 14%)
   );
-  mix-blend-mode: overlay;
-  opacity: calc(var(--card-opacity, 0.4) * 1.5);
+  mix-blend-mode: soft-light;
+  opacity: calc(var(--card-opacity, 0) * var(--foil-level, 0.26));
   transition: opacity 0.3s ease;
   pointer-events: none;
 }
@@ -122,26 +124,19 @@
     /* 은은한 펄 마이크로 도트 글리터 */
     radial-gradient(
       circle 3px at var(--pointer-x, 50%) var(--pointer-y, 50%),
-      rgba(255, 255, 255, 0.95) 0%,
-      rgba(224, 242, 254, 0.6) 50%,
+      rgba(255, 255, 255, 0.45) 0%,
+      rgba(224, 242, 254, 0.28) 50%,
       transparent 100%
     ),
     radial-gradient(
       circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
-      rgba(255, 255, 255, 0.7) 0%,
-      rgba(186, 230, 253, 0.4) 20%,
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(186, 230, 253, 0.22) 20%,
       transparent 55%
-    ),
-    repeating-linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.08) 0px,
-      rgba(255, 255, 255, 0.08) 1px,
-      transparent 1px,
-      transparent 12px
     );
-  mix-blend-mode: color-dodge;
-  opacity: calc(var(--card-opacity, 0.6) * 1.25);
-  filter: brightness(1.35) contrast(1.2) saturate(1.2) blur(0.5px);
+  mix-blend-mode: soft-light;
+  opacity: calc(var(--card-opacity, 0) * var(--foil-level, 0.34));
+  filter: brightness(1.08) saturate(1.05) blur(0.4px);
   transition: opacity 0.25s ease;
   pointer-events: none;
 }
@@ -151,21 +146,21 @@
 .finish-sr-horizontal {
   background-image: repeating-linear-gradient(
     90deg,
-    hsla(0,   75%, 62%, 0.6) 0%,
-    hsla(40,  75%, 60%, 0.6) 10%,
-    hsla(70,  75%, 58%, 0.6) 20%,
-    hsla(130, 75%, 58%, 0.6) 30%,
-    hsla(185, 75%, 60%, 0.6) 40%,
-    hsla(220, 75%, 62%, 0.6) 50%,
-    hsla(275, 75%, 62%, 0.6) 60%,
-    hsla(325, 75%, 62%, 0.6) 70%,
-    hsla(360, 75%, 62%, 0.6) 80%
+    hsla(0,   70%, 62%, 0.28) 0%,
+    hsla(40,  70%, 60%, 0.28) 10%,
+    hsla(70,  70%, 58%, 0.28) 20%,
+    hsla(130, 70%, 58%, 0.28) 30%,
+    hsla(185, 70%, 60%, 0.28) 40%,
+    hsla(220, 70%, 62%, 0.28) 50%,
+    hsla(275, 70%, 62%, 0.28) 60%,
+    hsla(325, 70%, 62%, 0.28) 70%,
+    hsla(360, 70%, 62%, 0.28) 80%
   );
   background-size: 200% 100%;
   background-position: var(--background-x, 50%) 50%;
-  mix-blend-mode: color-dodge;
-  opacity: calc(var(--card-opacity, 0.65) * 1.25);
-  filter: saturate(1.2) brightness(1.2) contrast(1.2);
+  mix-blend-mode: soft-light;
+  opacity: calc(var(--card-opacity, 0) * var(--foil-level, 0.42));
+  filter: saturate(1.15) brightness(1.05);
   transition: opacity 0.25s ease;
   pointer-events: none;
 }
@@ -184,134 +179,114 @@
     /* 펄 글로시 반사광 오버레이 */
     radial-gradient(
       ellipse at var(--pointer-x, 50%) var(--pointer-y, 50%),
-      rgba(255, 255, 255, 0.65) 0%,
-      rgba(251, 191, 36, 0.45) 40%,
+      rgba(255, 236, 180, 0.28) 0%,
+      rgba(251, 191, 36, 0.22) 40%,
       transparent 80%
     );
-  mix-blend-mode: color-dodge;
-  opacity: calc(var(--card-opacity, 0.85) * 1.25);
-  filter: contrast(1.35) brightness(1.25) saturate(1.3);
+  mix-blend-mode: soft-light;
+  opacity: calc(var(--card-opacity, 0) * var(--foil-level, 0.48));
+  filter: saturate(1.15) brightness(1.05);
   transition: opacity 0.25s ease;
   pointer-events: none;
 }
 
-/* 6. UR (Ultra Rare): 실제 조명을 비춘 듯한 자연스러운 대각선 135도 소프트 프리즘 빔 (사선 빛만 집중) */
+/* 6. UR: 넓은 간격의 파스텔 사선. 흰 심은 두지 않는다. */
 .finish-prism-glitter,
 .finish-ur-pastel {
   background-image:
-    /* 실제 조명 슬릿을 비춘 듯 부드러운 빛 번짐(Soft Bloom)이 있는 대각선 프리즘 빔 */
     repeating-linear-gradient(
       135deg,
       transparent 0px,
-      transparent 10px,
-      rgba(255, 255, 255, 0.6) 11px,
-      rgba(255, 255, 255, 0.98) 12px,
-      rgba(254, 205, 211, 0.95) 13px,
-      rgba(186, 230, 253, 0.95) 14px,
-      rgba(233, 213, 255, 0.95) 15px,
-      rgba(254, 240, 138, 0.95) 16px,
-      rgba(255, 255, 255, 0.6) 17px,
-      transparent 18px,
-      transparent 22px
+      transparent 22px,
+      rgba(254, 205, 211, 0.22) 26px,
+      rgba(186, 230, 253, 0.26) 30px,
+      rgba(233, 213, 255, 0.22) 34px,
+      transparent 38px,
+      transparent 58px
     );
-  background-size: 100% 100%;
   background-position: var(--background-x, 50%) var(--background-y, 50%);
-  mix-blend-mode: color-dodge;
-  opacity: calc(var(--card-opacity, 0.8) * 1.35);
-  filter: brightness(1.35) contrast(1.35) saturate(1.35) blur(0.35px);
+  mix-blend-mode: soft-light;
+  opacity: calc(var(--card-opacity, 0) * var(--foil-level, 0.52));
+  filter: saturate(1.2) blur(0.8px);
   transition: opacity 0.25s ease;
   pointer-events: none;
 }
 
-/* 7. LR (Legendary Rare): 마우스 포인터 중심에서만 빛나는 초미세 십자(+) 골드 격자 크로스 빔 (가독성 극대화 보정) */
+/* 7. LR: 성긴 골드 격자. 선 중심도 흰색이 아니라 금색이다. */
 .finish-texture-gold,
 .finish-lr-cross-metal {
   background-image:
-    /* 마우스 위치(--pointer-x, --pointer-y)를 따라다니며 격자선을 빛나게 만드는 하이라이트 빔 마스크 */
     radial-gradient(
-      circle 160px at var(--pointer-x, 50%) var(--pointer-y, 50%),
-      rgba(255, 255, 255, 1) 0%,
-      rgba(251, 191, 36, 0.95) 45%,
-      rgba(217, 119, 6, 0.6) 70%,
-      transparent 100%
+      circle 140px at var(--pointer-x, 50%) var(--pointer-y, 50%),
+      rgba(254, 240, 138, 0.35) 0%,
+      rgba(217, 119, 6, 0.16) 55%,
+      transparent 78%
     ),
-    /* 수평 골드 격자 그리드 패턴 (선 폭 및 밝기 향상) */
     repeating-linear-gradient(
       0deg,
-      transparent,
-      transparent 13.5px,
-      rgba(254, 240, 138, 0.9) 14.5px,
-      rgba(255, 255, 255, 1) 15px,
-      rgba(254, 240, 138, 0.9) 15.5px,
-      transparent 16.5px,
-      transparent 24px
+      transparent 0px,
+      transparent 26px,
+      rgba(254, 240, 138, 0.28) 27px,
+      rgba(250, 204, 21, 0.16) 28px,
+      transparent 29px,
+      transparent 46px
     ),
-    /* 수직 골드 격자 그리드 패턴 (선 폭 및 밝기 향상) */
     repeating-linear-gradient(
       90deg,
-      transparent,
-      transparent 13.5px,
-      rgba(254, 240, 138, 0.9) 14.5px,
-      rgba(255, 255, 255, 1) 15px,
-      rgba(254, 240, 138, 0.9) 15.5px,
-      transparent 16.5px,
-      transparent 24px
+      transparent 0px,
+      transparent 26px,
+      rgba(254, 240, 138, 0.28) 27px,
+      rgba(250, 204, 21, 0.16) 28px,
+      transparent 29px,
+      transparent 46px
     );
-  background-size:
-    100% 100%,
-    100% 100%,
-    100% 100%;
-  mix-blend-mode: screen;
-  opacity: calc(var(--card-opacity, 0.8) * 1.5);
-  filter: brightness(1.5) contrast(1.3) blur(0.1px);
+  mix-blend-mode: soft-light;
+  opacity: calc(var(--card-opacity, 0) * var(--foil-level, 0.62));
+  filter: saturate(1.15) blur(0.35px);
   transition: opacity 0.25s ease;
   pointer-events: none;
 }
 
-/* 8. MR (Master Rare): 글로시하고 부드럽게 겹치는 대각선 크로스 빔 */
+/* 8. MR: 색 십자와 회전 무지개. 흰 선 대신 색이 움직인다. */
 .finish-cosmic-ghost,
 .finish-mr-radiant-nmixx {
   background-image:
-    /* NMIXX 투명 워터마크 */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='54' height='28'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='central' font-family='sans-serif' font-weight='900' font-size='7.5' fill='%23ffffff' fill-opacity='0.25' letter-spacing='2'%3ENMIXX%3C/text%3E%3C/svg%3E"),
-    /* 대각선 격자 빔을 매우 부드럽게 소프트 블러 처리 (+45deg) */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='54' height='28'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='central' font-family='sans-serif' font-weight='900' font-size='7.5' fill='%23ffffff' fill-opacity='0.14' letter-spacing='2'%3ENMIXX%3C/text%3E%3C/svg%3E"),
     repeating-linear-gradient(
       45deg,
       transparent 0px,
-      transparent 12px,
-      rgba(255, 255, 255, 0.3) 13px,
-      rgba(255, 255, 255, 0.9) 14px,
-      rgba(56, 189, 248, 0.7) 15px,
-      rgba(236, 72, 153, 0.7) 16px,
-      rgba(255, 255, 255, 0.3) 17px,
-      transparent 18px,
-      transparent 24px
+      transparent 20px,
+      rgba(56, 189, 248, 0.28) 22px,
+      rgba(236, 72, 153, 0.32) 24px,
+      transparent 26px,
+      transparent 42px
     ),
-    /* 대각선 격자 빔을 매우 부드럽게 소프트 블러 처리 (-45deg) */
     repeating-linear-gradient(
       -45deg,
       transparent 0px,
-      transparent 12px,
-      rgba(255, 255, 255, 0.3) 13px,
-      rgba(255, 255, 255, 0.9) 14px,
-      rgba(250, 204, 21, 0.7) 15px,
-      rgba(168, 85, 247, 0.7) 16px,
-      rgba(255, 255, 255, 0.3) 17px,
-      transparent 18px,
-      transparent 24px
+      transparent 20px,
+      rgba(250, 204, 21, 0.26) 22px,
+      rgba(168, 85, 247, 0.3) 24px,
+      transparent 26px,
+      transparent 42px
+    ),
+    conic-gradient(
+      from calc(var(--pointer-from-center, 0) * 360deg) at var(--pointer-x, 50%) var(--pointer-y, 50%),
+      rgba(56, 189, 248, 0.2) 0deg,
+      rgba(236, 72, 153, 0.22) 90deg,
+      rgba(250, 204, 21, 0.2) 180deg,
+      rgba(168, 85, 247, 0.22) 270deg,
+      rgba(56, 189, 248, 0.2) 360deg
     );
-  background-size:
-    54px 28px,
-    100% 100%,
-    100% 100%;
+  background-size: 54px 28px, 100% 100%, 100% 100%, 100% 100%;
   background-position:
     0 0,
     var(--background-x, 50%) var(--background-y, 50%),
-    calc(100% - var(--background-x, 50%)) calc(100% - var(--background-y, 50%));
+    calc(100% - var(--background-x, 50%)) calc(100% - var(--background-y, 50%)),
+    center;
   mix-blend-mode: color-dodge;
-  opacity: calc(var(--card-opacity, 0.85) * 1.35);
-  filter: brightness(1.35) contrast(1.35) saturate(1.35) blur(0.5px);
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7);
+  opacity: calc(var(--card-opacity, 0) * var(--foil-level, 0.84));
+  filter: saturate(1.35) brightness(1.08) blur(0.45px);
   transition: opacity 0.2s ease;
   pointer-events: none;
 }
@@ -391,11 +366,11 @@
 /* 등급별 3D 양각 테두리 특화 */
 .embossed-mr {
   --glow-color: rgba(56, 189, 248, 0.95);
-  border: 2.5px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 
-    0 0 35px rgba(56, 189, 248, 0.8),
-    0 0 20px rgba(236, 72, 153, 0.8),
-    inset 0 0 15px rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(125, 211, 252, 0.75);
+  box-shadow:
+    0 0 28px rgba(56, 189, 248, 0.55),
+    0 0 16px rgba(236, 72, 153, 0.45),
+    inset 0 0 10px rgba(56, 189, 248, 0.25);
 }
 
 .embossed-lr {
@@ -439,24 +414,45 @@
 }
 
 .parallax-layer-deep-bg {
-  transform: translateZ(-30px) scale(1.12);
+  transform: translate3d(
+    calc((var(--pointer-from-left, 0.5) - 0.5) * -2px),
+    calc((var(--pointer-from-top, 0.5) - 0.5) * -2px),
+    0
+  );
   transition: transform 0.12s ease-out;
 }
 
 .parallax-layer-character-pop {
-  transform: translateZ(18px) scale(1.03);
+  transform: translate3d(
+    calc((var(--pointer-from-left, 0.5) - 0.5) * 6px),
+    calc((var(--pointer-from-top, 0.5) - 0.5) * 6px),
+    0
+  );
   transition: transform 0.12s ease-out;
 }
 
 .parallax-layer-frame-relief {
-  transform: translateZ(32px);
+  transform: translate3d(
+    calc((var(--pointer-from-left, 0.5) - 0.5) * 2px),
+    calc((var(--pointer-from-top, 0.5) - 0.5) * 2px),
+    0
+  );
   transition: transform 0.12s ease-out;
 }
 
 .parallax-layer-holo-front {
-  transform: translateZ(42px);
+  transform: translate3d(
+    calc((var(--pointer-from-left, 0.5) - 0.5) * 10px),
+    calc((var(--pointer-from-top, 0.5) - 0.5) * 10px),
+    0
+  );
   transition: transform 0.12s ease-out;
   pointer-events: none;
+}
+
+.holo-face-safe {
+  -webkit-mask-image: radial-gradient(ellipse 72% 64% at 50% 40%, transparent 0%, rgba(0, 0, 0, 0.4) 36%, #000 70%);
+  mask-image: radial-gradient(ellipse 72% 64% at 50% 40%, transparent 0%, rgba(0, 0, 0, 0.4) 36%, #000 70%);
 }
 
 /* 2. 금빛 라이브 파티클 오버레이 (Gold Live Particle Overlay) */
@@ -587,14 +583,8 @@
    ========================================================================= */
 
 .card__shine {
-  /* CSS 변수 기본값 (부모 div에서 실시간 주입됨) */
-  --pointer-x:           50%;
-  --pointer-y:           50%;
-  --background-x:        50%;
-  --background-y:        50%;
-  --pointer-from-center: 0;
-  --card-opacity:        0;
-  --holo-strength:       0;
+  /* 포인터 변수는 카드 루트에서 상속한다. 여기서 다시 선언하면 마우스를 따라가지 않는다. */
+  --holo-strength: 0;
 
   /* ── 홀로그램 무지개 스펙트럼 레이어 ──────────────────────────── */
   background-image:
@@ -703,17 +693,16 @@
    ========================================================================= */
 
 .card__glare {
-  --pointer-x:   50%;
-  --pointer-y:   50%;
-  --card-opacity: 0;
-  --glare-max:   0.35;
+  --glare-max: 0.35;
+
+  opacity: var(--card-opacity, 0);
 
   /* 포인터를 중심으로 확산되는 멤버 시그니처 틴트 반사광 */
   background: radial-gradient(
     farthest-corner ellipse at var(--pointer-x) var(--pointer-y),
-    rgba(255, 255, 255, calc(var(--glare-max) * var(--card-opacity, 0))) 0%,
-    var(--member-light, rgba(255, 255, 255, 0.4)) 35%,
-    rgba(200, 220, 255, calc(var(--glare-max) * var(--card-opacity, 0) * 0.15)) 60%,
+    rgba(255, 255, 255, var(--glare-max)) 0%,
+    var(--member-light, rgba(255, 255, 255, 0.28)) 35%,
+    rgba(200, 220, 255, calc(var(--glare-max) * 0.15)) 60%,
     transparent 80%
   );
 

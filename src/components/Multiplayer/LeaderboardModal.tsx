@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { LeaderboardEntry } from '../../types/multiplayer';
 import { MultiplayerService } from '../../services/multiplayerService';
 import { Trophy, X, Sparkles, User, ArrowLeft } from 'lucide-react';
+import { AchievementBadges } from '../Ranking/AchievementBadges';
 import { CardVisual } from '../Card/CardVisual';
 import { CardModal } from '../Card/CardModal';
 import { MASTER_CARDS } from '../../data/cards';
@@ -120,8 +121,9 @@ export const LeaderboardModal: React.FC<LeaderboardModalProps> = ({
                   </div>
                 )}
               </div>
-              <h3 className="font-serif text-lg font-black text-amber-200">
-                {selectedUser.displayName}
+              <h3 className="font-serif text-lg font-black text-amber-200 flex items-center gap-2 flex-wrap justify-center">
+                <span>{selectedUser.displayName}</span>
+                <AchievementBadges badges={selectedUser.achievementBadges} />
               </h3>
               <div className="px-3 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-[10px] font-mono font-bold text-amber-300">
                 RANK #{selectedUser.rank}
@@ -291,12 +293,13 @@ export const LeaderboardModal: React.FC<LeaderboardModalProps> = ({
 
                         {/* 닉네임 */}
                         <div className="flex flex-col min-w-0">
-                          <div className="flex items-center gap-1.5 truncate">
+                          <div className="flex items-center gap-1.5 min-w-0">
                             <span className="font-bold text-xs sm:text-sm text-slate-100 truncate">
                               {entry.displayName}
                             </span>
+                            <AchievementBadges badges={entry.achievementBadges} />
                             {isCurrentUser && (
-                              <span className="px-1.5 py-0.2 rounded bg-pink-500/30 border border-pink-400 text-pink-300 text-[10px] font-mono font-bold">
+                              <span className="px-1.5 py-0.5 rounded bg-pink-500/30 border border-pink-400 text-pink-300 text-[10px] font-mono font-bold">
                                 나
                               </span>
                             )}

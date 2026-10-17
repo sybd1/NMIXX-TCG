@@ -114,12 +114,12 @@ const FINISH_CLASS_MAP: Record<FinishType, string> = {
   TRANSCENDENT_COSMIC: 'finish-transcendent-cosmic',
 };
 
-// 고등급 카드 전용 은은한 금빛 라이브 파티클 데이터
-const GOLD_PARTICLES = [
-  { left: '15%', size: 3, delay: '0s', duration: '3.2s' },
-  { left: '38%', size: 5, delay: '0.8s', duration: '4.0s' },
-  { left: '62%', size: 4, delay: '1.6s', duration: '3.5s' },
-  { left: '82%', size: 5, delay: '0.4s', duration: '4.5s' },
+// LR/MR 가장자리에만 두는 입자. 얼굴 한가운데는 비운다.
+const EDGE_PARTICLES = [
+  { left: '8%', top: '70%', delay: '0s', duration: '5.6s', drift: '8px' },
+  { left: '88%', top: '62%', delay: '1.1s', duration: '6.2s', drift: '-10px' },
+  { left: '14%', top: '84%', delay: '0.5s', duration: '5.9s', drift: '6px' },
+  { left: '78%', top: '80%', delay: '1.7s', duration: '6.4s', drift: '-7px' },
 ];
 
 export const CardVisual: React.FC<CardVisualProps> = React.memo(({
@@ -139,10 +139,44 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
 
   const memberTheme = MEMBER_THEMES[card.member] || MEMBER_THEMES.NMIXX;
   const isHighTier = ['SR', 'SSR', 'UR', 'LR', 'MR', 'XR'].includes(card.rarity);
-  const isSsrPlus = ['SSR', 'UR', 'LR', 'MR', 'XR'].includes(card.rarity);
   const isXR = card.rarity === 'XR' || !!card.isMystery;
   const effectiveCount = isXR ? Math.min(1, count) : count;
   const isXrMystery = (card.rarity === 'XR' || !!card.isMystery) && !isOwned;
+  const isCompact = size === 'sm';
+  const richFx = isOwned && !isCompact;
+  const showFoil = isOwned && !isXrMystery && card.rarity !== 'XR';
+  const showShine = richFx && ['SSR', 'UR', 'LR', 'MR'].includes(card.rarity);
+  const showCosmic = richFx && card.rarity === 'XR';
+  const showEmboss = richFx && ['SSR', 'UR', 'LR', 'MR'].includes(card.rarity);
+  const showMystic = richFx && ['LR', 'MR'].includes(card.rarity);
+  const showGlare = isOwned && card.rarity !== 'XR';
+  const holoStrength = ({ SSR: 0.16, UR: 0.24, LR: 0.34, MR: 0.52 } as Record<string, number>)[card.rarity] ?? 0;
+  const foilLevel = (({
+    C: 0.14,
+    UC: 0.26,
+    R: 0.34,
+    SR: 0.42,
+    SSR: 0.48,
+    UR: 0.52,
+    LR: 0.62,
+    MR: 0.84,
+  } as Record<string, number>)[card.rarity] ?? 0.2) * (isCompact ? 0.62 : 1);
+  const glareMax = (({
+    C: 0.07,
+    UC: 0.11,
+    R: 0.15,
+    SR: 0.18,
+    SSR: 0.2,
+    UR: 0.22,
+    LR: 0.26,
+    MR: 0.32,
+  } as Record<string, number>)[card.rarity] ?? 0.12) * (isCompact ? 0.7 : 1);
+  const embossClass =
+    card.rarity === 'SSR' ? 'embossed-ssr'
+    : card.rarity === 'UR' ? 'embossed-ur'
+    : card.rarity === 'LR' ? 'embossed-lr'
+    : card.rarity === 'MR' ? 'embossed-mr'
+    : '';
 
   // ─────────────────────────────────────────────────────────────────
   // 올바른 물리 기반 3D 틸트 (X/Y 축 완벽 연동)
@@ -160,6 +194,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     pFromCenter: 0,
     opacity:    0,
   });
+  const pointerRef = useRef(springVars);
 
   const clampVal = (v: number, min = 0, max = 100) => Math.min(max, Math.max(min, v));
   const roundVal = (v: number, p = 3) => parseFloat(v.toFixed(p));
@@ -187,9 +222,10 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
     const cy = py - 50;
     const pFromCenter = clampVal(Math.sqrt(cy * cy + cx * cx) / 50, 0, 1);
 
+    pointerRef.current = { pointerX: px, pointerY: py, bgX, bgY, rotateX: rotX, rotateY: rotY, pFromCenter, opacity: 1 };
     if (rafIdRef.current === null) {
       rafIdRef.current = requestAnimationFrame(() => {
-        setSpringVars({ pointerX: px, pointerY: py, bgX, bgY, rotateX: rotX, rotateY: rotY, pFromCenter, opacity: 1 });
+        setSpringVars(pointerRef.current);
         rafIdRef.current = null;
       });
     }
@@ -221,8 +257,8 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
 
   const defaultSizeClass = className.includes('w-') ? '' : {
     sm: 'w-36 h-52 text-xs',
-    md: 'w-48 sm:w-52 h-72 sm:h-76 text-sm',
-    lg: 'w-64 h-92 text-base',
+    md: 'w-48 sm:w-52 h-72 sm:h-80 text-sm',
+    lg: 'w-64 h-96 text-base',
   }[size];
 
   // 9단계 Rarity 외곽 테두리 (MR은 묵직한 티타늄 메탈 두께감 프레임)
@@ -279,7 +315,7 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
           : 'transform 0.55s cubic-bezier(0.23, 1, 0.32, 1)',
         willChange: isOwned ? 'transform' : undefined,
       } as React.CSSProperties}
-      className={`group relative ${defaultSizeClass} ${className} rounded-2xl p-[1.5px] cursor-pointer select-none transition-all duration-300 ${
+      className={`group relative ${defaultSizeClass} ${className} rounded-2xl p-[1.5px] cursor-pointer select-none transition-all duration-300 ${showEmboss ? `embossed-relief-border ${embossClass}` : ''} ${
         !isOwned && !isXrMystery ? 'opacity-40 hover:opacity-75 filter grayscale-[80%] brightness-[70%] contrast-[90%]' : 'hover:scale-[1.03]'
       } ${isXrMystery ? 'hover:scale-[1.04]' : ''}`}
     >
@@ -328,37 +364,17 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
           </div>
         ) : (
           <>
-            {/* ── [Layer 1: Base Background Layer] (멤버별 시그니처 배경 그라디언트) ── */}
+            {/* ── [Layer 1: Base Background Layer] ── */}
             <div
-              className={`absolute inset-0 bg-gradient-to-b ${card.gradient || memberTheme.bgGradient} pointer-events-none opacity-85 z-0`}
+              className={`absolute inset-0 bg-gradient-to-b ${card.gradient || memberTheme.bgGradient} pointer-events-none opacity-85 z-0 ${richFx ? 'parallax-layer-deep-bg' : ''}`}
             />
 
-            {/* ── [Layer 2: Foil & Holo Shine Layer] (z-22로 올려 인물 캐릭터 이미지 위로 빔 노출) ── */}
-            {isOwned && card.rarity !== 'XR' && (
-              <div className={`absolute inset-0 rounded-2xl z-22 pointer-events-none ${finishClass}`} />
-            )}
-            {/* ── [Layer 2-B: Holo Shine Spectrum Layer] (z-23으로 올려 인물 이미지 위에서 무지개 스펙트럼 합성) ── */}
-            {isOwned && isSsrPlus && card.rarity !== 'XR' && (
-              <div
-                className={`card__shine absolute inset-0 rounded-2xl z-23 pointer-events-none ${
-                  ['MR', 'LR'].includes(card.rarity) ? 'holo-prism-intense' : 'holo'
-                }`}
-                style={{
-                  ['--holo-strength' as string]: ['MR', 'LR'].includes(card.rarity) ? '0.85' : '0.65',
-                } as React.CSSProperties}
-              />
-            )}
-
-            {/* ── [Layer 3: Real Noise & Grain Texture Overlay] (z-15) ── */}
-            <div className="card__noise absolute inset-0 rounded-2xl z-15 pointer-events-none" />
-
             {/* ── [Layer 4: Character Artwork Layer] (z-20) ── */}
-            {/* 🎯 스마트 크롭된 600x840 px 고화질 이미지를 카드에 꽉 채우고, 얼굴이 color-dodge로 타지 않도록 선명하게 보호! */}
             {card.image && (
-              <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+              <div className={`absolute inset-0 pointer-events-none z-[20] overflow-hidden ${richFx ? 'parallax-layer-character-pop' : ''}`}>
                 <img
                   src={card.image}
-                  alt={card.name}
+                  alt={isXrMystery ? '초월 카드' : card.name}
                   loading="lazy"
                   decoding="async"
                   onError={(e) => {
@@ -396,55 +412,61 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
               </div>
             )}
 
-            {/* ── [Layer 4-B: SSR 전용 3D 이너 림 액자 프레임 (레퍼런스 스타일)] ── */}
-            {card.rarity === 'SSR' && isOwned && (
-              <div className="absolute inset-[12px] rounded-xl border-2 border-white/45 shadow-[inset_0_0_15px_rgba(255,255,255,0.4),0_0_15px_rgba(0,0,0,0.6)] pointer-events-none z-21" />
-            )}
+            {/* 질감은 사진 위, 포일보다 아래 */}
+            <div className="card__noise absolute inset-0 rounded-2xl z-[21] pointer-events-none" />
 
-            {/* ── [Layer 4-C: MR 전용 인물 위 교차 격자 광선 투과 레이어] ── */}
-            {isOwned && card.rarity === 'MR' && (
-              <div className="absolute inset-0 rounded-2xl z-22 pointer-events-none finish-mr-radiant-nmixx opacity-45 mix-blend-color-dodge" />
-            )}
-
-            {/* ── [Layer 4-D: LR 전용 인물 위 십자 골드 격자 크로스 빔 레이어] ── */}
-            {isOwned && card.rarity === 'LR' && (
-              <div className="absolute inset-0 rounded-2xl z-22 pointer-events-none finish-lr-cross-metal" />
-            )}
-
-            {/* ── [Layer 5: Glare, Lighting & HUD UI Layer] (z-25 ~ z-30) ── */}
-            {/* 5A. 원형 실물 포토카드 코팅 표면 반사광 (멤버별 시그니처 틴트 반영) */}
-            {isOwned && card.rarity !== 'SSR' && (
+            {showFoil && (
               <div
-                className="card__glare absolute inset-0 rounded-2xl z-25 pointer-events-none"
+                className={`absolute inset-0 rounded-2xl z-[22] pointer-events-none holo-face-safe parallax-layer-holo-front ${finishClass}`}
+                style={{ ['--foil-level' as string]: foilLevel } as React.CSSProperties}
+              />
+            )}
+            {showShine && (
+              <div
+                className="card__shine absolute inset-0 rounded-2xl z-[23] pointer-events-none holo-face-safe parallax-layer-holo-front"
                 style={{
-                  ['--glare-max' as string]: isSsrPlus ? '0.45'
-                    : ['R', 'SR'].includes(card.rarity) ? '0.28'
-                    : '0.18',
+                  ['--holo-strength' as string]: holoStrength,
+                } as React.CSSProperties}
+              />
+            )}
+            {showCosmic && (
+              <div className={`absolute inset-0 rounded-2xl z-[23] pointer-events-none holo-face-safe parallax-layer-holo-front ${finishClass}`} />
+            )}
+
+            {card.rarity === 'SSR' && richFx && (
+              <div className="absolute inset-[12px] rounded-xl border-2 border-amber-200/30 shadow-[inset_0_0_12px_rgba(251,191,36,0.25)] pointer-events-none z-[24]" />
+            )}
+
+            {showGlare && (
+              <div
+                className="card__glare absolute inset-0 rounded-2xl z-[25] pointer-events-none"
+                style={{
+                  ['--glare-max' as string]: glareMax,
                 } as React.CSSProperties}
               />
             )}
 
-            {/* 5B. SSR+ 고등급 라이브 골드 파티클 */}
-            {isOwned && isSsrPlus && (
-              <div className="absolute inset-0 rounded-2xl z-26 pointer-events-none overflow-hidden">
-                {GOLD_PARTICLES.map((gp, i) => (
+            {showMystic && (
+              <div className="absolute inset-0 rounded-2xl z-[26] pointer-events-none overflow-hidden">
+                {(card.rarity === 'MR' ? EDGE_PARTICLES : EDGE_PARTICLES.slice(0, 2)).map((gp, i) => (
                   <div
                     key={i}
-                    className="gold-particle"
+                    className={`mystical-particle ${card.rarity === 'MR' ? 'particle-mr' : 'particle-lr'}`}
                     style={{
                       left: gp.left,
-                      width: `${gp.size}px`,
-                      height: `${gp.size}px`,
+                      top: gp.top,
+                      width: '4px',
+                      height: '4px',
                       animationDelay: gp.delay,
                       animationDuration: gp.duration,
-                    }}
+                      ['--particle-drift' as string]: gp.drift,
+                    } as React.CSSProperties}
                   />
                 ))}
               </div>
             )}
 
-            {/* 5C. 1px 섬세한 이너 프레임 라인 */}
-            <div className="absolute inset-[6px] rounded-xl border border-white/10 pointer-events-none z-27" />
+            <div className="absolute inset-[6px] rounded-xl border border-white/10 pointer-events-none z-[27] parallax-layer-frame-relief" />
 
             {/* 5D. 상단 레퍼런스 디자인: NMIXX 시그니처 로고 (상단 좌측) */}
             <div className="relative z-30 w-full p-2.5 pt-2 flex items-center justify-between pointer-events-none">
@@ -489,13 +511,13 @@ export const CardVisual: React.FC<CardVisualProps> = React.memo(({
 
             {/* 5F. 수량 뱃지 — 🎯 하단 텍스트 및 아트를 가리지 않도록 우측 상단(top-2.5 right-2.5)에 배치 */}
             {effectiveCount > 1 && (
-              <div className="absolute top-2.5 right-2.5 z-40 bg-black/85 text-amber-300 border border-amber-400/60 font-mono text-[9px] sm:text-[9.5px] font-black px-1.5 py-0.2 rounded-md shadow-md pointer-events-none">
+              <div className="absolute top-2.5 right-2.5 z-40 bg-black/85 text-amber-300 border border-amber-400/60 font-mono text-[9px] sm:text-[9.5px] font-black px-1.5 py-0.5 rounded-md shadow-md pointer-events-none">
                 x{effectiveCount}
               </div>
             )}
 
             {isNew && (
-              <div className="absolute top-2 left-2 z-40 bg-emerald-500/90 text-white font-black text-[8px] px-1.5 py-0.2 rounded-full shadow-md animate-pulse pointer-events-none">
+              <div className="absolute top-2 left-2 z-40 bg-emerald-500/90 text-white font-black text-[8px] px-1.5 py-0.5 rounded-full shadow-md animate-pulse pointer-events-none">
                 NEW
               </div>
             )}

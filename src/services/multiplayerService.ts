@@ -86,6 +86,26 @@ const VALID_COUPONS: Record<string, CouponDefinition> = {
   },
 };
 
+function completionMillis(value: unknown): number {
+  if (value == null) return Number.MAX_SAFE_INTEGER;
+  if (typeof value === 'number') return value;
+  if (typeof value === 'object' && value !== null && 'toMillis' in value && typeof (value as { toMillis: () => number }).toMillis === 'function') {
+    return (value as { toMillis: () => number }).toMillis();
+  }
+  if (typeof value === 'object' && value !== null && 'seconds' in value) {
+    return Number((value as { seconds: number }).seconds) * 1000;
+  }
+  return Number.MAX_SAFE_INTEGER;
+}
+
+function compareLeaderboard(a: LeaderboardEntry, b: LeaderboardEntry, fullCount: number): number {
+  const countDiff = (b.uniqueCardCount || 0) - (a.uniqueCardCount || 0);
+  if (countDiff !== 0) return countDiff;
+  const bothComplete = (a.uniqueCardCount || 0) >= fullCount && (b.uniqueCardCount || 0) >= fullCount;
+  if (!bothComplete) return 0;
+  return completionMillis(a.fullCollectionAt) - completionMillis(b.fullCollectionAt);
+}
+
 export class MultiplayerService {
   // ---------------------------------------------------------------------------
   // 🏆 1. 글로벌 리더보드
@@ -97,8 +117,7 @@ export class MultiplayerService {
       try {
         const q = query(
           collection(db, 'nmixx_tcg_leaderboard'),
-          orderBy('uniqueCardCount', 'desc'),
-          limit(limitCount)
+          orderBy('uniqueCardCount', 'desc')
         );
         const snapshot = await getDocs(q);
 
@@ -149,8 +168,8 @@ export class MultiplayerService {
     const bots = this.getMockBots();
     const combined = [...entries, ...bots];
 
-    // 고유 카드 개수 기준으로 내림차순 정렬
-    combined.sort((a, b) => b.uniqueCardCount - a.uniqueCardCount);
+    const fullCount = MASTER_CARDS.length;
+    combined.sort((a, b) => compareLeaderboard(a, b, fullCount));
 
     // 순위 매기기
     const ranked = combined.map((entry, idx) => ({
@@ -169,6 +188,7 @@ export class MultiplayerService {
       totalPacksOpened: number;
       coins: number;
       hasXR: boolean;
+      achievementBadges?: string[];
     }
   ): Promise<void> {
     // 🛡️ 게스트는 랭킹에 등록되지 않으며, 소셜 계정 연동 유저만 랭킹 등록
@@ -188,6 +208,9 @@ export class MultiplayerService {
 
     try {
       const entryRef = doc(db, 'nmixx_tcg_leaderboard', user.id);
+      const fullCount = MASTER_CARDS.length;
+      const existingSnap = await getDoc(entryRef);
+      const existing = existingSnap.exists() ? existingSnap.data() : null;
       const payload: LeaderboardEntry = {
         uid: user.id,
         displayName: sanitizeDisplayName(user.displayName),
@@ -198,8 +221,21 @@ export class MultiplayerService {
         totalPacksOpened: stats.totalPacksOpened,
         coins: stats.coins,
         hasXR: stats.hasXR,
+        achievementBadges: stats.achievementBadges ?? existing?.achievementBadges ?? [],
         updatedAt: serverTimestamp(),
       };
+
+      if (stats.uniqueCardCount >= fullCount) {
+        if (existing?.fullCollectionAt) {
+          payload.fullCollectionAt = existing.fullCollectionAt;
+        } else if ((existing?.uniqueCardCount ?? 0) >= fullCount && existing?.updatedAt) {
+          // 기능을 넣기 전에 이미 전종을 모은 사람은 마지막 저장 시각을 완성 시각으로 한 번만 옮긴다.
+          payload.fullCollectionAt = existing.updatedAt;
+        } else {
+          payload.fullCollectionAt = serverTimestamp();
+        }
+      }
+
       await setDoc(entryRef, payload, { merge: true });
     } catch (error) {
       console.warn('[Multiplayer] Failed to update leaderboard entry:', error);

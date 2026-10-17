@@ -16,6 +16,7 @@ interface MailboxModalProps {
   lastMailClaimDate?: string | null;
   onClaimMail: (mailId: string, coins: number) => void;
   onRedeemCoupon: (code: string) => { success: boolean; message: string; isSecret?: boolean };
+  xrUnlocked?: boolean;
 }
 
 export const MailboxModal: React.FC<MailboxModalProps> = ({
@@ -25,6 +26,7 @@ export const MailboxModal: React.FC<MailboxModalProps> = ({
   lastMailClaimDate,
   onClaimMail,
   onRedeemCoupon,
+  xrUnlocked = false,
 }) => {
   const [activeTab, setActiveTab] = useState<'MAIL' | 'COUPON'>('MAIL');
   const [couponInput, setCouponInput] = useState('');
@@ -139,7 +141,7 @@ export const MailboxModal: React.FC<MailboxModalProps> = ({
             <Mail size={14} />
             <span>수신 우편함</span>
             {unreadCount > 0 && (
-              <span className="px-1.5 py-0.2 rounded-full bg-amber-400 text-black text-[10px] font-black">
+              <span className="px-1.5 py-0.5 rounded-full bg-amber-400 text-black text-[10px] font-black">
                 {unreadCount}
               </span>
             )}
@@ -307,6 +309,7 @@ export const MailboxModal: React.FC<MailboxModalProps> = ({
                   <span className="text-cyan-300 font-bold">WELCOME_NSWER</span>
                   <span className="text-amber-400 font-bold">+100,000 🪙</span>
                 </div>
+                {xrUnlocked && (
                 <div
                   onClick={() => setCouponInput('PARK_XR_GOD')}
                   className="p-2.5 rounded-xl bg-black/40 border border-white/5 hover:border-pink-500/40 cursor-pointer flex justify-between items-center transition-all hover:scale-[1.02]"
@@ -314,6 +317,7 @@ export const MailboxModal: React.FC<MailboxModalProps> = ({
                   <span className="text-yellow-300 font-bold">PARK_XR_GOD</span>
                   <span className="text-amber-400 font-bold">+100,000 🪙</span>
                 </div>
+                )}
               </div>
             </div>
           </div>

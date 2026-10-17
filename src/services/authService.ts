@@ -519,8 +519,9 @@ export class AuthService {
     const userBeforeLogout = this.currentUser;
     if (userBeforeLogout?.isCloudSynced && userBeforeLogout.id && userBeforeLogout.id !== 'guest') {
       try {
-        const { StorageService } = await import('./storageService');
+        const { StorageService, isLocalServer } = await import('./storageService');
         const { CloudSyncService } = await import('./cloudSyncService');
+        if (!isLocalServer()) {
         CloudSyncService.forceResetHash(); // 해시 초기화로 저장 강제
         const savedState = StorageService.loadState(userBeforeLogout.id);
         if (savedState && savedState.coins !== undefined) {
@@ -537,6 +538,7 @@ export class AuthService {
             hasClaimedMmuEasterEgg: savedState.hasClaimedMmuEasterEgg || false,
             lastMailClaimDate: savedState.lastMailClaimDate || null,
           });
+        }
         }
       } catch (e) {
         console.warn('[Auth] Pre-logout Firestore save failed:', e);

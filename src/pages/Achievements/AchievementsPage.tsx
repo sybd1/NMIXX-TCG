@@ -21,6 +21,9 @@ export const AchievementsPage: React.FC<AchievementsPageProps> = ({
   const openedPacks = state.openedPacksTotal || 0;
   const coinsSpent = state.coinsSpentTotal || (openedPacks * 100);
   const claimedList = state.claimedAchievements || [];
+  const xrCard = MASTER_CARDS.find(c => c.rarity === 'XR');
+  const isXrOwned = xrCard ? (collection[xrCard.id] || 0) > 0 : false;
+  const visibleAchievements = ACHIEVEMENTS.filter(ach => ach.id !== 'rarity_complete_xr' || isXrOwned);
 
   // 각 업적의 현재 진행 수치 및 목표 수치 계산
   const getAchievementProgress = (ach: Achievement): { current: number; target: number; percentage: number; isCompleted: boolean } => {
@@ -54,20 +57,22 @@ export const AchievementsPage: React.FC<AchievementsPageProps> = ({
   };
 
   // 카테고리 필터링
-  const filteredAchievements = ACHIEVEMENTS.filter(ach => {
+  const filteredAchievements = visibleAchievements.filter(ach => {
     if (selectedCategory === 'ALL') return true;
     return ach.category === selectedCategory;
   });
 
   // 전체 업적 달성 통계 & 총 보상 계산
-  const completedTotalCount = ACHIEVEMENTS.filter(ach => getAchievementProgress(ach).isCompleted).length;
-  const overallPercentage = Math.round((completedTotalCount / ACHIEVEMENTS.length) * 100);
+  const completedTotalCount = visibleAchievements.filter(ach => getAchievementProgress(ach).isCompleted).length;
+  const overallPercentage = visibleAchievements.length > 0
+    ? Math.round((completedTotalCount / visibleAchievements.length) * 100)
+    : 0;
   const claimedCount = claimedList.length;
 
   // 카테고리 그룹 정의 (전체 보기 시 실선 구분)
   const CATEGORY_SECTIONS: { id: AchievementCategory; label: string; icon: string; desc: string }[] = [
     { id: 'PACK_SETS', label: '4대 부스터 팩 전종 수집', icon: '🏆', desc: '각 팩의 150종 모든 카드를 모아 완전 제패를 달성하세요' },
-    { id: 'RARITY', label: '레어도별 카드 정복', icon: '⭐', desc: 'C 등급부터 신화의 MR, 초월 [XR] 카드까지 전종을 수집하세요' },
+    { id: 'RARITY', label: '레어도별 카드 정복', icon: '⭐', desc: isXrOwned ? 'C 등급부터 신화의 MR, 초월 [XR] 카드까지 전종을 수집하세요' : 'C 등급부터 신화의 MR 등급까지 전종을 수집하세요' },
     { id: 'SPENDING', label: '골드 머니 누적 소비', icon: '🪙', desc: '상점과 카드팩 개봉에 투자하고 페이백 보상을 획득하세요' },
     { id: 'PACKS', label: '카드팩 개봉 시리즈', icon: '📦', desc: '부스터 팩을 개봉하여 믹스토피아 컬렉션을 확장하세요' },
   ];
@@ -105,7 +110,7 @@ export const AchievementsPage: React.FC<AchievementsPageProps> = ({
                 {ach.title}
               </h3>
               {ach.rewardCoins > 0 && (
-                <span className="text-[10px] font-mono font-black text-amber-300 bg-amber-950/80 px-2 py-0.2 rounded border border-amber-500/30 flex items-center gap-0.5">
+                <span className="text-[10px] font-mono font-black text-amber-300 bg-amber-950/80 px-2 py-0.5 rounded border border-amber-500/30 flex items-center gap-0.5">
                   <span>🪙</span>
                   <span>+{ach.rewardCoins.toLocaleString()}</span>
                 </span>
@@ -232,9 +237,9 @@ export const AchievementsPage: React.FC<AchievementsPageProps> = ({
       <div className="flex justify-center w-full">
         <div className="flex flex-wrap items-center justify-center gap-2 bg-void-950/90 p-2 rounded-2xl border border-white/10 shadow-xl">
           {[
-            { id: 'ALL', label: '🏆 전체 업적', count: ACHIEVEMENTS.length },
-            { id: 'PACK_SETS', label: '🏆 팩 전종 수집', count: ACHIEVEMENTS.filter(a => a.category === 'PACK_SETS').length },
-            { id: 'RARITY', label: '⭐ 레어도 정복', count: ACHIEVEMENTS.filter(a => a.category === 'RARITY').length },
+            { id: 'ALL', label: '🏆 전체 업적', count: visibleAchievements.length },
+            { id: 'PACK_SETS', label: '🏆 팩 전종 수집', count: visibleAchievements.filter(a => a.category === 'PACK_SETS').length },
+            { id: 'RARITY', label: '⭐ 레어도 정복', count: visibleAchievements.filter(a => a.category === 'RARITY').length },
             { id: 'SPENDING', label: '🪙 머니 소비', count: ACHIEVEMENTS.filter(a => a.category === 'SPENDING').length },
             { id: 'PACKS', label: '📦 팩 개봉', count: ACHIEVEMENTS.filter(a => a.category === 'PACKS').length },
           ].map(cat => {
@@ -264,7 +269,7 @@ export const AchievementsPage: React.FC<AchievementsPageProps> = ({
       <div className="flex flex-col gap-4">
         {selectedCategory === 'ALL' ? (
           CATEGORY_SECTIONS.map((section, idx) => {
-            const sectionAchs = ACHIEVEMENTS.filter(a => a.category === section.id);
+            const sectionAchs = visibleAchievements.filter(a => a.category === section.id);
             if (sectionAchs.length === 0) return null;
 
             return (

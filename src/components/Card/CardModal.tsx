@@ -11,7 +11,7 @@ interface CardModalProps {
   count: number;
   isOpen: boolean;
   onClose: () => void;
-  onAddCoins?: (amount: number) => void;
+  onClaimCardEasterEgg?: (cardId: string) => boolean;
   dust?: number;
   onCraftCard?: (cardId: string) => { success: boolean; card?: Card; error?: string };
   onDismantleSingle?: (cardId: string) => { success: boolean; dustGained?: number; error?: string };
@@ -22,7 +22,7 @@ export const CardModal: React.FC<CardModalProps> = ({
   count,
   isOpen,
   onClose,
-  onAddCoins,
+  onClaimCardEasterEgg,
   dust = 0,
   onCraftCard,
   onDismantleSingle,
@@ -43,17 +43,15 @@ export const CardModal: React.FC<CardModalProps> = ({
     }
   }, [isOpen, card, isOwned, isHighTier]);
 
-  // 비밀 시크릿 이스터에그: 유저가 눈치채지 못하게 조용히 골드 지급
+  // 비밀 시크릿 이스터에그: 카드당 하루 한 번만 조용히 골드 지급
   const handleCardClick = () => {
-    if (!isJypCard) return;
+    if (!isJypCard || !card) return;
 
     const now = Date.now();
-    if (now - lastEasterEggRef.current < 250) return; // 250ms 쿨다운
+    if (now - lastEasterEggRef.current < 250) return;
     lastEasterEggRef.current = now;
 
-    if (onAddCoins) {
-      onAddCoins(50);
-    }
+    onClaimCardEasterEgg?.(card.id);
   };
 
   if (!card) return null;
@@ -61,6 +59,16 @@ export const CardModal: React.FC<CardModalProps> = ({
   const config = RARITY_CONFIGS[card.rarity];
   const activeFinish = card.finishType || RARITY_TO_FINISH[card.rarity] || 'MATTE';
   const finishConf = FINISH_CONFIGS[activeFinish];
+  const hideXrIdentity = !isOwned && (card.rarity === 'XR' || !!card.isMystery);
+  const displayName = hideXrIdentity ? '[XR] 초월 카드' : card.name;
+  const displayMember = hideXrIdentity
+    ? '???'
+    : card.theme?.includes('심볼') || card.theme?.includes('로고')
+    ? '엠블렘'
+    : card.member === 'NMIXX'
+    ? '단체'
+    : card.member;
+  const displayEra = hideXrIdentity ? 'SECRET' : card.era;
 
   return (
     <AnimatePresence>
@@ -104,7 +112,7 @@ export const CardModal: React.FC<CardModalProps> = ({
                   isOwned={isOwned}
                   count={count}
                   size="lg"
-                  className="w-56 sm:w-64 md:w-76 lg:w-[330px] h-[330px] sm:h-[380px] md:h-[460px] lg:h-[490px]"
+                  className="w-56 sm:w-64 md:w-80 lg:w-[330px] h-[330px] sm:h-[380px] md:h-[460px] lg:h-[490px]"
                 />
               </div>
             </div>
@@ -123,9 +131,13 @@ export const CardModal: React.FC<CardModalProps> = ({
                     {card.rarity}
                   </span>
                   <span className="text-xs sm:text-sm text-pink-200 font-mono font-black bg-pink-950/80 px-3 py-1 rounded-xl border border-pink-500/40 shadow-sm">
-                    {card.theme?.includes('심볼') || card.theme?.includes('로고')
+                    {hideXrIdentity
+                      ? '???'
+                      : card.theme?.includes('심볼') || card.theme?.includes('로고')
                       ? '⚓ 공식 심볼'
-                      : (card.member === 'NMIXX' ? '✨ 단체' : card.member)}
+                      : card.member === 'NMIXX'
+                      ? '✨ 단체'
+                      : card.member}
                   </span>
                   {/* 8-Tier Finish 뱃지 */}
                   <span className="text-xs sm:text-sm font-mono font-black text-amber-200 bg-amber-950/80 border border-amber-500/50 px-3 py-1 rounded-xl flex items-center gap-1.5 shadow-sm">
@@ -147,7 +159,7 @@ export const CardModal: React.FC<CardModalProps> = ({
 
                 {/* 카드 타이틀 (크고 웅장한 폰트) */}
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-purple-100 to-amber-200 mb-4 leading-tight">
-                  {card.name}
+                  {displayName}
                 </h2>
 
                 {/* 카드 정보 그리드 (NO, MEMBER, ERA) */}
@@ -163,15 +175,13 @@ export const CardModal: React.FC<CardModalProps> = ({
                       {card.theme?.includes('심볼') || card.theme?.includes('로고') ? 'TYPE' : 'MEMBER'}
                     </span>
                     <span className="font-mono font-black text-base sm:text-lg text-pink-300 truncate max-w-[120px]">
-                      {card.theme?.includes('심볼') || card.theme?.includes('로고')
-                        ? '엠블렘'
-                        : (card.member === 'NMIXX' ? '단체' : card.member)}
+                      {displayMember}
                     </span>
                   </div>
                   <div className="bg-void-950/90 p-2.5 sm:p-3 rounded-2xl border border-white/10 flex flex-col items-center shadow-inner">
                     <span className="text-[11px] sm:text-xs font-mono font-bold text-slate-400">ERA</span>
                     <span className="font-mono font-bold text-xs sm:text-sm text-purple-300 truncate max-w-[120px]">
-                      {card.era}
+                      {displayEra}
                     </span>
                   </div>
                 </div>

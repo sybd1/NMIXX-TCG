@@ -15,6 +15,8 @@ export interface CloudGameData {
   claimedMailIds?: string[];
   claimedCouponCodes?: string[];
   hasClaimedMmuEasterEgg?: boolean;
+  /** 리더보드 닉네임 배지용. 유저 문서에는 저장하지 않는다. */
+  achievementBadges?: string[];
   lastMailClaimDate?: string | null;
   lastSavedAt?: any;
   userEmail?: string;
@@ -96,13 +98,14 @@ export class CloudSyncService {
       claimedCouponCodes?: string[];
       hasClaimedMmuEasterEgg?: boolean;
       lastMailClaimDate?: string | null;
+      achievementBadges?: string[];
     }
   ): Promise<boolean> {
     const firestore = db;
     if (!isFirebaseConfigured || !firestore || !user?.id || user.id === 'guest') return false;
 
     // 변경점이 없는 중복 쓰기 원천 차단 (닉네임/아바타/쿠폰 변경 시 즉시 동기화 포함)
-    const currentHash = `${user.displayName}_${user.avatarMemberId}_${Object.keys(data.collection).length}_${data.coins}_${data.pityCounter}_${data.totalPacksOpened}_${(data.unlockedAchievements || []).length}_${(data.claimedSetRewards || []).length}_${(data.claimedCouponCodes || []).length}_${data.hasClaimedMmuEasterEgg ? '1' : '0'}_${data.lastMailClaimDate || ''}`;
+    const currentHash = `${user.displayName}_${user.avatarMemberId}_${Object.keys(data.collection).length}_${data.coins}_${data.pityCounter}_${data.totalPacksOpened}_${(data.unlockedAchievements || []).length}_${(data.claimedSetRewards || []).length}_${(data.claimedCouponCodes || []).length}_${data.hasClaimedMmuEasterEgg ? '1' : '0'}_${data.lastMailClaimDate || ''}_${(data.achievementBadges || []).join(',')}`;
     if (currentHash === this.lastSavedHash) {
       return true;
     }
@@ -142,6 +145,7 @@ export class CloudSyncService {
         totalPacksOpened: data.totalPacksOpened,
         coins: data.coins,
         hasXR,
+        achievementBadges: data.achievementBadges,
       });
 
       return true;

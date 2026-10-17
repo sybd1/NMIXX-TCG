@@ -4,15 +4,17 @@ import { LeaderboardEntry } from '../../types/multiplayer';
 import { MultiplayerService } from '../../services/multiplayerService';
 import { Trophy, Sparkles, User, RefreshCw, Flame, Share2 } from 'lucide-react';
 import { ShareBadgeModal } from '../../components/Share/ShareBadgeModal';
+import { AchievementBadges } from '../../components/Ranking/AchievementBadges';
 import { AuthService } from '../../services/authService';
 import { MASTER_CARDS } from '../../data/cards';
 
 interface RankingPageProps {
   currentUserId?: string;
   collection?: Record<string, number>;
+  myAchievementBadges?: string[];
 }
 
-export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId, collection = {} }) => {
+export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId, collection = {}, myAchievementBadges = [] }) => {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -131,8 +133,11 @@ export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId, collect
                     </span>
                   )}
                 </div>
-                <h3 className="font-serif font-black text-lg sm:text-2xl text-white mt-0.5">
-                  {topRanker.displayName}
+                <h3 className="font-serif font-black text-lg sm:text-2xl text-white mt-0.5 flex items-center gap-2 flex-wrap">
+                  <span>{topRanker.displayName}</span>
+                  <AchievementBadges
+                    badges={topRanker.uid === currentUserId && myAchievementBadges.length > 0 ? myAchievementBadges : topRanker.achievementBadges}
+                  />
                 </h3>
                 <span className="text-xs font-mono text-slate-400">
                   누적 개봉: <span className="text-amber-200 font-bold">{topRanker.totalPacksOpened?.toLocaleString() || 0}</span>팩
@@ -212,12 +217,15 @@ export const RankingPage: React.FC<RankingPageProps> = ({ currentUserId, collect
 
                   {/* 닉네임 & 상세 */}
                   <div className="flex flex-col min-w-0">
-                    <div className="flex items-center gap-2 truncate">
+                    <div className="flex items-center gap-2 min-w-0">
                       <span className="font-serif font-black text-sm sm:text-base text-slate-100 truncate">
                         {entry.displayName}
                       </span>
+                      <AchievementBadges
+                        badges={isCurrentUser && myAchievementBadges.length > 0 ? myAchievementBadges : entry.achievementBadges}
+                      />
                       {isCurrentUser && (
-                        <span className="px-2 py-0.2 rounded-full bg-pink-500/30 border border-pink-400 text-pink-300 text-[10px] font-mono font-bold">
+                        <span className="px-2 py-0.5 rounded-full bg-pink-500/30 border border-pink-400 text-pink-300 text-[10px] font-mono font-bold">
                           나
                         </span>
                       )}

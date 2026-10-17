@@ -28,6 +28,7 @@ import { AchievementsPage } from './pages/Achievements/AchievementsPage';
 import { RankingPage } from './pages/Ranking/RankingPage';
 // import { PatchNotesPage } from './pages/PatchNotes/PatchNotesPage';
 import { SettingsPage } from './pages/Settings/SettingsPage';
+import { getCompletedAchievementCategories } from './data/achievements';
 
 export const App: React.FC = () => {
   const {
@@ -43,7 +44,7 @@ export const App: React.FC = () => {
     toggleSound,
     logoutAndResetState,
     dismissFirstVisit,
-    addCoins,
+    claimCardEasterEgg,
     dismantleAllDuplicates,
     dismantleSingleCard,
     craftCard,
@@ -74,6 +75,13 @@ export const App: React.FC = () => {
     cost: number;
     packResults: { cards: Card[]; newPity: number }[];
   } | null>(null);
+
+  const xrUnlocked = (state.collection['card_xr_transcendent_park_741'] || 0) > 0;
+  const myAchievementBadges = getCompletedAchievementCategories(
+    state.collection,
+    state.openedPacksTotal || 0,
+    state.coinsSpentTotal || ((state.openedPacksTotal || 0) * 100),
+  );
 
   // 개봉 중복 호출 방지용 락
   const isOpeningLockRef = useRef(false);
@@ -281,7 +289,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#070210] text-slate-100 flex flex-col justify-between pb-16 md:pb-0 overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#070210] text-slate-100 flex flex-col justify-between pb-16 lg:pb-0 overflow-x-hidden">
       {/* 🌌 NMIXX MIXXTOPIA 코스믹 심우주 배경 */}
       <CosmicBackground />
 
@@ -307,7 +315,7 @@ export const App: React.FC = () => {
       />
 
       {/* 📢 2. Real-time Global High-Tier Pull Ticker */}
-      <GlobalTicker />
+      <GlobalTicker showXr={xrUnlocked} />
 
       {/* 3. Main Page View Container */}
       <main className="relative z-10 flex-1 flex flex-col w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
@@ -330,7 +338,7 @@ export const App: React.FC = () => {
             claimedSetRewards={state.claimedSetRewards || []}
             onClaimSetReward={claimSetReward}
             onClaimXrCard={claimXrCard}
-            onAddCoins={addCoins}
+            onClaimCardEasterEgg={claimCardEasterEgg}
             dust={state.dust || 0}
             onDismantleAll={dismantleAllDuplicates}
             onDismantleSingle={dismantleSingleCard}
@@ -343,7 +351,11 @@ export const App: React.FC = () => {
         )}
 
         {currentTab === 'ranking' && (
-          <RankingPage currentUserId={user?.id} collection={state.collection} />
+          <RankingPage
+            currentUserId={user?.id}
+            collection={state.collection}
+            myAchievementBadges={myAchievementBadges}
+          />
         )}
 
         {currentTab === 'settings' && (
@@ -367,7 +379,7 @@ export const App: React.FC = () => {
       </main>
 
       {/* 🔮 3.5. Web Disclaimer Footer */}
-      <footer className="relative z-10 w-full text-center py-4 px-4 mt-auto mb-16 md:mb-6 select-none">
+      <footer className="relative z-10 w-full text-center py-4 px-4 mt-auto mb-16 lg:mb-6 select-none">
         <p className="text-[10px] sm:text-xs font-mono text-slate-500/80 tracking-wider">
           본 웹사이트는 비영리 팬 창작물이며, 모든 이미지 및 지식재산권은 원저작권자(소속사)에 있습니다.
         </p>
@@ -454,6 +466,7 @@ export const App: React.FC = () => {
         lastMailClaimDate={state.lastMailClaimDate}
         onClaimMail={claimMail}
         onRedeemCoupon={redeemCouponCode}
+        xrUnlocked={xrUnlocked}
       />
 
       {/* 🔄 10. 중복 카드 1:1 교환소 모달 */}

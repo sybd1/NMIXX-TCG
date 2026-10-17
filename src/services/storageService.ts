@@ -39,7 +39,7 @@ export const createGuestInitialState = (): GameState => {
   return {
     coins: 1_000_000,
     dust: 0,
-    collection: {},
+    collection: isLocalServer() ? getAllCardsCollection() : {},
     pityCount: 0,
     lastDailyBonus: null,
     lastMailClaimDate: null,
@@ -94,6 +94,18 @@ export class StorageService {
     return 'nmixx_tcg_guest';
   }
 
+  /** 저장본이 없으면 새로 만들지 않고 null을 반환한다. */
+  public static peekState(userId?: string | null): GameState | null {
+    if (!userId || userId === 'guest' || typeof window === 'undefined') return null;
+    try {
+      const data = localStorage.getItem(this.getStorageKey(userId));
+      if (!data) return null;
+      return JSON.parse(data) as GameState;
+    } catch {
+      return null;
+    }
+  }
+
   public static loadState(userId?: string | null): GameState {
     if (!userId || userId === 'guest') {
       return createGuestInitialState();
@@ -117,6 +129,10 @@ export class StorageService {
       const xrCardId = 'card_xr_transcendent_park_741';
       if (parsed.collection && parsed.collection[xrCardId]) {
         parsed.collection[xrCardId] = Math.min(1, parsed.collection[xrCardId]);
+      }
+
+      if (isLocalServer()) {
+        parsed.collection = getAllCardsCollection();
       }
 
       return parsed;

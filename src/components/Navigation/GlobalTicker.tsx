@@ -4,7 +4,11 @@ import { MultiplayerService } from '../../services/multiplayerService';
 import { GlobalPullFeedItem } from '../../types/multiplayer';
 import { Sparkles, Megaphone } from 'lucide-react';
 
-export const GlobalTicker: React.FC = () => {
+interface GlobalTickerProps {
+  showXr?: boolean;
+}
+
+export const GlobalTicker: React.FC<GlobalTickerProps> = ({ showXr = false }) => {
   const [feedItems, setFeedItems] = useState<GlobalPullFeedItem[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -20,16 +24,19 @@ export const GlobalTicker: React.FC = () => {
 
   // 4초마다 다음 알림으로 부드럽게 롤링 전환
   useEffect(() => {
-    if (feedItems.length <= 1) return;
+    const visibleCount = showXr ? feedItems.length : feedItems.filter(item => item.rarity !== 'XR').length;
+    if (visibleCount <= 1) return;
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % feedItems.length);
+      setCurrentIndex((prev) => (prev + 1) % visibleCount);
     }, 4500);
     return () => clearInterval(interval);
-  }, [feedItems.length]);
+  }, [feedItems, showXr]);
 
-  if (feedItems.length === 0) return null;
+  const visibleItems = showXr ? feedItems : feedItems.filter(item => item.rarity !== 'XR');
 
-  const currentItem = feedItems[currentIndex] || feedItems[0];
+  if (visibleItems.length === 0) return null;
+
+  const currentItem = visibleItems[currentIndex % visibleItems.length] || visibleItems[0];
   const rarityColors: Record<string, string> = {
     SSR: 'from-amber-400 to-yellow-500 text-amber-300 border-amber-500/40',
     UR: 'from-purple-400 to-pink-500 text-pink-300 border-pink-500/40',
@@ -65,7 +72,7 @@ export const GlobalTicker: React.FC = () => {
               <span className="text-slate-400 text-[10px]">획득:</span>
 
               <span
-                className={`px-1.5 py-0.2 rounded border bg-black/40 text-[10px] font-black font-mono tracking-wider ${badgeStyle}`}
+                className={`px-1.5 py-0.5 rounded border bg-black/40 text-[10px] font-black font-mono tracking-wider ${badgeStyle}`}
               >
                 [{currentItem.rarity}]
               </span>

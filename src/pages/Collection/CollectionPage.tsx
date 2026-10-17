@@ -13,7 +13,7 @@ interface CollectionPageProps {
   claimedSetRewards?: string[];
   onClaimSetReward?: (setId: string, coins: number) => void;
   onClaimXrCard?: (cardId: string) => void;
-  onAddCoins?: (amount: number) => void;
+  onClaimCardEasterEgg?: (cardId: string) => boolean;
   dust: number;
   onCraftCard: (cardId: string) => { success: boolean; card?: Card; error?: string };
   onDismantleSingle: (cardId: string) => { success: boolean; dustGained?: number; error?: string };
@@ -63,7 +63,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
   claimedSetRewards = [],
   onClaimSetReward,
   onClaimXrCard,
-  onAddCoins,
+  onClaimCardEasterEgg,
   dust,
   onCraftCard,
   onDismantleSingle,
@@ -141,6 +141,9 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
       if (ownershipFilter === 'UNOWNED_ONLY' && isOwned) return false;
 
       // 2. 팩 / 멤버 / 레어도 필터
+      const isXrCard = card.rarity === 'XR' || card.id === 'card_xr_transcendent_park_741';
+      if (isXrCard && !isXrOwned) return false;
+
       const matchPack = selectedPack === 'ALL' || card.packId === selectedPack;
       const matchMember = selectedMember === 'ALL' || card.member === selectedMember;
       const matchRarity = selectedRarity === 'ALL' || card.rarity === selectedRarity;
@@ -205,7 +208,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
 
       return 0;
     });
-  }, [allViewableCards, collection, ownershipFilter, selectedPack, selectedMember, selectedRarity, sortBy, sortDirection]);
+  }, [allViewableCards, collection, ownershipFilter, selectedPack, selectedMember, selectedRarity, sortBy, sortDirection, isXrOwned]);
 
   return (
     <div className="flex-1 max-w-[1440px] mx-auto w-full px-4 sm:px-6 md:px-8 py-8 flex flex-col gap-6">
@@ -502,7 +505,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                 >
                   ALL
                 </button>
-                {(['C', 'UC', 'R', 'SR', 'SSR', 'UR', 'LR', 'MR', 'XR'] as Rarity[]).map(r => (
+                {(['C', 'UC', 'R', 'SR', 'SSR', 'UR', 'LR', 'MR', 'XR'] as Rarity[]).filter(r => r !== 'XR' || isXrOwned).map(r => (
                   <button
                     key={r}
                     onClick={() => setSelectedRarity(r)}
@@ -882,7 +885,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
                   isOwned={true}
                   count={1}
                   size="lg"
-                  className="w-64 sm:w-76 h-[370px] sm:h-[450px] shadow-[0_0_40px_rgba(244,63,94,0.6)]"
+                  className="w-64 sm:w-80 h-[370px] sm:h-[450px] shadow-[0_0_40px_rgba(244,63,94,0.6)]"
                 />
               </div>
 
@@ -908,7 +911,7 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
         count={selectedCard ? collection[selectedCard.id] || 0 : 0}
         isOpen={!!selectedCard}
         onClose={() => setSelectedCard(null)}
-        onAddCoins={onAddCoins}
+        onClaimCardEasterEgg={onClaimCardEasterEgg}
         dust={dust}
         onCraftCard={onCraftCard}
         onDismantleSingle={onDismantleSingle}

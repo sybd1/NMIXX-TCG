@@ -45,4 +45,6 @@ export interface GameState {
   claimedCouponCodes?: string[];
   coinReset_v16?: boolean;
   hasClaimedMmuEasterEgg?: boolean;
+  /** 카드별 이스터에그 수령일 (YYYY-MM-DD, KST). 카드당 하루 한 번 */
+  cardEasterEggClaims?: Record<string, string>;
 }

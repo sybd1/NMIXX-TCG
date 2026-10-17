@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { GameState, PackHistoryItem } from '../types/game';
 import { Card, RevealedCard } from '../types/card';
-import { StorageService, createAdminInitialState } from '../services/storageService';
+import { StorageService, createAdminInitialState, createGuestInitialState, getAllCardsCollection, isLocalServer } from '../services/storageService';
 import { CloudSyncService } from '../services/cloudSyncService';
 import { AuthService } from '../services/authService';
 import { MultiplayerService } from '../services/multiplayerService';
 import { GAME_CONFIG, RARITY_CONFIGS } from '../config/gameConfig';
 import { sound } from '../services/soundService';
 import { getCardById, MASTER_CARDS } from '../data/cards';
+import { getCompletedAchievementCategories } from '../data/achievements';
 
 export function useGameState() {
   const currentUser = AuthService.getCurrentUser();
@@ -43,7 +44,8 @@ export function useGameState() {
     }
 
     // 🛡️ Firestore 로딩 중이거나 게스트일 때는 클라우드 덮어쓰기 엄격 차단
-    if (isSyncingRef.current) return;
+    // 로컬 전종 보유는 화면용이다. 클라우드 계정 기록으로 올리지 않는다.
+    if (isSyncingRef.current || isLocalServer()) return;
 
     if (user?.isCloudSynced && user.id && user.id !== 'guest') {
       CloudSyncService.saveUserGameData(user, {
@@ -58,6 +60,11 @@ export function useGameState() {
         claimedCouponCodes: state.claimedCouponCodes || [],
         hasClaimedMmuEasterEgg: state.hasClaimedMmuEasterEgg,
         lastMailClaimDate: state.lastMailClaimDate,
+        achievementBadges: getCompletedAchievementCategories(
+          state.collection,
+          state.openedPacksTotal || 0,
+          state.coinsSpentTotal || ((state.openedPacksTotal || 0) * 100),
+        ),
       });
     }
   }, [state]);
@@ -67,27 +74,31 @@ export function useGameState() {
 
   // Helper: apply Firestore cloud data to local React state
   const applyCloudData = React.useCallback((cloudData: import('../services/cloudSyncService').CloudGameData) => {
-    const userState: GameState = {
-      coins: cloudData.coins ?? 1_000_000,
-      dust: cloudData.dust ?? 0,
-      collection: cloudData.collection || {},
-      pityCount: cloudData.pityCounter ?? 0,
-      openedPacksTotal: cloudData.totalPacksOpened ?? 0,
-      coinsSpentTotal: 0,
-      claimedAchievements: cloudData.unlockedAchievements || [],
-      claimedSetRewards: cloudData.claimedSetRewards || [],
-      claimedMailIds: cloudData.claimedMailIds || [],
-      claimedCouponCodes: cloudData.claimedCouponCodes || [],
-      lastDailyBonus: null,
-      lastMailClaimDate: (cloudData as any).lastMailClaimDate || null,
-      packHistory: [],
-      soundMuted: false,
-      isFirstVisit: false,
-      coinReset_v16: true,
-      hasClaimedMmuEasterEgg: cloudData.hasClaimedMmuEasterEgg || false,
-    };
-    StorageService.saveState(userState, activeUserIdRef.current);
-    setState(userState);
+    const local = StorageService.peekState(activeUserIdRef.current);
+    setState(() => {
+      const userState: GameState = {
+        coins: cloudData.coins ?? 1_000_000,
+        dust: cloudData.dust ?? 0,
+        collection: isLocalServer() ? getAllCardsCollection() : (cloudData.collection || {}),
+        pityCount: cloudData.pityCounter ?? 0,
+        openedPacksTotal: cloudData.totalPacksOpened ?? 0,
+        coinsSpentTotal: local?.coinsSpentTotal ?? 0,
+        claimedAchievements: cloudData.unlockedAchievements || [],
+        claimedSetRewards: cloudData.claimedSetRewards || [],
+        claimedMailIds: cloudData.claimedMailIds || [],
+        claimedCouponCodes: cloudData.claimedCouponCodes || [],
+        lastDailyBonus: local?.lastDailyBonus ?? null,
+        lastMailClaimDate: cloudData.lastMailClaimDate ?? local?.lastMailClaimDate ?? null,
+        packHistory: local?.packHistory ?? [],
+        soundMuted: local?.soundMuted ?? false,
+        isFirstVisit: local?.isFirstVisit ?? false,
+        coinReset_v16: local?.coinReset_v16 ?? true,
+        hasClaimedMmuEasterEgg: cloudData.hasClaimedMmuEasterEgg || false,
+        cardEasterEggClaims: local?.cardEasterEggClaims,
+      };
+      StorageService.saveState(userState, activeUserIdRef.current);
+      return userState;
+    });
   }, []);
 
   // 2. 로그인/로그아웃 시 계정별 스토리지 및 Firestore 즉각 전환 (원자적 읽기/복원)
@@ -113,33 +124,17 @@ export function useGameState() {
           (user.displayName && user.displayName.includes('운영자')) || 
           (user.email && (user.email === 'gjffpdlem@gmail.com' || user.email.includes('chip')));
 
-        if (isAdmin) {
-          // 👑 운영자(관리자)는 강제로 1억원 + 전도감 보유 상태로 초기화하여 Firestore와 로컬 양쪽에 덮어씀
-          const adminState = createAdminInitialState();
-          StorageService.clearState(user.id);
-          await CloudSyncService.saveUserGameData(user, {
-            collection: adminState.collection,
-            coins: adminState.coins,
-            dust: adminState.dust,
-            pityCounter: adminState.pityCount,
-            totalPacksOpened: adminState.openedPacksTotal,
-            unlockedAchievements: adminState.claimedAchievements,
-            claimedSetRewards: adminState.claimedSetRewards,
-            claimedMailIds: adminState.claimedMailIds,
-            claimedCouponCodes: adminState.claimedCouponCodes,
-            hasClaimedMmuEasterEgg: adminState.hasClaimedMmuEasterEgg,
-          });
-          StorageService.saveState(adminState, user.id);
-          setState(adminState);
-        } else {
-          const cloudData = await CloudSyncService.loadUserGameData(user.id);
+        const cloudData = await CloudSyncService.loadUserGameData(user.id);
 
-          if (cloudData) {
-            // 기존 Firestore 클라우드 세이브 데이터 100% 온전히 복원 (초기화 절대 금지)
-            applyCloudData(cloudData);
+        if (cloudData) {
+          applyCloudData(cloudData);
+        } else {
+          // 클라우드 문서가 없을 때만 초기 상태를 한 번 만든다. 운영자도 이후 로그인에서는 덮어쓰지 않는다.
+          const existingLocal = StorageService.peekState(user.id);
+          const freshState = existingLocal ?? (isAdmin ? createAdminInitialState() : createGuestInitialState());
+          if (isLocalServer()) {
+            freshState.collection = getAllCardsCollection();
           } else {
-            // 신규 가입 유저(Firestore 문서 부재 시): 신규 100만원 기본 데이터 1회 생성 및 즉시 Firestore 저장
-            const freshState = StorageService.loadState(user.id);
             await CloudSyncService.saveUserGameData(user, {
               collection: freshState.collection,
               coins: freshState.coins,
@@ -152,9 +147,9 @@ export function useGameState() {
               claimedCouponCodes: freshState.claimedCouponCodes,
               hasClaimedMmuEasterEgg: freshState.hasClaimedMmuEasterEgg,
             });
-            StorageService.saveState(freshState, user.id);
-            setState(freshState);
           }
+          StorageService.saveState(freshState, user.id);
+          setState(freshState);
         }
 
         // 상태 반영 완료 후 클라우드 동기화 가드 안전 해제, 이후 실시간 구독 시작
@@ -167,13 +162,21 @@ export function useGameState() {
           const totalCards = MASTER_CARDS.length; // 실제 카드 수: 521
           const correctRate = Math.round((uniqueCards / totalCards) * 1000) / 10;
           const hasXR = (latestState.collection['card_xr_transcendent_park_741'] || 0) > 0;
-          MultiplayerService.updateLeaderboardEntry(user, {
-            uniqueCardCount: uniqueCards,
-            collectionRate: correctRate,
-            totalPacksOpened: latestState.openedPacksTotal,
-            coins: latestState.coins,
-            hasXR,
-          }).catch(() => {});
+          const achievementBadges = getCompletedAchievementCategories(
+            latestState.collection,
+            latestState.openedPacksTotal || 0,
+            latestState.coinsSpentTotal || ((latestState.openedPacksTotal || 0) * 100),
+          );
+          if (!isLocalServer()) {
+            MultiplayerService.updateLeaderboardEntry(user, {
+              uniqueCardCount: uniqueCards,
+              collectionRate: correctRate,
+              totalPacksOpened: latestState.openedPacksTotal,
+              coins: latestState.coins,
+              hasXR,
+              achievementBadges,
+            }).catch(() => {});
+          }
 
           // 🔴 핵심: 실시간 onSnapshot 구독 시작 — 다른 기기에서 변경 시 즉시 로컬 상태에 반영
           let isFirstSnapshot = true;
@@ -499,6 +502,23 @@ export function useGameState() {
     }));
   }, []);
 
+  const claimCardEasterEgg = useCallback((cardId: string) => {
+    const today = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    const already = stateRef.current.cardEasterEggClaims?.[cardId] === today;
+    if (already) return false;
+
+    setState(prev => {
+      const claims = prev.cardEasterEggClaims || {};
+      if (claims[cardId] === today) return prev;
+      return {
+        ...prev,
+        coins: prev.coins + 50,
+        cardEasterEggClaims: { ...claims, [cardId]: today },
+      };
+    });
+    return true;
+  }, []);
+
   const claimMail = useCallback((mailId: string, coinsReward: number) => {
     // KST(UTC+9) 기준 오늘 날짜 문자열 생성
     const kstToday = new Date(Date.now() + 9 * 60 * 60 * 1000)
@@ -692,6 +712,7 @@ export function useGameState() {
     redeemCouponCode,
     applyTradeResult,
     addCoins,
+    claimCardEasterEgg,
     dismantleAllDuplicates,
     dismantleSingleCard,
     craftCard,

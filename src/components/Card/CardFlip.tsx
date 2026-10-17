@@ -27,8 +27,8 @@ export const CardFlip: React.FC<CardFlipProps> = React.memo(({
 
   const sizeClasses = {
     sm: 'w-36 h-52',
-    md: 'w-48 sm:w-52 h-72 sm:h-76',
-    lg: 'w-64 h-92',
+    md: 'w-48 sm:w-52 h-72 sm:h-80',
+    lg: 'w-64 h-96',
   }[size];
 
   return (
