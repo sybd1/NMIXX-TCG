@@ -217,6 +217,12 @@ export class AuthService {
         if (err.code === 'auth/popup-closed-by-user' || err.message?.includes('Cross-Origin-Opener-Policy')) {
           throw new Error('로그인 팝업이 닫혔거나 브라우저 보안 정책에 의해 차단되었습니다. 팝업 차단을 해제하거나 다시 시도해 주세요.');
         }
+        if (err.code === 'auth/unauthorized-domain') {
+          const host = typeof window !== 'undefined' ? window.location.host : '';
+          throw new Error(
+            `이 주소(${host})는 Firebase 로그인 허용 목록에 없습니다. 로컬에서는 http://localhost:5173 으로 여세요. 배포 주소라면 Firebase 콘솔의 Authentication → Settings → Authorized domains에 그 도메인을 추가해야 합니다.`
+          );
+        }
         throw new Error(err.message || 'Google 로그인에 실패했습니다.');
       }
     }
