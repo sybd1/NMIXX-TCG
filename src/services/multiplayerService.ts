@@ -126,7 +126,9 @@ export class MultiplayerService {
             const data = docSnap.data() as LeaderboardEntry;
             const uid = docSnap.id || data.uid;
 
-            // 🗑️ 과거 테스트 계정 및 관리자(운영자/GM) 계정 식별
+            // 과거 테스트 계정 및 관리자(운영자/GM) 계정은 목록에서만 숨긴다.
+            // 조회 중에 문서를 지우면 실제 사용자 데이터까지 지워질 수 있어 삭제하지 않는다.
+            // '카카오_엔써_'는 카카오 닉네임이 없는 실제 사용자의 기본 이름이라 숨기지 않는다.
             const isAdmin = uid.includes('chip') || uid.includes('운영자') || (data.displayName && (data.displayName.includes('운영자') || data.displayName.includes('GM')));
             const isOldTest =
               !uid ||
@@ -134,15 +136,9 @@ export class MultiplayerService {
               uid.startsWith('mock_') ||
               uid.startsWith('user_mock_') ||
               data.displayName === 'GM' ||
-              data.displayName?.startsWith('카카오_엔써_') ||
               isAdmin;
 
             if (isOldTest) {
-              // Firebase Firestore에서 해당 테스트 계정 영구 삭제 (관리자 계정은 users는 지우지 않고 leaderboard만 삭제)
-              deleteDoc(doc(db!, 'nmixx_tcg_leaderboard', uid)).catch(() => {});
-              if (!isAdmin) {
-                deleteDoc(doc(db!, 'nmixx_tcg_users', uid)).catch(() => {});
-              }
               return;
             }
 

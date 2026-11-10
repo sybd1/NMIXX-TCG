@@ -132,6 +132,8 @@ export const PackOpeningSequence: React.FC<PackOpeningSequenceProps> = ({
     setShowcaseIndex(0);
     stepEnterTimeRef.current = Date.now();
     isReopeningRef.current = false;
+    // 같은 인스턴스로 다시 연 팩도 결제·지급되도록 커밋 여부를 새 카드마다 초기화
+    hasCommittedRef.current = false;
     const timer = setTimeout(() => setStep('PACK_ENTER'), 300);
     return () => clearTimeout(timer);
   }, [cards]);

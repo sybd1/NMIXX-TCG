@@ -362,6 +362,7 @@ export const App: React.FC = () => {
           <SettingsPage
             state={state}
             onToggleSound={toggleSound}
+            canDeleteAccount={!!user && user.provider !== 'guest' && user.id !== 'guest'}
             onDeleteAccount={async () => {
               const { AuthService } = await import('./services/authService');
               const result = await AuthService.deleteAccount();

@@ -667,6 +667,10 @@ export class AuthService {
     if (!this.currentUser) {
       return { success: false, message: '로그인 상태가 아닙니다.' };
     }
+    // 게스트는 지울 계정이 없다. 진행하면 이 브라우저의 nmixx_ 로컬 저장본만 모두 지워진다.
+    if (this.currentUser.provider === 'guest' || this.currentUser.id === 'guest') {
+      return { success: false, message: '게스트는 탈퇴할 계정이 없습니다.' };
+    }
 
     const userId = this.currentUser.id;
 

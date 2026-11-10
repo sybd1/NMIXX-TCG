@@ -10,6 +10,8 @@ interface SettingsPageProps {
   state: GameState;
   onToggleSound: () => void;
   onDeleteAccount: () => Promise<void>;
+  /** 구글·카카오 로그인 사용자만 true. 게스트·비로그인은 탈퇴 영역을 숨긴다. */
+  canDeleteAccount: boolean;
   onRedeemCoupon?: (code: string) => { success: boolean; message: string; isSecret?: boolean };
 }
 
@@ -17,6 +19,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
   state,
   onToggleSound,
   onDeleteAccount,
+  canDeleteAccount,
   onRedeemCoupon,
 }) => {
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
@@ -253,7 +256,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
         </div>
       </div>
 
-      {/* 회원 탈퇴 Section */}
+      {/* 회원 탈퇴 Section (로그인 사용자만) */}
+      {canDeleteAccount && (
       <div className="bg-void-900/80 border border-rose-950/60 p-6 rounded-3xl flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-1">
@@ -329,6 +333,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
           </div>
         )}
       </div>
+      )}
 
       {/* 🎫 공식 및 시크릿 쿠폰 교환소 */}
       <div className="bg-void-900/80 border border-purple-500/40 p-6 rounded-3xl flex flex-col gap-4 shadow-xl">
