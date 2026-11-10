@@ -1,0 +1,14 @@
+# Dependabot 설정 (DEC-025)
+# - 정기 버전 업데이트 PR은 열지 않는다(open-pull-requests-limit: 0). 보안 업데이트는 그대로 온다.
+# - Tailwind는 v3 설정(postcss.config.js, @tailwind 지시문)을 쓰므로 v4 이상으로 올리지 않는다.
+#   versions 조건은 보안 업데이트에도 적용된다.
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: "tailwindcss"
+        versions: [">=4"]
