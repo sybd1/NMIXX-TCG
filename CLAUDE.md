@@ -28,7 +28,7 @@ npm run preview                  # dist/ 미리보기
 npm run test:rules               # ✓ 에뮬레이터(demo-nmixx-tcg)에서 firestore.rules 테스트. JDK 21+가 PATH에 있어야 함
 ```
 
-- 규칙 테스트: 시스템 PATH에 Java가 없으면 실행 전에 `$env:JAVA_HOME="$env:USERPROFILE\.jdks\temurin-21.0.12.1"; $env:Path="$env:JAVA_HOME\bin;$env:Path"`(PowerShell). 운영 Firestore에는 닿지 않는다. 운영 규칙 배포는 콘솔에 붙여넣는다(DEC-027).
+- 규칙 테스트: 시스템 PATH에 Java가 없으면 실행 전에 `$env:JAVA_HOME="$env:USERPROFILE\.jdks\temurin-21.0.12.1"; $env:Path="$env:JAVA_HOME\bin;$env:Path"`(PowerShell). 운영 Firestore에는 닿지 않는다. 운영 규칙 배포: `npx firebase deploy --only firestore:rules --project nmixx-tcg`(Firebase CLI 로그인 필요, DEC-028). 배포 전에 `test:rules`를 통과시킨다.
 
 - 주의: Tailwind는 v3로 고정한다(DEC-025). 2026-10-19 Dependabot이 v4로 올려 Vercel 배포가 한 달 가까이 실패했고, 로컬 `node_modules`에는 옛 버전이 남아 로컬 빌드로는 드러나지 않았다. 의존성을 바꾸면 새 폴더에서 `npm ci` 후 `npm run build`로 확인한다. Dependabot 규칙은 `.github/dependabot.yml`.
 - 이력: `main`은 2026-08-31 `cf6cea8`부터다. 이전 이력은 `git fetch origin '+refs/pull/*/head:refs/remotes/origin/pr/*'` 후 `git log origin/pr/11`. 요구사항 출처는 GitHub 이슈(product.md 머리말).
@@ -47,8 +47,8 @@ src/pages/            — 탭 화면 5개 + 패치노트(숨김)
 src/components/       — Card, Pack, Navigation, Auth, Multiplayer, Shop, Share, Ranking, EasterEgg
 public/               — 카드·팩 이미지(.webp). 경로는 JSON의 image 필드와 대소문자까지 일치해야 함
 scripts/              — verify_images.cjs(빌드 가드), db_inject.ts·sync_session.cjs(일회성 운영 스크립트)
-firestore.rules       — Firestore 보안 규칙 원본 (specs/022). 운영 콘솔 배포는 카카오 Firebase 인증 연동 뒤(DEC-026)
-firebase.json         — 에뮬레이터 설정 전용 (배포에 쓰지 않음)
+firestore.rules       — Firestore 보안 규칙 원본 (specs/022). 2026-11-26 운영 배포, 운영 = 저장소 (DEC-028)
+firebase.json         — 규칙 경로와 에뮬레이터 설정 (CLI 규칙 배포·테스트에 씀)
 tests/rules/          — 규칙 테스트 (setup.ts 공통 헬퍼, 컬렉션별 *.test.ts)
 docs/product.md · docs/decisions.md · specs/NNN-<기능>/
 ```

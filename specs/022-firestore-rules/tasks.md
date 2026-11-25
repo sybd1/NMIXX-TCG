@@ -15,7 +15,7 @@
 
 ### 1단계: 계약·기반
 
-- [ ] T001 운영 상태 기록(코드 변경 전) — `docs/product.md` Q-01·Q-02 — AC-14 — 수동 M0 결과(콘솔 규칙과 저장소 파일의 같음/다름과 차이, `kakao_` 문서의 최근 `lastSavedAt`)가 날짜와 함께 적혀 있음. **운영자 콘솔 접근 필요**
+- [x] T001 운영 상태 기록 — `docs/product.md` Q-01·Q-02 — AC-14 — 2026-11-26: firebase-tools rules API로 운영 본문(ruleset `a458d19c…`)을 받아 저장소와 비교했다(다름). 카카오 문서 11건, 마지막 저장 10-31. product.md Q-01·Q-02와 DEC-028에 기록. (앞서 적은 "카카오 쓰기 이미 거부"는 시험 요청 오류로 틀렸고, 바로잡았다)
 - [x] T002 [P] 규칙 테스트 기반 — `package.json`, `package-lock.json`, `firebase.json`, `tests/rules/setup.ts`, `tests/rules/emulator.test.ts`, `docs/decisions.md`(DEC-027 설치 기록) — 전체 — 2026-11-25 완료
   - JDK: Temurin 21.0.12.1 확인(`java -version` → `21.0.12.1 LTS`). 시스템 PATH에 없어서 실행 전 설정 필요. plan 7절 갱신
   - devDependency `vitest@5.1.2`, `@firebase/rules-unit-testing@5.0.2`, `firebase-tools@15.37.0` 추가
@@ -46,7 +46,7 @@
 ### 4단계: 통합 검증
 
 - [x] T012 프로젝트 검사 — 전체 — 2026-11-25. `npm ci` exit 0, `npx tsc --noEmit` exit 0, `verify_images` 529개 통과, `npm run build` 통과, `npm run test:rules` 18/18 통과
-- [!] T013 운영 배포 — Firebase 콘솔, `docs/product.md` — AC-15b, AC-16, AC-17, AC-13(M6), AC-01·05·08·04·15 수동 — 수동 M8 → M6(직전 값) → 콘솔 게시 → M9 → M1·M4·M5·M6·M7(실패하면 M10). **막힘: 카카오 Firebase 인증 연동 기능이 운영에 배포되어야 함(DEC-026). 그 기능의 명세가 아직 없다**
+- [ ] T013 운영 배포 — Firebase CLI, `docs/decisions.md` DEC-028 — AC-15b, AC-16, AC-17, AC-13(M6), AC-01·05·08·04·15 수동 — 2026-11-26 배포 완료: 직전 `npm run test:rules` 18/18 → `firebase deploy --only firestore:rules` → `released rules firestore.rules to cloud.firestore`. 운영 본문이 저장소와 같음(ruleset `d4e4458c…`). 로그인 없는 users 읽기·쓰기, leaderboard·feed 쓰기 403, leaderboard·feed 읽기 200. **남음: 로그인 상태 M1·M4·M5(테스트 계정 필요), M7(카카오 연동 후)**
 - [x] T014 `/sdd-verify` 실행 — 전체 — 모든 AC — 2026-11-25 검증 기록 작성. 통과 10, 미실행 7, 실행 불가 6(총 23). Verified 아님
 
 ## 검증 기록
@@ -71,13 +71,13 @@
 | AC-10 | 통과 | `npm run test:rules --reporter=verbose` ✓ `feed: 작성자 uid 위조 거부` | 2026-11-25 |
 | AC-11 | 통과 | `npm run test:rules --reporter=verbose` ✓ `market: 등록 거부` | 2026-11-25 |
 | AC-12 | 통과 | `npm run test:rules --reporter=verbose` ✓ `market: 수정·삭제 거부` (`completeTrade`와 같은 변경 포함) | 2026-11-25 |
-| AC-13 | 미실행 | 규칙: `npm run test:rules --reporter=verbose` ✓ `market: 공개 읽기`. 배포 전후 문서 수 비교(M6)는 배포 때 함 | 2026-11-25 |
-| AC-14 | 실행 불가(운영 Firebase 콘솔 접근 필요, T001) |  | 2026-11-25 |
+| AC-13 | 미실행 | 규칙: `market: 공개 읽기` 통과. 배포 후 운영 market 공개 읽기 200, 문서 0건. 배포 전 수(M6)는 세지 못함(이전 규칙에 market 규칙이 없어 읽기 거부) | 2026-11-26 |
+| AC-14 | 통과 | firebase-tools rules API로 운영 본문을 받아 저장소와 비교(다름). 카카오 저장 실태(11건, 마지막 10-31)를 product.md Q-01·Q-02에 기록 | 2026-11-26 |
 | AC-15 | 미실행 | 규칙: `npm run test:rules --reporter=verbose` ✓ `kakao: 본인 문서 쓰기 허용`. 앱 수동 M7은 카카오 연동 배포 뒤 | 2026-11-25 |
 | AC-15a | 통과 | `npm run test:rules --reporter=verbose` ✓ `kakao: 타인 문서 거부` (구글 uid가 `kakao_K`인 경우 포함) | 2026-11-25 |
-| AC-15b | 실행 불가(운영 배포 단계, T013 막힘) |  | 2026-11-25 |
-| AC-16 | 실행 불가(운영 배포 단계, T013 막힘) |  | 2026-11-25 |
-| AC-17 | 실행 불가(운영 배포 단계, T013 막힘) |  | 2026-11-25 |
+| AC-15b | 통과 | (DEC-028로 바뀐 AC) DEC-028에 이유, 카카오 영향, 되돌리기 방법을 기록 | 2026-11-26 |
+| AC-16 | 통과 | 배포 후 운영 ruleset `d4e4458c…` 본문이 저장소 `firestore.rules`(커밋 `19405f2`)와 같음(API 비교 `true`). 날짜·커밋은 DEC-028·product.md Q-01에 기록 | 2026-11-26 |
+| AC-17 | 미실행 | 배포 후 로그인 저장(M1)·전광판(M4)을 아직 확인하지 않아 되돌릴지 판단 전. 되돌리는 방법(이전 ruleset `a458d19c…` 재게시)은 DEC-028에 기록 | 2026-11-26 |
 | AC-18 | 통과 | `npm run test:rules --reporter=verbose` ✓ `기본 거부: 규칙에 없는 컬렉션` | 2026-11-25 |
 
 ### 프로젝트 검사

@@ -55,7 +55,7 @@ NMIXX 팬이 PC나 휴대폰 브라우저에서 부스터 팩을 열어 멤버 �
 | 019 | 이스터에그(MMU 우주선·카드) | Lite | [spec](../specs/019-easter-eggs/spec.md) | Implementing | 003, 004 |
 | 020 | 랭킹 배지 공유 | Lite | [spec](../specs/020-share-badge/spec.md) | Implementing | 010 |
 | 021 | 정보 탭(통계·확률표·사운드) | Lite | [spec](../specs/021-information/spec.md) | Implementing | 002 |
-| 022 | Firestore 보안 규칙 강화 (운영 배포는 카카오 Firebase 인증 연동 뒤, DEC-026) | Full | [spec](../specs/022-firestore-rules/spec.md) | Implementing | 007, 008, 010, 011, 014 |
+| 022 | Firestore 보안 규칙 강화 (2026-11-26 운영 배포, DEC-028) | Full | [spec](../specs/022-firestore-rules/spec.md) | Implementing | 007, 008, 010, 011, 014 |
 
 - 트랙: `Full`(spec·plan·tasks 3개 문서) / `Lite`(spec 1장). 기준은 `specs/_templates`와 템플릿 README.
 - 상태: `대기 / Draft / Ready / Implementing / Verified`
@@ -75,8 +75,8 @@ NMIXX 팬이 PC나 휴대폰 브라우저에서 부스터 팩을 열어 멤버 �
 
 ## 7. 미결 질문
 
-- [확인 필요: Q-01 Firebase 콘솔에 배포된 Firestore 규칙이 저장소 `firestore.rules`와 같은가? 저장소 규칙은 (1) 로그인한 누구나 모든 유저·랭킹 문서를 쓸 수 있고, (2) 전광판 컬렉션을 `nmixx_tcg_feed`로 적었지만 코드는 `nmixx_tcg_global_feed`를 쓴다(규칙이 없으면 거부) — 막히는 기능: 008, 010, 011. 해결 작업: 기능 022(AC-14)]
-- [확인 필요: Q-02 카카오 로그인 사용자는 Firebase Auth에 로그인하지 않으므로(DEC-008) Firestore 요청의 `request.auth`가 null이다. 실제로 카카오 사용자의 저장·랭킹 등록이 되는가? — 막히는 기능: 008, 010. 규칙 강화(기능 022)와의 관계는 022 Q-E]
+- Q-01 해결(2026-11-26, DEC-028): 운영 규칙(ruleset `a458d19c…`, 2026-08-31 게시)은 저장소와 달랐다. 로그인 없이 누구나 사용자 문서를 읽고(이메일 포함) 허용 필드 안에서 쓸 수 있었고, 전광판(`nmixx_tcg_global_feed`)은 누구나 읽고 쓰고 지울 수 있었다. 랭킹은 허용 필드 목록에 `achievementBadges`가 없어 앱의 쓰기가 모두 거부되고 있었다. 같은 날 저장소 `firestore.rules`(커밋 `19405f2`)를 CLI로 배포했고, 운영 본문이 저장소 파일과 같음을 확인했다(ruleset `d4e4458c…`). 기능 022 AC-14·16.
+- Q-02 해결(2026-11-26, DEC-028): 기존 운영 규칙은 로그인을 요구하지 않아 카카오 사용자도 저장할 수 있었다(사용자 문서 11건, 마지막 저장 10-31). 새 규칙 배포 후에는 카카오 Firebase 인증 연동(별도 명세 필요, DEC-027 계약)이 나올 때까지 카카오 사용자의 클라우드 저장·불러오기·랭킹 등록이 되지 않는다. 로컬 저장은 된다.
 - Q-03 해결(2026-11-10, DEC-025): 운영 배포가 2026-10-19 이후 멈춰 있던 원인은 Dependabot 보안 업데이트(`e2e08aa`, PR #15)가 올린 Tailwind 4.3.3과 v3 방식 설정의 불일치였다(GitHub 커밋 상태: `e3a08a4`까지 성공, 이후 4건 실패 / 새 폴더 `npm ci` 후 빌드 실패로 재현). Tailwind를 `~3.4.17`로 고정하고 Dependabot에 v4 무시 규칙을 넣었다. 새 폴더 `npm ci` → `npm run build` 통과, CSS가 운영본과 바이트 단위로 같다. 푸시 후 확인: `d07f0ce` Vercel 배포 `success`(2026-11-10), 운영 번들에 결함 수정 문구가 들어 있음.
 - [확인 필요: Q-04 카드 총수가 화면마다 다르다: 실제 `MASTER_CARDS.length` 521, `RankingPage`·`LeaderboardModal`·봇 생성·`fetchUserProfile`의 하드코딩 521, `MarketModal` 651, `BOOSTER_PACKS[].totalCards` 합 537(팩 텍스처에 표시), 업적 설명문 115/124/87. 모두 `MASTER_CARDS` 기준으로 통일할지 — 막히는 기능: 없음(표시 오류). 이력: 카드 풀은 600(08-22 `16a0bd0`) → 740(08-23 `c4ec7ea`) → 651(08-23 `a3558c8`)을 거쳐 NX 팩 재편 뒤 521이 되었다. 651은 그 시절 값이 남은 것이다]
 - Q-06 해결(2026-11-10, DEC-023): 랭킹 조회 중 문서 삭제 코드를 지우고 `카카오_엔써_` 사용자를 다시 표시한다(specs/010 REQ-04, tasks T006).

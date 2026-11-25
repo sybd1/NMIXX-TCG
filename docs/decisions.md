@@ -258,12 +258,13 @@
 ## DEC-026: Firestore 규칙 강화는 카카오 Firebase 인증 연동 뒤에 배포한다
 
 - 날짜: 2026-11-25
-- 상태: 확정
+- 상태: 대체됨 → DEC-028
 - 관련: specs/022-firestore-rules (REQ-05, Q-E), DEC-001, DEC-008, product.md Q-01·Q-02
 - 배경: 저장소 `firestore.rules`는 로그인한 누구나 모든 유저·랭킹 문서를 쓸 수 있다. 문서 주인만 쓰게 좁히면, Firebase 인증을 거치지 않는 카카오 사용자(DEC-008)의 저장·랭킹 등록·전광판 추가가 모두 거부된다.
 - 결정: 카카오 로그인 사용자가 Firebase 인증을 받은 상태로 Firestore에 요청하게 만드는 기능을 먼저 운영에 낸다. 기능 022의 규칙은 그 뒤에 배포한다. 규칙 작성과 에뮬레이터 검증은 먼저 해도 된다. 연동 방식(커스텀 토큰 발급 서버 등)은 그 기능의 명세·설계에서 정한다.
 - 검토한 대안: 규칙을 먼저 배포하고 카카오 사용자는 로컬 저장 + 안내 문구 — 카카오 사용자가 랭킹과 기기 간 동기화를 잃어 제외. 연동을 022 범위에 포함 — 범위가 커져 제외.
 - 영향: 연동에 토큰 발급 서버가 필요하면 DEC-001(자체 서버 없음)과 DEC-008(카카오는 Firebase Auth에 로그인하지 않음)을 대체하는 새 결정이 필요하다. 그때까지 저장소 규칙의 느슨한 쓰기 권한이 운영에 남는다(콘솔 배포본이 저장소와 같다면).
+- 재확인(2026-11-26): 처음에는 "카카오 쓰기가 이미 거부되고 있다"고 기록했지만 틀렸다. 시험 요청에 운영 규칙의 허용 필드 목록에 없는 필드를 써서 403이 났던 것이다. 바로잡은 사실은 DEC-028에 있다.
 
 ## DEC-027: Firestore 규칙의 문서 주인 판단과 에뮬레이터 규칙 테스트
 
@@ -275,7 +276,7 @@
   1. 문서 주인은 `id == 'goog_' + request.auth.uid`, 또는 (`id`가 `kakao_`로 시작하고 `id == request.auth.uid`이며 `sign_in_provider == 'custom'`)으로 판단한다. 기존 문서 ID는 바꾸지 않는다(DEC-002).
   2. 카카오 Firebase 인증 연동(DEC-026)은 커스텀 토큰의 uid를 문서 ID와 같은 `kakao_<카카오 회원번호>`로 발급해야 한다.
   3. 규칙은 Firestore 에뮬레이터에서 자동 테스트한다. devDependency로 `vitest`, `@firebase/rules-unit-testing@^5`(6.x는 `firebase@^13`을 요구하는데 이 프로젝트는 12.x라서), `firebase-tools`를 추가하고 `npm run test:rules` 스크립트를 만든다. 에뮬레이터를 쓰려면 로컬에 JDK가 필요하다. 테스트는 `demo-nmixx-tcg` 프로젝트 ID를 써서 운영에 연결되지 않게 한다.
-  4. 운영 배포는 콘솔에 붙여넣는 방식을 유지한다. `firebase.json`은 에뮬레이터 설정용이다.
+  4. 운영 배포는 콘솔에 붙여넣는 방식을 유지한다. `firebase.json`은 에뮬레이터 설정용이다. → 2026-11-26 DEC-028에서 CLI 배포(`firebase deploy --only firestore:rules`)로 바꿨다.
 - 검토한 대안: 문서 ID를 Firebase uid로 옮기기 — 운영 데이터 이전이 필요해 제외. 콘솔 Rules Playground 수동 확인 — 반복 비용이 커서 제외(2026-11-25 사용자 결정). Firebase CLI 배포 — 운영 로그인이 필요해 보류.
 - 설치 기록(2026-11-25, specs/022 T002)
   - 설치 버전: `vitest@5.1.2`, `@firebase/rules-unit-testing@5.0.2`(`firebase@12.18.0` 재사용), `firebase-tools@15.37.0`. 첫 실행 때 `cloud-firestore-emulator-v1.22.0.jar`를 내려받는다.
@@ -285,3 +286,19 @@
   - `firebase-tools`가 의존하는 `re2@1.27.2`(optional)에 설치 스크립트가 있다. 그런데 `package.json`의 `allowScripts`에 없어서 npm 11.17이 경고만 내고 실행하지 않는다. Vercel의 npm 버전에서 어떻게 동작하는지는 푸시 후 배포 결과로 확인한다.
   - `npm audit`: 운영 의존성은 기존 high 5건 그대로(DEC-025). 개발 의존성 포함 시 20건(moderate 14, high 6).
 - 영향: 처음 도입하는 자동 테스트다. DEC-020(Vitest 제안)의 Vitest 도입 부분이 이 결정으로 실현된다. 구현을 마치면 DEC-020 상태와 CLAUDE.md의 "테스트" 항목·명령어를 갱신한다. `firebase-tools` 때문에 Vercel `npm ci` 시간이 늘 수 있다(구현할 때 측정).
+
+## DEC-028: Firestore 규칙을 카카오 연동보다 먼저 운영에 배포한다
+
+- 날짜: 2026-11-26
+- 상태: 확정 (DEC-026을 대체)
+- 관련: specs/022-firestore-rules (REQ-05, AC-14·15b·16, T013), DEC-026, DEC-027, product.md Q-01·Q-02
+- 배경: 운영 규칙 본문을 CLI로 받아 보니(ruleset `a458d19c-35e6-4229-8428-71feb64cb566`, 2026-08-31 게시) 저장소와 전혀 달랐다.
+  - `nmixx_tcg_users`: 누구나 읽고(이메일 포함 29건), **로그인 없이 누구나** 허용 필드 목록 안에서 쓸 수 있다. 남의 코인·컬렉션을 바꿀 수 있다.
+  - `nmixx_tcg_leaderboard`: 누구나 쓸 수 있지만, 허용 필드 목록에 `achievementBadges`·`fullCollectionAt`이 없어 현재 앱의 랭킹 쓰기는 모두 거부된다.
+  - `nmixx_tcg_global_feed`: 누구나 읽고, 쓰고, 고치고, 지울 수 있다.
+  - 카카오 사용자(11명, 마지막 저장 2026-10-31)의 클라우드 저장은 로그인 없는 쓰기로 동작하고 있었다.
+- 결정: 위조를 바로 막기 위해 저장소 `firestore.rules`를 지금 운영에 배포한다(사용자 결정 2026-11-26). 배포는 `npx firebase deploy --only firestore:rules --project nmixx-tcg`(CLI)로 한다. 이에 따라 DEC-027의 "콘솔 붙여넣기" 방식도 바뀐다.
+- 배포 기록: 2026-11-26, 커밋 `19405f2`의 `firestore.rules` → ruleset `d4e4458c-f407-4d12-8041-de0395e48b4a`. 배포 직전 `npm run test:rules` 18/18 통과. 배포 후 운영 본문이 저장소 파일과 같음을 API로 확인. 로그인 없는 users 읽기 403, users(허용 필드 `coins`)·leaderboard·global_feed 쓰기 모두 403, leaderboard·global_feed 읽기 200.
+- 되돌리기: 콘솔 › Firestore › 규칙 이력에서 `a458d19c…`(2026-08-31)를 다시 게시하면 된다. 다만 위조 구멍도 함께 돌아온다.
+- 검토한 대안: 카카오 연동 후 배포(DEC-026) — 그동안 누구나 남의 데이터를 바꿀 수 있어 제외. 위조만 막는 중간 규칙 — 카카오 사용자는 Firebase 인증이 없어 로그인하지 않은 요청과 구별할 수 없으므로 불가능하다.
+- 영향: 카카오 사용자는 카카오 Firebase 인증 연동(별도 명세 필요, 토큰 uid = `kakao_<회원번호>`, DEC-027)이 나올 때까지 클라우드 저장·불러오기·랭킹 등록·탈퇴 시 클라우드 삭제를 할 수 없다. 로컬 저장은 된다. 구글 사용자의 랭킹 등록은 다시 된다.

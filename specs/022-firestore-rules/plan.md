@@ -117,7 +117,7 @@
 - **`fetchUserCollection`은 고치지 않는다.** 이유: 숨김 기능이고, 거부되면 이미 `{}`를 돌려준다. 교환소를 다시 열 때 다룬다(spec Q-A·Q-B).
 - **교환소 클라이언트 코드(등록·완료)는 고치지 않는다.** 이유: 메뉴에서 숨겨져 있고, 규칙이 거부하면 기존 `catch`가 실패를 돌려준다.
 - **규칙 검증은 Firestore 에뮬레이터와 `@firebase/rules-unit-testing`, Vitest로 자동화한다.** 의존성과 이유는 DEC-027에 적었다. 대안: 콘솔 Rules Playground 수동 확인 — 거부 사례가 20개가 넘고, 규칙을 바꿀 때마다 반복해야 해서 제외(2026-11-25 사용자 결정).
-- **운영 배포는 Firebase 콘솔에 `firestore.rules` 내용을 붙여넣는 방식으로 한다.** `firebase.json`은 에뮬레이터 설정용으로만 둔다. 이유: CLI 배포는 운영 프로젝트 로그인이 필요하고, 검증 방식을 정할 때 CLI 배포 안을 고르지 않았다. 바꾸려면 이 줄과 spec Q-F를 고친다.
+- (2026-11-26 DEC-028로 변경: CLI `npx firebase deploy --only firestore:rules --project nmixx-tcg`로 배포했다. 운영 본문은 firebase-tools의 rules API로 받아 비교한다.) 처음 결정: **운영 배포는 Firebase 콘솔에 `firestore.rules` 내용을 붙여넣는 방식으로 한다.** `firebase.json`은 에뮬레이터 설정용으로만 둔다. 이유: CLI 배포는 운영 프로젝트 로그인이 필요하고, 검증 방식을 정할 때 CLI 배포 안을 고르지 않았다. 바꾸려면 이 줄과 spec Q-F를 고친다.
 
 ## 6. AC → 테스트 매핑
 
