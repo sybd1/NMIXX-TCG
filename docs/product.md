@@ -57,6 +57,7 @@ NMIXX 팬이 PC나 휴대폰 브라우저에서 부스터 팩을 열어 멤버 �
 | 021 | 정보 탭(통계·확률표·사운드) | Lite | [spec](../specs/021-information/spec.md) | Implementing | 002 |
 | 022 | Firestore 보안 규칙 강화 (2026-11-26 운영 배포, DEC-028) | Full | [spec](../specs/022-firestore-rules/spec.md) | Implementing | 007, 008, 010, 011, 014 |
 | 023 | 카카오 사용자 Firebase 인증 연동 (카카오 클라우드 저장 복구) | Full | [spec](../specs/023-kakao-firebase-auth/spec.md) | Implementing | 007, 008, 022 |
+| 024 | 이용자 행동 로그(Firestore 이벤트) | Full | [spec](../specs/024-activity-log/spec.md) | Implementing | 007, 008, 014, 022 |
 
 - 트랙: `Full`(spec·plan·tasks 3개 문서) / `Lite`(spec 1장). 기준은 `specs/_templates`와 템플릿 README.
 - 상태: `대기 / Draft / Ready / Implementing / Verified`

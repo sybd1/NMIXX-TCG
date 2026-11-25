@@ -256,6 +256,13 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
         </div>
       </div>
 
+      {/* 이용 기록 보관 고지 (specs/024 AC-14, DEC-031) */}
+      <div className="bg-void-900/60 border border-void-800 p-4 rounded-2xl">
+        <p className="text-[11px] sm:text-xs font-sans text-slate-400 leading-relaxed">
+          로그인 이용자의 게임 이용 기록(접속, 로그인·로그아웃, 팩 개봉, 보상 수령)을 부정 이용 확인과 서비스 개선을 위해 90일 동안 보관합니다. 이메일·닉네임은 기록하지 않으며, 회원 탈퇴 시 함께 삭제됩니다.
+        </p>
+      </div>
+
       {/* 회원 탈퇴 Section (로그인 사용자만) */}
       {canDeleteAccount && (
       <div className="bg-void-900/80 border border-rose-950/60 p-6 rounded-3xl flex flex-col gap-4">

@@ -26,9 +26,10 @@ node scripts/verify_images.cjs   # ✓ src 안 이미지 경로가 public/에 �
 npm run build                    # ✓ = verify_images → tsc → vite build, 결과물 dist/
 npm run preview                  # dist/ 미리보기
 npm run test:rules               # ✓ 에뮬레이터(demo-nmixx-tcg)에서 firestore.rules 테스트. JDK 21+가 PATH에 있어야 함
+npm run test:unit                # ✓ 단위 테스트(tests/unit, 에뮬레이터 불필요)
 ```
 
-- 규칙 테스트: 시스템 PATH에 Java가 없으면 실행 전에 `$env:JAVA_HOME="$env:USERPROFILE\.jdks\temurin-21.0.12.1"; $env:Path="$env:JAVA_HOME\bin;$env:Path"`(PowerShell). 운영 Firestore에는 닿지 않는다. 운영 규칙 배포: `npx firebase deploy --only firestore:rules --project nmixx-tcg`(Firebase CLI 로그인 필요, DEC-028). 배포 전에 `test:rules`를 통과시킨다.
+- 규칙 테스트: 시스템 PATH에 Java가 없으면 실행 전에 `$env:JAVA_HOME="$env:USERPROFILE\.jdks\temurin-21.0.12.1"; $env:Path="$env:JAVA_HOME\bin;$env:Path"`(PowerShell). 운영 Firestore에는 닿지 않는다. 운영 규칙·인덱스 배포: `npx firebase deploy --only firestore:rules,firestore:indexes --project nmixx-tcg`(Firebase CLI 로그인 필요, DEC-028). 배포 전에 `test:rules`를 통과시킨다.
 
 - 주의: Tailwind는 v3로 고정한다(DEC-025). 2026-10-19 Dependabot이 v4로 올려 Vercel 배포가 한 달 가까이 실패했고, 로컬 `node_modules`에는 옛 버전이 남아 로컬 빌드로는 드러나지 않았다. 의존성을 바꾸면 새 폴더에서 `npm ci` 후 `npm run build`로 확인한다. Dependabot 규칙은 `.github/dependabot.yml`.
 - 이력: `main`은 2026-08-31 `cf6cea8`부터다. 이전 이력은 `git fetch origin '+refs/pull/*/head:refs/remotes/origin/pr/*'` 후 `git log origin/pr/11`. 요구사항 출처는 GitHub 이슈(product.md 머리말).
@@ -50,6 +51,8 @@ scripts/              — verify_images.cjs(빌드 가드), db_inject.ts·sync_s
 firestore.rules       — Firestore 보안 규칙 원본 (specs/022). 2026-11-26 운영 배포, 운영 = 저장소 (DEC-028)
 firebase.json         — 규칙 경로와 에뮬레이터 설정 (CLI 규칙 배포·테스트에 씀)
 tests/rules/          — 규칙 테스트 (setup.ts 공통 헬퍼, 컬렉션별 *.test.ts)
+tests/unit/           — 단위 테스트 (Vitest)
+firestore.indexes.json — Firestore 복합 인덱스 (nmixx_tcg_events uid+at). 규칙과 함께 CLI로 배포
 docs/product.md · docs/decisions.md · specs/NNN-<기능>/
 ```
 
@@ -60,6 +63,7 @@ docs/product.md · docs/decisions.md · specs/NNN-<기능>/
 - 등급별 확률·더스트·가격은 `src/config/gameConfig.ts` 한 곳에서 바꾼다. 단, 추첨 가중치는 `rngService.ts` 상수에도 있으니 함께 고친다 (DEC-003).
 - XR 카드(`card_xr_transcendent_park_741`)는 팩 풀에서 제외하고 보유 수를 1로 제한한다. 카드를 컬렉션에 넣는 모든 경로에서 지킨다 (DEC-006).
 - Firestore 컬렉션 이름은 `nmixx_tcg_*`. 새 컬렉션을 쓰면 `firestore.rules`에도 규칙을 추가한다.
+- 행동 로그는 `activityLogService`로만 쓴다. 기다리지 않는 기록이며 실패해도 게임을 막지 않는다. localhost에서는 쓰지 않는다 (specs/024, DEC-031).
 - 조회 경로(랭킹·프로필 읽기)에서 다른 사용자의 문서를 쓰거나 지우지 않는다 (DEC-023). `npm run dev`도 운영 Firestore(`nmixx-tcg`)에 연결된다.
 - 날짜 기준 보상(우편·카드 이스터에그)은 KST(`Date.now() + 9h`)로 계산한다.
 - UI 문구는 한국어, 컴포넌트는 함수형.

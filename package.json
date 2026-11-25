@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "node ./scripts/verify_images.cjs && tsc && vite build",
     "preview": "vite preview",
-    "test:rules": "firebase emulators:exec --only firestore --project demo-nmixx-tcg \"vitest run tests/rules --no-file-parallelism\""
+    "test:rules": "firebase emulators:exec --only firestore --project demo-nmixx-tcg \"vitest run tests/rules --no-file-parallelism\"",
+    "test:unit": "vitest run tests/unit"
   },
   "dependencies": {
     "@types/three": "^0.185.4",

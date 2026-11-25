@@ -1,0 +1,13 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "nmixx_tcg_events",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "uid", "order": "ASCENDING" },
+        { "fieldPath": "at", "order": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

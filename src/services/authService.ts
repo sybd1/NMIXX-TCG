@@ -20,6 +20,7 @@ import { auth, db, googleProvider, isFirebaseConfigured, initKakaoSdk } from '..
 import { UserAccount } from '../types/auth';
 import { SecurityService } from './securityService';
 import { CloudSyncService } from './cloudSyncService';
+import { activityLog } from './activityLogService';
 
 const AUTH_STORAGE_KEY = 'nmixx_tcg_auth_session_v1';
 
@@ -197,6 +198,7 @@ export class AuthService {
         }
 
         await AuthService.saveSession(account);
+        activityLog.log(account, 'login', { provider: 'google' }); // specs/024
 
         return account;
       } catch (err: any) {
@@ -305,6 +307,7 @@ export class AuthService {
                 }
 
                 await AuthService.saveSession(account);
+                activityLog.log(account, 'login', { provider: 'kakao' }); // specs/024 (Firebase 인증이 없으면 규칙이 거부)
 
                 resolve(account);
               },
@@ -539,6 +542,9 @@ export class AuthService {
       }
     }
 
+    // 로그아웃 기록은 인증이 사라지기 전에 끝낸다 (specs/024 AC-02)
+    await activityLog.logAndWait(userBeforeLogout, 'logout', {});
+
     if (isFirebaseConfigured && auth) {
       try {
         await firebaseSignOut(auth);
@@ -661,6 +667,17 @@ export class AuthService {
     }
 
     const userId = this.currentUser.id;
+
+    // 0. 행동 로그 삭제 (specs/024 REQ-05, DEC-031). 탈퇴 뒤에는 지울 수 없으므로 먼저 지우고, 실패하면 탈퇴를 멈춘다.
+    //    Firebase 인증이 없는 세션(카카오, 기능 023 전)은 이벤트를 쓸 수 없었으므로 건너뛴다.
+    if (isFirebaseConfigured && db && auth?.currentUser) {
+      try {
+        await activityLog.deleteAll(userId);
+      } catch (e) {
+        console.warn('[Auth] Failed to delete activity events:', e);
+        return { success: false, message: '탈퇴 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.' };
+      }
+    }
 
     try {
       // 1. Firestore nmixx_tcg_users 문서 삭제
