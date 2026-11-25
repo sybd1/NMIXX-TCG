@@ -1,5 +1,6 @@
 import {
   signInWithPopup,
+  signInWithCustomToken,
   signOut as firebaseSignOut,
   onAuthStateChanged,
   User as FirebaseUser,
@@ -20,8 +21,35 @@ import { auth, db, googleProvider, isFirebaseConfigured, initKakaoSdk } from '..
 import { UserAccount } from '../types/auth';
 import { SecurityService } from './securityService';
 import { CloudSyncService } from './cloudSyncService';
+import {
+  KAKAO_AUTH_FAILED_MESSAGE,
+  KAKAO_TOKEN_ENDPOINT,
+  accountIdForFirebaseUser,
+  connectKakaoToFirebase,
+  kakaoDeleteBlockedMessage,
+} from './kakaoConnect';
 
 const AUTH_STORAGE_KEY = 'nmixx_tcg_auth_session_v1';
+
+/** 카카오 사용자의 Firebase 연결 상태 (specs/023 REQ-04). 'none'은 카카오 세션이 아닐 때 */
+export type KakaoConnectionStatus = 'none' | 'connected' | 'needs-login';
+
+/** 카카오 액세스 토큰을 서버에서 커스텀 토큰으로 바꿔 Firebase에 로그인한다. 실패하면 KAKAO_AUTH_FAILED_MESSAGE */
+async function exchangeKakaoTokenForFirebase(accessToken: string): Promise<{ uid: string }> {
+  const firebaseAuth = auth;
+  if (!isFirebaseConfigured || !firebaseAuth) {
+    throw new Error(KAKAO_AUTH_FAILED_MESSAGE);
+  }
+  return connectKakaoToFirebase(accessToken, {
+    postToken: (body) =>
+      fetch(KAKAO_TOKEN_ENDPOINT, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(body),
+      }),
+    signInWithCustomToken: async (token) => (await signInWithCustomToken(firebaseAuth, token)).user,
+  });
+}
 
 export function sanitizeDisplayName(name: string): string {
   if (!name) return name;
@@ -34,6 +62,87 @@ export function sanitizeDisplayName(name: string): string {
 export class AuthService {
   private static currentUser: UserAccount | null = null;
   private static authListeners: ((user: UserAccount | null) => void)[] = [];
+  private static kakaoStatus: KakaoConnectionStatus = 'none';
+  private static kakaoStatusListeners: ((status: KakaoConnectionStatus) => void)[] = [];
+
+  private static setKakaoStatus(status: KakaoConnectionStatus): void {
+    if (this.kakaoStatus === status) return;
+    this.kakaoStatus = status;
+    this.kakaoStatusListeners.forEach((cb) => {
+      try {
+        cb(status);
+      } catch (err) {
+        console.warn('[Auth] Kakao status listener error:', err);
+      }
+    });
+  }
+
+  /** 카카오 연결 상태 구독. 즉시 현재 상태를 한 번 알린다 (specs/023 AC-09a·AC-10) */
+  public static subscribeKakaoConnection(callback: (status: KakaoConnectionStatus) => void): () => void {
+    this.kakaoStatusListeners.push(callback);
+    callback(this.kakaoStatus);
+    return () => {
+      this.kakaoStatusListeners = this.kakaoStatusListeners.filter((cb) => cb !== callback);
+    };
+  }
+
+  /**
+   * 카카오 세션이 Firebase에 연결되어 있는지 확인하고, 아니면 브라우저에 남은 카카오 토큰으로 자동 연결한다.
+   * 연결되면 인증 콜백을 다시 불러 저장본을 다시 결정하게 한다 (specs/023 REQ-04·05, DEC-029).
+   */
+  private static kakaoEnsureInFlight: Promise<KakaoConnectionStatus> | null = null;
+
+  public static ensureKakaoConnection(): Promise<KakaoConnectionStatus> {
+    // 여러 곳에서 동시에 불러도 서버 교환은 한 번만 한다
+    if (!this.kakaoEnsureInFlight) {
+      this.kakaoEnsureInFlight = this.ensureKakaoConnectionOnce().finally(() => {
+        this.kakaoEnsureInFlight = null;
+      });
+    }
+    return this.kakaoEnsureInFlight;
+  }
+
+  private static async ensureKakaoConnectionOnce(): Promise<KakaoConnectionStatus> {
+    const session = this.getCurrentUser();
+    if (!session || session.provider !== 'kakao') {
+      this.setKakaoStatus('none');
+      return 'none';
+    }
+    if (!isFirebaseConfigured || !auth) {
+      this.setKakaoStatus('needs-login');
+      return 'needs-login';
+    }
+    await auth.authStateReady();
+    if (auth.currentUser?.uid === session.id) {
+      this.setKakaoStatus('connected');
+      return 'connected';
+    }
+
+    initKakaoSdk();
+    const kakaoToken: string | null =
+      typeof window !== 'undefined' ? (window as any).Kakao?.Auth?.getAccessToken?.() ?? null : null;
+    if (!kakaoToken) {
+      this.setKakaoStatus('needs-login');
+      return 'needs-login';
+    }
+    try {
+      const { uid } = await exchangeKakaoTokenForFirebase(kakaoToken);
+      if (uid !== session.id) {
+        // 브라우저의 카카오 토큰이 세션과 다른 계정이면 연결하지 않는다
+        await firebaseSignOut(auth);
+        this.setKakaoStatus('needs-login');
+        return 'needs-login';
+      }
+    } catch {
+      this.setKakaoStatus('needs-login');
+      return 'needs-login';
+    }
+    this.setKakaoStatus('connected');
+    if (this.currentUser?.id === session.id) {
+      this.notifyAuthChange(this.currentUser);
+    }
+    return 'connected';
+  }
 
   private static notifyAuthChange(user: UserAccount | null): void {
     this.currentUser = user;
@@ -223,150 +332,115 @@ export class AuthService {
    */
   public static async loginWithKakao(customName?: string): Promise<UserAccount> {
     const isSdkReady = initKakaoSdk();
+    const kakao = typeof window !== 'undefined' ? (window as any).Kakao : undefined;
 
-    if (isSdkReady && typeof window !== 'undefined' && (window as any).Kakao?.Auth) {
-      const kakao = (window as any).Kakao;
+    // SDK가 없으면 로컬 전용 카카오 계정을 만들지 않고 실패로 처리한다 (specs/023 REQ-08, AC-17)
+    if (!isSdkReady || !kakao?.Auth || !kakao?.API) {
+      throw new Error(KAKAO_AUTH_FAILED_MESSAGE);
+    }
 
-      return new Promise<UserAccount>((resolve, reject) => {
-        kakao.Auth.login({
-          success: () => {
-            kakao.API.request({
-              url: '/v2/user/me',
-              success: async (res: any) => {
-                const kakaoAccount = res.kakao_account;
-                const kakaoId = res.id ? String(res.id) : SecurityService.generateSecureUID('kakao');
-                const uid = `kakao_${kakaoId}`;
-                const profileImg = kakaoAccount?.profile?.profile_image_url || '/cards/card_002.webp';
-                const email = kakaoAccount?.email || `kakao_${kakaoId}@kakao.com`;
-
-                // 🔑 [1순위] localStorage 기존 세션 확인 — 닉네임 변경 즉시 반영됨, Firestore 규칙 영향 없음
-                const existingLocalSession = AuthService.loadSession();
-                const hasSameUidSession = existingLocalSession?.id === uid && existingLocalSession.provider === 'kakao';
-
-                // 🛡️ [2순위] Firestore에서 기존 계정 프로필 조회 (타 기기 닉네임 변경 반영)
-                const existingProfile = hasSameUidSession ? null : await this.fetchExistingProfile(uid);
-
-                let nickname = '';
-                let avatarMemberId = 'HAEWON';
-                let avatarUrl = profileImg;
-
-                if (hasSameUidSession && existingLocalSession) {
-                  // ✅ 같은 기기에 이미 로그인 기록 있음 → 저장된 닉네임/아바타 그대로 사용
-                  nickname = existingLocalSession.displayName;
-                  avatarMemberId = existingLocalSession.avatarMemberId || 'HAEWON';
-                  avatarUrl = existingLocalSession.avatarUrl || profileImg;
-                } else if (existingProfile && existingProfile.displayName) {
-                  // ✅ 타 기기에서 변경된 닉네임 Firestore에서 복원
-                  nickname = existingProfile.displayName;
-                  avatarMemberId = existingProfile.avatarMemberId || 'HAEWON';
-                  avatarUrl = existingProfile.avatarUrl || profileImg;
-                } else {
-                  nickname = customName?.trim() || kakaoAccount?.profile?.nickname || `카카오_엔써_${kakaoId.substring(0, 4)}`;
-
-                  const available = await AuthService.isNicknameAvailable(nickname, uid);
-                  if (!available && !customName) {
-                    nickname = `${nickname}_${kakaoId.substring(0, 3)}`;
-                  }
-                }
-
-                const newSessionId = `${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
-
-                const account: UserAccount = {
-                  id: uid,
-                  provider: 'kakao',
-                  email,
-                  displayName: sanitizeDisplayName(nickname),
-                  avatarUrl,
-                  avatarMemberId,
-                  createdAt: existingLocalSession?.createdAt || Date.now(),
-                  lastLoginAt: Date.now(),
-                  isCloudSynced: true,
-                  securityHash: '',
-                  sessionId: newSessionId,
-                };
-
-                // ⚠️ 순서 중요: Firestore에 새 sessionId를 먼저 기록하여 타 기기 세션을 즉시 무효화한 뒤 로컬 세션 저장
-                if (db) {
-                  try {
-                    const userDocRef = doc(db, 'nmixx_tcg_users', uid);
-                    await setDoc(userDocRef, {
-                      displayName: account.displayName,
-                      nickname: account.displayName,
-                      email: account.email,
-                      avatarUrl: account.avatarUrl,
-                      avatarMemberId: account.avatarMemberId,
-                      provider: 'kakao',
-                      lastLoginAt: Date.now(),
-                      sessionId: newSessionId,
-                    }, { merge: true });
-                  } catch (e) {
-                    console.warn('[Auth] Firestore sync warning:', e);
-                  }
-                }
-
-                await AuthService.saveSession(account);
-
-                resolve(account);
-              },
-              fail: (err: any) => {
-                console.warn('Kakao profile request error:', err);
-                reject(err);
-              },
-            });
-          },
-          fail: (err: any) => {
-            console.warn('Kakao login popup failed:', err);
-            reject(err);
-          },
-        });
+    // 1. 카카오 팝업 로그인
+    await new Promise<void>((resolve, reject) => {
+      kakao.Auth.login({
+        success: () => resolve(),
+        fail: (err: any) => {
+          console.warn('Kakao login popup failed:', err);
+          reject(new Error('카카오 로그인 처리 중 문제가 발생했습니다.'));
+        },
       });
+    });
+
+    // 2. 카카오 토큰을 서버에서 확인받아 Firebase에 kakao_<회원번호>로 로그인 (AC-01, AC-03, AC-04)
+    const accessToken: string = kakao.Auth.getAccessToken?.() || '';
+    const { uid } = await exchangeKakaoTokenForFirebase(accessToken);
+
+    // 3. 프로필 조회. 실패하면 Firebase 세션만 남지 않게 로그아웃한다 (plan 3절)
+    let res: any;
+    try {
+      res = await new Promise<any>((resolve, reject) => {
+        kakao.API.request({ url: '/v2/user/me', success: resolve, fail: reject });
+      });
+    } catch (err) {
+      console.warn('Kakao profile request error:', err);
+      if (auth) await firebaseSignOut(auth).catch(() => {});
+      throw new Error(KAKAO_AUTH_FAILED_MESSAGE);
+    }
+    const kakaoId = res?.id ? String(res.id) : '';
+    if (!kakaoId || uid !== `kakao_${kakaoId}`) {
+      // 서버가 확인한 회원번호와 프로필 회원번호가 다르면 진행하지 않는다
+      if (auth) await firebaseSignOut(auth).catch(() => {});
+      throw new Error(KAKAO_AUTH_FAILED_MESSAGE);
     }
 
-    // 2. Kakao Developers 키 미등록 시 자동 연동 모드로 Firestore 계정 생성
-    const randomId = SecurityService.generateSecureUID('kakao');
-    const uid = `kakao_${randomId.substring(6, 16)}`;
-    const email = `kakao_${randomId.substring(6, 12)}@kakao.com`;
-    let nickname = customName?.trim() || `카카오_엔써_${randomId.substring(6, 10)}`;
+    const kakaoAccount = res.kakao_account;
+    const profileImg = kakaoAccount?.profile?.profile_image_url || '/cards/card_002.webp';
+    const email = kakaoAccount?.email || `kakao_${kakaoId}@kakao.com`;
 
-    const available = await AuthService.isNicknameAvailable(nickname, uid);
-    if (!available && !customName) {
-      nickname = `${nickname}_${randomId.substring(6, 9)}`;
+    // 🔑 [1순위] localStorage 기존 세션 확인 — 닉네임 변경 즉시 반영됨
+    const existingLocalSession = AuthService.loadSession();
+    const hasSameUidSession = existingLocalSession?.id === uid && existingLocalSession.provider === 'kakao';
+
+    // 🛡️ [2순위] Firestore에서 기존 계정 프로필 조회 (타 기기 닉네임 변경 반영)
+    const existingProfile = hasSameUidSession ? null : await this.fetchExistingProfile(uid);
+
+    let nickname = '';
+    let avatarMemberId = 'HAEWON';
+    let avatarUrl = profileImg;
+
+    if (hasSameUidSession && existingLocalSession) {
+      nickname = existingLocalSession.displayName;
+      avatarMemberId = existingLocalSession.avatarMemberId || 'HAEWON';
+      avatarUrl = existingLocalSession.avatarUrl || profileImg;
+    } else if (existingProfile && existingProfile.displayName) {
+      nickname = existingProfile.displayName;
+      avatarMemberId = existingProfile.avatarMemberId || 'HAEWON';
+      avatarUrl = existingProfile.avatarUrl || profileImg;
+    } else {
+      nickname = customName?.trim() || kakaoAccount?.profile?.nickname || `카카오_엔써_${kakaoId.substring(0, 4)}`;
+
+      const available = await AuthService.isNicknameAvailable(nickname, uid);
+      if (!available && !customName) {
+        nickname = `${nickname}_${kakaoId.substring(0, 3)}`;
+      }
     }
 
-    const localSessionId = `${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
+    const newSessionId = `${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
 
     const account: UserAccount = {
       id: uid,
       provider: 'kakao',
       email,
       displayName: sanitizeDisplayName(nickname),
-      avatarUrl: '/cards/card_002.webp',
-      avatarMemberId: 'HAEWON',
-      createdAt: Date.now(),
+      avatarUrl,
+      avatarMemberId,
+      createdAt: existingLocalSession?.createdAt || Date.now(),
       lastLoginAt: Date.now(),
       isCloudSynced: true,
       securityHash: '',
-      sessionId: localSessionId,
+      sessionId: newSessionId,
     };
 
-    await AuthService.saveSession(account);
-
-    // Firestore에 유저 기본 정보 동기화
+    // ⚠️ 순서 중요: Firestore에 새 sessionId를 먼저 기록하여 타 기기 세션을 즉시 무효화한 뒤 로컬 세션 저장
     if (db) {
       try {
         const userDocRef = doc(db, 'nmixx_tcg_users', uid);
         await setDoc(userDocRef, {
           displayName: account.displayName,
+          nickname: account.displayName,
           email: account.email,
           avatarUrl: account.avatarUrl,
           avatarMemberId: account.avatarMemberId,
           provider: 'kakao',
           lastLoginAt: Date.now(),
+          sessionId: newSessionId,
         }, { merge: true });
       } catch (e) {
         console.warn('[Auth] Firestore sync warning:', e);
       }
     }
+
+    await AuthService.saveSession(account);
+    this.setKakaoStatus('connected');
 
     return account;
   }
@@ -561,6 +635,7 @@ export class AuthService {
       sessionStorage.removeItem(AUTH_STORAGE_KEY);
     } catch (e) {}
 
+    this.setKakaoStatus('none');
     this.notifyAuthChange(null);
   }
 
@@ -584,12 +659,26 @@ export class AuthService {
     const current = this.getCurrentUser();
     callback(current);
 
+    // 카카오 세션이면 Firebase 연결을 확인하고, 필요하면 자동 재연결한다 (specs/023 REQ-04)
+    if (current?.provider === 'kakao') {
+      void this.ensureKakaoConnection();
+    }
+
     // Firebase Auth 상태 변화 감지 리스너
     let unsubFirebase = () => {};
     if (isFirebaseConfigured && auth) {
       unsubFirebase = onAuthStateChanged(auth, async (fbUser) => {
         if (fbUser) {
-          const uid = `goog_${fbUser.uid}`;
+          const mapped = accountIdForFirebaseUser(fbUser.uid);
+          if (mapped.provider === 'kakao') {
+            // 카카오 커스텀 토큰 사용자는 구글 계정으로 처리하지 않는다 (specs/023 AC-07)
+            const session = AuthService.getCurrentUser();
+            if (session?.provider === 'kakao' && session.id === mapped.id) {
+              this.setKakaoStatus('connected');
+            }
+            return;
+          }
+          const uid = mapped.id;
           const account = AuthService.getCurrentUser();
           if (!account || !account.id.includes(fbUser.uid)) {
             // 🛡️ Firestore에서 기존 커스텀 닉네임 우선 조회
@@ -662,6 +751,13 @@ export class AuthService {
 
     const userId = this.currentUser.id;
 
+    // 연결되지 않은 카카오 사용자는 클라우드를 지울 수 없으므로 먼저 다시 연결하게 한다 (specs/023 AC-14)
+    if (auth) await auth.authStateReady();
+    const blocked = kakaoDeleteBlockedMessage(this.currentUser, auth?.currentUser?.uid ?? null);
+    if (blocked) {
+      return { success: false, message: blocked };
+    }
+
     try {
       // 1. Firestore nmixx_tcg_users 문서 삭제
       if (isFirebaseConfigured && db && userId && userId !== 'guest') {
@@ -679,7 +775,7 @@ export class AuthService {
         }
       }
 
-      // 3. Firebase Auth 계정 삭제 (Google 로그인 유저)
+      // 3. Firebase Auth 계정 삭제 (구글, 연결된 카카오 사용자)
       if (auth?.currentUser) {
         try {
           await deleteUser(auth.currentUser);
@@ -705,6 +801,7 @@ export class AuthService {
         keysToRemove.forEach(k => localStorage.removeItem(k));
       } catch (e) {}
 
+      this.setKakaoStatus('none');
       this.notifyAuthChange(null);
       return { success: true, message: '회원 탈퇴가 완료되었습니다.' };
     } catch (error: any) {

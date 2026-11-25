@@ -9,12 +9,15 @@ interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
   onLoginSuccess: (user: UserAccount) => void;
+  /** 창 위쪽에 보여 줄 안내 (예: 카카오 재연결 안내, specs/023 AC-09a) */
+  notice?: string | null;
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({
   isOpen,
   onClose,
   onLoginSuccess,
+  notice,
 }) => {
   const [nicknameInput, setNicknameInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -122,6 +125,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             className="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-purple-500/30 text-white font-serif text-sm focus:outline-none focus:border-pink-400 focus:ring-1 focus:ring-pink-400 transition-all placeholder:text-slate-600"
           />
         </div>
+
+        {notice && (
+          <div className="p-3 rounded-xl bg-amber-500/15 border border-amber-400/40 text-amber-200 text-xs font-sans">
+            ☁️ {notice}
+          </div>
+        )}
 
         {errorMessage && (
           <div className="p-3 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-sans">

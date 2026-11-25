@@ -27,6 +27,9 @@ interface HeaderProps {
   onOpenMarket?: () => void;
   onOpenMailbox: () => void;
   unreadMailCount?: number;
+  /** 카카오 사용자가 Firebase에 연결되지 않아 클라우드 저장이 막힌 상태 (specs/023 AC-10) */
+  cloudSaveBlocked?: boolean;
+  onReconnect?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -40,6 +43,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenProfile,
   onOpenMailbox,
   unreadMailCount = 0,
+  cloudSaveBlocked = false,
+  onReconnect,
 }) => {
 
   const userFav = user ? (MEMBER_BADGES[user.avatarMemberId || 'SULLYOON'] || MEMBER_BADGES.SULLYOON) : null;
@@ -127,6 +132,17 @@ export const Header: React.FC<HeaderProps> = ({
               N COIN
             </span>
           </div>
+
+          {/* ☁️ 카카오 클라우드 저장 막힘 안내 — 누르면 재연결 안내와 함께 로그인 창을 연다 (specs/023 AC-10) */}
+          {user && cloudSaveBlocked && (
+            <button
+              onClick={onReconnect}
+              className="px-2 py-1 rounded-xl bg-amber-500/15 border border-amber-400/50 hover:border-amber-300 text-amber-200 text-[10.5px] font-bold whitespace-nowrap transition-colors cursor-pointer"
+              title="클라우드 저장을 위해 카카오로 다시 로그인해 주세요."
+            >
+              클라우드 저장 안 됨
+            </button>
+          )}
 
           {/* 👤 로그인 상태: 닉네임 확실하게 표시 */}
           {user ? (

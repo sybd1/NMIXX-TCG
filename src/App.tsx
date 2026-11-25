@@ -6,7 +6,8 @@ import { UserAccount } from './types/auth';
 import { GAME_CONFIG, BoosterPackConfig, BOOSTER_PACKS } from './config/gameConfig';
 import { RngService } from './services/rngService';
 import { sound } from './services/soundService';
-import { AuthService } from './services/authService';
+import { AuthService, type KakaoConnectionStatus } from './services/authService';
+import { KAKAO_RELOGIN_MESSAGE } from './services/kakaoConnect';
 import { MultiplayerService } from './services/multiplayerService';
 import { Analytics } from '@vercel/analytics/react';
 
@@ -53,6 +54,10 @@ export const App: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<NavTab>('home');
   const [user, setUser] = useState<UserAccount | null>(() => AuthService.getCurrentUser());
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  // 카카오 사용자의 Firebase 연결 상태 (specs/023 REQ-04)
+  const [kakaoStatus, setKakaoStatus] = useState<KakaoConnectionStatus>('none');
+  const [authNotice, setAuthNotice] = useState<string | null>(null);
+  const kakaoNoticeShownRef = React.useRef(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
   const [isMailboxOpen, setIsMailboxOpen] = useState(false);
@@ -62,6 +67,22 @@ export const App: React.FC = () => {
   useEffect(() => {
     const unsub = AuthService.subscribeAuthState((updatedUser) => {
       setUser(updatedUser);
+    });
+    return () => unsub();
+  }, []);
+
+  // 카카오 재연결이 필요하면 처음 한 번 안내와 함께 로그인 창을 연다. 닫으면 헤더 배지만 남는다 (AC-09a, AC-10)
+  useEffect(() => {
+    const unsub = AuthService.subscribeKakaoConnection((status) => {
+      setKakaoStatus(status);
+      if (status === 'needs-login' && !kakaoNoticeShownRef.current) {
+        kakaoNoticeShownRef.current = true;
+        setAuthNotice(KAKAO_RELOGIN_MESSAGE);
+        setIsAuthModalOpen(true);
+      }
+      if (status !== 'needs-login') {
+        setAuthNotice(null);
+      }
     });
     return () => unsub();
   }, []);
@@ -312,6 +333,11 @@ export const App: React.FC = () => {
         onOpenMarket={() => handleOpenModalWithHistory(() => setIsMarketOpen(true), 'market')}
         onOpenMailbox={() => handleOpenModalWithHistory(() => setIsMailboxOpen(true), 'mailbox')}
         unreadMailCount={unreadMailCount}
+        cloudSaveBlocked={kakaoStatus === 'needs-login'}
+        onReconnect={() => {
+          setAuthNotice(KAKAO_RELOGIN_MESSAGE);
+          handleOpenModalWithHistory(() => setIsAuthModalOpen(true), 'auth');
+        }}
       />
 
       {/* 📢 2. Real-time Global High-Tier Pull Ticker */}
@@ -433,6 +459,7 @@ export const App: React.FC = () => {
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
         onLoginSuccess={(loggedUser) => setUser(loggedUser)}
+        notice={authNotice}
       />
 
       {/* 7. 유저 프로필 모달 */}

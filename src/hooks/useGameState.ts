@@ -9,6 +9,7 @@ import { GAME_CONFIG, RARITY_CONFIGS } from '../config/gameConfig';
 import { sound } from '../services/soundService';
 import { getCardById, MASTER_CARDS } from '../data/cards';
 import { getCompletedAchievementCategories } from '../data/achievements';
+import { chooseKakaoProgress, hasProgress, progressSignature, timestampToMillis } from '../services/progressMerge';
 
 export function useGameState() {
   const currentUser = AuthService.getCurrentUser();
@@ -26,6 +27,9 @@ export function useGameState() {
   const stateRef = React.useRef<GameState>(state);
   // 타 기기로부터 동기화된 상태가 다시 Firestore로 중복 업로드(피드백 루프)되는 것을 방지하기 위한 Ref
   const skipNextCloudSaveRef = React.useRef(false);
+  // 이 기기에서 진행이 마지막으로 바뀐 시각 (specs/023 REQ-05). 진행 필드가 바뀔 때만 갱신한다
+  const localSavedAtRef = React.useRef<number | undefined>(state.localSavedAt);
+  const progressSigRef = React.useRef<string>(progressSignature(state));
 
   // 1. 상태가 바뀔 때마다 해당 유저 전용 스토리지 및 클라우드(Firestore)에 즉각 자동 동기화
   useEffect(() => {
@@ -34,7 +38,15 @@ export function useGameState() {
 
     // ✅ AuthService.getCurrentUser() 대신 ref를 사용 — 로그아웃 타이밍 레이스 방지
     const user = activeUserRef.current;
-    StorageService.saveState(state, user?.id);
+    const sig = progressSignature(state);
+    if (sig !== progressSigRef.current) {
+      progressSigRef.current = sig;
+      // 사용자 행동으로 진행이 바뀐 경우에만 시각을 갱신한다. 불러오기·다른 기기 반영은 제외
+      if (!isSyncingRef.current && !skipNextCloudSaveRef.current) {
+        localSavedAtRef.current = Date.now();
+      }
+    }
+    StorageService.saveState({ ...state, localSavedAt: localSavedAtRef.current }, user?.id);
     sound.setMuted(state.soundMuted);
 
     // 타 기기 데이터 동기화로 인한 상태 변동일 경우, Firestore 재저장은 생략하고 락만 해제
@@ -95,7 +107,10 @@ export function useGameState() {
         coinReset_v16: local?.coinReset_v16 ?? true,
         hasClaimedMmuEasterEgg: cloudData.hasClaimedMmuEasterEgg || false,
         cardEasterEggClaims: local?.cardEasterEggClaims,
+        localSavedAt: timestampToMillis(cloudData.lastSavedAt) ?? local?.localSavedAt,
       };
+      localSavedAtRef.current = userState.localSavedAt;
+      progressSigRef.current = progressSignature(userState);
       StorageService.saveState(userState, activeUserIdRef.current);
       return userState;
     });
@@ -125,8 +140,38 @@ export function useGameState() {
           (user.email && (user.email === 'gjffpdlem@gmail.com' || user.email.includes('chip')));
 
         const cloudData = await CloudSyncService.loadUserGameData(user.id);
+        const localForUser = StorageService.peekState(user.id);
+        localSavedAtRef.current = localForUser?.localSavedAt;
 
-        if (cloudData) {
+        // 카카오 사용자: 클라우드 저장이 멈춘 동안의 로컬 진행을 잃지 않도록 더 최근 쪽을 남긴다 (specs/023 REQ-05, DEC-029)
+        const kakaoKeepsLocal =
+          !!cloudData &&
+          user.provider === 'kakao' &&
+          !isLocalServer() &&
+          hasProgress(localForUser) &&
+          chooseKakaoProgress(localForUser, timestampToMillis(cloudData.lastSavedAt)) === 'local';
+
+        if (cloudData && kakaoKeepsLocal && localForUser) {
+          const keptState: GameState = { ...localForUser, localSavedAt: Date.now() };
+          localSavedAtRef.current = keptState.localSavedAt;
+          progressSigRef.current = progressSignature(keptState);
+          CloudSyncService.forceResetHash();
+          await CloudSyncService.saveUserGameData(user, {
+            collection: keptState.collection,
+            coins: keptState.coins,
+            dust: keptState.dust,
+            pityCounter: keptState.pityCount,
+            totalPacksOpened: keptState.openedPacksTotal,
+            unlockedAchievements: keptState.claimedAchievements || [],
+            claimedSetRewards: keptState.claimedSetRewards || [],
+            claimedMailIds: keptState.claimedMailIds || [],
+            claimedCouponCodes: keptState.claimedCouponCodes || [],
+            hasClaimedMmuEasterEgg: keptState.hasClaimedMmuEasterEgg || false,
+            lastMailClaimDate: keptState.lastMailClaimDate || null,
+          });
+          StorageService.saveState(keptState, user.id);
+          setState(keptState);
+        } else if (cloudData) {
           applyCloudData(cloudData);
         } else {
           // 클라우드 문서가 없을 때만 초기 상태를 한 번 만든다. 운영자도 이후 로그인에서는 덮어쓰지 않는다.
