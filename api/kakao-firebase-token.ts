@@ -3,7 +3,7 @@
 // 필요한 Vercel 환경 변수: FIREBASE_SERVICE_ACCOUNT(서비스 계정 키 JSON, Sensitive), KAKAO_APP_ID(숫자)
 import { cert, getApps, initializeApp, type App } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
-import { fetchKakaoTokenInfo, issueKakaoFirebaseToken } from './_lib/kakaoToken';
+import { fetchKakaoTokenInfo, issueKakaoFirebaseToken } from './_lib/kakaoToken.js';
 
 let adminApp: App | null | undefined;
 
