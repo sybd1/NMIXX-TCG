@@ -10,6 +10,8 @@ import { sound } from '../services/soundService';
 import { getCardById, MASTER_CARDS } from '../data/cards';
 import { getCompletedAchievementCategories } from '../data/achievements';
 import { chooseKakaoProgress, hasProgress, progressSignature, timestampToMillis } from '../services/progressMerge';
+import { activityLog } from '../services/activityLogService';
+import { summarizeRarities } from '../services/activityLog';
 
 export function useGameState() {
   const currentUser = AuthService.getCurrentUser();
@@ -201,6 +203,10 @@ export function useGameState() {
         setTimeout(async () => {
           isSyncingRef.current = false;
 
+          // 행동 로그: 세션 시작과 90일 지난 본인 이벤트 정리 (specs/024 AC-02, AC-10). 결과를 기다리지 않는다
+          activityLog.log(user, 'session_start', {});
+          void activityLog.purgeOld(user);
+
           // ✅ 로그인마다 리더보드 수집률 강제 재계산 및 갱신 (저장된 잘못된 값 덮어쓰기)
           const latestState = stateRef.current;
           const uniqueCards = Object.values(latestState.collection).filter(c => c > 0).length;
@@ -356,7 +362,7 @@ export function useGameState() {
   }, [state.collection, state.pityCount]);
 
   // 원자적 카드팩 개봉 트랜잭션: 재화 차감 + 인벤토리 갱신 + 천장 반영을 단 1회의 트랜잭션으로 커밋
-  const commitPackOpening = useCallback((cost: number, packResults: { cards: Card[]; newPity: number }[]) => {
+  const commitPackOpening = useCallback((cost: number, packResults: { cards: Card[]; newPity: number }[], packId?: string) => {
     if (state.coins < cost) return { success: false, revealed: [] };
 
     const revealed: RevealedCard[] = [];
@@ -422,6 +428,14 @@ export function useGameState() {
       openedPacksTotal: prev.openedPacksTotal + packResults.length,
       packHistory: [...historyItems.reverse(), ...prev.packHistory].slice(0, 50),
     }));
+
+    // 행동 로그 (specs/024 AC-01)
+    activityLog.log(activeUserRef.current, 'pack_open', {
+      packId: packId || 'unknown',
+      packCount: packResults.length,
+      cost,
+      rarities: summarizeRarities(packResults.flatMap((p) => p.cards)),
+    });
 
     return { success: true, revealed };
   }, [state.coins, state.collection, state.pityCount]);
@@ -500,6 +514,10 @@ export function useGameState() {
   }, []);
 
   const claimSetReward = useCallback((setId: string, coinsAmount: number) => {
+    // 행동 로그는 업데이터 밖에서 한 번만 (업데이터는 두 번 실행될 수 있다, specs/024 AC-06)
+    if (!(stateRef.current.claimedSetRewards || []).includes(setId)) {
+      activityLog.log(activeUserRef.current, 'set_reward', { setId, coins: coinsAmount });
+    }
     setState(prev => {
       const alreadyClaimed = (prev.claimedSetRewards || []).includes(setId);
       if (alreadyClaimed) return prev;
@@ -513,6 +531,9 @@ export function useGameState() {
   }, []);
 
   const claimAchievement = useCallback((achievementId: string, rewardCoins: number) => {
+    if (!(stateRef.current.claimedAchievements || []).includes(achievementId)) {
+      activityLog.log(activeUserRef.current, 'achievement', { achievementId, coins: rewardCoins });
+    }
     setState(prev => {
       const alreadyClaimed = (prev.claimedAchievements || []).includes(achievementId);
       if (alreadyClaimed) return prev;
@@ -526,6 +547,9 @@ export function useGameState() {
   }, []);
 
   const claimXrCard = useCallback((cardId: string) => {
+    if (!((stateRef.current.collection[cardId] || 0) > 0)) {
+      activityLog.log(activeUserRef.current, 'xr_card', { cardId });
+    }
     setState(prev => {
       const currentCount = prev.collection[cardId] || 0;
       if (currentCount > 0) return prev;
@@ -570,6 +594,15 @@ export function useGameState() {
       .toISOString()
       .slice(0, 10);
 
+    const before = stateRef.current;
+    const alreadyClaimedMail =
+      mailId === 'mail_daily_support'
+        ? before.lastMailClaimDate === kstToday
+        : (before.claimedMailIds || []).includes(mailId);
+    if (!alreadyClaimedMail) {
+      activityLog.log(activeUserRef.current, 'mail', { mailId, coins: coinsReward });
+    }
+
     setState(prev => {
       // 데일리 응원 우편은 매일 수령 가능하므로 claimedMailIds에 추가하지 않고 lastMailClaimDate만 갱신
       if (mailId === 'mail_daily_support') {
@@ -599,6 +632,7 @@ export function useGameState() {
     const result = MultiplayerService.redeemCoupon(code, claimedCoupons, currentUser);
 
     if (result.success && result.reward) {
+      activityLog.log(activeUserRef.current, 'coupon', { code: result.reward.code, coins: result.reward.coinsReward });
       setState(prev => ({
         ...prev,
         coins: prev.coins + result.reward!.coinsReward,

@@ -38,6 +38,23 @@ service cloud.firestore {
       allow read: if true;
     }
 
+    // 이용자 행동 로그 (specs/024, DEC-031): 본인 이름으로 정해진 형식만 추가, 본인만 읽고 지운다. 수정 불가
+    match /nmixx_tcg_events/{eventId} {
+      allow create: if isOwner(request.resource.data.uid)
+        && request.resource.data.keys().hasOnly(['uid', 'type', 'at', 'kstDate', 'sessionId', 'data'])
+        && request.resource.data.keys().hasAll(['uid', 'type', 'at', 'kstDate', 'sessionId', 'data'])
+        && request.resource.data.type in ['session_start', 'login', 'logout', 'pack_open',
+                                          'set_reward', 'achievement', 'xr_card', 'coupon', 'mail']
+        && request.resource.data.at == request.time
+        && request.resource.data.kstDate is string
+        && request.resource.data.kstDate.matches('[0-9]{4}-[0-9]{2}-[0-9]{2}')
+        && request.resource.data.sessionId is string
+        && request.resource.data.sessionId.size() <= 40
+        && request.resource.data.data is map
+        && request.resource.data.data.size() <= 8;
+      allow read, delete: if isOwner(resource.data.uid);
+    }
+
     // 위에 없는 경로는 모두 거부된다 (AC-18)
   }
 }

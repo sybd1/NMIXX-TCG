@@ -423,7 +423,7 @@ export const App: React.FC = () => {
           pityCount={state.pityCount}
           collection={state.collection}
           onCommitOpening={() => {
-            commitPackOpening(openingState.cost, openingState.packResults);
+            commitPackOpening(openingState.cost, openingState.packResults, openingState.pack.id);
           }}
           onFinish={() => {
             isOpeningLockRef.current = false;
