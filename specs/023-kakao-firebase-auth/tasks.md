@@ -51,6 +51,11 @@
 
 - [x] T015 프로젝트 검사·문서 — `CLAUDE.md`(명령어 `test:unit`·`tsc -p api`, 폴더 구조 `api/`·`tests/unit/`, 환경 변수 이름, 기술 스택), `docs/decisions.md`(DEC-030 확정) — AC-15 — 2026-11-26 아래 "프로젝트 검사" 표 전부 통과. 새 폴더 빌드는 T004에서 통과(이후 의존성 변경 없음). `dist/`·`git log -p --all`·작업 트리에 키 문자열 0건
 - [ ] T016 **운영자** Preview(또는 `vercel dev`) 수동 검증 — Preview 배포 — AC-01~05, 07, 09, 09a, 10, 13, 14, 17 — K1~K5, K7~K12, K14 결과를 검증 기록에 작성. `/api/kakao-firebase-token`이 rewrite에 가로채이지 않는지(K3 응답이 JSON) 확인
+  - 2026-11-26 사전 확인(Claude, 환경 변수 없이): Preview에서 서버 함수가 두 번 실패해 고쳤다.
+    ① 상대 import에 `.js`가 없어 `ERR_MODULE_NOT_FOUND`
+    ② `firebase-admin@14`의 `jwks-rsa@4`가 `jose@6`(ESM)을 `require()`해서 `ERR_REQUIRE_ESM` → `~13.10`으로 낮춤
+  - 수정 후 Preview(`ad4aef1`)에서 `GET /api/kakao-firebase-token`이 `405 {"code":"METHOD_NOT_ALLOWED"}` JSON을 돌려준다. 함수가 로드되고, rewrite가 가로채지 않는다.
+  - POST 판정은 Vercel 환경 변수 등록(T002) 뒤에 확인한다.
 - [ ] T017 **운영자** 운영 배포·확인 — `main` 푸시, 운영 사이트 — AC-06, AC-16 — K13(K1·K5·K7), 하루 뒤 K6
 - [ ] T018 `/sdd-verify` 실행 — 전체 — 모든 AC — 아래 검증 기록 작성
 
