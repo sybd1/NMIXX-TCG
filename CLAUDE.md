@@ -10,22 +10,25 @@ NMIXX 팬이 카드팩을 열어 521종 포토카드를 모으고, 먼저 완성
 - 언어·런타임: TypeScript 5.7 / Node (Vite 6 빌드)
 - 클라이언트: React 18 + Vite 6, Tailwind CSS 3(`~3.4.17` 고정, DEC-025), framer-motion, Three.js(3D 팩), canvas-confetti
 - 데이터·API: 자체 서버 없음. Firebase Auth(구글) + Cloud Firestore, Kakao JS SDK(`index.html`에서 로드), Vercel 호스팅 (DEC-001)
-- 테스트: 자동 테스트 프레임워크 없음. 빌드 가드(이미지 검사 + `tsc`)와 수동 절차로 검증한다 (DEC-019)
+- 테스트: Firestore 보안 규칙만 Vitest + Firestore 에뮬레이터로 자동 테스트한다(`tests/rules/`, DEC-027). 그 밖의 동작은 빌드 가드(이미지 검사 + `tsc`)와 수동 절차로 검증한다 (DEC-019)
 
 새 의존성은 `docs/decisions.md`에 이유를 남긴 뒤 추가한다.
 
 ## 명령어
 
-`✓`는 2026-11-10에 실제 실행해 성공을 확인한 명령이다.
+`✓`는 2026-11-25에 실제 실행해 성공을 확인한 명령이다.
 
 ```bash
 npm ci                           # ✓ lockfile 그대로 설치 (Vercel과 같은 조건)
 npm run dev                      # http://localhost:3000 (vite.config.ts server.port)
-npx tsc --noEmit                 # ✓ 타입 검사 (린트 도구 없음)
-node scripts/verify_images.cjs   # ✓ src 안 이미지 경로가 public/에 대소문자까지 일치하는지 검사 (529개)
+npx tsc --noEmit                 # ✓ 타입 검사 (린트 도구 없음, src/만 검사)
+node scripts/verify_images.cjs   # ✓ src 안 이미지 경로가 public/에 대소문자까지 일치하는지 검사
 npm run build                    # ✓ = verify_images → tsc → vite build, 결과물 dist/
 npm run preview                  # dist/ 미리보기
+npm run test:rules               # ✓ 에뮬레이터(demo-nmixx-tcg)에서 firestore.rules 테스트. JDK 21+가 PATH에 있어야 함
 ```
+
+- 규칙 테스트: 시스템 PATH에 Java가 없으면 실행 전에 `$env:JAVA_HOME="$env:USERPROFILE\.jdks\temurin-21.0.12.1"; $env:Path="$env:JAVA_HOME\bin;$env:Path"`(PowerShell). 운영 Firestore에는 닿지 않는다. 운영 규칙 배포는 콘솔에 붙여넣는다(DEC-027).
 
 - 주의: Tailwind는 v3로 고정한다(DEC-025). 2026-10-19 Dependabot이 v4로 올려 Vercel 배포가 한 달 가까이 실패했고, 로컬 `node_modules`에는 옛 버전이 남아 로컬 빌드로는 드러나지 않았다. 의존성을 바꾸면 새 폴더에서 `npm ci` 후 `npm run build`로 확인한다. Dependabot 규칙은 `.github/dependabot.yml`.
 - 이력: `main`은 2026-08-31 `cf6cea8`부터다. 이전 이력은 `git fetch origin '+refs/pull/*/head:refs/remotes/origin/pr/*'` 후 `git log origin/pr/11`. 요구사항 출처는 GitHub 이슈(product.md 머리말).
@@ -44,7 +47,9 @@ src/pages/            — 탭 화면 5개 + 패치노트(숨김)
 src/components/       — Card, Pack, Navigation, Auth, Multiplayer, Shop, Share, Ranking, EasterEgg
 public/               — 카드·팩 이미지(.webp). 경로는 JSON의 image 필드와 대소문자까지 일치해야 함
 scripts/              — verify_images.cjs(빌드 가드), db_inject.ts·sync_session.cjs(일회성 운영 스크립트)
-firestore.rules       — Firestore 보안 규칙 (콘솔 배포본과 같은지 확인 필요, product.md 7절)
+firestore.rules       — Firestore 보안 규칙 원본 (specs/022). 운영 콘솔 배포는 카카오 Firebase 인증 연동 뒤(DEC-026)
+firebase.json         — 에뮬레이터 설정 전용 (배포에 쓰지 않음)
+tests/rules/          — 규칙 테스트 (setup.ts 공통 헬퍼, 컬렉션별 *.test.ts)
 docs/product.md · docs/decisions.md · specs/NNN-<기능>/
 ```
 
@@ -64,8 +69,8 @@ docs/product.md · docs/decisions.md · specs/NNN-<기능>/
 1. 기능 작업은 `specs/NNN-<기능>/`의 문서를 기준으로 한다. 명세가 없는 기능 요청이면 먼저 `/sdd-spec`을 제안한다.
 2. 단계: `/sdd-spec` → `/sdd-clarify` → `/sdd-plan` → `/sdd-tasks` → `/sdd-implement` → `/sdd-verify`. 요구사항이 바뀌면 `/sdd-change`.
 3. 명세 단계(`/sdd-spec`, `/sdd-clarify`, `/sdd-plan`, `/sdd-tasks`)에서는 소스 코드를 수정하지 않는다.
-4. 구현은 `tasks.md`의 작업 하나씩 진행한다. 자동 테스트가 없으므로 AC는 plan 6절의 수동 절차로 확인하고, 테스트 도입(DEC-020) 이후에는 테스트를 먼저 쓴다.
-5. 계약의 원본은 `src/types/*.ts`, `src/config/gameConfig.ts`, `src/data/card-data/*.json`뿐이다. 명세 문서는 경로만 참조한다.
+4. 구현은 `tasks.md`의 작업 하나씩 진행한다. Firestore 권한은 `tests/rules/`에 테스트를 먼저 쓰고, 자동화되지 않은 AC는 plan 6절의 수동 절차로 확인한다.
+5. 계약의 원본은 `src/types/*.ts`, `src/config/gameConfig.ts`, `src/data/card-data/*.json`, `firestore.rules`(권한)뿐이다. 명세 문서는 경로만 참조한다.
 6. 대화에서 확정한 결정은 즉시 해당 문서에 반영한다. 구조에 영향을 주는 결정은 `docs/decisions.md`에 남긴다.
 
 ## 사실 확인 규칙

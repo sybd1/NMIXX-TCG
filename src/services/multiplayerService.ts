@@ -142,11 +142,9 @@ export class MultiplayerService {
               return;
             }
 
+            // 화면 표시에서만 이름을 바꾼다. 조회 경로에서 다른 사용자의 문서는 쓰지 않는다 (DEC-023, specs/022 AC-07)
             if (data.displayName && (data.displayName.includes('박민주') || data.displayName === '박민주 사랑해')) {
               data.displayName = 'anjffhrkwl';
-              // 가능하면 Firestore 문서도 덮어쓰기 시도 (권한 무시)
-              setDoc(doc(db!, 'nmixx_tcg_leaderboard', uid), { displayName: 'anjffhrkwl' }, { merge: true }).catch(() => {});
-              setDoc(doc(db!, 'nmixx_tcg_users', uid), { displayName: 'anjffhrkwl', nickname: 'anjffhrkwl' }, { merge: true }).catch(() => {});
             }
 
             entries.push({
@@ -500,24 +498,7 @@ export class MultiplayerService {
           rank: data.rank || '-',
         };
       }
-
-      const userRef = doc(db, 'nmixx_tcg_users', uid);
-      const userSnap = await getDoc(userRef);
-      if (userSnap.exists()) {
-        const udata = userSnap.data();
-        const uniqueCardCount = udata.collection ? Object.values(udata.collection).filter((c: any) => c > 0).length : 0;
-        return {
-          uid,
-          displayName: udata.displayName || '엔써_교환자',
-          avatarUrl: udata.avatarUrl || '/cards/card_001.webp',
-          avatarMemberId: udata.avatarMemberId || 'SULLYOON',
-          uniqueCardCount,
-          collectionRate: Math.round((uniqueCardCount / 521) * 1000) / 10,
-          totalPacksOpened: udata.totalPacksOpened || 0,
-          coins: udata.coins || 0,
-          rank: '-',
-        };
-      }
+      // 다른 사용자의 nmixx_tcg_users 문서는 주인만 읽을 수 있다 (specs/022 REQ-01). 랭킹 문서가 없으면 null.
     } catch (e) {
       console.warn('[Multiplayer] fetchUserProfile error:', e);
     }

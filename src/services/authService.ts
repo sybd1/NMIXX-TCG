@@ -93,29 +93,17 @@ export class AuthService {
     }
 
     try {
-      // 1. 유저 컬렉션에서 displayName과 nickname 필드 각각 검색 (두 필드 모두 중복 가드)
-      const q1 = query(
-        collection(db, 'nmixx_tcg_users'),
+      // 공개 문서인 랭킹 문서에서만 검색한다. 유저 문서는 주인만 읽을 수 있다 (specs/022 REQ-01, AC-03b).
+      // 알려진 한계: 랭킹에 오르지 않은 사용자와는 닉네임이 겹칠 수 있다 (AC-03c).
+      const q = query(
+        collection(db, 'nmixx_tcg_leaderboard'),
         where('displayName', '==', cleanName),
         limit(2)
       );
-      const q2 = query(
-        collection(db, 'nmixx_tcg_users'),
-        where('nickname', '==', cleanName),
-        limit(2)
-      );
-      
-      const [snap1, snap2] = await Promise.all([getDocs(q1), getDocs(q2)]);
+      const snap = await getDocs(q);
 
       let isTakenByOther = false;
-      
-      snap1.forEach((docSnap) => {
-        if (docSnap.id !== currentUid) {
-          isTakenByOther = true;
-        }
-      });
-      
-      snap2.forEach((docSnap) => {
+      snap.forEach((docSnap) => {
         if (docSnap.id !== currentUid) {
           isTakenByOther = true;
         }

@@ -22,7 +22,7 @@
 - [x] T006 (변경, 2026-11-10, DEC-023) 조회 시 문서 삭제 제거, `카카오_엔써_` 숨김 해제 — `multiplayerService.ts` 129~143행 — AC-06, AC-11, AC-12 — 타입 검사·빌드 통과, 코드 검토로 `fetchLeaderboard` 안에 `deleteDoc` 없음 확인. AC-11·AC-12 수동 M6·M7은 미실행
 - [ ] T007 대표 카드 정렬 배열에 UC·C 추가, MR > LR 순서 통일 — `RankingPage.tsx` 49행 — (후속)
 - [ ] T008 `521` 하드코딩을 `MASTER_CARDS.length`로 — `RankingPage.tsx`, `LeaderboardModal.tsx`, `multiplayerService.ts` 봇·프로필 — (후속, Q-04)
-- [ ] T010 조회 시 남은 쓰기(`박민주` → `anjffhrkwl` 덮어쓰기) 제거, 운영자 판정의 `GM` 부분 문자열 조건 정리 — `multiplayerService.ts` — DEC-023, spec 7절 (후속)
+- [ ] T010 조회 시 남은 쓰기(`박민주` → `anjffhrkwl` 덮어쓰기) 제거, 운영자 판정의 `GM` 부분 문자열 조건 정리 — `multiplayerService.ts` — DEC-023, spec 7절 (후속) — 앞부분(덮어쓰기 제거)은 specs/022 T009에서 한다
 
 ### 4단계: 통합 검증
 

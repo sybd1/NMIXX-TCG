@@ -1,32 +1,43 @@
 rules_version = '2';
+// NMIXX TCG Firestore 보안 규칙 — specs/022-firestore-rules, DEC-026·DEC-027
+// 이 파일이 운영 규칙의 원본이다. 운영 배포는 Firebase 콘솔에 붙여넣어 게시한다.
+// 검증: npm run test:rules (tests/rules/*.test.ts)
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // 👤 유저 개인 게임 데이터 (컬렉션, 코인, 업적, 쿠폰 이력 등)
-    match /nmixx_tcg_users/{userId} {
-      // 본인의 UID인 경우에만 완전한 읽기 및 쓰기 허용
-      allow read, write: if request.auth != null;
+    // 문서 ID = 계정 ID (DEC-008)
+    // - 구글: 'goog_' + Firebase uid
+    // - 카카오: 커스텀 토큰 uid가 문서 ID 'kakao_<회원번호>'와 같아야 한다 (DEC-027)
+    function isOwner(id) {
+      return request.auth != null && (
+        id == 'goog_' + request.auth.uid ||
+        (id.matches('kakao_.+') && id == request.auth.uid
+          && request.auth.token.firebase.sign_in_provider == 'custom')
+      );
     }
 
-    // 🏆 글로벌 리더보드 (모든 유저 랭킹)
-    match /nmixx_tcg_leaderboard/{userId} {
-      // 모든 사용자가 랭킹 열람 가능
+    // 유저 게임 데이터(이메일·컬렉션 포함): 주인만 읽고 쓴다 (REQ-01)
+    match /nmixx_tcg_users/{id} {
+      allow read, write: if isOwner(id);
+    }
+
+    // 랭킹: 누구나 읽고, 주인만 쓴다 (REQ-02)
+    match /nmixx_tcg_leaderboard/{id} {
       allow read: if true;
-      // 본인의 랭킹 점수만 업데이트 가능
-      allow write: if request.auth != null;
+      allow write: if isOwner(id);
     }
 
-    // 🔄 1:1 카드 교환소 (Marketplace)
+    // 고등급 획득 전광판: 누구나 읽고, 본인 이름으로 추가만 한다. 수정·삭제 불가 (REQ-03)
+    match /nmixx_tcg_global_feed/{itemId} {
+      allow read: if true;
+      allow create: if isOwner(request.resource.data.uid);
+    }
+
+    // 교환소(메뉴 숨김, DEC-022): 읽기만 허용. 다시 열 때 권한을 새로 설계한다 (REQ-04)
     match /nmixx_tcg_market/{tradeId} {
       allow read: if true;
-      allow create: if request.auth != null;
-      allow update, delete: if request.auth != null;
     }
 
-    // 🌟 글로벌 카드 획득 실시간 피드
-    match /nmixx_tcg_feed/{feedId} {
-      allow read: if true;
-      allow create: if request.auth != null;
-    }
+    // 위에 없는 경로는 모두 거부된다 (AC-18)
   }
 }

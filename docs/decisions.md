@@ -205,6 +205,7 @@
 - 결정: (제안) `vitest`를 devDependency로 추가하고 `npm test` 스크립트를 만든다. 각 plan 6절의 "자동화 후보" 열에 적힌 테스트부터 작성한다.
 - 검토한 대안: Playwright E2E — Firebase 로그인 팝업 때문에 비용이 커서 후순위.
 - 영향: 확정되면 CLAUDE.md 명령어·테스트 항목과 작업 방식 4번을 갱신한다.
+- 진행(2026-11-25): Vitest는 DEC-027로 Firestore 규칙 테스트(`tests/rules/`, `npm run test:rules`)에 먼저 도입되었다. 이 항목이 제안한 순수 로직 단위 테스트(`rngService` 등)는 아직 없다. CLAUDE.md는 규칙 테스트 기준으로 갱신했다.
 
 ## DEC-021: main 푸시로 Vercel 자동 배포, COOP·캐시 헤더
 
@@ -253,3 +254,34 @@
 - 근거(2026-11-10 실행): 작업 트리를 새 폴더에 복사해 `npm ci` → `npm run build` 통과(Tailwind 3.4.19). 결과 CSS `index-CWDC3NIO.css`(125,404바이트)가 운영 사이트의 CSS와 바이트 단위로 같다. `postcss-selector-parser`는 6.1.6으로 설치되고 `npm audit`에 나오지 않는다.
 - 검토한 대안: v4로 이전(`@tailwindcss/postcss`, CSS `@import "tailwindcss"`, 설정 이전) — 화면 전체를 다시 확인해야 하고 얻는 기능이 없어 보류. 이전할 때는 이 결정을 대체하는 새 DEC를 쓴다.
 - 영향: 빌드 확인은 로컬 `node_modules`가 아니라 `npm ci` 후에 한다(CLAUDE.md). `npm audit`의 남은 high 5건(firebase 의존 `@grpc/grpc-js`, `re2js`)은 이 결정과 무관하며 별도로 다룬다.
+
+## DEC-026: Firestore 규칙 강화는 카카오 Firebase 인증 연동 뒤에 배포한다
+
+- 날짜: 2026-11-25
+- 상태: 확정
+- 관련: specs/022-firestore-rules (REQ-05, Q-E), DEC-001, DEC-008, product.md Q-01·Q-02
+- 배경: 저장소 `firestore.rules`는 로그인한 누구나 모든 유저·랭킹 문서를 쓸 수 있다. 문서 주인만 쓰게 좁히면, Firebase 인증을 거치지 않는 카카오 사용자(DEC-008)의 저장·랭킹 등록·전광판 추가가 모두 거부된다.
+- 결정: 카카오 로그인 사용자가 Firebase 인증을 받은 상태로 Firestore에 요청하게 만드는 기능을 먼저 운영에 낸다. 기능 022의 규칙은 그 뒤에 배포한다. 규칙 작성과 에뮬레이터 검증은 먼저 해도 된다. 연동 방식(커스텀 토큰 발급 서버 등)은 그 기능의 명세·설계에서 정한다.
+- 검토한 대안: 규칙을 먼저 배포하고 카카오 사용자는 로컬 저장 + 안내 문구 — 카카오 사용자가 랭킹과 기기 간 동기화를 잃어 제외. 연동을 022 범위에 포함 — 범위가 커져 제외.
+- 영향: 연동에 토큰 발급 서버가 필요하면 DEC-001(자체 서버 없음)과 DEC-008(카카오는 Firebase Auth에 로그인하지 않음)을 대체하는 새 결정이 필요하다. 그때까지 저장소 규칙의 느슨한 쓰기 권한이 운영에 남는다(콘솔 배포본이 저장소와 같다면).
+
+## DEC-027: Firestore 규칙의 문서 주인 판단과 에뮬레이터 규칙 테스트
+
+- 날짜: 2026-11-25
+- 상태: 확정
+- 관련: specs/022-firestore-rules (plan 3·5·6절), DEC-002, DEC-008, DEC-019, DEC-020, DEC-026
+- 배경: 문서 ID는 Firebase uid가 아니라 `goog_<uid>`·`kakao_<회원번호>`다. 그래서 `request.auth.uid == id`로는 주인을 판단할 수 없다. 또 규칙의 허용·거부를 확인할 사례가 20개가 넘는데, 자동 테스트 도구가 없다(DEC-019).
+- 결정
+  1. 문서 주인은 `id == 'goog_' + request.auth.uid`, 또는 (`id`가 `kakao_`로 시작하고 `id == request.auth.uid`이며 `sign_in_provider == 'custom'`)으로 판단한다. 기존 문서 ID는 바꾸지 않는다(DEC-002).
+  2. 카카오 Firebase 인증 연동(DEC-026)은 커스텀 토큰의 uid를 문서 ID와 같은 `kakao_<카카오 회원번호>`로 발급해야 한다.
+  3. 규칙은 Firestore 에뮬레이터에서 자동 테스트한다. devDependency로 `vitest`, `@firebase/rules-unit-testing@^5`(6.x는 `firebase@^13`을 요구하는데 이 프로젝트는 12.x라서), `firebase-tools`를 추가하고 `npm run test:rules` 스크립트를 만든다. 에뮬레이터를 쓰려면 로컬에 JDK가 필요하다. 테스트는 `demo-nmixx-tcg` 프로젝트 ID를 써서 운영에 연결되지 않게 한다.
+  4. 운영 배포는 콘솔에 붙여넣는 방식을 유지한다. `firebase.json`은 에뮬레이터 설정용이다.
+- 검토한 대안: 문서 ID를 Firebase uid로 옮기기 — 운영 데이터 이전이 필요해 제외. 콘솔 Rules Playground 수동 확인 — 반복 비용이 커서 제외(2026-11-25 사용자 결정). Firebase CLI 배포 — 운영 로그인이 필요해 보류.
+- 설치 기록(2026-11-25, specs/022 T002)
+  - 설치 버전: `vitest@5.1.2`, `@firebase/rules-unit-testing@5.0.2`(`firebase@12.18.0` 재사용), `firebase-tools@15.37.0`. 첫 실행 때 `cloud-firestore-emulator-v1.22.0.jar`를 내려받는다.
+  - JDK: Temurin 21.0.12.1(`%USERPROFILE%\.jdks	emurin-21.0.12.1`)로 실행을 확인했다. 시스템 PATH에는 Java가 없으므로, `npm run test:rules` 전에 `JAVA_HOME`과 PATH에 JDK `bin`을 넣어야 한다.
+  - 새 폴더 `npm ci --ignore-scripts` 측정(npm 캐시 있음): 추가 전 9초·`node_modules` 355MB → 추가 후 16초·608MB.
+  - 새 폴더 `npm ci` → `npm run build` 통과.
+  - `firebase-tools`가 의존하는 `re2@1.27.2`(optional)에 설치 스크립트가 있다. 그런데 `package.json`의 `allowScripts`에 없어서 npm 11.17이 경고만 내고 실행하지 않는다. Vercel의 npm 버전에서 어떻게 동작하는지는 푸시 후 배포 결과로 확인한다.
+  - `npm audit`: 운영 의존성은 기존 high 5건 그대로(DEC-025). 개발 의존성 포함 시 20건(moderate 14, high 6).
+- 영향: 처음 도입하는 자동 테스트다. DEC-020(Vitest 제안)의 Vitest 도입 부분이 이 결정으로 실현된다. 구현을 마치면 DEC-020 상태와 CLAUDE.md의 "테스트" 항목·명령어를 갱신한다. `firebase-tools` 때문에 Vercel `npm ci` 시간이 늘 수 있다(구현할 때 측정).
