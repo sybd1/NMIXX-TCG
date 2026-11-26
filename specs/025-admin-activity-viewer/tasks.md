@@ -26,7 +26,7 @@
 ### 4단계: 배포·검증
 
 - [x] T007 문서 — `CLAUDE.md`(폴더 구조), `docs/product.md`(기능 025) — 전체 — 2026-11-26
-- [x] T008 규칙 배포·`main` 푸시 — 운영 — 전체 — 2026-11-26 직전 규칙 33/33 → `released rules` → 운영 ruleset `e5c93822…` 본문 = 저장소(true). 비로그인 events 목록 403, leaderboard 200. Vercel·M1 결과는 아래
+- [x] T008 규칙 배포·`main` 푸시 — 운영 — 전체 — 2026-11-26 직전 규칙 33/33 → `released rules` → 운영 ruleset `e5c93822…` 본문 = 저장소(true). 비로그인 events 목록 403, leaderboard 200. `main` `e5b317a` → Vercel `success`. M1(운영, 비로그인 `/#admin`): 권한 없음 문구, 콘솔 오류 0건
 - [ ] T009 **운영자** M2·M3 — 운영 사이트 — AC-05~08, AC-11
 
 ## 검증 기록
