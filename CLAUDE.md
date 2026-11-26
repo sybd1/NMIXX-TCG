@@ -40,12 +40,12 @@ npx tsc -p api --noEmit          # ✓ 서버 함수(api/) 타입 검사 (npm ru
 
 ```text
 src/types/            — 계약 원본: card.ts(Card·Rarity), game.ts(GameState), auth.ts, multiplayer.ts
-src/config/           — gameConfig.ts(가격·확률·팩·더스트), firebase.ts(Firebase·Kakao 초기화)
+src/config/           — gameConfig.ts(가격·확률·팩·더스트), firebase.ts(Firebase·Kakao 초기화), admin.ts(운영자 uid, firestore.rules와 같은 값)
 src/data/card-data/   — 팩별 카드 JSON(op01~op05, special) + sets.json(컨셉 세트)
 src/data/             — cards.ts(MASTER_CARDS 병합), achievements.ts, patchNotes.ts, easterEggs.ts
 src/services/         — rng(추첨), storage(localStorage), cloudSync(Firestore 저장), auth, multiplayer(랭킹·전광판·우편·쿠폰·교환), sound
 src/hooks/useGameState.ts — 게임 상태의 유일한 변경 지점 + 저장·동기화 트리거
-src/pages/            — 탭 화면 5개 + 패치노트(숨김)
+src/pages/            — 탭 화면 5개 + 패치노트(숨김) + Admin(운영자 로그 조회, `/#admin`, specs/025)
 src/components/       — Card, Pack, Navigation, Auth, Multiplayer, Shop, Share, Ranking, EasterEgg
 public/               — 카드·팩 이미지(.webp). 경로는 JSON의 image 필드와 대소문자까지 일치해야 함
 scripts/              — verify_images.cjs(빌드 가드), db_inject.ts·sync_session.cjs(일회성 운영 스크립트)

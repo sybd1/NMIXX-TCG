@@ -1,6 +1,6 @@
 rules_version = '2';
 // NMIXX TCG Firestore 보안 규칙 — specs/022-firestore-rules, DEC-026·DEC-027
-// 이 파일이 운영 규칙의 원본이다. 운영 배포는 Firebase 콘솔에 붙여넣어 게시한다.
+// 이 파일이 운영 규칙의 원본이다. 운영 배포: npx firebase deploy --only firestore:rules (DEC-028)
 // 검증: npm run test:rules (tests/rules/*.test.ts)
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -14,6 +14,14 @@ service cloud.firestore {
         (id.matches('kakao_.+') && id == request.auth.uid
           && request.auth.token.firebase.sign_in_provider == 'custom')
       );
+    }
+
+    // 운영자 (specs/025, DEC-032): 정해진 구글 계정만. 카카오 커스텀 토큰(custom)은 해당 없음.
+    // uid 목록은 src/config/admin.ts의 ADMIN_GOOGLE_UIDS와 같아야 한다. 행동 로그 읽기에만 쓴다.
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.uid in ['jP0i8ASU98UI07d7plZLc4jorfN2']
+        && request.auth.token.firebase.sign_in_provider == 'google.com';
     }
 
     // 유저 게임 데이터(이메일·컬렉션 포함): 주인만 읽고 쓴다 (REQ-01)
@@ -38,7 +46,7 @@ service cloud.firestore {
       allow read: if true;
     }
 
-    // 이용자 행동 로그 (specs/024, DEC-031): 본인 이름으로 정해진 형식만 추가, 본인만 읽고 지운다. 수정 불가
+    // 이용자 행동 로그 (specs/024, DEC-031): 본인 이름으로 정해진 형식만 추가, 본인만 지운다. 읽기는 본인과 운영자(DEC-032). 수정 불가
     match /nmixx_tcg_events/{eventId} {
       allow create: if isOwner(request.resource.data.uid)
         && request.resource.data.keys().hasOnly(['uid', 'type', 'at', 'kstDate', 'sessionId', 'data'])
@@ -52,7 +60,8 @@ service cloud.firestore {
         && request.resource.data.sessionId.size() <= 40
         && request.resource.data.data is map
         && request.resource.data.data.size() <= 8;
-      allow read, delete: if isOwner(resource.data.uid);
+      allow read: if isOwner(resource.data.uid) || isAdmin();
+      allow delete: if isOwner(resource.data.uid);
     }
 
     // 위에 없는 경로는 모두 거부된다 (AC-18)
