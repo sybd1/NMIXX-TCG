@@ -327,9 +327,10 @@
 - 결정
   1. 서버 쪽 처리는 Vercel Function `api/kakao-firebase-token.ts` 하나로 한정한다. 하는 일: 카카오 액세스 토큰을 `kapi.kakao.com/v1/user/access_token_info`로 확인하고, `app_id`가 우리 앱인지 본 뒤, uid `kakao_<id>`로 커스텀 토큰을 발급한다. 게임 로직·데이터 쓰기는 하지 않는다(나머지는 DEC-001대로 클라이언트 + Firestore 규칙).
   2. 자격 증명: Firebase 서비스 계정 키 JSON을 Vercel Sensitive 환경 변수 `FIREBASE_SERVICE_ACCOUNT`(Production·Preview)에 둔다. 카카오 숫자 앱 ID는 `KAKAO_APP_ID`. 저장소·클라이언트 번들에 넣지 않는다.
-  3. `firebase-admin`을 dependencies에 추가한다. 서버 함수에서만 import한다. 14.x는 Node 22 이상이 필요하다.
+  3. `firebase-admin`(~13.10)을 dependencies에 추가한다. 서버 함수에서만 import한다.
 - 설치 기록(2026-11-26, specs/023 T004)
   - `firebase-admin@14.5.1`(의존 패키지 60개 추가)
+  - 2026-11-26 변경: Preview에서 함수가 `ERR_REQUIRE_ESM`으로 실패했다. 원인은 `firebase-admin@14`의 `jwks-rsa@4`가 ESM 전용 `jose@6`을 `require()`하는 것이다. 그래서 `firebase-admin@~13.10.0`(`jwks-rsa@3` → `jose@4`)으로 낮췄다. 같은 날 서버 함수의 상대 import에 `.js` 확장자가 없어 생긴 `ERR_MODULE_NOT_FOUND`도 고쳤다.
   - 서버 함수 타입 검사용 `api/tsconfig.json`을 추가하고, `npm run build`에 `tsc -p api`를 넣었다.
   - 새 폴더 `npm ci`(19초) → `npm run build` 통과. `dist/`에 `firebase-admin`·`private_key` 문자열 0건.
   - `npm audit --omit=dev`: high 5건으로 기존과 같다.

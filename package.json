@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node ./scripts/verify_images.cjs && tsc && vite build",
+    "build": "node ./scripts/verify_images.cjs && tsc && tsc -p api && vite build",
     "preview": "vite preview",
     "test:rules": "firebase emulators:exec --only firestore --project demo-nmixx-tcg \"vitest run tests/rules --no-file-parallelism\"",
     "test:unit": "vitest run tests/unit"
@@ -16,6 +16,7 @@
     "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
     "firebase": "^12.18.0",
+    "firebase-admin": "~13.10.0",
     "framer-motion": "^12.4.7",
     "html-to-image": "^1.11.13",
     "lucide-react": "^1.16.0",

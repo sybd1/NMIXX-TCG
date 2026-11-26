@@ -9,12 +9,15 @@ interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
   onLoginSuccess: (user: UserAccount) => void;
+  /** 창 위쪽에 보여 줄 안내 (예: 카카오 재연결 안내, specs/023 AC-09a) */
+  notice?: string | null;
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({
   isOpen,
   onClose,
   onLoginSuccess,
+  notice,
 }) => {
   const [nicknameInput, setNicknameInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -123,6 +126,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           />
         </div>
 
+        {notice && (
+          <div className="p-3 rounded-xl bg-amber-500/15 border border-amber-400/40 text-amber-200 text-xs font-sans">
+            ☁️ {notice}
+          </div>
+        )}
         {/* 이용 기록 보관 안내 (specs/024 AC-14) */}
         <p className="text-[10.5px] font-sans text-slate-500 leading-relaxed">
           로그인하면 게임 이용 기록이 90일 동안 보관됩니다. 자세한 내용은 정보 탭을 확인해 주세요.

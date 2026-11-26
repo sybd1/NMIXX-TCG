@@ -47,4 +47,9 @@ export interface GameState {
   hasClaimedMmuEasterEgg?: boolean;
   /** 카드별 이스터에그 수령일 (YYYY-MM-DD, KST). 카드당 하루 한 번 */
   cardEasterEggClaims?: Record<string, string>;
+  /**
+   * 이 기기에서 진행이 마지막으로 바뀐 시각(epoch ms). 클라우드에서 받은 상태면 클라우드 lastSavedAt.
+   * 진행 필드가 바뀔 때만 갱신한다. 없으면 기능 023 이전 저장본 (specs/023 REQ-05, DEC-029)
+   */
+  localSavedAt?: number;
 }

@@ -1,0 +1,20 @@
+{
+  // Vercel Function(api/) 타입 검사 전용. 루트 tsconfig는 브라우저(DOM) 대상이라 분리한다 (specs/023 plan 5절)
+  // 실행: npx tsc -p api --noEmit (npm run build에 포함). 실제 번들은 Vercel이 만든다.
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["node"],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+  "include": ["./**/*.ts", "../src/types/auth.ts"]
+}

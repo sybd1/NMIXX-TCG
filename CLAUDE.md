@@ -9,7 +9,7 @@ NMIXX 팬이 카드팩을 열어 521종 포토카드를 모으고, 먼저 완성
 
 - 언어·런타임: TypeScript 5.7 / Node (Vite 6 빌드)
 - 클라이언트: React 18 + Vite 6, Tailwind CSS 3(`~3.4.17` 고정, DEC-025), framer-motion, Three.js(3D 팩), canvas-confetti
-- 데이터·API: 자체 서버 없음. Firebase Auth(구글) + Cloud Firestore, Kakao JS SDK(`index.html`에서 로드), Vercel 호스팅 (DEC-001)
+- 데이터·API: 게임용 자체 서버 없음(DEC-001). Firebase Auth(구글, 카카오는 커스텀 토큰) + Cloud Firestore, Kakao JS SDK(`index.html`에서 로드), Vercel 호스팅. 서버 함수는 카카오 토큰 교환 1개뿐(`api/`, DEC-030)
 - 테스트: Firestore 보안 규칙만 Vitest + Firestore 에뮬레이터로 자동 테스트한다(`tests/rules/`, DEC-027). 그 밖의 동작은 빌드 가드(이미지 검사 + `tsc`)와 수동 절차로 검증한다 (DEC-019)
 
 새 의존성은 `docs/decisions.md`에 이유를 남긴 뒤 추가한다.
@@ -27,6 +27,7 @@ npm run build                    # ✓ = verify_images → tsc → vite build, �
 npm run preview                  # dist/ 미리보기
 npm run test:rules               # ✓ 에뮬레이터(demo-nmixx-tcg)에서 firestore.rules 테스트. JDK 21+가 PATH에 있어야 함
 npm run test:unit                # ✓ 단위 테스트(tests/unit, 에뮬레이터 불필요)
+npx tsc -p api --noEmit          # ✓ 서버 함수(api/) 타입 검사 (npm run build에 포함)
 ```
 
 - 규칙 테스트: 시스템 PATH에 Java가 없으면 실행 전에 `$env:JAVA_HOME="$env:USERPROFILE\.jdks\temurin-21.0.12.1"; $env:Path="$env:JAVA_HOME\bin;$env:Path"`(PowerShell). 운영 Firestore에는 닿지 않는다. 운영 규칙·인덱스 배포: `npx firebase deploy --only firestore:rules,firestore:indexes --project nmixx-tcg`(Firebase CLI 로그인 필요, DEC-028). 배포 전에 `test:rules`를 통과시킨다.
@@ -52,6 +53,7 @@ firestore.rules       — Firestore 보안 규칙 원본 (specs/022). 2026-11-26
 firebase.json         — 규칙 경로와 에뮬레이터 설정 (CLI 규칙 배포·테스트에 씀)
 tests/rules/          — 규칙 테스트 (setup.ts 공통 헬퍼, 컬렉션별 *.test.ts)
 tests/unit/           — 단위 테스트 (Vitest)
+api/                  — Vercel Function. kakao-firebase-token.ts(카카오→Firebase 커스텀 토큰, DEC-030). 환경 변수 FIREBASE_SERVICE_ACCOUNT·KAKAO_APP_ID(Vercel, 저장소에 넣지 않음)
 firestore.indexes.json — Firestore 복합 인덱스 (nmixx_tcg_events uid+at). 규칙과 함께 CLI로 배포
 docs/product.md · docs/decisions.md · specs/NNN-<기능>/
 ```
