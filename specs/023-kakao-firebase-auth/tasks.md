@@ -62,6 +62,7 @@
     - `POST {accessToken:'x', id:'123'}` → 401(본문 id 무시)
     - 실제 카카오 토큰으로 커스텀 토큰 서명(200)은 카카오 로그인이 필요해 운영자 K1에서 확인
 - [ ] T017 **운영자** 운영 배포·확인 — `main` 푸시, 운영 사이트 — AC-06, AC-16 — K13(K1·K5·K7), 하루 뒤 K6
+  - 2026-11-26 배포(Claude): `main` 병합 `66754b5` → Vercel `success`. 운영 `GET /api/kakao-firebase-token` 405, 임의 토큰 `POST` 401 `KAKAO_TOKEN_INVALID`, 첫 화면 200·콘솔 오류 0건(비로그인). 카카오 로그인 확인(K1·K5·K7·K13)과 하루 뒤 K6은 운영자
 - [ ] T018 `/sdd-verify` 실행 — 전체 — 모든 AC — 아래 검증 기록 작성
 
 ## 검증 기록
