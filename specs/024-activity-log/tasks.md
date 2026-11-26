@@ -29,6 +29,7 @@
 - [x] T008 프로젝트 검사·문서 — `CLAUDE.md`(명령 `test:unit`, 폴더 `tests/unit/`·`firestore.indexes.json`, 행동 로그 규칙, 배포 명령) — 전체 — 2026-11-26 아래 표 전부 통과
 - [x] T009 운영 배포 — `firebase deploy --only firestore:rules,firestore:indexes`, `main` 푸시 — 전체 — 2026-11-26 규칙·인덱스 배포 완료: 직전 규칙 테스트 27/27 → `released rules` → 운영 ruleset `0bb6a748…` 본문 = 저장소(API 비교 true), 인덱스 `nmixx_tcg_events (uid, at)` 생성 확인. 로그인 없는 요청: users 읽기 403, leaderboard·feed·market 읽기 200, events 읽기 403, users·leaderboard·feed·events 쓰기 403(배포 전과 같고 events만 추가). 직전 ruleset은 `d4e4458c…`. `main` 푸시 `566deb0` → Vercel `success`. 운영 사이트(비로그인): 정보 탭 고지 표시, 랭킹 Top 50(51행), Firestore 요청은 읽기(Listen)만, 콘솔 오류 0건
 - [ ] T010 **운영자** 운영 수동 확인 — 운영 사이트 — AC-01, 02, 06, 07, 08, 10, 12 — E1~E5
+  - 2026-11-26 운영 `nmixx_tcg_events` 조회(운영자 CLI 권한): 이벤트 6건 — session_start 3, login 1, logout 1, pack_open 1. 구글·카카오 계정 모두 기록됨(E1 일부). E2~E5 미실행
 - [x] T011 `/sdd-verify` — 전체 — 2026-11-26 검증 기록 작성: 통과 7, 미실행 7(로그인 필요한 운영 확인 E1~E5). Verified 아님
 
 ## 검증 기록
