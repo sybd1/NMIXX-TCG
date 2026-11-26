@@ -45,3 +45,6 @@ scratch/
 *.rar
 *.tar.gz
 
+
+# Firebase 서비스 계정 키 (DEC-030) — 절대 커밋하지 않는다
+*firebase-adminsdk*.json

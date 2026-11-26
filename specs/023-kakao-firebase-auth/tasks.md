@@ -17,8 +17,8 @@
 
 - [x] T001 [P] 카카오 토큰 확인 API 사양 확인 — `specs/023-kakao-firebase-auth/plan.md` 5절 — AC-01, AC-03 — 2026-11-26 공식 문서로 확인: `GET kapi.kakao.com/v1/user/access_token_info`, 응답 `id`·`app_id`·`expires_in`, 오류 `-401`(401)·`-2`·`-1`·`-7`(400). plan 5절의 `[확인 필요]`를 지우고 오류 코드 매핑을 적음
 - [ ] T002 [P] **운영자** 외부 설정 준비 — Firebase 콘솔, Vercel 프로젝트 설정, 카카오 개발자 콘솔 — 전체 — 아래 4개를 확인하고 결과를 plan 7절에 기록
-  - Firebase 서비스 계정 키를 Vercel Sensitive 변수 `FIREBASE_SERVICE_ACCOUNT`로 등록(Production·Preview)
-  - 카카오 숫자 앱 ID를 `KAKAO_APP_ID`로 등록
+  - [x] Firebase 서비스 계정 키를 Vercel Sensitive 변수 `FIREBASE_SERVICE_ACCOUNT`로 등록(Production·Preview) — 2026-11-26 운영자 등록. Vercel API로 확인: type `sensitive`(Secret), target production·preview
+  - [x] 카카오 숫자 앱 ID를 `KAKAO_APP_ID`로 등록 — 2026-11-26 `1554532`, production·preview
   - 카카오 플랫폼 사이트 도메인에 `http://localhost:3000`과 Preview 도메인 등록 여부
   - 카카오 로그인 후 새로고침해도 `Kakao.Auth.getAccessToken()`이 값을 돌려주는지(브라우저 콘솔에서 확인)
 - [ ] T003 [P] **운영자** 구글 사용자 새로고침 직후 Firestore 거부 여부 확인(기능 022 영향) — 운영 사이트 — AC-08 — 구글 테스트 계정으로 로그인 → 새로고침 → 브라우저 콘솔에 `permission-denied`·`[CloudSync] onSnapshot error`가 없는지 확인. 있으면 T014를 연다
@@ -55,7 +55,12 @@
     ① 상대 import에 `.js`가 없어 `ERR_MODULE_NOT_FOUND`
     ② `firebase-admin@14`의 `jwks-rsa@4`가 `jose@6`(ESM)을 `require()`해서 `ERR_REQUIRE_ESM` → `~13.10`으로 낮춤
   - 수정 후 Preview(`ad4aef1`)에서 `GET /api/kakao-firebase-token`이 `405 {"code":"METHOD_NOT_ALLOWED"}` JSON을 돌려준다. 함수가 로드되고, rewrite가 가로채지 않는다.
-  - POST 판정은 Vercel 환경 변수 등록(T002) 뒤에 확인한다.
+  - 2026-11-26 환경 변수 등록 후 Preview(`bcbbb7a`, `dpl_BwmFp6k4…`)에서 curl로 확인:
+    - `GET` → 405 `METHOD_NOT_ALLOWED`
+    - `POST {}` → 400 `INVALID_REQUEST`
+    - `POST {accessToken:'fake…'}` → 401 `KAKAO_TOKEN_INVALID`(카카오 -401). 설정 검사가 카카오 호출보다 앞이므로 `SERVER_MISCONFIGURED`가 아니라는 것은 키 JSON 파싱·`cert()`가 성공했다는 뜻
+    - `POST {accessToken:'x', id:'123'}` → 401(본문 id 무시)
+    - 실제 카카오 토큰으로 커스텀 토큰 서명(200)은 카카오 로그인이 필요해 운영자 K1에서 확인
 - [ ] T017 **운영자** 운영 배포·확인 — `main` 푸시, 운영 사이트 — AC-06, AC-16 — K13(K1·K5·K7), 하루 뒤 K6
 - [ ] T018 `/sdd-verify` 실행 — 전체 — 모든 AC — 아래 검증 기록 작성
 
@@ -68,7 +73,7 @@
 |---|---|---|---|
 | AC-01 | 미실행 | | |
 | AC-02 | 미실행 | | |
-| AC-03 | 미실행 | | |
+| AC-03 | 통과 | 단위 `app_id 불일치 거부`·`카카오 401 거부`·`본문의 id 무시`, 규칙 `kakao: 타인 문서 거부` 통과. Preview curl: 임의 토큰 → 401 `KAKAO_TOKEN_INVALID`, 본문 id 위조 → 401 (K3) | 2026-11-26 |
 | AC-04 | 미실행 | | |
 | AC-05 | 미실행 | | |
 | AC-06 | 미실행 | | |
@@ -91,12 +96,12 @@
 
 | 검사 | 명령 | 결과 |
 |---|---|---|
-| 단위 테스트 | `npm run test:unit` | 통과 — 47/47 (2026-11-26) |
-| 규칙 테스트 | `npm run test:rules` | 통과 — 18/18 (2026-11-26) |
+| 단위 테스트 | `npm run test:unit` | 통과 — 64/64 (2026-11-26, main 병합 후 `npm ci`) |
+| 규칙 테스트 | `npm run test:rules` | 통과 — 27/27 (2026-11-26, main 병합 후) |
 | 타입(클라이언트) | `npx tsc --noEmit` | 통과 (2026-11-26) |
 | 타입(서버 함수) | `npx tsc -p api --noEmit` | 통과 (2026-11-26) |
-| 빌드(이미지 검사 포함) | `npm run build` | 통과 (2026-11-26) |
-| 비밀 유출 검사 | `dist/`와 `git log -p`에서 `private_key` 검색 | 통과 — 0건 (2026-11-26) |
+| 빌드(이미지 검사 포함) | `npm run build` | 통과 (2026-11-26, main 병합 후, `tsc -p api` 포함) |
+| 비밀 유출 검사 | `dist/`와 `git log -p`에서 `private_key` 검색 | 통과 — 0건 (2026-11-26, 병합 후 `git grep` 0건) |
 
 ### 영향받는 기존 흐름
 
