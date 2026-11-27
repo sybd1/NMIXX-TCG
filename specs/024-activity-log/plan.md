@@ -1,7 +1,7 @@
 # Plan 024: 이용자 행동 로그
 
-- 상태: Implementing
-- 최종 수정일: 2026-11-26
+- 상태: Ready
+- 최종 수정일: 2026-11-27
 - 기준 spec: [spec.md](spec.md) (2026-11-26, Ready — 잠정 결정 DEC-031)
 
 > 이 문서는 spec을 **어떻게** 구현하는지 적는다. 요구사항을 새로 만들지 않는다.
@@ -88,7 +88,7 @@ export interface ActivityEventDoc<T extends ActivityEventType = ActivityEventTyp
   data: ActivityEventDataMap[T];   // 키 8개 이하
 }
 
-export const ACTIVITY_RETENTION_DAYS = 90;
+export const ACTIVITY_RETENTION_DAYS = 365; // 1년 (DEC-033, 처음 90일)
 export const ACTIVITY_PURGE_LIMIT = 100;
 ```
 
@@ -121,7 +121,7 @@ match /nmixx_tcg_events/{eventId} {
   "fieldOverrides": [] }
 ```
 
-- 오래된 이벤트 정리 쿼리 `where uid == me && where at < (지금 − 90일) && limit 100`에 필요하다.
+- 오래된 이벤트 정리 쿼리 `where uid == me && where at < (지금 − 365일) && limit 100`에 필요하다.
 - 운영의 기존 인덱스는 비어 있으므로, 배포해도 지워지는 인덱스가 없다.
 
 ### 서비스 (src/services/activityLogService.ts)
@@ -182,7 +182,7 @@ export async function deleteAllActivity(uid: string): Promise<void>;            
 - **E1**: 운영 사이트에서 테스트 구글 계정 로그인 → 팩 1개 → 콘솔 `nmixx_tcg_events`를 `uid == goog_<uid>`로 거름 → `login`, `session_start`, `pack_open` 문서와 필드 확인 → 로그아웃 → `logout` 확인
 - **E2**: 새 보상(세트·업적·우편·쿠폰) 받기 → 이벤트 1개씩. 같은 보상을 다시 누르면 늘지 않는다.
 - **E3**: 콘솔 필터 `uid ==`, 정렬 `at`
-- **E4**: 테스트 계정 이벤트 하나의 `at`을 콘솔에서 91일 전으로 바꾸고 재접속 → 그 문서가 사라짐
+- **E4**: 테스트 계정 이벤트 하나의 `at`을 콘솔에서 366일(1년+1일) 전으로 바꾸고 재접속 → 그 문서가 사라짐
 - **E5**: 테스트 계정 탈퇴 → `uid ==` 결과 0건
 - **E6**: `npm run dev` → 정보 탭과 로그인 창에서 문구 확인
 

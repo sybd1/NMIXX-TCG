@@ -52,5 +52,6 @@ export interface ActivityEventDoc<T extends ActivityEventType = ActivityEventTyp
 }
 
 export const ACTIVITY_COLLECTION = 'nmixx_tcg_events';
-export const ACTIVITY_RETENTION_DAYS = 90;
+/** 보관 기간 1년 (DEC-033, 처음 90일) */
+export const ACTIVITY_RETENTION_DAYS = 365;
 export const ACTIVITY_PURGE_LIMIT = 100;

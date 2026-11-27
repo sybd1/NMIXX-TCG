@@ -134,10 +134,10 @@ describe('createActivityLogger', () => {
     warn.mockRestore();
   });
 
-  it('purgeOld: 90일 전 기준으로 최대 100개를 지운다 (AC-10)', async () => {
+  it('purgeOld: 1년(365일) 전 기준으로 최대 100개를 지운다 (AC-10)', async () => {
     const d = deps({ queryOldIds: vi.fn(async () => ['e1', 'e2']) });
     await createActivityLogger(d).purgeOld(user());
-    expect(d.queryOldIds).toHaveBeenCalledWith('goog_A', NOW - 90 * 24 * 60 * 60 * 1000, 100);
+    expect(d.queryOldIds).toHaveBeenCalledWith('goog_A', NOW - 365 * 24 * 60 * 60 * 1000, 100);
     expect(d.deleteIds).toHaveBeenCalledWith(['e1', 'e2']);
   });
 

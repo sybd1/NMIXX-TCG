@@ -93,14 +93,15 @@ describe('events', () => {
   });
 
   it('오래된 이벤트 정리 쿼리·삭제 허용 — 본인 (AC-10)', async () => {
-    const old = Date.now() - 100 * 24 * 3600 * 1000;
-    await seed(env, { [`${EVENTS}/old`]: seeded('goog_A', old), [`${EVENTS}/new`]: seeded('goog_A', Date.now()) });
+    const old = Date.now() - 400 * 24 * 3600 * 1000;
+    const recent = Date.now() - 100 * 24 * 3600 * 1000; // 90일은 지났지만 1년 안 (DEC-033)
+    await seed(env, { [`${EVENTS}/old`]: seeded('goog_A', old), [`${EVENTS}/recent`]: seeded('goog_A', recent), [`${EVENTS}/new`]: seeded('goog_A', Date.now()) });
     const db = googleUser(env, 'A').firestore();
-    const cutoff = Timestamp.fromMillis(Date.now() - 90 * 24 * 3600 * 1000);
+    const cutoff = Timestamp.fromMillis(Date.now() - 365 * 24 * 3600 * 1000);
     const snap = await assertSucceeds(db.collection(EVENTS).where('uid', '==', 'goog_A').where('at', '<', cutoff).limit(100).get());
     expect(snap.docs.map((d) => d.id)).toEqual(['old']);
     await assertSucceeds(db.doc(`${EVENTS}/old`).delete());
-    expect(await countAsAdmin(env, EVENTS)).toBe(1);
+    expect(await countAsAdmin(env, EVENTS)).toBe(2);
   });
 
   it('본인 삭제 허용, 타인 삭제 거부 (AC-12)', async () => {

@@ -22,6 +22,7 @@ import { UserAccount } from '../types/auth';
 import { SecurityService } from './securityService';
 import { CloudSyncService } from './cloudSyncService';
 import { activityLog } from './activityLogService';
+import { deleteMetricsIdentity, metrics } from './metricsService';
 import {
   KAKAO_AUTH_FAILED_MESSAGE,
   KAKAO_TOKEN_ENDPOINT,
@@ -308,6 +309,7 @@ export class AuthService {
 
         await AuthService.saveSession(account);
         activityLog.log(account, 'login', { provider: 'google' }); // specs/024
+        metrics.identify(account.id); // specs/026: 방문자 ID ↔ 계정 ID
 
         return account;
       } catch (err: any) {
@@ -444,6 +446,7 @@ export class AuthService {
     await AuthService.saveSession(account);
     this.setKakaoStatus('connected');
     activityLog.log(account, 'login', { provider: 'kakao' }); // specs/024
+    metrics.identify(account.id); // specs/026: 방문자 ID ↔ 계정 ID
 
     return account;
   }
@@ -769,6 +772,7 @@ export class AuthService {
     if (isFirebaseConfigured && db && auth?.currentUser) {
       try {
         await activityLog.deleteAll(userId);
+        await deleteMetricsIdentity(userId); // specs/026: 계정과 연결된 분석 기록
       } catch (e) {
         console.warn('[Auth] Failed to delete activity events:', e);
         return { success: false, message: '탈퇴 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.' };

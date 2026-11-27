@@ -133,7 +133,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         )}
         {/* 이용 기록 보관 안내 (specs/024 AC-14) */}
         <p className="text-[10.5px] font-sans text-slate-500 leading-relaxed">
-          로그인하면 게임 이용 기록이 90일 동안 보관됩니다. 자세한 내용은 정보 탭을 확인해 주세요.
+          로그인하면 게임 이용 기록이 1년 동안 보관됩니다. 자세한 내용은 정보 탭을 확인해 주세요.
         </p>
 
         {errorMessage && (

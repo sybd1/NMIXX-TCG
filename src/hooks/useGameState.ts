@@ -11,6 +11,7 @@ import { getCardById, MASTER_CARDS } from '../data/cards';
 import { getCompletedAchievementCategories } from '../data/achievements';
 import { chooseKakaoProgress, hasProgress, progressSignature, timestampToMillis } from '../services/progressMerge';
 import { activityLog } from '../services/activityLogService';
+import { metrics } from '../services/metricsService';
 import { summarizeRarities } from '../services/activityLog';
 
 export function useGameState() {
@@ -203,7 +204,7 @@ export function useGameState() {
         setTimeout(async () => {
           isSyncingRef.current = false;
 
-          // 행동 로그: 세션 시작과 90일 지난 본인 이벤트 정리 (specs/024 AC-02, AC-10). 결과를 기다리지 않는다
+          // 행동 로그: 세션 시작과 보관 기간(1년) 지난 본인 이벤트 정리 (specs/024 AC-02, AC-10). 결과를 기다리지 않는다
           activityLog.log(user, 'session_start', {});
           void activityLog.purgeOld(user);
 
@@ -428,6 +429,15 @@ export function useGameState() {
       openedPacksTotal: prev.openedPacksTotal + packResults.length,
       packHistory: [...historyItems.reverse(), ...prev.packHistory].slice(0, 50),
     }));
+
+    // 분석 기록 (specs/026 AC-06): 게스트 포함, 개봉 뒤 수집 종류 수
+    metrics.pack({
+      packId: packId || 'unknown',
+      packCount: packResults.length,
+      owned: Object.values(newCollection).filter((n) => n > 0).length,
+      total: MASTER_CARDS.length,
+      rarities: summarizeRarities(packResults.flatMap((p) => p.cards)),
+    });
 
     // 행동 로그 (specs/024 AC-01)
     activityLog.log(activeUserRef.current, 'pack_open', {

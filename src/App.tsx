@@ -10,6 +10,8 @@ import { AuthService, type KakaoConnectionStatus } from './services/authService'
 import { KAKAO_RELOGIN_MESSAGE } from './services/kakaoConnect';
 import { MultiplayerService } from './services/multiplayerService';
 import { Analytics } from '@vercel/analytics/react';
+import { metrics } from './services/metricsService';
+import type { ScreenName } from './types/metrics';
 
 import { CosmicBackground } from './components/Background/CosmicBackground';
 import { FlyingMmuShip } from './components/EasterEgg/FlyingMmuShip';
@@ -103,6 +105,11 @@ export const App: React.FC = () => {
     state.openedPacksTotal || 0,
     state.coinsSpentTotal || ((state.openedPacksTotal || 0) * 100),
   );
+
+  // 화면 이동 기록 (specs/026 REQ-01): 탭 화면과 개봉 화면. 같은 화면이면 metrics가 무시한다
+  useEffect(() => {
+    metrics.screen(openingState ? 'opening' : (currentTab as ScreenName));
+  }, [currentTab, openingState]);
 
   // 개봉 중복 호출 방지용 락
   const isOpeningLockRef = useRef(false);

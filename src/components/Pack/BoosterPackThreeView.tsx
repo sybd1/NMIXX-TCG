@@ -6,6 +6,7 @@ import {
   generateFoilNormalMap,
   createPackColorTexture,
 } from './BoosterPack3DScene';
+import { metrics } from '../../services/metricsService';
 
 interface BoosterPackThreeViewProps {
   pack: BoosterPackConfig;
@@ -26,6 +27,13 @@ export const BoosterPackThreeView: React.FC<BoosterPackThreeViewProps> = ({
   useEffect(() => {
     const container = mountRef.current;
     if (!container) return;
+
+    // 3D 성능 기록 (specs/026 AC-11): 준비 시간(첫 렌더까지), 보이는 동안의 평균 프레임
+    const perfStart = performance.now();
+    let readyMs: number | null = null;
+    let frames = 0;
+    let activeMs = 0;
+    let lastFrameAt = 0;
 
     const width = container.clientWidth || 300;
     const height = container.clientHeight || 450;
@@ -157,6 +165,15 @@ export const BoosterPackThreeView: React.FC<BoosterPackThreeViewProps> = ({
         keyPointLight.position.y = mouseRef.current.y * 3.0 + 2.0;
 
         renderer.render(scene, camera);
+
+        const t = performance.now();
+        if (readyMs === null) readyMs = Math.round(t - perfStart);
+        // 250ms 넘게 비면(화면 밖·백그라운드) 그 사이는 빼고 센다
+        if (lastFrameAt > 0 && t - lastFrameAt < 250) {
+          activeMs += t - lastFrameAt;
+          frames += 1;
+        }
+        lastFrameAt = t;
       }
     };
 
@@ -189,6 +206,14 @@ export const BoosterPackThreeView: React.FC<BoosterPackThreeViewProps> = ({
     // 7. Cleanup
     return () => {
       isDisposed = true;
+      if (readyMs !== null) {
+        metrics.pack3d({
+          mode: '3d',
+          readyMs,
+          avgFps: activeMs >= 1000 ? Math.round((frames / activeMs) * 10000) / 10 : null,
+          frames,
+        });
+      }
       observer.disconnect();
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       cancelAnimationFrame(animationId);

@@ -8,7 +8,7 @@ NMIXX 팬이 카드팩을 열어 521종 포토카드를 모으고, 먼저 완성
 ## 기술 스택
 
 - 언어·런타임: TypeScript 5.7 / Node (Vite 6 빌드)
-- 클라이언트: React 18 + Vite 6, Tailwind CSS 3(`~3.4.17` 고정, DEC-025), framer-motion, Three.js(3D 팩), canvas-confetti
+- 클라이언트: React 18 + Vite 6, Tailwind CSS 3(`~3.4.17` 고정, DEC-025), framer-motion, Three.js(3D 팩), canvas-confetti, web-vitals(첫 화면 로딩 지표, DEC-035)
 - 데이터·API: 게임용 자체 서버 없음(DEC-001). Firebase Auth(구글, 카카오는 커스텀 토큰) + Cloud Firestore, Kakao JS SDK(`index.html`에서 로드), Vercel 호스팅. 서버 함수는 카카오 토큰 교환 1개뿐(`api/`, DEC-030)
 - 테스트: Firestore 보안 규칙만 Vitest + Firestore 에뮬레이터로 자동 테스트한다(`tests/rules/`, DEC-027). 그 밖의 동작은 빌드 가드(이미지 검사 + `tsc`)와 수동 절차로 검증한다 (DEC-019)
 
@@ -43,9 +43,9 @@ src/types/            — 계약 원본: card.ts(Card·Rarity), game.ts(GameStat
 src/config/           — gameConfig.ts(가격·확률·팩·더스트), firebase.ts(Firebase·Kakao 초기화), admin.ts(운영자 uid, firestore.rules와 같은 값)
 src/data/card-data/   — 팩별 카드 JSON(op01~op05, special) + sets.json(컨셉 세트)
 src/data/             — cards.ts(MASTER_CARDS 병합), achievements.ts, patchNotes.ts, easterEggs.ts
-src/services/         — rng(추첨), storage(localStorage), cloudSync(Firestore 저장), auth, multiplayer(랭킹·전광판·우편·쿠폰·교환), sound
+src/services/         — rng(추첨), storage(localStorage), cloudSync(Firestore 저장), auth, multiplayer(랭킹·전광판·우편·쿠폰·교환), sound, activityLog(행동 로그), metrics(분석·성능 기록)
 src/hooks/useGameState.ts — 게임 상태의 유일한 변경 지점 + 저장·동기화 트리거
-src/pages/            — 탭 화면 5개 + 패치노트(숨김) + Admin(운영자 로그 조회, `/#admin`, specs/025)
+src/pages/            — 탭 화면 5개 + 패치노트(숨김) + Admin(운영자 로그 조회·지표 탭, `/#admin`, specs/025·026)
 src/components/       — Card, Pack, Navigation, Auth, Multiplayer, Shop, Share, Ranking, EasterEgg
 public/               — 카드·팩 이미지(.webp). 경로는 JSON의 image 필드와 대소문자까지 일치해야 함
 scripts/              — verify_images.cjs(빌드 가드), db_inject.ts·sync_session.cjs(일회성 운영 스크립트)
@@ -65,7 +65,7 @@ docs/product.md · docs/decisions.md · specs/NNN-<기능>/
 - 등급별 확률·더스트·가격은 `src/config/gameConfig.ts` 한 곳에서 바꾼다. 단, 추첨 가중치는 `rngService.ts` 상수에도 있으니 함께 고친다 (DEC-003).
 - XR 카드(`card_xr_transcendent_park_741`)는 팩 풀에서 제외하고 보유 수를 1로 제한한다. 카드를 컬렉션에 넣는 모든 경로에서 지킨다 (DEC-006).
 - Firestore 컬렉션 이름은 `nmixx_tcg_*`. 새 컬렉션을 쓰면 `firestore.rules`에도 규칙을 추가한다.
-- 행동 로그는 `activityLogService`로만 쓴다. 기다리지 않는 기록이며 실패해도 게임을 막지 않는다. localhost에서는 쓰지 않는다 (specs/024, DEC-031).
+- 행동 로그는 `activityLogService`, 분석·성능 기록(비로그인 포함)은 `metricsService`로만 쓴다. 기다리지 않는 기록이며 실패해도 게임을 막지 않는다. localhost에서는 쓰지 않는다 (specs/024·026, DEC-031·034).
 - 조회 경로(랭킹·프로필 읽기)에서 다른 사용자의 문서를 쓰거나 지우지 않는다 (DEC-023). `npm run dev`도 운영 Firestore(`nmixx-tcg`)에 연결된다.
 - 날짜 기준 보상(우편·카드 이스터에그)은 KST(`Date.now() + 9h`)로 계산한다.
 - UI 문구는 한국어, 컴포넌트는 함수형.

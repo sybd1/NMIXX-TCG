@@ -1,4 +1,4 @@
-// 운영자용 행동 로그 조회 화면 — 숨김 주소 /#admin, 읽기 전용 (specs/025)
+// 운영자용 행동 로그 조회 화면 — 숨김 주소 /#admin, 읽기 전용 (specs/025). `지표` 탭은 specs/026
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ACTIVITY_EVENT_TYPES, type ActivityEventType } from '../../types/activity';
 import {
@@ -14,6 +14,7 @@ import {
   type AdminRange,
 } from '../../services/adminLog';
 import { currentUserIsAdmin, fetchEventsSince, fetchNicknames } from '../../services/adminLogService';
+import { MetricsPanel } from './MetricsPanel';
 
 type Phase = 'checking' | 'denied' | 'loading' | 'ready' | 'error';
 
@@ -36,6 +37,7 @@ export const AdminPage: React.FC = () => {
   const [capped, setCapped] = useState(false);
   const [names, setNames] = useState<Record<string, string>>({});
   const [selected, setSelected] = useState<string | null>(null);
+  const [view, setView] = useState<'log' | 'metrics'>('log');
 
   const load = useCallback(async (r: AdminRange) => {
     setPhase('loading');
@@ -81,13 +83,30 @@ export const AdminPage: React.FC = () => {
           <a href="/" className="text-xs text-slate-400 underline">게임으로 돌아가기</a>
         </header>
 
+        {phase !== 'checking' && phase !== 'denied' && (
+          <nav className="flex gap-2">
+            {([['log', '행동 로그'], ['metrics', '지표']] as const).map(([id, label]) => (
+              <button
+                key={id}
+                type="button"
+                onClick={() => setView(id)}
+                className={`rounded-md px-3 py-1.5 font-semibold ${view === id ? 'bg-slate-100 text-slate-900' : 'bg-slate-800 text-slate-300'}`}
+              >
+                {label}
+              </button>
+            ))}
+          </nav>
+        )}
+
+        {view === 'metrics' && phase !== 'checking' && phase !== 'denied' && <MetricsPanel />}
+
         {phase === 'checking' && <p className="text-slate-400">확인 중…</p>}
 
         {phase === 'denied' && (
           <p className="rounded-lg bg-slate-900 p-4 text-slate-300">운영자 계정으로 로그인한 뒤 다시 열어 주세요.</p>
         )}
 
-        {(phase === 'loading' || phase === 'ready' || phase === 'error') && (
+        {view === 'log' && (phase === 'loading' || phase === 'ready' || phase === 'error') && (
           <>
             <div className="flex flex-wrap items-center gap-2">
               {RANGES.map((r) => (
